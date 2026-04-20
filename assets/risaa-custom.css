@@ -1,0 +1,118 @@
+/* 
+  Risaa Studio - Luxury Editorial Styles 
+  Custom styles to provide a premium, clean aesthetic over the base Dawn theme.
+*/
+
+:root {
+  --color-risaa-red: #9A1C20;
+  --color-risaa-cream: #FEFDFF;
+  --color-risaa-tan: #B6827E;
+  --color-risaa-pale: #F1DCD2;
+}
+
+/* Typography Refinements */
+h1, h2, h3, h4, .h0, .h1, .h2, .h3 {
+  letter-spacing: 0.1rem;
+  text-transform: capitalize;
+  font-weight: 400; /* Editorial headings often look better less bold */
+}
+
+.h0 {
+  letter-spacing: -0.02em;
+}
+
+/* Button Refinements */
+.button, .shopify-payment-button__button {
+  border-radius: 0;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 1px solid currentColor;
+}
+
+.button--primary {
+  background-color: var(--color-risaa-red);
+  color: var(--color-risaa-cream);
+  border: 1px solid var(--color-risaa-red);
+}
+
+.button--primary:hover {
+  background-color: transparent;
+  color: var(--color-risaa-red);
+}
+
+.button--secondary {
+  background-color: transparent;
+  color: var(--color-risaa-red);
+  border: 1px solid var(--color-risaa-red);
+}
+
+.button--secondary:hover {
+  background-color: var(--color-risaa-red);
+  color: var(--color-risaa-cream);
+}
+
+/* Editorial Spacing */
+.section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+@media screen and (max-width: 749px) {
+  .section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+/* Logo Refinement */
+.header__heading-logo {
+  transition: transform 0.3s ease;
+}
+
+.header__heading-logo:hover {
+  transform: scale(1.02);
+}
+
+/* Product Page Customizations */
+.risaa-whatsapp-btn {
+  background-color: #25D366 !important; /* Standard WA color for recognition */
+  color: white !important;
+  border: none !important;
+  font-weight: 600;
+}
+
+.risaa-whatsapp-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.custom-measurement-wrapper {
+  margin-bottom: 2rem;
+}
+
+.custom-measurement-wrapper summary {
+  padding: 1.5rem 0;
+  font-family: var(--font-heading-family);
+  font-size: 1.6rem;
+  letter-spacing: 0.1rem;
+}
+
+/* Grid & Card Refinements */
+.card__heading {
+  font-family: var(--font-body-family);
+  font-weight: 400;
+  letter-spacing: 0.05rem;
+}
+
+.card--card .card__inner {
+  border-radius: 0;
+}
+
+/* Instagram Placeholder Styling */
+.instagram-placeholder {
+  background: var(--color-risaa-pale);
+  border: 1px solid rgba(var(--color-foreground), 0.05);
+}

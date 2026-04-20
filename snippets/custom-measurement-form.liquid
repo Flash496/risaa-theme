@@ -1,0 +1,56 @@
+<div class="custom-measurement-wrapper" style="margin-top: 15px;">
+  <details id="Details-CustomMeasurement-{{ section.id }}" class="accordion">
+    <summary class="accordion__title">
+      <h3 class="h4" style="margin: 0; font-size: 1.4rem;">Provide Custom Measurements (Optional)</h3>
+      <span class="icon icon-caret">
+        <svg viewBox="0 0 14 8" fill="none" class="icon icon-caret" aria-hidden="true" width="12" height="12"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </span>
+    </summary>
+    <div class="accordion__content" style="padding-top: 15px;">
+      <p style="font-size: 1.2rem; margin-bottom: 15px;">Enter your custom measurements below in Inches or CM for a perfect fit.</p>
+      
+      <div class="measurement-field" style="margin-bottom: 10px;">
+        <label for="custom-bust-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Bust</label>
+        <input type="text" id="custom-bust-{{ section.id }}" name="properties[Bust Measurement]" class="field__input" placeholder="e.g. 34 inches" style="width: 100%;">
+      </div>
+      
+      <div class="measurement-field" style="margin-bottom: 10px;">
+        <label for="custom-waist-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Waist</label>
+        <input type="text" id="custom-waist-{{ section.id }}" name="properties[Waist Measurement]" class="field__input" placeholder="e.g. 28 inches" style="width: 100%;">
+      </div>
+      
+      <div class="measurement-field" style="margin-bottom: 10px;">
+        <label for="custom-hips-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Hips</label>
+        <input type="text" id="custom-hips-{{ section.id }}" name="properties[Hips Measurement]" class="field__input" placeholder="e.g. 38 inches" style="width: 100%;">
+      </div>
+      
+      <div class="measurement-field" style="margin-bottom: 10px;">
+        <label for="custom-height-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Height / Length required</label>
+        <input type="text" id="custom-height-{{ section.id }}" name="properties[Height/Length]" class="field__input" placeholder="e.g. 5'6'' or 50 inches" style="width: 100%;">
+      </div>
+
+      <div class="measurement-field" style="margin-bottom: 10px;">
+        <label for="custom-notes-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Additional Notes</label>
+        <textarea id="custom-notes-{{ section.id }}" name="properties[Measurement Notes]" class="field__input" placeholder="Any specific requirements for fit, sleeves, etc." style="width: 100%; min-height: 80px;"></textarea>
+      </div>
+    </div>
+  </details>
+</div>
+
+<style>
+  .custom-measurement-wrapper .accordion {
+    border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    padding: 1.5rem 0;
+  }
+  .custom-measurement-wrapper summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    list-style: none; /* remove default arrow */
+  }
+  .custom-measurement-wrapper summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
