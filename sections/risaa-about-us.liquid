@@ -1,0 +1,221 @@
+{%- style -%}
+  .risaa-about-wrapper {
+    background-color: var(--brand-text);
+    color: var(--brand-dark);
+    padding-bottom: 5rem;
+  }
+
+  .risaa-about-hero {
+    width: 100%;
+    height: 60vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .risaa-about-hero img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  .risaa-about-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+
+  .risaa-about-hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    color: var(--brand-text);
+  }
+
+  .risaa-about-hero-content h1 {
+    font-size: 4.5rem;
+    color: var(--brand-text);
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .risaa-about-hero-content p {
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .risaa-about-split {
+    max-width: 1200px;
+    margin: 5rem auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .risaa-about-text {
+    flex: 1;
+  }
+
+  .risaa-about-text h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: var(--brand-main);
+  }
+
+  .risaa-about-text p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--brand-dark);
+  }
+
+  .risaa-about-image {
+    flex: 1;
+    position: relative;
+  }
+
+  .risaa-about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+
+  .risaa-about-features {
+    background-color: var(--brand-undertone-2);
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .risaa-about-features h3 {
+    font-size: 2.5rem;
+    color: var(--brand-main);
+    margin-bottom: 3rem;
+  }
+
+  .risaa-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .risaa-feature-card {
+    padding: 2rem;
+    background: var(--brand-text);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .risaa-feature-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .risaa-feature-card h4 {
+    font-size: 1.5rem;
+    color: var(--brand-main);
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    .risaa-about-split {
+      flex-direction: column;
+      gap: 2rem;
+      margin: 3rem auto;
+    }
+    .risaa-about-hero-content h1 {
+      font-size: 3rem;
+    }
+    .risaa-features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+{%- endstyle -%}
+
+<div class="risaa-about-wrapper">
+  <!-- Hero Section -->
+  <div class="risaa-about-hero">
+    {% if section.settings.hero_image != blank %}
+      {{ section.settings.hero_image | image_url: width: 2000 | image_tag: loading: 'lazy' }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag }}
+    {% endif %}
+    <div class="risaa-about-hero-overlay"></div>
+    <div class="risaa-about-hero-content reveal-on-scroll">
+      <h1>RiSaa</h1>
+      <p>Design Studio by Rima</p>
+    </div>
+  </div>
+
+  <!-- Split Content -->
+  <div class="risaa-about-split reveal-on-scroll">
+    <div class="risaa-about-text">
+      <h2>Artfully Custom-Crafted</h2>
+      <p>Located in the heart of Ludhiana, Punjab, RiSaa Design Studio is a sanctuary for those who seek elegance and individuality. Founded by Rima, our studio is dedicated to the art of made-to-order fashion.</p>
+      <p>We believe that luxury should be accessible without compromising on quality or craftsmanship. Every piece we create is a testament to slow fashion—meticulously designed and thoughtfully produced to ensure it stands the test of time.</p>
+      <p>From intricate bridal couture to elegant prêt and fusion wear, our collections are designed to celebrate your unique story, with worldwide shipping bringing our creations to your doorstep.</p>
+    </div>
+    <div class="risaa-about-image">
+      {% if section.settings.story_image != blank %}
+        {{ section.settings.story_image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+      {% else %}
+        {{ 'collection-1' | placeholder_svg_tag }}
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="risaa-about-features">
+    <h3 class="reveal-on-scroll">Our Ethos</h3>
+    <div class="risaa-features-grid">
+      <div class="risaa-feature-card reveal-on-scroll" style="transition-delay: 0.1s;">
+        <h4>Made-to-Order Bridal</h4>
+        <p>Exquisite bridal wear crafted specifically for you, ensuring a perfect fit and a design that is uniquely yours.</p>
+      </div>
+      <div class="risaa-feature-card reveal-on-scroll" style="transition-delay: 0.2s;">
+        <h4>Accessible Luxury</h4>
+        <p>Premium quality fabrics and expert tailoring offered at a value that makes true luxury attainable.</p>
+      </div>
+      <div class="risaa-feature-card reveal-on-scroll" style="transition-delay: 0.3s;">
+        <h4>Slow Fashion</h4>
+        <p>A commitment to sustainable practices and timeless designs that you will cherish for years to come.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About RiSaa",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story Image (Side)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About RiSaa"
+    }
+  ]
+}
+{% endschema %}

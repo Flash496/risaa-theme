@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main": {
+      "type": "risaa-about-us",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
+
