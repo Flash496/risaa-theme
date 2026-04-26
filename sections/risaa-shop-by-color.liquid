@@ -1,0 +1,174 @@
+{%- style -%}
+  .risaa-color-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 0 15px;
+  }
+
+  .risaa-color-item {
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+  }
+
+  .risaa-collage {
+    position: relative;
+    height: 450px;
+    margin-bottom: 20px;
+    transition: transform 0.5s ease;
+  }
+
+  .risaa-color-item:hover .risaa-collage {
+    transform: translateY(-10px);
+  }
+
+  .risaa-collage__main {
+    width: 80%;
+    height: 90%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: 1;
+    border-radius: 5px;
+  }
+
+  .risaa-collage__sub {
+    width: 60%;
+    height: 60%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    object-fit: cover;
+    z-index: 2;
+    border: 5px solid white;
+    border-radius: 5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  .risaa-color-item h3 {
+    font-size: 1.8rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 5px;
+  }
+
+  .risaa-color-item span {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+  }
+
+  @media screen and (max-width: 989px) {
+    .risaa-color-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-color-grid {
+      grid-template-columns: 1fr;
+    }
+    .risaa-collage {
+      height: 350px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding reveal-on-scroll">
+  <div class="section-header">
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtitle }}</p>
+  </div>
+
+  <div class="risaa-color-grid">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.link }}" class="risaa-color-item" {{ block.shopify_attributes }}>
+        <div class="risaa-collage">
+          {% if block.settings.main_image != blank %}
+            {{ block.settings.main_image | image_url: width: 600 | image_tag: class: 'risaa-collage__main', loading: 'lazy' }}
+          {% else %}
+            {{ 'product-1' | placeholder_svg_tag: 'risaa-collage__main' }}
+          {% endif %}
+
+          {% if block.settings.sub_image != blank %}
+            {{ block.settings.sub_image | image_url: width: 400 | image_tag: class: 'risaa-collage__sub', loading: 'lazy' }}
+          {% else %}
+            {{ 'product-2' | placeholder_svg_tag: 'risaa-collage__sub' }}
+          {% endif %}
+        </div>
+        <h3>{{ block.settings.color_name }}</h3>
+        <span>{{ block.settings.count_text }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop by Colour",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Shop by Colour"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Curated palettes for every mood"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "color_block",
+      "name": "Color Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "color_name",
+          "label": "Color Name",
+          "default": "RUBY"
+        },
+        {
+          "type": "text",
+          "id": "count_text",
+          "label": "Count Text",
+          "default": "Explore 24+ styles"
+        },
+        {
+          "type": "image_picker",
+          "id": "main_image",
+          "label": "Main Product Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "sub_image",
+          "label": "Mood/Abstract Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Colour",
+      "blocks": [
+        { "type": "color_block", "settings": { "color_name": "RUBY" } },
+        { "type": "color_block", "settings": { "color_name": "SAFFRON" } },
+        { "type": "color_block", "settings": { "color_name": "MOCHA" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

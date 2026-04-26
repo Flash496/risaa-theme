@@ -8,7 +8,7 @@
           "settings": {
             "background": "#FEFDFF",
             "background_gradient": "",
-            "text": "#9A1C20",
+            "text": "#121212",
             "button": "#9A1C20",
             "button_label": "#FEFDFF",
             "secondary_button_label": "#9A1C20",
@@ -31,7 +31,7 @@
             "background": "#9A1C20",
             "background_gradient": "",
             "text": "#FEFDFF",
-            "button": "#F1DCD2",
+            "button": "#FEFDFF",
             "button_label": "#9A1C20",
             "secondary_button_label": "#FEFDFF",
             "shadow": "#121212"
@@ -61,9 +61,9 @@
         }
       },
       "type_header_font": "playfair_display_n4",
-      "heading_scale": 100,
+      "heading_scale": 110,
       "type_body_font": "assistant_n4",
-      "body_scale": 100,
+      "body_scale": 105,
       "page_width": 1200,
       "spacing_sections": 0,
       "spacing_grid_horizontal": 8,

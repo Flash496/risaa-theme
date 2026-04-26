@@ -99,5 +99,14 @@
         {%- endif -%}
       </li>
     {%- endfor -%}
+    
+    {%- assign extra_tabs = "Bridal,Couture,Pret,Trousseau,Indian Traditional,Western,Indo-Western" | split: "," -%}
+    {%- for tab in extra_tabs -%}
+      <li>
+        <a href="shopify://collections/all" class="header__menu-item list-menu__item link link--text focus-inset">
+          <span>{{ tab }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
   </ul>
 </nav>

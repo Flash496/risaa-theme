@@ -1,0 +1,301 @@
+{%- style -%}
+  .risaa-video-slider {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 20px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .risaa-video-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .risaa-video-card {
+    flex: 0 0 280px;
+    aspect-ratio: 9/16;
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    cursor: pointer;
+    background: #000;
+  }
+
+  .risaa-video-card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+  }
+
+  .risaa-video-card:hover video {
+    opacity: 1;
+  }
+
+  .risaa-video-mini-product {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.9);
+    border-radius: 8px;
+    padding: 5px;
+    pointer-events: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+  }
+  
+  .risaa-video-card:hover .risaa-video-mini-product {
+    transform: scale(1.05);
+  }
+
+  .risaa-mini-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 8px;
+  }
+
+  .risaa-mini-info {
+    display: flex;
+    flex-direction: column;
+    padding-right: 5px;
+  }
+
+  .risaa-mini-info .title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--brand-dark);
+    margin: 0;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .risaa-mini-info .shop-link {
+    font-size: 0.8rem;
+    color: var(--brand-main);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* Modal Styles */
+  .risaa-video-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .risaa-video-modal.active {
+    display: flex;
+  }
+
+  .risaa-modal-content {
+    display: flex;
+    background: white;
+    width: 90%;
+    max-width: 900px;
+    height: 80vh;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .risaa-modal-video {
+    flex: 1;
+    background: #000;
+  }
+
+  .risaa-modal-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .risaa-modal-sidebar {
+    width: 300px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .risaa-close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    z-index: 2001;
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-modal-content {
+      flex-direction: column;
+      height: 90vh;
+    }
+    .risaa-modal-sidebar {
+      width: 100%;
+      height: 200px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding reveal-on-scroll">
+  <div class="section-header">
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.subtitle }}</p>
+  </div>
+
+  <div class="risaa-video-slider">
+    {% for block in section.blocks %}
+      <div class="risaa-video-card" onclick="openRisaaModal('{{ block.id }}')">
+        {% if block.settings.video_url != blank %}
+          <video muted loop playsinline onmouseover="this.play()" onmouseout="this.pause()">
+            <source src="{{ block.settings.video_url }}" type="video/mp4">
+          </video>
+        {% else %}
+          <div style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#999;">
+            Upload Video
+          </div>
+        {% endif %}
+        <div class="risaa-video-mini-product">
+          {% if block.settings.product.featured_image != blank %}
+             {{ block.settings.product.featured_image | image_url: width: 80 | image_tag: class: 'risaa-mini-img' }}
+          {% else %}
+             {{ 'product-1' | placeholder_svg_tag: 'risaa-mini-img' }}
+          {% endif %}
+          <div class="risaa-mini-info">
+             <span class="title">{{ block.settings.product.title | default: "Featured Look" }}</span>
+             <span class="shop-link">Shop Now</span>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="risaaVideoModal" class="risaa-video-modal">
+  <span class="risaa-close-modal" onclick="closeRisaaModal()">&times;</span>
+  <div class="risaa-modal-content">
+    <div class="risaa-modal-video">
+      <video id="risaaMainVideo" controls autoplay loop>
+        <source src="" type="video/mp4">
+      </video>
+    </div>
+    <div class="risaa-modal-sidebar" id="risaaModalSidebar">
+      <!-- Product info injected here -->
+    </div>
+  </div>
+</div>
+
+<script>
+  const videoData = {
+    {% for block in section.blocks %}
+      "{{ block.id }}": {
+        "video": "{{ block.settings.video_url }}",
+        "title": "{{ block.settings.product.title | escape }}",
+        "price": "{{ block.settings.product.price | money | escape }}",
+        "url": "{{ block.settings.product.url }}",
+        "image": "{{ block.settings.product.featured_image | image_url: width: 300 }}"
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  };
+
+  function openRisaaModal(blockId) {
+    const data = videoData[blockId];
+    if(!data) return;
+
+    const modal = document.getElementById('risaaVideoModal');
+    const video = document.getElementById('risaaMainVideo');
+    const sidebar = document.getElementById('risaaModalSidebar');
+
+    video.src = data.video;
+    sidebar.innerHTML = `
+      <h3 style="color:var(--brand-main); margin-top:0;">Shop the Look</h3>
+      <div style="margin-bottom:20px;">
+        <img src="${data.image}" style="width:100%; border-radius:5px; margin-bottom:10px;">
+        <h4 style="margin:5px 0;">${data.title}</h4>
+        <p style="font-weight:bold; color:var(--brand-main);">${data.price}</p>
+        <a href="${data.url}" class="btn-premium" style="display:block; text-align:center;">View Details</a>
+      </div>
+    `;
+
+    modal.classList.add('active');
+    video.play();
+  }
+
+  function closeRisaaModal() {
+    const modal = document.getElementById('risaaVideoModal');
+    const video = document.getElementById('risaaMainVideo');
+    modal.classList.remove('active');
+    video.pause();
+    video.src = "";
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Watch & Shop",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Watch & Shop"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "See our designs in motion"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_block",
+      "name": "Video & Product",
+      "settings": [
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL (.mp4)",
+          "info": "Upload to Shopify Files and paste link here"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Featured Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Watch & Shop",
+      "blocks": [
+        { "type": "video_block" },
+        { "type": "video_block" },
+        { "type": "video_block" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,124 @@
+{%- style -%}
+  .announcement-bar {
+    background-color: #ffffff;
+    color: var(--brand-main);
+    padding: 10px 0;
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+    border-bottom: 1px solid rgba(154, 28, 32, 0.1);
+  }
+
+  .announcement-bar__carousel {
+    position: relative;
+    height: 20px; /* Adjust based on font size */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .announcement-bar__item {
+    position: absolute;
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    pointer-events: none;
+  }
+
+  .announcement-bar__item.active {
+    opacity: 1;
+    pointer-events: auto;
+    position: relative;
+  }
+{%- endstyle -%}
+
+<div class="announcement-bar" role="region" aria-label="Announcement">
+  <div class="announcement-bar__carousel" id="AnnouncementCarousel-{{ section.id }}">
+    {%- for block in section.blocks -%}
+      <div class="announcement-bar__item {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
+        {{ block.settings.text }}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('AnnouncementCarousel-{{ section.id }}');
+    if (!carousel) return;
+    
+    const items = carousel.querySelectorAll('.announcement-bar__item');
+    if (items.length <= 1) return; // No need to slide if only 1 item
+
+    let currentIndex = 0;
+    const totalItems = items.length;
+
+    setInterval(() => {
+      // Remove active class from current
+      items[currentIndex].classList.remove('active');
+      items[currentIndex].style.position = 'absolute';
+      
+      // Move to next
+      currentIndex = (currentIndex + 1) % totalItems;
+      
+      // Add active class to new
+      items[currentIndex].classList.add('active');
+      items[currentIndex].style.position = 'relative';
+    }, 4000); // Change slide every 4 seconds
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Announcement Carousel",
+  "max_blocks": 5,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Pan-India Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Carousel",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Sale Alerts & Discounts"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "Free Pan-India Shipping"
+          }
+        },
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "24 Hr Dispatch on Selected Items"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

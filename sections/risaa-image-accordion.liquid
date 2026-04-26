@@ -1,0 +1,222 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .risaa-accordion-container {
+    display: flex;
+    width: 100%;
+    height: {{ section.settings.height_desktop }}px;
+    overflow: hidden;
+    gap: 15px;
+    padding: 0 15px;
+  }
+
+  .risaa-accordion-item {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  .risaa-accordion-item:hover {
+    flex: 4;
+  }
+
+  .risaa-accordion-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
+  }
+
+  .risaa-accordion-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .risaa-accordion-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 3rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease 0.2s;
+  }
+
+  .risaa-accordion-item:hover .risaa-accordion-info {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .risaa-accordion-info h3 {
+    color: white;
+    margin: 0;
+    font-size: 2.4rem;
+  }
+
+  .risaa-accordion-info p {
+    margin: 10px 0 0;
+    font-size: 1.4rem;
+    opacity: 0.9;
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-accordion-container {
+      flex-direction: column;
+      height: auto;
+      gap: 10px;
+    }
+    .risaa-accordion-item {
+      height: 250px;
+      flex: none;
+    }
+    .risaa-accordion-item:hover {
+      flex: none;
+    }
+    .risaa-accordion-info {
+      opacity: 1;
+      transform: translateY(0);
+      padding: 1.5rem;
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding reveal-on-scroll">
+  <div class="section-header">
+    <h2>{{ section.settings.title }}</h2>
+    {% if section.settings.subtitle != blank %}
+      <p>{{ section.settings.subtitle }}</p>
+    {% endif %}
+  </div>
+
+  <div class="risaa-accordion-container">
+    {% for block in section.blocks %}
+      <div class="risaa-accordion-item" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+        {% else %}
+          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+        
+        <div class="risaa-accordion-info">
+          <h3>{{ block.settings.heading }}</h3>
+          <p>{{ block.settings.subheading }}</p>
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="btn-premium" style="margin-top: 15px; border-color: white; color: white;">Shop Now</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image Accordion",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Explore Our Collections"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Custom-crafted for individuality"
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "min": 400,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Desktop Height",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "panel",
+      "name": "Accordion Panel",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Couture"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Elegant designs for special occasions"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Accordion",
+      "blocks": [
+        { "type": "panel", "settings": { "heading": "Bridal" } },
+        { "type": "panel", "settings": { "heading": "Couture" } },
+        { "type": "panel", "settings": { "heading": "Pret" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

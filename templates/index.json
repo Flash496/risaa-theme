@@ -1,138 +1,32 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero_carousel": {
+      "type": "risaa-hero-carousel",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "slide_1": {
+          "type": "slide",
           "settings": {
-            "heading": "Artfully custom-crafted for individuality",
-            "heading_size": "h0"
+            "title": "Bridal Couture",
+            "subtitle": "Artfully custom-crafted for individuality",
+            "btn_label": "Explore Bridal",
+            "btn_link": "shopify://collections/bridal"
           }
         },
-        "text": {
-          "type": "text",
+        "slide_2": {
+          "type": "slide",
           "settings": {
-            "text": "Accessible Luxury | Slow Fashion",
-            "text_style": "body"
-          }
-        },
-        "button": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Shop All Couture",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": false,
-            "button_label_2": "Explore Bridal",
-            "button_link_2": "shopify://collections/bridal",
-            "button_style_secondary_2": true
+            "title": "Accessible Luxury",
+            "subtitle": "Slow Fashion • Prêt • Fusion",
+            "btn_label": "Shop All",
+            "btn_link": "shopify://collections/all"
           }
         }
       },
       "block_order": [
-        "heading",
-        "text",
-        "button"
+        "slide_1",
+        "slide_2"
       ],
-      "settings": {
-        "image_overlay_opacity": 30,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
-      }
-    },
-    "new_in": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "New In",
-        "heading_size": "h2",
-        "collection": "all",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "show_view_all": true,
-        "swipe_on_mobile": true,
-        "image_ratio": "portrait",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "shop_by_mood": {
-      "type": "collection-list",
-      "blocks": {
-        "mood_1": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "mood_2": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        },
-        "mood_3": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": ""
-          }
-        }
-      },
-      "block_order": [
-        "mood_1",
-        "mood_2",
-        "mood_3"
-      ],
-      "settings": {
-        "title": "Shop by Mood",
-        "heading_size": "h2",
-        "image_ratio": "portrait",
-        "columns_desktop": 3,
-        "color_scheme": "scheme-1",
-        "show_view_all": false,
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Couture • Bridal • Prêt • Fusion",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>At RiSaa, we are not just about clothes, we're about crafting experiences and catering to your individual preferences! We believe in creating outfits that speak volumes about your unique style and fit your budget as well!<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "color_scheme": "scheme-2",
-        "full_width": true,
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
+      "settings": {}
     },
     "bestsellers": {
       "type": "featured-collection",
@@ -150,80 +44,126 @@
         "show_vendor": false,
         "show_rating": false,
         "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
-    "testimonials": {
-      "type": "multicolumn",
+    "risaa_accordion": {
+      "type": "risaa-image-accordion",
       "blocks": {
-        "t1": {
-          "type": "column",
-          "settings": {
-            "title": "Highly Recommend",
-            "text": "<p>\"The quality and fit are absolutely perfect. Risaa's attention to detail is unmatched!\"<\/p>",
-            "link_label": "",
-            "link": ""
-          }
+        "panel_1": {
+          "type": "panel",
+          "settings": { "heading": "Bridal" }
         },
-        "t2": {
-          "type": "column",
-          "settings": {
-            "title": "Dream Bridal Wear",
-            "text": "<p>\"My bridal outfit was everything I imagined and more. Truly a masterpiece.\"<\/p>",
-            "link_label": "",
-            "link": ""
-          }
+        "panel_2": {
+          "type": "panel",
+          "settings": { "heading": "Couture" }
         },
-        "t3": {
-          "type": "column",
-          "settings": {
-            "title": "Premium Experience",
-            "text": "<p>\"Efficient service and such a clean aesthetic. Definitely my go-to for couture.\"<\/p>",
-            "link_label": "",
-            "link": ""
-          }
+        "panel_3": {
+          "type": "panel",
+          "settings": { "heading": "Pret" }
+        },
+        "panel_4": {
+          "type": "panel",
+          "settings": { "heading": "Trousseau" }
         }
       },
       "block_order": [
-        "t1",
-        "t2",
-        "t3"
+        "panel_1",
+        "panel_2",
+        "panel_3",
+        "panel_4"
       ],
       "settings": {
-        "title": "Client Testimonials",
-        "heading_size": "h2",
-        "image_width": "third",
-        "image_ratio": "adapt",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "none",
-        "button_label": "View All Reviews",
-        "button_link": "shopify://pages/testimonials",
-        "swipe_on_mobile": true,
-        "color_scheme": "scheme-1",
-        "columns_mobile": "1",
-        "padding_top": 40,
-        "padding_bottom": 40
+        "title": "Our Signature Collections",
+        "subtitle": "Individuality in every stitch",
+        "height_desktop": 600,
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
-    "instagram": {
-      "type": "custom-liquid",
+    "risaa_shop_by_color": {
+      "type": "risaa-shop-by-color",
+      "blocks": {
+        "color_1": {
+          "type": "color_block",
+          "settings": { "color_name": "RUBY" }
+        },
+        "color_2": {
+          "type": "color_block",
+          "settings": { "color_name": "SAFFRON" }
+        },
+        "color_3": {
+          "type": "color_block",
+          "settings": { "color_name": "MOCHA" }
+        }
+      },
+      "block_order": [
+        "color_1",
+        "color_2",
+        "color_3"
+      ],
       "settings": {
-        "custom_liquid": "<div style='text-align:center; padding: 40px;'><h2 class='h2'>Follow us on Instagram @risaadesignstudio</h2><p>Experience ours story visually</p></div>",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "title": "Shop by Colour",
+        "subtitle": "Discover shades that resonate with your spirit"
+      }
+    },
+    "risaa_watch_and_shop": {
+      "type": "risaa-watch-and-shop",
+      "blocks": {
+        "v1": { "type": "video_block" },
+        "v2": { "type": "video_block" },
+        "v3": { "type": "video_block" },
+        "v4": { "type": "video_block" }
+      },
+      "block_order": ["v1", "v2", "v3", "v4"],
+      "settings": {
+        "title": "Watch & Shop",
+        "subtitle": "Experience the craftsmanship in motion"
+      }
+    },
+    "risaa_parallax_story": {
+      "type": "risaa-parallax-story",
+      "settings": {
+        "heading": "The RiSaa Story",
+        "text": "<p>Risaa - Design Studio by Rima. We believe in creating outfits that speak volumes about your unique style and fit your budget as well! Accessible Luxury | Slow Fashion.<\/p>",
+        "button_label": "Read Our Journey"
+      }
+    },
+    "risaa_whatsapp": {
+      "type": "risaa-whatsapp-button",
+      "settings": {
+        "phone_number": "9501032126",
+        "custom_message": "Hello RiSaa! I'm reaching out from your website. I'd love to discuss a custom design for my upcoming occasion."
+      }
+    },
+    "rich_text_categories": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Bridal • Couture • Pret • Trousseau • Indian Traditional • Western • Indo-Western",
+            "heading_size": "h2"
+          }
+        }
+      },
+      "block_order": ["heading"],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     }
   },
   "order": [
-    "image_banner",
-    "rich_text",
-    "new_in",
-    "shop_by_mood",
+    "hero_carousel",
+    "rich_text_categories",
     "bestsellers",
-    "testimonials",
-    "instagram"
+    "risaa_accordion",
+    "risaa_shop_by_color",
+    "risaa_watch_and_shop",
+    "risaa_parallax_story",
+    "risaa_whatsapp"
   ]
 }
