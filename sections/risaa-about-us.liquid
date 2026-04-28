@@ -20,7 +20,7 @@
   }
 
   .risaa-about-hero::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background-image: url('white_leaves_decoration.png');
@@ -73,7 +73,7 @@
   }
 
   .risaa-about-categories span {
-    border: 1px solid rgba(255,255,255,0.4);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     color: var(--brand-text);
     padding: 0.5rem 1.5rem;
     font-size: 1.1rem;
@@ -83,7 +83,7 @@
   }
 
   .risaa-about-categories span:hover {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   /* === BRAND PILLARS === */
@@ -110,13 +110,27 @@
 
   .risaa-pillar:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(154,28,32,0.15);
+    box-shadow: 0 20px 40px rgba(154, 28, 32, 0.15);
   }
 
   .risaa-pillar-icon {
     font-size: 3rem;
     margin-bottom: 1.2rem;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.2rem;
+    background: linear-gradient(135deg, var(--brand-undertone-2) 0%, var(--brand-text) 100%);
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(154, 28, 32, 0.2);
+  }
+
+  .risaa-pillar-icon svg {
+    width: 40px;
+    height: 40px;
+    fill: var(--brand-main);
   }
 
   .risaa-pillar h3 {
@@ -165,7 +179,7 @@
   .risaa-story-text p {
     font-size: 1.4rem;
     line-height: 1.9;
-    color: rgba(255,255,255,0.88);
+    color: rgba(255, 255, 255, 0.88);
     margin-bottom: 1.5rem;
   }
 
@@ -231,6 +245,20 @@
   .risaa-info-card-icon {
     font-size: 2.8rem;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--brand-main) 0%, #6b1014 100%);
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(154, 28, 32, 0.2);
+  }
+
+  .risaa-info-card-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--brand-text);
   }
 
   .risaa-info-card h4 {
@@ -239,7 +267,8 @@
     margin-bottom: 0.8rem;
   }
 
-  .risaa-info-card p, .risaa-info-card a {
+  .risaa-info-card p,
+  .risaa-info-card a {
     font-size: 1.3rem;
     color: #444;
     line-height: 1.7;
@@ -260,7 +289,7 @@
   }
 
   .risaa-about-social::before {
-    content: "";
+    content: '';
     position: absolute;
     inset: 0;
     background-image: url('white_leaves_decoration.png');
@@ -279,7 +308,7 @@
 
   .risaa-about-social p {
     font-size: 1.4rem;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.8);
     margin-bottom: 3rem;
     position: relative;
     z-index: 1;
@@ -299,8 +328,8 @@
     align-items: center;
     gap: 0.8rem;
     padding: 1.2rem 2.5rem;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: var(--brand-text);
     text-decoration: none;
     font-size: 1.3rem;
@@ -311,12 +340,137 @@
   }
 
   .risaa-social-link:hover {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-3px);
   }
 
   .risaa-social-link .social-icon {
     font-size: 1.8rem;
+  }
+
+  .risaa-social-link .social-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  /* === MAPS SECTION === */
+  .risaa-about-maps {
+    padding: 4rem 2rem;
+    background: var(--brand-text);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .risaa-about-maps h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--brand-main);
+    margin-bottom: 2rem;
+  }
+
+  .risaa-map-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .risaa-map-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .risaa-map-container iframe {
+    width: 100%;
+    height: 400px;
+    border: none;
+  }
+
+  .risaa-map-address {
+    padding: 2rem;
+    background: var(--brand-undertone-2);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  /* === YOUTUBE SECTION === */
+  .risaa-about-youtube {
+    padding: 5rem 2rem;
+    background: var(--brand-undertone-2);
+    text-align: center;
+  }
+
+  .risaa-about-youtube h2 {
+    font-size: 2.5rem;
+    color: var(--brand-main);
+    margin-bottom: 1rem;
+  }
+
+  .risaa-about-youtube p {
+    font-size: 1.3rem;
+    color: #555;
+    margin-bottom: 2.5rem;
+  }
+
+  .risaa-youtube-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .risaa-youtube-card {
+    background: var(--brand-text);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .risaa-youtube-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  .risaa-youtube-card iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+  }
+
+  .risaa-youtube-card-content {
+    padding: 1.5rem;
+  }
+
+  .risaa-youtube-card h4 {
+    font-size: 1.2rem;
+    color: var(--brand-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .risaa-youtube-card p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+
+  .risaa-youtube-card a {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background: var(--brand-main);
+    color: var(--brand-text);
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    transition: background 0.3s ease;
+  }
+
+  .risaa-youtube-card a:hover {
+    background: #6b1014;
   }
 
   /* === COLLAB BANNER === */
@@ -345,27 +499,42 @@
 
   /* === RESPONSIVE === */
   @media screen and (max-width: 768px) {
-    .risaa-about-hero-content h1 { font-size: 4rem; }
-    .risaa-pillars-grid { grid-template-columns: 1fr; }
-    .risaa-about-story { grid-template-columns: 1fr; }
-    .risaa-story-text { padding: 4rem 2rem; }
-    .risaa-info-grid { grid-template-columns: 1fr; }
-    .risaa-story-image { min-height: 280px; }
+    .risaa-about-hero-content h1 {
+      font-size: 4rem;
+    }
+    .risaa-pillars-grid {
+      grid-template-columns: 1fr;
+    }
+    .risaa-about-story {
+      grid-template-columns: 1fr;
+    }
+    .risaa-story-text {
+      padding: 4rem 2rem;
+    }
+    .risaa-info-grid {
+      grid-template-columns: 1fr;
+    }
+    .risaa-story-image {
+      min-height: 280px;
+    }
   }
 {%- endstyle -%}
 
 <div class="risaa-about-wrapper">
-
   <!-- HERO -->
   <div class="risaa-about-hero">
     <div class="risaa-about-hero-content reveal-on-scroll">
       <span class="eyebrow">Ludhiana, Punjab • Worldwide Shipping</span>
       <h1>RiSaa</h1>
       <p class="tagline">Design Studio by Rima</p>
-      <p style="font-size:1.6rem; color: var(--brand-undertone-2); letter-spacing:0.15em;">Couture &bull; Bridal &bull; Prêt &bull; Fusion</p>
-      <p style="font-size:1.3rem; margin-top:1.5rem; color:rgba(255,255,255,0.75); font-style:italic;">"Artfully custom-crafted for individuality"</p>
+      <p style="font-size:1.6rem; color: var(--brand-undertone-2); letter-spacing:0.15em;">
+        Couture &bull; Bridal &bull; Prêt &bull; Fusion
+      </p>
+      <p style="font-size:1.3rem; margin-top:1.5rem; color:rgba(255,255,255,0.75); font-style:italic;">
+        "Artfully custom-crafted for individuality"
+      </p>
       <div class="risaa-about-categories" style="margin-top:3rem;">
-        {%- assign about_cats = "Bridal,Couture,Pret,Trousseau,Indian Traditional,Western,Indo-Western" | split: "," -%}
+        {%- assign about_cats = 'Bridal,Couture,Pret,Trousseau,Indian Traditional,Western,Indo-Western' | split: ',' -%}
         {% for cat in about_cats %}
           <span>{{ cat }}</span>
         {% endfor %}
@@ -377,19 +546,39 @@
   <div class="risaa-about-pillars reveal-on-scroll">
     <div class="risaa-pillars-grid">
       <div class="risaa-pillar">
-        <span class="risaa-pillar-icon">💍</span>
+        <span class="risaa-pillar-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+        </span>
         <h3>Made-to-Order Bridal</h3>
-        <p>Every bridal piece is crafted exclusively for you — designed to fit your vision, your body, and your story.</p>
+        <p>
+          Every bridal piece is crafted exclusively for you — designed to fit your vision, your body, and your story.
+        </p>
       </div>
       <div class="risaa-pillar" style="transition-delay:0.1s;">
-        <span class="risaa-pillar-icon">✨</span>
+        <span class="risaa-pillar-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+        </span>
         <h3>Accessible Luxury</h3>
-        <p>Premium quality and stunning design, made available to everyone. Fashion that celebrates you without compromise.</p>
+        <p>
+          Premium quality and stunning design, made available to everyone. Fashion that celebrates you without
+          compromise.
+        </p>
       </div>
       <div class="risaa-pillar" style="transition-delay:0.2s;">
-        <span class="risaa-pillar-icon">🌿</span>
+        <span class="risaa-pillar-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </span>
         <h3>Slow Fashion</h3>
-        <p>We believe in timeless over trendy. Each piece is crafted with intention, care, and a commitment to lasting elegance.</p>
+        <p>
+          We believe in timeless over trendy. Each piece is crafted with intention, care, and a commitment to lasting
+          elegance.
+        </p>
       </div>
     </div>
   </div>
@@ -400,7 +589,11 @@
       <span class="eyebrow">Our Story</span>
       <h2>More Than Clothes. We Craft Experiences.</h2>
       <p>Hello everyone! RiSaa is a design studio located in Ludhiana, Punjab — and we ship orders worldwide.</p>
-      <p>Here at RiSaa, we are not just about clothes. We're about crafting experiences and catering to your individual preferences. We believe in creating outfits that speak volumes about your unique style and fit your budget as well.</p>
+      <p>
+        Here at RiSaa, we are not just about clothes. We're about crafting experiences and catering to your individual
+        preferences. We believe in creating outfits that speak volumes about your unique style and fit your budget as
+        well.
+      </p>
       <p>Every stitch is a testament to our commitment to your individuality.</p>
     </div>
     <div class="risaa-story-image">
@@ -418,42 +611,77 @@
   <div class="risaa-about-info">
     <h2 class="reveal-on-scroll">Find Us &amp; Get In Touch</h2>
     <div class="risaa-info-grid">
-
       <div class="risaa-info-card reveal-on-scroll">
-        <span class="risaa-info-card-icon">📍</span>
+        <span class="risaa-info-card-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+        </span>
         <div>
           <h4>Our Studio</h4>
-          <p>117-B, Jyoti Colony, Part B, Model Town Extension,<br>Model Town, Ludhiana, Punjab 141002</p>
-          <a href="https://maps.app.goo.gl/GijLheNTVLk7mghM9" target="_blank" rel="noopener" style="color:var(--brand-main); font-weight:600; margin-top:0.8rem; display:inline-block;">📌 Open in Google Maps →</a>
+          <p>
+            117-B, Jyoti Colony, Part B, Model Town Extension,<br>
+            Model Town, Ludhiana, Punjab 141002
+          </p>
+          <a
+            href="https://maps.app.goo.gl/GijLheNTVLk7mghM9"
+            target="_blank"
+            rel="noopener"
+            style="color:var(--brand-main); font-weight:600; margin-top:0.8rem; display:inline-block;"
+            >Open in Google Maps →</a
+          >
         </div>
       </div>
 
       <div class="risaa-info-card reveal-on-scroll" style="transition-delay:0.1s;">
-        <span class="risaa-info-card-icon">🕐</span>
+        <span class="risaa-info-card-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+          </svg>
+        </span>
         <div>
           <h4>Studio Hours</h4>
-          <p>Monday – Saturday<br>9:00 AM to 6:30 PM</p>
+          <p>
+            Monday – Saturday<br>
+            9:00 AM to 6:30 PM
+          </p>
           <p style="margin-top:0.8rem; color: var(--brand-main); font-style:italic;">Closed on Sundays</p>
         </div>
       </div>
 
       <div class="risaa-info-card reveal-on-scroll" style="transition-delay:0.15s;">
-        <span class="risaa-info-card-icon">📞</span>
+        <span class="risaa-info-card-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+        </span>
         <div>
           <h4>Call or WhatsApp</h4>
-          <a href="tel:+919501032126" style="font-size:1.8rem; font-weight:600; color:var(--brand-main); display:block; margin-bottom:0.5rem;">+91 95010 32126</a>
-          <a href="https://wa.me/919501032126" target="_blank" rel="noopener" style="color:#25D366; font-weight:600;">💬 Chat on WhatsApp →</a>
+          <a
+            href="tel:+919501032126"
+            style="font-size:1.8rem; font-weight:600; color:var(--brand-main); display:block; margin-bottom:0.5rem;"
+            >+91 95010 32126</a
+          >
+          <a href="https://wa.me/919501032126" target="_blank" rel="noopener" style="color:#25D366; font-weight:600;"
+            >Chat on WhatsApp →</a
+          >
         </div>
       </div>
 
       <div class="risaa-info-card reveal-on-scroll" style="transition-delay:0.2s;">
-        <span class="risaa-info-card-icon">🌍</span>
+        <span class="risaa-info-card-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+        </span>
         <div>
           <h4>Worldwide Shipping</h4>
-          <p>We deliver our handcrafted pieces to customers across India and around the world. Every order is carefully packaged with love.</p>
+          <p>
+            We deliver our handcrafted pieces to customers across India and around the world. Every order is carefully
+            packaged with love.
+          </p>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -463,24 +691,139 @@
     <p>Stay inspired — follow us for behind-the-scenes, new collections, and style stories.</p>
     <div class="risaa-social-links">
       <a href="https://www.instagram.com/risaadesignstudio" target="_blank" rel="noopener" class="risaa-social-link">
-        <span class="social-icon">📸</span> Instagram
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </span>
+        Instagram
       </a>
       <a href="https://youtube.com/@Risaastudio" target="_blank" rel="noopener" class="risaa-social-link">
-        <span class="social-icon">▶️</span> YouTube
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+        </span>
+        YouTube
       </a>
       <a href="https://tr.ee/W1rVVxVZ4T" target="_blank" rel="noopener" class="risaa-social-link">
-        <span class="social-icon">🔗</span> Linktree
+        <span class="social-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+          </svg>
+        </span>
+        Linktree
       </a>
     </div>
   </div>
 
   <!-- COLLAB BANNER -->
   <div class="risaa-collab-banner reveal-on-scroll">
-    <h3>✨ Collaborate With Us</h3>
+    <h3>Collaborate With Us</h3>
     <p>Are you a content creator? We'd love to work with you. Apply for our 2026 Creator Collaboration Program!</p>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdtYn649QgLoWS7yzw4BvDA2UoW2tJh29HxaLeJSJWaMM4GOQ/viewform" target="_blank" rel="noopener" class="btn-premium">Apply Now →</a>
+    <a
+      href="https://docs.google.com/forms/d/e/1FAIpQLSdtYn649QgLoWS7yzw4BvDA2UoW2tJh29HxaLeJSJWaMM4GOQ/viewform"
+      target="_blank"
+      rel="noopener"
+      class="btn-premium"
+      >Apply Now →</a
+    >
   </div>
 
+  <!-- GOOGLE MAPS SECTION -->
+  <div class="risaa-about-maps reveal-on-scroll">
+    <h2>Visit Our Studio</h2>
+    <div class="risaa-map-layout">
+      <div class="risaa-map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.0!2d75.8346811!3d30.8904329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a838f0056f067:0xb9f05c5a3ffd943b!2sRisaa+-+The+Design+Studio!5e0!3m2!1sen!2sin!4v1714344000"
+          width="100%"
+          height="400"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        >
+        </iframe>
+      </div>
+      <div class="risaa-map-address">
+        <h3 style="font-size: 1.8rem; color: var(--brand-main); margin-bottom: 1rem;">Studio Address</h3>
+        <p style="font-size: 1.4rem; color: #444; line-height: 1.8; margin-bottom: 1.5rem;">
+          117-B, Jyoti Colony, Part B, Model Town Extension<br>
+          Model Town, Ludhiana, Punjab 141002
+        </p>
+        <p style="font-size: 1.2rem; color: #666; font-style: italic; margin-bottom: 1.5rem;">
+          Monday – Saturday: 9:00 AM to 6:30 PM<br>
+          Closed on Sundays
+        </p>
+        <a
+          href="https://maps.app.goo.gl/GijLheNTVLk7mghM9"
+          target="_blank"
+          rel="noopener"
+          style="display: inline-block; padding: 0.8rem 2rem; background: var(--brand-main); color: var(--brand-text); text-decoration: none; border-radius: 6px; font-size: 1.1rem; letter-spacing: 0.1em; transition: background 0.3s ease;"
+          >Get Directions →</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- YOUTUBE SECTION -->
+  <div class="risaa-about-youtube reveal-on-scroll">
+    <h2>Watch Our Videos</h2>
+    <p>Explore our fashion tips, styling guides, and brand stories on YouTube</p>
+    <div class="risaa-youtube-grid">
+      <div class="risaa-youtube-card">
+        <iframe
+          src="https://www.youtube.com/embed/videoseries?list=PLRisaastudio"
+          title="RiSaa Studio Videos"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+        <div class="risaa-youtube-card-content">
+          <h4>Latest Collections</h4>
+          <p>Discover our newest arrivals and fashion trends</p>
+          <a href="https://youtube.com/@Risaastudio" target="_blank" rel="noopener">Watch More →</a>
+        </div>
+      </div>
+      <div class="risaa-youtube-card">
+        <iframe
+          src="https://www.youtube.com/embed/videoseries?list=PLRisaastudio2"
+          title="Styling Tips"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+        <div class="risaa-youtube-card-content">
+          <h4>Styling Tips</h4>
+          <p>Learn how to style our pieces for any occasion</p>
+          <a href="https://youtube.com/@Risaastudio" target="_blank" rel="noopener">Watch More →</a>
+        </div>
+      </div>
+      <div class="risaa-youtube-card">
+        <iframe
+          src="https://www.youtube.com/embed/videoseries?list=PLRisaastudio3"
+          title="Behind the Scenes"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        >
+        </iframe>
+        <div class="risaa-youtube-card-content">
+          <h4>Behind the Scenes</h4>
+          <p>See how we craft our beautiful designs</p>
+          <a href="https://youtube.com/@Risaastudio" target="_blank" rel="noopener">Watch More →</a>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 2.5rem;">
+      <a href="https://youtube.com/@Risaastudio" target="_blank" rel="noopener" class="btn-premium"
+        >Visit Our YouTube Channel →</a
+      >
+    </div>
+  </div>
 </div>
 
 {% schema %}
