@@ -133,6 +133,15 @@
                   {%- endif -%}
                 </li>
               {%- endfor -%}
+              
+              {%- assign extra_tabs = "About Us" | split: "," -%}
+              {%- for tab in extra_tabs -%}
+                <li>
+                  <a href="{% if tab == 'About Us' %}/pages/about{% else %}shopify://collections/all{% endif %}" class="menu-drawer__menu-item list-menu__item link link--text focus-inset">
+                    {{ tab }}
+                  </a>
+                </li>
+              {%- endfor -%}
             </ul>
           </nav>
           <div class="menu-drawer__utility-links">

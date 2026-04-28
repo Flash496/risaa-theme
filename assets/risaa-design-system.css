@@ -51,35 +51,99 @@ h1, h2, h3, h4, h5, h6 {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
   border-bottom: none !important;
+  background-color: var(--brand-main);
+  position: relative;
+  z-index: 1;
+}
+
+/* Leaf underline for Logo (Permanent) */
+.header__heading-link {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 20px; /* Exact space for leaf */
+}
+
+.header__heading-link::after {
+  content: "";
+  position: absolute;
+  bottom: -14px; /* Perfectly touches the bottom of the navbar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 115px; /* Reduced by another 15% */
+  height: 36px;
+  background-image: url('white_leaves_decoration.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Mobile: make header tall enough to contain logo + leaf decoration */
+@media screen and (max-width: 989px) {
+  .header {
+    padding-top: 1.5rem !important;
+    padding-bottom: 2.8rem !important; /* Extra bottom padding to house the leaf */
+    min-height: 90px;
+    overflow: visible !important;
+  }
+
+  .section-header,
+  .header-wrapper {
+    overflow: visible !important;
+  }
+
+  .header__heading-link {
+    padding-bottom: 28px; /* More room for the leaf on mobile */
+  }
+
+  .header__heading-link::after {
+    bottom: -18px; /* Sit just inside the bottom padding */
+    width: 100px; /* Slightly smaller on mobile */
+    height: 32px;
+  }
 }
 
 @media screen and (min-width: 990px) {
-  .header {
+  /* Force consistent centered layout on ALL pages */
+  .header,
+  .header--top-center,
+  .header--middle-left,
+  .header--middle-center {
     max-width: 100% !important;
     padding-left: 3rem !important;
     padding-right: 3rem !important;
-    display: flex !important;
-    justify-content: space-between !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr !important;
     align-items: center !important;
+    justify-items: center !important;
   }
   
-  .header__heading {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
+  /* Logo: always far left */
+  .header__heading,
+  .header > h1,
+  .header > .header__heading {
+    grid-column: 1;
+    justify-self: start !important;
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
   }
   
+  /* Nav tabs: always centered */
   .header__inline-menu {
-    flex: auto;
-    display: flex;
-    justify-content: center;
-    margin: 0 2rem;
+    grid-column: 2;
+    display: flex !important;
+    justify-content: center !important;
+    margin: 0 1rem;
   }
   
+  /* Icons: always far right */
   .header__icons {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
+    grid-column: 3;
+    justify-self: end !important;
+    display: flex !important;
+    justify-content: flex-end !important;
   }
   
   .list-menu--inline {
@@ -93,9 +157,43 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-body);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-size: 1.2rem;
+  font-size: 1.55rem;
   transition: var(--transition-quick);
   padding: 0.5rem !important;
+  position: relative; /* For the leaf underline */
+}
+
+/* Leaf underline for Menu Tabs (Hover only) */
+.header__menu-item::after {
+  content: "";
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px; /* Size of the leaf under the tab */
+  height: 30px;
+  background-image: url('white_leaves_decoration.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.header__menu-item:hover,
+.header__menu-item:hover span,
+.header__menu-item[aria-current="page"],
+.header__menu-item[aria-current="page"] span,
+.header__active-menu-item {
+  color: var(--brand-text); /* Revert back to white since we have the underline now */
+  text-decoration: none !important;
+  text-underline-offset: unset !important;
+}
+
+.header__menu-item:hover::after,
+.header__menu-item[aria-current="page"]::after {
+  opacity: 0.9;
 }
 
 /* Remove gap between header and first section */

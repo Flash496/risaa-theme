@@ -99,8 +99,8 @@
         {%- endif -%}
       </li>
     {%- endfor -%}
-    
-    {%- assign extra_tabs = "About Us,Bridal,Couture,Pret,Trousseau,Indian Traditional,Western,Indo-Western" | split: "," -%}
+
+    {%- assign extra_tabs = "About Us" | split: "," -%}
     {%- for tab in extra_tabs -%}
       <li>
         <a href="{% if tab == 'About Us' %}/pages/about{% else %}shopify://collections/all{% endif %}" class="header__menu-item list-menu__item link link--text focus-inset">
