@@ -96,14 +96,14 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
-  <div class="section-header">
+  <div class="section-header" data-anim="fade-up">
     <h2>{{ section.settings.title }}</h2>
     {% if section.settings.subtitle != blank %}
       <p>{{ section.settings.subtitle }}</p>
     {% endif %}
   </div>
 
-  <div class="risaa-accordion-container">
+  <div class="risaa-accordion-container" data-anim-stagger data-anim-delay="0.1" data-anim-step="0.1">
     {% for block in section.blocks %}
       <div class="risaa-accordion-item" {{ block.shopify_attributes }}>
         {% if block.settings.image != blank %}
@@ -111,12 +111,17 @@
         {% else %}
           {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {% endif %}
-        
+
         <div class="risaa-accordion-info">
           <h3>{{ block.settings.heading }}</h3>
           <p>{{ block.settings.subheading }}</p>
           {% if block.settings.link != blank %}
-            <a href="{{ block.settings.link }}" class="btn-premium" style="margin-top: 15px; border-color: white; color: white;">Shop Now</a>
+            <a
+              href="{{ block.settings.link }}"
+              class="btn-premium"
+              style="margin-top: 15px; border-color: white; color: white;"
+              >Shop Now</a
+            >
           {% endif %}
         </div>
       </div>

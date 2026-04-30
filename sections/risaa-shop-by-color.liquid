@@ -45,7 +45,7 @@
     z-index: 2;
     border: 5px solid white;
     border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
 
   .risaa-color-item h3 {
@@ -77,23 +77,31 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
-  <div class="section-header">
+  <div class="section-header" data-anim="fade-up">
     <h2>{{ section.settings.title }}</h2>
     <p>{{ section.settings.subtitle }}</p>
   </div>
 
-  <div class="risaa-color-grid">
+  <div class="risaa-color-grid" data-anim-stagger data-anim-delay="0.1" data-anim-step="0.15">
     {% for block in section.blocks %}
       <a href="{{ block.settings.link }}" class="risaa-color-item" {{ block.shopify_attributes }}>
         <div class="risaa-collage">
           {% if block.settings.main_image != blank %}
-            {{ block.settings.main_image | image_url: width: 600 | image_tag: class: 'risaa-collage__main', loading: 'lazy' }}
+            {{
+              block.settings.main_image
+              | image_url: width: 600
+              | image_tag: class: 'risaa-collage__main', loading: 'lazy'
+            }}
           {% else %}
             {{ 'product-1' | placeholder_svg_tag: 'risaa-collage__main' }}
           {% endif %}
 
           {% if block.settings.sub_image != blank %}
-            {{ block.settings.sub_image | image_url: width: 400 | image_tag: class: 'risaa-collage__sub', loading: 'lazy' }}
+            {{
+              block.settings.sub_image
+              | image_url: width: 400
+              | image_tag: class: 'risaa-collage__sub', loading: 'lazy'
+            }}
           {% else %}
             {{ 'product-2' | placeholder_svg_tag: 'risaa-collage__sub' }}
           {% endif %}

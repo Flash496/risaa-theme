@@ -41,14 +41,14 @@
     right: 15px;
     display: flex;
     align-items: center;
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
     padding: 5px;
     pointer-events: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
   }
-  
+
   .risaa-video-card:hover .risaa-video-mini-product {
     transform: scale(1.05);
   }
@@ -93,7 +93,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.9);
     z-index: 2000;
     align-items: center;
     justify-content: center;
@@ -156,12 +156,12 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
-  <div class="section-header">
+  <div class="section-header" data-anim="fade-up">
     <h2>{{ section.settings.title }}</h2>
     <p>{{ section.settings.subtitle }}</p>
   </div>
 
-  <div class="risaa-video-slider">
+  <div class="risaa-video-slider" data-anim-stagger="bloom" data-anim-delay="0.1" data-anim-step="0.1">
     {% for block in section.blocks %}
       <div class="risaa-video-card" onclick="openRisaaModal('{{ block.id }}')">
         {% if block.settings.video_url != blank %}
@@ -175,13 +175,13 @@
         {% endif %}
         <div class="risaa-video-mini-product">
           {% if block.settings.product.featured_image != blank %}
-             {{ block.settings.product.featured_image | image_url: width: 80 | image_tag: class: 'risaa-mini-img' }}
+            {{ block.settings.product.featured_image | image_url: width: 80 | image_tag: class: 'risaa-mini-img' }}
           {% else %}
-             {{ 'product-1' | placeholder_svg_tag: 'risaa-mini-img' }}
+            {{ 'product-1' | placeholder_svg_tag: 'risaa-mini-img' }}
           {% endif %}
           <div class="risaa-mini-info">
-             <span class="title">{{ block.settings.product.title | default: "Featured Look" }}</span>
-             <span class="shop-link">Shop Now</span>
+            <span class="title">{{ block.settings.product.title | default: 'Featured Look' }}</span>
+            <span class="shop-link">Shop Now</span>
           </div>
         </div>
       </div>
@@ -290,11 +290,7 @@
   "presets": [
     {
       "name": "Watch & Shop",
-      "blocks": [
-        { "type": "video_block" },
-        { "type": "video_block" },
-        { "type": "video_block" }
-      ]
+      "blocks": [{ "type": "video_block" }, { "type": "video_block" }, { "type": "video_block" }]
     }
   ]
 }

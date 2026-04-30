@@ -22,11 +22,17 @@
   }
 
   .risaa-rts__container {
-    max-width: 700px;
+    max-width: var(--page-width);
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1.5rem;
     position: relative;
     z-index: 1;
+  }
+
+  @media screen and (min-width: 750px) {
+    .risaa-rts__container {
+      padding: 0 5rem;
+    }
   }
 
   .risaa-rts__header {
@@ -106,8 +112,8 @@
 
   .risaa-rts__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
   }
 
   .risaa-rts__item {
@@ -183,8 +189,8 @@
 
   @media screen and (max-width: 989px) {
     .risaa-rts__grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
     }
   }
 
@@ -207,17 +213,17 @@
       gap: 0.8rem;
     }
     .risaa-rts__name {
-      font-size: 0.95rem;
+      font-size: 0.8rem;
     }
     .risaa-rts__price {
-      font-size: 0.9rem;
+      font-size: 0.75rem;
     }
   }
 {%- endstyle -%}
 
 <section class="risaa-rts reveal-on-scroll">
   <div class="risaa-rts__container">
-    <div class="risaa-rts__header">
+    <div class="risaa-rts__header" data-anim="fade-up">
       <div class="risaa-rts__eyebrow">
         <span class="risaa-rts__eyebrow-dot"></span>
         <span class="risaa-rts__eyebrow-text">In Stock · Ships Quickly</span>
@@ -226,7 +232,7 @@
       {% if section.settings.subtitle != blank %}
         <p class="risaa-rts__subtitle">{{ section.settings.subtitle }}</p>
       {% endif %}
-      <div class="risaa-rts__dispatch-info">
+      <div class="risaa-rts__dispatch-info" data-anim-stagger data-anim-delay="0.3" data-anim-step="0.12">
         <div class="risaa-rts__dispatch-badge">
           <span class="risaa-rts__truck-icon">🚚</span>
           <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_days }}</span>
@@ -238,9 +244,9 @@
       </div>
     </div>
 
-    <div class="risaa-rts__grid">
+    <div class="risaa-rts__grid" data-anim-stagger="bloom" data-anim-delay="0.1" data-anim-step="0.07">
       {% if section.settings.collection != blank and section.settings.collection.products.size > 0 %}
-        {% for product in section.settings.collection.products limit: 8 %}
+        {% for product in section.settings.collection.products limit: 12 %}
           <a href="{{ product.url }}" class="risaa-rts__item">
             <div class="risaa-rts__img">
               {% if product.featured_image != blank %}
@@ -251,7 +257,7 @@
               <div class="risaa-rts__ship-tag">Ready to Ship</div>
             </div>
             <div class="risaa-rts__info">
-              <p class="risaa-rts__name">{{ product.title | truncate: 25 }}</p>
+              <p class="risaa-rts__name">{{ product.title | truncate: 22 }}</p>
               <p class="risaa-rts__price">{{ product.price | money }}</p>
             </div>
           </a>
@@ -273,7 +279,7 @@
     </div>
 
     {% if section.settings.view_all_link != blank %}
-      <div class="risaa-rts__view-all">
+      <div class="risaa-rts__view-all" data-anim="fade-up" data-anim-delay="0.3">
         <a href="{{ section.settings.view_all_link }}" class="btn-premium">Shop Ready to Ship →</a>
       </div>
     {% endif %}

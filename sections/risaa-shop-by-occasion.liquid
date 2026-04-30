@@ -1,38 +1,148 @@
 {%- style -%}
-  .risaa-occasions { padding: 80px 0; background: var(--brand-text); }
-  .risaa-occasions__inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
-  .risaa-occasions__header { text-align: center; margin-bottom: 60px; }
-  .risaa-occasions__eyebrow { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--brand-undertone-1); display: block; margin-bottom: 12px; }
-  .risaa-occasions__title { font-family: var(--font-heading); font-size: 3.2rem; color: var(--brand-main); text-transform: uppercase; letter-spacing: 0.08em; margin: 0; }
-  .risaa-occasions__subtitle { color: #888; font-size: 1.3rem; margin-top: 8px; }
-  .risaa-occasions__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
-  .risaa-occasions__tile { text-decoration: none; color: inherit; display: block; }
-  .risaa-occasions__tile:hover .risaa-occasions__img { transform: translateY(-8px); }
-  .risaa-occasions__tile:hover .risaa-occasions__tile-name { color: var(--brand-main); }
-  .risaa-occasions__img-wrap { width: 100%; aspect-ratio: 2/3; overflow: hidden; border-radius: 120px 120px 20px 20px; position: relative; background: var(--brand-undertone-2); }
-  .risaa-occasions__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-  .risaa-occasions__tile-badge { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.92); backdrop-filter: blur(4px); padding: 6px 18px; border-radius: 20px; white-space: nowrap; font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brand-main); font-weight: 600; }
-  .risaa-occasions__tile-name { font-family: var(--font-heading); font-size: 1.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand-dark); text-align: center; margin: 18px 0 4px; transition: color 0.3s ease; }
-  .risaa-occasions__tile-sub { text-align: center; font-size: 1.1rem; color: #999; }
-  @media screen and (max-width: 989px) { .risaa-occasions__grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } .risaa-occasions__inner { padding: 0 24px; } }
-  @media screen and (max-width: 749px) { .risaa-occasions { padding: 50px 0; } .risaa-occasions__title { font-size: 2.4rem; } .risaa-occasions__grid { gap: 14px; } .risaa-occasions__inner { padding: 0 16px; } .risaa-occasions__img-wrap { border-radius: 80px 80px 14px 14px; } }
+  .risaa-occasions {
+    padding: 80px 0;
+    background: var(--brand-text);
+  }
+  .risaa-occasions__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .risaa-occasions__header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .risaa-occasions__eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brand-undertone-1);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .risaa-occasions__title {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    color: var(--brand-main);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+  .risaa-occasions__subtitle {
+    color: #888;
+    font-size: 1.3rem;
+    margin-top: 8px;
+  }
+  .risaa-occasions__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .risaa-occasions__tile {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .risaa-occasions__tile:hover .risaa-occasions__img {
+    transform: translateY(-8px);
+  }
+  .risaa-occasions__tile:hover .risaa-occasions__tile-name {
+    color: var(--brand-main);
+  }
+  .risaa-occasions__img-wrap {
+    width: 100%;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    border-radius: 120px 120px 20px 20px;
+    position: relative;
+    background: var(--brand-undertone-2);
+  }
+  .risaa-occasions__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .risaa-occasions__tile-badge {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(4px);
+    padding: 6px 18px;
+    border-radius: 20px;
+    white-space: nowrap;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-main);
+    font-weight: 600;
+  }
+  .risaa-occasions__tile-name {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand-dark);
+    text-align: center;
+    margin: 18px 0 4px;
+    transition: color 0.3s ease;
+  }
+  .risaa-occasions__tile-sub {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #999;
+  }
+  @media screen and (max-width: 989px) {
+    .risaa-occasions__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .risaa-occasions__inner {
+      padding: 0 24px;
+    }
+  }
+  @media screen and (max-width: 749px) {
+    .risaa-occasions {
+      padding: 50px 0;
+    }
+    .risaa-occasions__title {
+      font-size: 2.4rem;
+    }
+    .risaa-occasions__grid {
+      gap: 14px;
+    }
+    .risaa-occasions__inner {
+      padding: 0 16px;
+    }
+    .risaa-occasions__img-wrap {
+      border-radius: 80px 80px 14px 14px;
+    }
+  }
 {%- endstyle -%}
 
 <section class="risaa-occasions reveal-on-scroll">
   <div class="risaa-occasions__inner">
-    <div class="risaa-occasions__header">
+    <div class="risaa-occasions__header" data-anim="fade-up">
       <span class="risaa-occasions__eyebrow">{{ section.settings.eyebrow }}</span>
       <h2 class="risaa-occasions__title">{{ section.settings.title }}</h2>
       {% if section.settings.subtitle != blank %}
         <p class="risaa-occasions__subtitle">{{ section.settings.subtitle }}</p>
       {% endif %}
     </div>
-    <div class="risaa-occasions__grid">
+    <div class="risaa-occasions__grid" data-anim-stagger="bloom" data-anim-delay="0.1" data-anim-step="0.1">
       {% for block in section.blocks %}
         <a href="{{ block.settings.link }}" class="risaa-occasions__tile" {{ block.shopify_attributes }}>
           <div class="risaa-occasions__img-wrap">
             {% if block.settings.image != blank %}
-              {{ block.settings.image | image_url: width: 800 | image_tag: class: 'risaa-occasions__img', loading: 'lazy', alt: block.settings.occasion_name }}
+              {{
+                block.settings.image
+                | image_url: width: 800
+                | image_tag: class: 'risaa-occasions__img', loading: 'lazy', alt: block.settings.occasion_name
+              }}
             {% else %}
               {{ 'lifestyle-1' | placeholder_svg_tag: 'risaa-occasions__img' }}
             {% endif %}
@@ -41,7 +151,9 @@
             {% endif %}
           </div>
           <p class="risaa-occasions__tile-name">{{ block.settings.occasion_name }}</p>
-          {% if block.settings.sub_text != blank %}<p class="risaa-occasions__tile-sub">{{ block.settings.sub_text }}</p>{% endif %}
+          {% if block.settings.sub_text != blank %}
+            <p class="risaa-occasions__tile-sub">{{ block.settings.sub_text }}</p>
+          {% endif %}
         </a>
       {% endfor %}
     </div>
@@ -76,10 +188,22 @@
     {
       "name": "Shop by Occasion",
       "blocks": [
-        { "type": "occasion", "settings": { "occasion_name": "Bridal", "sub_text": "Your big day", "badge_text": "Explore" } },
-        { "type": "occasion", "settings": { "occasion_name": "Sangeet", "sub_text": "Dance & celebrate", "badge_text": "Explore" } },
-        { "type": "occasion", "settings": { "occasion_name": "Mehendi", "sub_text": "Vibrant & playful", "badge_text": "Explore" } },
-        { "type": "occasion", "settings": { "occasion_name": "Reception", "sub_text": "Elegant evenings", "badge_text": "Explore" } }
+        {
+          "type": "occasion",
+          "settings": { "occasion_name": "Bridal", "sub_text": "Your big day", "badge_text": "Explore" }
+        },
+        {
+          "type": "occasion",
+          "settings": { "occasion_name": "Sangeet", "sub_text": "Dance & celebrate", "badge_text": "Explore" }
+        },
+        {
+          "type": "occasion",
+          "settings": { "occasion_name": "Mehendi", "sub_text": "Vibrant & playful", "badge_text": "Explore" }
+        },
+        {
+          "type": "occasion",
+          "settings": { "occasion_name": "Reception", "sub_text": "Elegant evenings", "badge_text": "Explore" }
+        }
       ]
     }
   ]

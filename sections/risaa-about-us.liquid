@@ -395,6 +395,102 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   }
 
+  /* === YOUTUBE SHORTS CAROUSEL === */
+  .risaa-youtube-shorts {
+    padding: 5rem 2rem;
+    background: var(--brand-undertone-2);
+    text-align: center;
+  }
+
+  .risaa-youtube-shorts h2 {
+    font-size: 2.5rem;
+    color: var(--brand-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .risaa-youtube-shorts p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2.5rem;
+  }
+
+  .risaa-shorts-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 1rem 2rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .risaa-shorts-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .risaa-short-card {
+    flex: 0 0 200px;
+    scroll-snap-align: start;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .risaa-short-card:hover {
+    transform: scale(1.05);
+  }
+
+  .risaa-short-card iframe {
+    width: 200px;
+    height: 355px;
+    border: none;
+    display: block;
+  }
+
+  .risaa-shorts-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .risaa-shorts-nav button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--brand-main);
+    background: transparent;
+    color: var(--brand-main);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .risaa-shorts-nav button:hover {
+    background: var(--brand-main);
+    color: var(--brand-text);
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-shorts-carousel {
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .risaa-short-card {
+      flex: 0 0 160px;
+    }
+
+    .risaa-short-card iframe {
+      width: 160px;
+      height: 284px;
+    }
+  }
+
   /* === YOUTUBE SECTION === */
   .risaa-about-youtube {
     padding: 5rem 2rem;
@@ -767,6 +863,73 @@
     </div>
   </div>
 
+  <!-- YOUTUBE SHORTS CAROUSEL -->
+  <div class="risaa-youtube-shorts reveal-on-scroll">
+    <h2>YouTube Shorts</h2>
+    <p>Quick fashion tips and behind-the-scenes moments</p>
+    <div class="risaa-shorts-carousel" id="risaa-shorts-carousel">
+      {% if section.settings.shorts_video_1 != blank %}
+        <div class="risaa-short-card">
+          <iframe
+            src="https://www.youtube.com/embed/{{ section.settings.shorts_video_1 }}"
+            title="YouTube Short"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+      {% if section.settings.shorts_video_2 != blank %}
+        <div class="risaa-short-card">
+          <iframe
+            src="https://www.youtube.com/embed/{{ section.settings.shorts_video_2 }}"
+            title="YouTube Short"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+      {% if section.settings.shorts_video_3 != blank %}
+        <div class="risaa-short-card">
+          <iframe
+            src="https://www.youtube.com/embed/{{ section.settings.shorts_video_3 }}"
+            title="YouTube Short"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+      {% if section.settings.shorts_video_4 != blank %}
+        <div class="risaa-short-card">
+          <iframe
+            src="https://www.youtube.com/embed/{{ section.settings.shorts_video_4 }}"
+            title="YouTube Short"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+      {% if section.settings.shorts_video_5 != blank %}
+        <div class="risaa-short-card">
+          <iframe
+            src="https://www.youtube.com/embed/{{ section.settings.shorts_video_5 }}"
+            title="YouTube Short"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      {% endif %}
+    </div>
+    <div class="risaa-shorts-nav">
+      <button onclick="risaaShortsScroll(-1)" aria-label="Previous">←</button>
+      <button onclick="risaaShortsScroll(1)" aria-label="Next">→</button>
+    </div>
+  </div>
+
   <!-- YOUTUBE SECTION -->
   <div class="risaa-about-youtube reveal-on-scroll">
     <h2>Watch Our Videos</h2>
@@ -824,6 +987,15 @@
       >
     </div>
   </div>
+
+  <script>
+    function risaaShortsScroll(direction) {
+      const carousel = document.getElementById('risaa-shorts-carousel');
+      if (!carousel) return;
+      const scrollAmount = 220;
+      carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    }
+  </script>
 </div>
 
 {% schema %}
@@ -834,6 +1006,36 @@
       "type": "image_picker",
       "id": "story_image",
       "label": "Story Section Image"
+    },
+    {
+      "type": "header",
+      "content": "YouTube Shorts Carousel"
+    },
+    {
+      "type": "text",
+      "id": "shorts_video_1",
+      "label": "Short Video 1 ID",
+      "info": "Enter the YouTube video ID (e.g., dQw4w9WgXcQ)"
+    },
+    {
+      "type": "text",
+      "id": "shorts_video_2",
+      "label": "Short Video 2 ID"
+    },
+    {
+      "type": "text",
+      "id": "shorts_video_3",
+      "label": "Short Video 3 ID"
+    },
+    {
+      "type": "text",
+      "id": "shorts_video_4",
+      "label": "Short Video 4 ID"
+    },
+    {
+      "type": "text",
+      "id": "shorts_video_5",
+      "label": "Short Video 5 ID"
     }
   ],
   "presets": [

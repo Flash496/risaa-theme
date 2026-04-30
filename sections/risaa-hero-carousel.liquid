@@ -33,7 +33,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,7 +69,7 @@
     background: transparent;
     border-color: var(--brand-text);
   }
-  
+
   .risaa-carousel-overlay .btn-premium:hover {
     background: var(--brand-text);
     color: var(--brand-main);
@@ -96,7 +96,7 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: rgba(255,255,255,0.4);
+    background-color: rgba(255, 255, 255, 0.4);
     cursor: pointer;
     transition: all 0.3s ease;
   }
@@ -119,7 +119,7 @@
     opacity: 0.6;
     transition: opacity 0.3s;
   }
-  
+
   .risaa-carousel-arrow:hover {
     opacity: 1;
   }
@@ -143,21 +143,29 @@
       font-size: 1.4rem;
       padding: 0 20px;
     }
-    .risaa-arrow-left { left: 10px; }
-    .risaa-arrow-right { right: 10px; }
+    .risaa-arrow-left {
+      left: 10px;
+    }
+    .risaa-arrow-right {
+      right: 10px;
+    }
   }
 {%- endstyle -%}
 
-<div class="risaa-hero-carousel" id="risaa-carousel-{{ section.id }}">
+<div class="risaa-hero-carousel" id="risaa-carousel-{{ section.id }}" data-anim="fade" data-anim-delay="0">
   <div class="risaa-carousel-track" id="risaa-track-{{ section.id }}">
     {% for block in section.blocks %}
       <div class="risaa-carousel-slide {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
         {% if block.settings.image != blank %}
-          {{ block.settings.image | image_url: width: 2000 | image_tag: class: 'risaa-carousel-image', loading: 'lazy' }}
+          {{
+            block.settings.image
+            | image_url: width: 2000
+            | image_tag: class: 'risaa-carousel-image', loading: 'lazy'
+          }}
         {% else %}
           {{ 'lifestyle-2' | placeholder_svg_tag: 'risaa-carousel-image' }}
         {% endif %}
-        
+
         <div class="risaa-carousel-overlay">
           <h2>{{ block.settings.title }}</h2>
           <p>{{ block.settings.subtitle }}</p>
@@ -169,12 +177,19 @@
     {% endfor %}
   </div>
 
-  <button class="risaa-carousel-arrow risaa-arrow-left" onclick="moveCarousel{{ section.id | replace: '-', '_' }}(-1)">&#10094;</button>
-  <button class="risaa-carousel-arrow risaa-arrow-right" onclick="moveCarousel{{ section.id | replace: '-', '_' }}(1)">&#10095;</button>
+  <button class="risaa-carousel-arrow risaa-arrow-left" onclick="moveCarousel{{ section.id | replace: '-', '_' }}(-1)">
+    &#10094;
+  </button>
+  <button class="risaa-carousel-arrow risaa-arrow-right" onclick="moveCarousel{{ section.id | replace: '-', '_' }}(1)">
+    &#10095;
+  </button>
 
   <div class="risaa-carousel-controls" id="risaa-controls-{{ section.id }}">
     {% for block in section.blocks %}
-      <div class="risaa-carousel-dot {% if forloop.first %}active{% endif %}" onclick="setCarousel{{ section.id | replace: '-', '_' }}({{ forloop.index0 }})"></div>
+      <div
+        class="risaa-carousel-dot {% if forloop.first %}active{% endif %}"
+        onclick="setCarousel{{ section.id | replace: '-', '_' }}({{ forloop.index0 }})"
+      ></div>
     {% endfor %}
   </div>
 </div>

@@ -1,0 +1,168 @@
+/* ============================================================
+   RiSaa Scroll Animations — GPU-accelerated, reduced-motion safe
+   ============================================================ */
+
+/* Base hidden state — all animated elements start here */
+[data-anim] {
+  will-change: transform, opacity;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-anim],
+  [data-anim].is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+}
+
+/* ── Fade Up (default) ── */
+[data-anim='fade-up'] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim='fade-up'].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Fade Down ── */
+[data-anim='fade-down'] {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim='fade-down'].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Fade In (pure opacity) ── */
+[data-anim='fade'] {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+[data-anim='fade'].is-visible {
+  opacity: 1;
+}
+
+/* ── Slide In Left ── */
+[data-anim='slide-left'] {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim='slide-left'].is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Slide In Right ── */
+[data-anim='slide-right'] {
+  opacity: 0;
+  transform: translateX(50px);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim='slide-right'].is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Bloom (scale up from slightly smaller) ── */
+[data-anim='bloom'] {
+  opacity: 0;
+  transform: scale(0.88);
+  transition:
+    opacity 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-anim='bloom'].is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── Rise (subtle lift with slight scale) ── */
+[data-anim='rise'] {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim='rise'].is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ── Reveal (clip-path wipe upward) ── */
+[data-anim='reveal'] {
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition:
+    opacity 0.6s ease,
+    clip-path 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim='reveal'].is-visible {
+  opacity: 1;
+  clip-path: inset(0% 0 0 0);
+}
+
+/* ── Stagger children — delay applied via JS ── */
+[data-anim-stagger] > * {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim-stagger].is-visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Stagger children — bloom variant ── */
+[data-anim-stagger='bloom'] > * {
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+  transition:
+    opacity 0.65s cubic-bezier(0.34, 1.4, 0.64, 1),
+    transform 0.65s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+[data-anim-stagger='bloom'].is-visible > * {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* ── Line draw (for decorative lines/dividers) ── */
+[data-anim='line-grow'] {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim='line-grow'].is-visible {
+  transform: scaleX(1);
+}
+
+/* ── Number / text counter shimmer ── */
+[data-anim='shimmer'] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-anim='shimmer'].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}

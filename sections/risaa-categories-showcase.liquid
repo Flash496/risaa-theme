@@ -45,7 +45,7 @@
   }
 
   .risaa-cat-showcase__subtitle {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 1.3rem;
     margin-top: 10px;
   }
@@ -114,7 +114,7 @@
   .risaa-cat-cell__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -123,7 +123,7 @@
   }
 
   .risaa-cat-cell:hover .risaa-cat-cell__overlay {
-    background: linear-gradient(to top, rgba(154,28,32,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+    background: linear-gradient(to top, rgba(154, 28, 32, 0.7) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
   }
 
   .risaa-cat-cell__name {
@@ -144,7 +144,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.8);
     font-family: var(--font-body);
     font-size: 0.85rem;
     letter-spacing: 0.15em;
@@ -160,7 +160,7 @@
   }
 
   .risaa-cat-cell__desc {
-    color: rgba(255,255,255,0.65);
+    color: rgba(255, 255, 255, 0.65);
     font-size: 1.1rem;
     margin: 0 0 10px;
     opacity: 0;
@@ -181,24 +181,48 @@
       grid-template-rows: auto;
       gap: 6px;
     }
-    .risaa-cat-cell { grid-column: auto !important; grid-row: auto !important; }
-    .risaa-cat-cell:nth-child(1) { grid-column: span 2 !important; aspect-ratio: 16/9; }
-    .risaa-cat-cell { aspect-ratio: 3/4; }
-    .risaa-cat-cell__name { font-size: 1.6rem !important; }
-    .risaa-cat-cell__cta, .risaa-cat-cell__desc { opacity: 1; transform: none; }
+    .risaa-cat-cell {
+      grid-column: auto !important;
+      grid-row: auto !important;
+    }
+    .risaa-cat-cell:nth-child(1) {
+      grid-column: span 2 !important;
+      aspect-ratio: 16/9;
+    }
+    .risaa-cat-cell {
+      aspect-ratio: 3/4;
+    }
+    .risaa-cat-cell__name {
+      font-size: 1.6rem !important;
+    }
+    .risaa-cat-cell__cta,
+    .risaa-cat-cell__desc {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   @media screen and (max-width: 749px) {
-    .risaa-cat-showcase { padding: 50px 0; }
-    .risaa-cat-showcase__title { font-size: 2.4rem; }
-    .risaa-cat-showcase__grid { grid-template-columns: 1fr; }
-    .risaa-cat-cell:nth-child(1) { aspect-ratio: 4/3; }
-    .risaa-cat-cell { aspect-ratio: 4/3; }
+    .risaa-cat-showcase {
+      padding: 50px 0;
+    }
+    .risaa-cat-showcase__title {
+      font-size: 2.4rem;
+    }
+    .risaa-cat-showcase__grid {
+      grid-template-columns: 1fr;
+    }
+    .risaa-cat-cell:nth-child(1) {
+      aspect-ratio: 4/3;
+    }
+    .risaa-cat-cell {
+      aspect-ratio: 4/3;
+    }
   }
 {%- endstyle -%}
 
 <section class="risaa-cat-showcase reveal-on-scroll">
-  <div class="risaa-cat-showcase__header">
+  <div class="risaa-cat-showcase__header" data-anim="fade-up">
     <div class="risaa-cat-showcase__eyebrow">
       <span class="risaa-cat-showcase__eyebrow-line"></span>
       <span class="risaa-cat-showcase__eyebrow-text">{{ section.settings.eyebrow }}</span>
@@ -210,7 +234,7 @@
     {% endif %}
   </div>
 
-  <div class="risaa-cat-showcase__grid">
+  <div class="risaa-cat-showcase__grid" data-anim-stagger data-anim-delay="0.1" data-anim-step="0.1">
     {% for block in section.blocks %}
       <a href="{{ block.settings.link }}" class="risaa-cat-cell" {{ block.shopify_attributes }}>
         {% if block.settings.image != blank %}
