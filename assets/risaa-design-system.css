@@ -330,3 +330,162 @@ h1, h2, h3, h4, h5, h6 {
 .risaa-accordion__item:hover .risaa-accordion__content {
   opacity: 1;
 }
+
+/* =============================================
+   BESTSELLERS / FEATURED COLLECTION OVERRIDES
+   Premium editorial look for product grids
+   ============================================= */
+
+/* Bestsellers section wrapper */
+#shopify-section-bestsellers {
+  position: relative;
+}
+
+#shopify-section-bestsellers::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--brand-main), transparent);
+  margin: 0 auto;
+}
+
+/* Better title styling for featured-collection used as bestsellers */
+.collection .title.h2,
+.collection .title.h1,
+.collection .title.hxl {
+  font-family: var(--font-heading) !important;
+  font-size: 2.8rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: var(--brand-main) !important;
+  font-weight: 400 !important;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 1.2rem;
+}
+
+.collection .title.h2::after,
+.collection .title.h1::after,
+.collection .title.hxl::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 1px;
+  background: var(--brand-main);
+}
+
+.collection .title-wrapper {
+  text-align: center !important;
+  padding-bottom: 2rem !important;
+}
+
+/* Product cards: hover lift & image zoom */
+.card--standard .card__inner,
+.card--card .card__inner {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  border-radius: 0 !important;
+}
+
+.card-wrapper:hover .card--standard .card__inner,
+.card-wrapper:hover .card--card .card__inner {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+}
+
+.card__media img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.card-wrapper:hover .card__media img {
+  transform: scale(1.05);
+}
+
+/* Card heading and price refinements */
+.card__heading a {
+  font-family: var(--font-heading) !important;
+  font-size: 1.35rem !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+  color: var(--brand-dark) !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.card-wrapper:hover .card__heading a {
+  color: var(--brand-main) !important;
+}
+
+.price__regular .price-item--regular,
+.price__sale .price-item--sale {
+  color: var(--brand-main) !important;
+  font-weight: 500;
+}
+
+/* View All button for featured collection */
+.collection__view-all .button,
+.collection__view-all .button--secondary {
+  font-family: var(--font-body) !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  border-radius: 0 !important;
+  font-size: 1.1rem !important;
+  padding: 14px 40px !important;
+  background: transparent !important;
+  color: var(--brand-main) !important;
+  border: 1px solid var(--brand-main) !important;
+  transition: all 0.3s ease !important;
+}
+
+.collection__view-all .button:hover,
+.collection__view-all .button--secondary:hover {
+  background: var(--brand-main) !important;
+  color: var(--brand-text) !important;
+}
+
+/* =============================================
+   SECTION DIVIDERS — thin ornamental separators
+   ============================================= */
+
+.risaa-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 10px 40px;
+  margin: 0;
+}
+
+.risaa-divider__line {
+  flex: 1;
+  max-width: 200px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(154,28,32,0.25), transparent);
+}
+
+.risaa-divider__icon {
+  color: var(--brand-undertone-1);
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+/* Homepage section rhythm — consistent spacing */
+.shopify-section .section {
+  padding-top: 80px !important;
+  padding-bottom: 80px !important;
+}
+
+@media screen and (max-width: 749px) {
+  .shopify-section .section {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
+
+  .collection .title.h2,
+  .collection .title.h1 {
+    font-size: 2.2rem !important;
+  }
+}

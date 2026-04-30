@@ -100,11 +100,29 @@
       </li>
     {%- endfor -%}
 
-    {%- assign extra_tabs = "About Us" | split: "," -%}
+    {%- assign extra_tabs = 'About Us' | split: ',' -%}
     {%- for tab in extra_tabs -%}
       <li>
-        <a href="{% if tab == 'About Us' %}/pages/about{% else %}shopify://collections/all{% endif %}" class="header__menu-item list-menu__item link link--text focus-inset">
-          <span>{{ tab }}</span>
+        {%- assign is_about_active = false -%}
+        {%- if tab == 'About Us' and request.page_type == 'page' -%}
+          {%- if page.handle == 'about' -%}
+            {%- assign is_about_active = true -%}
+          {%- endif -%}
+        {%- endif -%}
+        <a
+          href="{% if tab == 'About Us' %}/pages/about{% else %}shopify://collections/all{% endif %}"
+          class="header__menu-item list-menu__item link link--text focus-inset"
+          {% if is_about_active %}
+            aria-current="page"
+          {% endif %}
+        >
+          <span
+            {% if is_about_active %}
+              class="header__active-menu-item"
+            {% endif %}
+          >
+            {{- tab -}}
+          </span>
         </a>
       </li>
     {%- endfor -%}

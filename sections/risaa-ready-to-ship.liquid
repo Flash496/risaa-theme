@@ -1,0 +1,334 @@
+{%- style -%}
+  .risaa-rts {
+    padding: 5rem 0;
+    background: var(--brand-text);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .risaa-rts::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('white_leaves_decoration.png');
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: 300px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .risaa-rts__container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .risaa-rts__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .risaa-rts__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .risaa-rts__eyebrow-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fbbf24;
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
+  }
+
+  .risaa-rts__eyebrow-text {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #fbbf24;
+    font-weight: 600;
+  }
+
+  .risaa-rts__title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--brand-main);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+
+  .risaa-rts__subtitle {
+    color: #666;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+  }
+
+  .risaa-rts__dispatch-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .risaa-rts__dispatch-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+  }
+
+  .risaa-rts__truck-icon {
+    font-size: 1.2rem;
+  }
+
+  .risaa-rts__dispatch-text {
+    font-size: 0.9rem;
+    color: #fbbf24;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .risaa-rts__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .risaa-rts__item {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .risaa-rts__item:hover {
+    transform: translateY(-5px);
+  }
+
+  .risaa-rts__item:hover .risaa-rts__img img {
+    transform: scale(1.05);
+  }
+
+  .risaa-rts__img {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  }
+
+  .risaa-rts__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .risaa-rts__ship-tag {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+  }
+
+  .risaa-rts__info {
+    padding: 0.6rem 0.2rem 0;
+  }
+
+  .risaa-rts__name {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--brand-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 0.3rem;
+    line-height: 1.3;
+  }
+
+  .risaa-rts__price {
+    font-size: 0.8rem;
+    color: var(--brand-main);
+    font-weight: 500;
+  }
+
+  .risaa-rts__view-all {
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .risaa-rts__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-rts {
+      padding: 3rem 0;
+    }
+    .risaa-rts__container {
+      padding: 0 1.5rem;
+    }
+    .risaa-rts__title {
+      font-size: 2rem;
+    }
+    .risaa-rts__dispatch-info {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .risaa-rts__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+    .risaa-rts__name {
+      font-size: 0.95rem;
+    }
+    .risaa-rts__price {
+      font-size: 0.9rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="risaa-rts reveal-on-scroll">
+  <div class="risaa-rts__container">
+    <div class="risaa-rts__header">
+      <div class="risaa-rts__eyebrow">
+        <span class="risaa-rts__eyebrow-dot"></span>
+        <span class="risaa-rts__eyebrow-text">In Stock · Ships Quickly</span>
+      </div>
+      <h2 class="risaa-rts__title">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="risaa-rts__subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+      <div class="risaa-rts__dispatch-info">
+        <div class="risaa-rts__dispatch-badge">
+          <span class="risaa-rts__truck-icon">🚚</span>
+          <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_days }}</span>
+        </div>
+        <div class="risaa-rts__dispatch-badge">
+          <span class="risaa-rts__truck-icon">📦</span>
+          <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_note }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="risaa-rts__grid">
+      {% if section.settings.collection != blank and section.settings.collection.products.size > 0 %}
+        {% for product in section.settings.collection.products limit: 8 %}
+          <a href="{{ product.url }}" class="risaa-rts__item">
+            <div class="risaa-rts__img">
+              {% if product.featured_image != blank %}
+                {{ product.featured_image | image_url: width: 400 | image_tag: loading: 'lazy', alt: product.title }}
+              {% else %}
+                {{ 'product-apparel-2' | placeholder_svg_tag }}
+              {% endif %}
+              <div class="risaa-rts__ship-tag">Ready to Ship</div>
+            </div>
+            <div class="risaa-rts__info">
+              <p class="risaa-rts__name">{{ product.title | truncate: 25 }}</p>
+              <p class="risaa-rts__price">{{ product.price | money }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="risaa-rts__item">
+            <div class="risaa-rts__img">
+              {{ 'product-apparel-2' | placeholder_svg_tag }}
+              <div class="risaa-rts__ship-tag">Ready to Ship</div>
+            </div>
+            <div class="risaa-rts__info">
+              <p class="risaa-rts__name">Sample Piece</p>
+              <p class="risaa-rts__price">₹XX,XXX</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if section.settings.view_all_link != blank %}
+      <div class="risaa-rts__view-all">
+        <a href="{{ section.settings.view_all_link }}" class="btn-premium">Shop Ready to Ship →</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ready to Ship",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Ready to Ship"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Handpicked pieces crafted and ready for you"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection (Ready to Ship)"
+    },
+    {
+      "type": "text",
+      "id": "dispatch_days",
+      "label": "Dispatch Timeframe",
+      "default": "Ships in 2–3 Days"
+    },
+    {
+      "type": "text",
+      "id": "dispatch_note",
+      "label": "Dispatch Note",
+      "default": "Free shipping above ₹5,000"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ready to Ship",
+      "settings": {
+        "title": "Ready to Ship",
+        "subtitle": "Handpicked pieces crafted and ready for you"
+      }
+    }
+  ]
+}
+{% endschema %}

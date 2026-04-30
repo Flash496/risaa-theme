@@ -1,0 +1,302 @@
+{%- style -%}
+  .risaa-cat-showcase {
+    padding: 80px 0;
+    background: var(--brand-dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .risaa-cat-showcase__header {
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 0 20px;
+  }
+
+  .risaa-cat-showcase__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .risaa-cat-showcase__eyebrow-line {
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--brand-undertone-1);
+    opacity: 0.6;
+  }
+
+  .risaa-cat-showcase__eyebrow-text {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brand-undertone-1);
+  }
+
+  .risaa-cat-showcase__title {
+    font-family: var(--font-heading);
+    font-size: 3.6rem;
+    color: var(--brand-text);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+
+  .risaa-cat-showcase__subtitle {
+    color: rgba(255,255,255,0.5);
+    font-size: 1.3rem;
+    margin-top: 10px;
+  }
+
+  /* The mosaic grid */
+  .risaa-cat-showcase__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 340px 340px;
+    gap: 6px;
+    padding: 0 6px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* 5 blocks layout:
+     [Big left: 5col x 2row] [Mid top: 4col x 1row] [Tall right: 3col x 2row]
+                              [Mid bot: 4col x 1row]
+  */
+  .risaa-cat-cell {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+  }
+
+  .risaa-cat-cell:nth-child(1) {
+    grid-column: 1 / span 5;
+    grid-row: 1 / span 2;
+  }
+
+  .risaa-cat-cell:nth-child(2) {
+    grid-column: 6 / span 4;
+    grid-row: 1 / span 1;
+  }
+
+  .risaa-cat-cell:nth-child(3) {
+    grid-column: 10 / span 3;
+    grid-row: 1 / span 2;
+  }
+
+  .risaa-cat-cell:nth-child(4) {
+    grid-column: 6 / span 2;
+    grid-row: 2 / span 1;
+  }
+
+  .risaa-cat-cell:nth-child(5) {
+    grid-column: 8 / span 2;
+    grid-row: 2 / span 1;
+  }
+
+  .risaa-cat-cell img,
+  .risaa-cat-cell svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
+  }
+
+  .risaa-cat-cell:hover img {
+    transform: scale(1.07);
+  }
+
+  .risaa-cat-cell__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+    transition: background 0.4s ease;
+  }
+
+  .risaa-cat-cell:hover .risaa-cat-cell__overlay {
+    background: linear-gradient(to top, rgba(154,28,32,0.7) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+  }
+
+  .risaa-cat-cell__name {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 8px;
+    line-height: 1.1;
+  }
+
+  .risaa-cat-cell:nth-child(1) .risaa-cat-cell__name {
+    font-size: 3rem;
+  }
+
+  .risaa-cat-cell__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.8);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease 0.1s;
+  }
+
+  .risaa-cat-cell:hover .risaa-cat-cell__cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .risaa-cat-cell__desc {
+    color: rgba(255,255,255,0.65);
+    font-size: 1.1rem;
+    margin: 0 0 10px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.4s ease;
+  }
+
+  .risaa-cat-cell:hover .risaa-cat-cell__desc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile: simple 2-col */
+  @media screen and (max-width: 989px) {
+    .risaa-cat-showcase__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      gap: 6px;
+    }
+    .risaa-cat-cell { grid-column: auto !important; grid-row: auto !important; }
+    .risaa-cat-cell:nth-child(1) { grid-column: span 2 !important; aspect-ratio: 16/9; }
+    .risaa-cat-cell { aspect-ratio: 3/4; }
+    .risaa-cat-cell__name { font-size: 1.6rem !important; }
+    .risaa-cat-cell__cta, .risaa-cat-cell__desc { opacity: 1; transform: none; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-cat-showcase { padding: 50px 0; }
+    .risaa-cat-showcase__title { font-size: 2.4rem; }
+    .risaa-cat-showcase__grid { grid-template-columns: 1fr; }
+    .risaa-cat-cell:nth-child(1) { aspect-ratio: 4/3; }
+    .risaa-cat-cell { aspect-ratio: 4/3; }
+  }
+{%- endstyle -%}
+
+<section class="risaa-cat-showcase reveal-on-scroll">
+  <div class="risaa-cat-showcase__header">
+    <div class="risaa-cat-showcase__eyebrow">
+      <span class="risaa-cat-showcase__eyebrow-line"></span>
+      <span class="risaa-cat-showcase__eyebrow-text">{{ section.settings.eyebrow }}</span>
+      <span class="risaa-cat-showcase__eyebrow-line"></span>
+    </div>
+    <h2 class="risaa-cat-showcase__title">{{ section.settings.title }}</h2>
+    {% if section.settings.subtitle != blank %}
+      <p class="risaa-cat-showcase__subtitle">{{ section.settings.subtitle }}</p>
+    {% endif %}
+  </div>
+
+  <div class="risaa-cat-showcase__grid">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.link }}" class="risaa-cat-cell" {{ block.shopify_attributes }}>
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: block.settings.name }}
+        {% else %}
+          {{ 'collection-apparel-1' | placeholder_svg_tag }}
+        {% endif %}
+        <div class="risaa-cat-cell__overlay">
+          <h3 class="risaa-cat-cell__name">{{ block.settings.name }}</h3>
+          {% if block.settings.description != blank %}
+            <p class="risaa-cat-cell__desc">{{ block.settings.description }}</p>
+          {% endif %}
+          <span class="risaa-cat-cell__cta">Explore →</span>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categories Showcase",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "The RiSaa Universe"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Every silhouette, every occasion"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Category Name",
+          "default": "Bridal"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Short Description",
+          "default": "Handcrafted for your big day"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categories Showcase",
+      "blocks": [
+        { "type": "category", "settings": { "name": "Bridal", "description": "Handcrafted for your big day" } },
+        { "type": "category", "settings": { "name": "Couture", "description": "Statement pieces, artfully made" } },
+        { "type": "category", "settings": { "name": "Pret", "description": "Effortless everyday elegance" } },
+        { "type": "category", "settings": { "name": "Trousseau", "description": "A complete bridal trousseau" } },
+        { "type": "category", "settings": { "name": "Indo-Western", "description": "Fusion styles for modern women" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

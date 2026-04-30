@@ -22,11 +22,16 @@
           }
         }
       },
-      "block_order": [
-        "slide_1",
-        "slide_2"
-      ],
+      "block_order": ["slide_1", "slide_2"],
       "settings": {}
+    },
+    "risaa_new_in": {
+      "type": "risaa-new-in",
+      "settings": {
+        "title": "New In",
+        "subtitle": "Fresh from the atelier, made with love",
+        "view_all_link": "shopify://collections/all"
+      }
     },
     "bestsellers": {
       "type": "featured-collection",
@@ -44,8 +49,18 @@
         "show_vendor": false,
         "show_rating": false,
         "columns_mobile": "2",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "risaa_ready_to_ship": {
+      "type": "risaa-ready-to-ship",
+      "settings": {
+        "title": "Ready to Ship",
+        "subtitle": "Handpicked pieces crafted and ready for you",
+        "dispatch_days": "Ships in 2–3 Days",
+        "dispatch_note": "Free shipping above ₹5,000",
+        "view_all_link": "shopify://collections/all"
       }
     },
     "risaa_accordion": {
@@ -68,12 +83,7 @@
           "settings": { "heading": "Trousseau" }
         }
       },
-      "block_order": [
-        "panel_1",
-        "panel_2",
-        "panel_3",
-        "panel_4"
-      ],
+      "block_order": ["panel_1", "panel_2", "panel_3", "panel_4"],
       "settings": {
         "title": "Our Signature Collections",
         "subtitle": "Individuality in every stitch",
@@ -82,30 +92,115 @@
         "padding_bottom": 60
       }
     },
+    "risaa_categories_showcase": {
+      "type": "risaa-categories-showcase",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": { "name": "Bridal", "description": "Handcrafted for your big day" }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": { "name": "Couture", "description": "Statement pieces, artfully made" }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": { "name": "Pret", "description": "Effortless everyday elegance" }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": { "name": "Trousseau", "description": "A complete bridal trousseau" }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": { "name": "Indo-Western", "description": "Fusion styles for modern women" }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4", "cat_5"],
+      "settings": {
+        "eyebrow": "The RiSaa Universe",
+        "title": "Shop by Category",
+        "subtitle": "Every silhouette, every occasion"
+      }
+    },
+    "risaa_shop_by_occasion": {
+      "type": "risaa-shop-by-occasion",
+      "blocks": {
+        "occ_1": { "type": "occasion", "settings": { "occasion_name": "Bridal", "sub_text": "Your big day", "badge_text": "Explore" } },
+        "occ_2": { "type": "occasion", "settings": { "occasion_name": "Sangeet", "sub_text": "Dance & celebrate", "badge_text": "Explore" } },
+        "occ_3": { "type": "occasion", "settings": { "occasion_name": "Mehendi", "sub_text": "Vibrant & playful", "badge_text": "Explore" } },
+        "occ_4": { "type": "occasion", "settings": { "occasion_name": "Reception", "sub_text": "Elegant evenings", "badge_text": "Explore" } }
+      },
+      "block_order": ["occ_1", "occ_2", "occ_3", "occ_4"],
+      "settings": {
+        "eyebrow": "Dressed for Every Moment",
+        "title": "Shop by Occasion",
+        "subtitle": "Your perfect outfit for every celebration"
+      }
+    },
     "risaa_shop_by_color": {
       "type": "risaa-shop-by-color",
       "blocks": {
-        "color_1": {
-          "type": "color_block",
-          "settings": { "color_name": "RUBY" }
-        },
-        "color_2": {
-          "type": "color_block",
-          "settings": { "color_name": "SAFFRON" }
-        },
-        "color_3": {
-          "type": "color_block",
-          "settings": { "color_name": "MOCHA" }
-        }
+        "color_1": { "type": "color_block", "settings": { "color_name": "RUBY" } },
+        "color_2": { "type": "color_block", "settings": { "color_name": "SAFFRON" } },
+        "color_3": { "type": "color_block", "settings": { "color_name": "MOCHA" } }
       },
-      "block_order": [
-        "color_1",
-        "color_2",
-        "color_3"
-      ],
+      "block_order": ["color_1", "color_2", "color_3"],
       "settings": {
         "title": "Shop by Colour",
         "subtitle": "Discover shades that resonate with your spirit"
+      }
+    },
+    "risaa_customer_reviews": {
+      "type": "risaa-customer-reviews",
+      "blocks": {
+        "rev_1": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "RiSaa made my dream lehenga a reality. The craftsmanship, the fit, the detailing — absolutely beyond what I imagined. I felt like royalty on my wedding day!",
+            "reviewer_name": "Priya S.",
+            "reviewer_meta": "Bridal customer · Ludhiana",
+            "show_verified": true
+          }
+        },
+        "rev_2": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "Ordered a Sangeet outfit and it was delivered faster than expected. The colors were vibrant and the embroidery was exquisite. Everyone was asking where I got it from!",
+            "reviewer_name": "Anika R.",
+            "reviewer_meta": "Sangeet look · Delhi",
+            "show_verified": true
+          }
+        },
+        "rev_3": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "My entire trousseau was handled by Rima and her team. They understood my vision better than I did. Truly accessible luxury — worth every rupee.",
+            "reviewer_name": "Meera K.",
+            "reviewer_meta": "Trousseau client · Mumbai",
+            "show_verified": true
+          }
+        },
+        "rev_4": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "The customization process was so smooth. They were patient with all my requests. The reception lehenga turned out to be a masterpiece!",
+            "reviewer_name": "Simran D.",
+            "reviewer_meta": "Reception outfit · Chandigarh",
+            "show_verified": true
+          }
+        }
+      },
+      "block_order": ["rev_1", "rev_2", "rev_3", "rev_4"],
+      "settings": {
+        "title": "Love from Our Brides",
+        "subtitle": "Real stories from real women",
+        "aggregate_score": "4.9",
+        "review_count": "200+ Happy Clients"
       }
     },
     "risaa_watch_and_shop": {
@@ -136,33 +231,19 @@
         "phone_number": "9501032126",
         "custom_message": "Hello RiSaa! I'm reaching out from your website. I'd love to discuss a custom design for my upcoming occasion."
       }
-    },
-    "rich_text_categories": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Bridal • Couture • Pret • Trousseau • Indian Traditional • Western • Indo-Western",
-            "heading_size": "h2"
-          }
-        }
-      },
-      "block_order": ["heading"],
-      "settings": {
-        "color_scheme": "scheme-2",
-        "padding_top": 40,
-        "padding_bottom": 40
-      }
     }
   },
   "order": [
     "hero_carousel",
-    "rich_text_categories",
+    "risaa_new_in",
     "bestsellers",
+    "risaa_ready_to_ship",
     "risaa_accordion",
+    "risaa_categories_showcase",
+    "risaa_shop_by_occasion",
     "risaa_shop_by_color",
     "risaa_watch_and_shop",
+    "risaa_customer_reviews",
     "risaa_parallax_story",
     "risaa_whatsapp"
   ]
