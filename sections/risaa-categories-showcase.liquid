@@ -1,7 +1,7 @@
 {%- style -%}
   .risaa-cat-showcase {
-    padding: 80px 0;
-    background: var(--brand-dark);
+    padding: 40px 0;
+    background: #4a1f1a;
     position: relative;
     overflow: hidden;
   }
@@ -204,7 +204,7 @@
 
   @media screen and (max-width: 749px) {
     .risaa-cat-showcase {
-      padding: 50px 0;
+      padding: 25px 0;
     }
     .risaa-cat-showcase__title {
       font-size: 2.4rem;
@@ -234,7 +234,7 @@
     {% endif %}
   </div>
 
-  <div class="risaa-cat-showcase__grid" data-anim-stagger data-anim-delay="0.1" data-anim-step="0.1">
+  <div class="risaa-cat-showcase__grid" data-anim-stagger="bloom" data-anim-delay="0.1" data-anim-step="0.1">
     {% for block in section.blocks %}
       <a href="{{ block.settings.link }}" class="risaa-cat-cell" {{ block.shopify_attributes }}>
         {% if block.settings.image != blank %}

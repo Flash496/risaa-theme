@@ -76,8 +76,8 @@
         "show_vendor": false,
         "show_rating": false,
         "columns_mobile": "2",
-        "padding_top": 80,
-        "padding_bottom": 80
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "risaa_ready_to_ship": {
@@ -115,8 +115,8 @@
         "title": "Our Signature Collections",
         "subtitle": "Individuality in every stitch",
         "height_desktop": 600,
-        "padding_top": 60,
-        "padding_bottom": 60
+        "padding_top": 32,
+        "padding_bottom": 32
       }
     },
     "risaa_categories_showcase": {

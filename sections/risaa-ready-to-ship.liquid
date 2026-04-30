@@ -1,6 +1,9 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+
 {%- style -%}
   .risaa-rts {
-    padding: 5rem 0;
+    padding: 2.5rem 0;
     background: var(--brand-text);
     position: relative;
     overflow: hidden;
@@ -19,20 +22,6 @@
     background-size: 300px;
     opacity: 0.5;
     pointer-events: none;
-  }
-
-  .risaa-rts__container {
-    max-width: var(--page-width);
-    margin: 0 auto;
-    padding: 0 1.5rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  @media screen and (min-width: 750px) {
-    .risaa-rts__container {
-      padding: 0 5rem;
-    }
   }
 
   .risaa-rts__header {
@@ -110,207 +99,17 @@
     letter-spacing: 0.05em;
   }
 
-  /* ── Carousel wrapper ── */
-  .risaa-rts__carousel-wrap {
-    position: relative;
-  }
-
-  .risaa-rts__track-outer {
-    overflow: hidden;
-  }
-
-  .risaa-rts__track {
-    display: flex;
-    gap: 1.2rem;
-    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
-    cursor: grab;
-    user-select: none;
-  }
-
-  .risaa-rts__track.is-dragging {
-    cursor: grabbing;
-    transition: none;
-  }
-
-  /* ── Card ── */
-  .risaa-rts__item {
-    flex: 0 0 var(--rts-card-width, 22%);
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: transform 0.3s ease;
-  }
-
-  .risaa-rts__item:hover {
-    transform: translateY(-5px);
-  }
-  .risaa-rts__item:hover .risaa-rts__img img {
-    transform: scale(1.05);
-  }
-
-  .risaa-rts__img {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 3/4;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  .risaa-rts__img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    pointer-events: none;
-  }
-
-  .risaa-rts__ship-tag {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-    color: white;
-    font-size: 0.55rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 4px 8px;
-    border-radius: 3px;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
-  }
-
-  .risaa-rts__info {
-    padding: 0.7rem 0.2rem 0;
-  }
-
-  .risaa-rts__name {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    color: var(--brand-dark);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin: 0 0 0.3rem;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .risaa-rts__price {
-    font-size: 0.8rem;
-    color: var(--brand-main);
-    font-weight: 500;
-  }
-
-  /* ── Arrow buttons ── */
-  .risaa-rts__arrow {
-    position: absolute;
-    top: 38%;
-    transform: translateY(-50%);
-    z-index: 10;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(251, 191, 36, 0.35);
-    background: white;
-    color: #b45309;
-    font-size: 1.1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    transition: background 0.2s, color 0.2s, opacity 0.2s;
-    opacity: 0.85;
-  }
-
-  .risaa-rts__arrow:hover {
-    background: #fbbf24;
-    color: white;
-    opacity: 1;
-  }
-
-  .risaa-rts__arrow--prev {
-    left: -22px;
-  }
-  .risaa-rts__arrow--next {
-    right: -22px;
-  }
-
-  .risaa-rts__arrow[disabled] {
-    opacity: 0.25;
-    pointer-events: none;
-  }
-
-  /* ── Dots ── */
-  .risaa-rts__dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1.8rem;
-  }
-
-  .risaa-rts__dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 4px;
-    background: rgba(251, 191, 36, 0.25);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    padding: 0;
-  }
-
-  .risaa-rts__dot.active {
-    background: #fbbf24;
-    width: 22px;
-  }
-
-  /* ── View all ── */
   .risaa-rts__view-all {
     text-align: center;
     margin-top: 2.5rem;
   }
 
-  /* ── Responsive card widths ── */
-  @media screen and (min-width: 990px) {
-    .risaa-rts__item {
-      --rts-card-width: 22%;
-    }
-  }
-
-  @media screen and (min-width: 750px) and (max-width: 989px) {
-    .risaa-rts__item {
-      --rts-card-width: 30%;
-    }
-    .risaa-rts__arrow--prev {
-      left: -16px;
-    }
-    .risaa-rts__arrow--next {
-      right: -16px;
-    }
-  }
-
   @media screen and (max-width: 749px) {
     .risaa-rts {
-      padding: 3rem 0;
-    }
-    .risaa-rts__container {
-      padding: 0 1.2rem;
+      padding: 1.5rem 0;
     }
     .risaa-rts__title {
       font-size: 2rem;
-    }
-    .risaa-rts__item {
-      --rts-card-width: 46%;
-    }
-    .risaa-rts__arrow {
-      display: none;
-    }
-    .risaa-rts__track {
-      gap: 0.8rem;
     }
     .risaa-rts__dispatch-info {
       flex-direction: column;
@@ -320,7 +119,7 @@
 {%- endstyle -%}
 
 <section class="risaa-rts reveal-on-scroll">
-  <div class="risaa-rts__container">
+  <div class="page-width">
     <div class="risaa-rts__header" data-anim="fade-up">
       <div class="risaa-rts__eyebrow">
         <span class="risaa-rts__eyebrow-dot"></span>
@@ -342,56 +141,39 @@
       </div>
     </div>
 
-    <div class="risaa-rts__carousel-wrap" data-anim="fade-up" data-anim-delay="0.15">
-      <button class="risaa-rts__arrow risaa-rts__arrow--prev" id="rts-prev-{{ section.id }}" aria-label="Previous">
-        &#8592;
-      </button>
-      <button class="risaa-rts__arrow risaa-rts__arrow--next" id="rts-next-{{ section.id }}" aria-label="Next">
-        &#8594;
-      </button>
-
-      <div class="risaa-rts__track-outer">
-        <div class="risaa-rts__track" id="rts-track-{{ section.id }}">
-          {% if section.settings.collection != blank and section.settings.collection.products.size > 0 %}
-            {% for product in section.settings.collection.products limit: 12 %}
-              <a href="{{ product.url }}" class="risaa-rts__item">
-                <div class="risaa-rts__img">
-                  {% if product.featured_image != blank %}
-                    {{
-                      product.featured_image
-                      | image_url: width: 500
-                      | image_tag: loading: 'lazy', alt: product.title
-                    }}
-                  {% else %}
-                    {{ 'product-apparel-2' | placeholder_svg_tag }}
-                  {% endif %}
-                  <div class="risaa-rts__ship-tag">Ready to Ship</div>
-                </div>
-                <div class="risaa-rts__info">
-                  <p class="risaa-rts__name">{{ product.title | truncate: 28 }}</p>
-                  <p class="risaa-rts__price">{{ product.price | money }}</p>
-                </div>
-              </a>
-            {% endfor %}
-          {% else %}
-            {% for i in (1..8) %}
-              <div class="risaa-rts__item">
-                <div class="risaa-rts__img">
-                  {{ 'product-apparel-2' | placeholder_svg_tag }}
-                  <div class="risaa-rts__ship-tag">Ready to Ship</div>
-                </div>
-                <div class="risaa-rts__info">
-                  <p class="risaa-rts__name">Sample Piece</p>
-                  <p class="risaa-rts__price">₹XX,XXX</p>
-                </div>
-              </div>
-            {% endfor %}
-          {% endif %}
-        </div>
-      </div>
-
-      <div class="risaa-rts__dots" id="rts-dots-{{ section.id }}"></div>
-    </div>
+    <ul
+      class="grid product-grid contains-card contains-card--product grid--4-col-desktop grid--2-col-tablet-down"
+      role="list"
+      data-anim-stagger
+      data-anim-delay="0.05"
+      data-anim-step="0.06"
+    >
+      {% if section.settings.collection != blank and section.settings.collection.products.size > 0 %}
+        {%- assign skip_card_product_styles = false -%}
+        {% for product in section.settings.collection.products limit: 4 %}
+          <li class="grid__item">
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: 'portrait',
+              show_secondary_image: true,
+              show_vendor: false,
+              show_rating: false,
+              lazy_load: true,
+              skip_styles: skip_card_product_styles,
+              section_id: section.id
+            %}
+            {%- assign skip_card_product_styles = true -%}
+          </li>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <li class="grid__item">
+            {%- assign placeholder_image = 'product-apparel-' | append: i -%}
+            {% render 'card-product', media_aspect_ratio: 'portrait', placeholder_image: placeholder_image %}
+          </li>
+        {% endfor %}
+      {% endif %}
+    </ul>
 
     {% if section.settings.view_all_link != blank %}
       <div class="risaa-rts__view-all" data-anim="fade-up" data-anim-delay="0.3">
@@ -400,108 +182,6 @@
     {% endif %}
   </div>
 </section>
-
-<script>
-  (function () {
-    const id = '{{ section.id }}';
-    const track = document.getElementById('rts-track-' + id);
-    const dotsWrap = document.getElementById('rts-dots-' + id);
-    const prevBtn = document.getElementById('rts-prev-' + id);
-    const nextBtn = document.getElementById('rts-next-' + id);
-    if (!track) return;
-
-    let current = 0;
-
-    function getVisible() {
-      const w = track.parentElement.offsetWidth;
-      const cardW = track.children[0] ? track.children[0].offsetWidth : 1;
-      const gap = parseFloat(getComputedStyle(track).gap) || 0;
-      return Math.max(1, Math.round(w / (cardW + gap)));
-    }
-
-    function totalCards() {
-      return track.children.length;
-    }
-
-    function maxIndex() {
-      return Math.max(0, totalCards() - getVisible());
-    }
-
-    function buildDots() {
-      dotsWrap.innerHTML = '';
-      const pages = maxIndex() + 1;
-      for (let i = 0; i < pages; i++) {
-        const d = document.createElement('button');
-        d.className = 'risaa-rts__dot' + (i === 0 ? ' active' : '');
-        d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-        d.addEventListener('click', () => goTo(i));
-        dotsWrap.appendChild(d);
-      }
-    }
-
-    function updateDots() {
-      Array.from(dotsWrap.children).forEach((d, i) => d.classList.toggle('active', i === current));
-    }
-
-    function goTo(idx) {
-      current = Math.max(0, Math.min(idx, maxIndex()));
-      const cardW = track.children[0] ? track.children[0].offsetWidth : 0;
-      const gap = parseFloat(getComputedStyle(track).gap) || 0;
-      track.style.transform = 'translateX(-' + current * (cardW + gap) + 'px)';
-      updateDots();
-      if (prevBtn) prevBtn.disabled = current === 0;
-      if (nextBtn) nextBtn.disabled = current >= maxIndex();
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
-    if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
-
-    // Touch / drag
-    let startX = 0,
-      isDragging = false,
-      dragDelta = 0;
-    track.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.clientX;
-      track.classList.add('is-dragging');
-    });
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      dragDelta = e.clientX - startX;
-    });
-    window.addEventListener('mouseup', () => {
-      if (!isDragging) return;
-      isDragging = false;
-      track.classList.remove('is-dragging');
-      if (dragDelta < -50) goTo(current + 1);
-      else if (dragDelta > 50) goTo(current - 1);
-      dragDelta = 0;
-    });
-    track.addEventListener(
-      'touchstart',
-      (e) => {
-        startX = e.touches[0].clientX;
-      },
-      { passive: true }
-    );
-    track.addEventListener('touchend', (e) => {
-      const diff = e.changedTouches[0].clientX - startX;
-      if (diff < -40) goTo(current + 1);
-      else if (diff > 40) goTo(current - 1);
-    });
-
-    // Init + resize
-    function init() {
-      buildDots();
-      goTo(0);
-    }
-    init();
-    window.addEventListener('resize', () => {
-      buildDots();
-      goTo(Math.min(current, maxIndex()));
-    });
-  })();
-</script>
 
 {% schema %}
 {

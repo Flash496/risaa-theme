@@ -1,6 +1,6 @@
 /**
- * RiSaa Scroll Animations
- * Lightweight IntersectionObserver-based scroll animation engine.
+ * RiSaa Scroll Animations — Reversible
+ * Animations trigger on enter AND reverse on leave.
  * Handles: [data-anim], [data-anim-stagger], [data-anim-delay]
  * GPU-accelerated via CSS transforms/opacity only.
  */
@@ -10,22 +10,31 @@
 
   if (typeof window === 'undefined') return;
 
-  // Respect reduced motion at the JS level too
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ── Single element observer ──────────────────────────────────────
   const singleObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
         const el = entry.target;
-        const delay = el.dataset.animDelay || '0';
+
         if (prefersReduced) {
           el.classList.add('is-visible');
-        } else {
-          setTimeout(() => el.classList.add('is-visible'), parseFloat(delay) * 1000);
+          return;
         }
-        singleObserver.unobserve(el);
+
+        if (entry.isIntersecting) {
+          const delay = el.dataset.animDelay || '0';
+          // Clear any pending hide timeout
+          if (el._animHideTimer) {
+            clearTimeout(el._animHideTimer);
+            el._animHideTimer = null;
+          }
+          setTimeout(() => el.classList.add('is-visible'), parseFloat(delay) * 1000);
+        } else {
+          // Reverse: remove visible so element animates back to hidden state
+          el.classList.remove('is-visible');
+        }
       });
     },
     { rootMargin: '0px 0px -60px 0px', threshold: 0.08 },
@@ -35,7 +44,6 @@
   const staggerObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
         const parent = entry.target;
         const children = Array.from(parent.children);
         const baseDelay = parseFloat(parent.dataset.animDelay || '0');
@@ -43,19 +51,25 @@
 
         if (prefersReduced) {
           parent.classList.add('is-visible');
-          children.forEach((child) => {
-            child.style.transitionDelay = '0s';
-          });
-        } else {
+          children.forEach((child) => (child.style.transitionDelay = '0s'));
+          return;
+        }
+
+        if (entry.isIntersecting) {
+          // Animate in — stagger forward
           children.forEach((child, i) => {
             child.style.transitionDelay = `${baseDelay + i * step}s`;
           });
-          // Small rAF to ensure delays are applied before class fires
           requestAnimationFrame(() => {
             requestAnimationFrame(() => parent.classList.add('is-visible'));
           });
+        } else {
+          // Reverse — remove stagger delays so exit is clean and simultaneous
+          children.forEach((child) => {
+            child.style.transitionDelay = '0s';
+          });
+          parent.classList.remove('is-visible');
         }
-        staggerObserver.unobserve(parent);
       });
     },
     { rootMargin: '0px 0px -40px 0px', threshold: 0.06 },
@@ -74,14 +88,13 @@
     });
   }
 
-  // Run on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => init());
   } else {
     init();
   }
 
-  // Shopify theme editor support — re-init on section load
+  // Shopify theme editor support
   if (window.Shopify && Shopify.designMode) {
     document.addEventListener('shopify:section:load', (e) => init(e.target));
   }
