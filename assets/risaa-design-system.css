@@ -52,8 +52,9 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0 !important;
   border-bottom: none !important;
   background-color: #dd8c66;
-  position: relative;
-  z-index: 1;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 /* Leaf underline for Logo (Permanent) */
@@ -71,7 +72,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(-50%);
   width: 230px; /* 2x size */
   height: 72px;
-  background-image: url('white_leaves_decoration.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -180,7 +180,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(-50%);
   width: 160px; /* 2x size */
   height: 60px;
-  background-image: url('white_leaves_decoration.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -284,6 +283,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #shopify-section-header, .shopify-section-group-header-group {
   margin-bottom: 0 !important;
+  position: relative;
+  z-index: 100;
 }
 
 /* Section Header Styles inspired by Seeaash */

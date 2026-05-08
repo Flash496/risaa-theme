@@ -16,7 +16,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('white_leaves_decoration.png');
+    background-image: url('{{ 'white_leaves_decoration.png' | asset_url }}');
     background-position: top left;
     background-repeat: no-repeat;
     background-size: 300px;
@@ -73,30 +73,87 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 1.2rem;
+    margin-top: 2rem;
     flex-wrap: wrap;
   }
 
   .risaa-rts__dispatch-badge {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(251, 191, 36, 0.05) 100%);
-    border: 1px solid rgba(251, 191, 36, 0.3);
-    padding: 0.6rem 1rem;
-    border-radius: 6px;
+    gap: 0.75rem;
+    padding: 0.65rem 1.4rem;
+    border: 1px solid rgba(154, 28, 32, 0.25);
+    border-radius: 2px;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, background 0.3s ease;
   }
 
-  .risaa-rts__truck-icon {
-    font-size: 1.2rem;
+  .risaa-rts__dispatch-badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(154, 28, 32, 0.04) 0%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .risaa-rts__dispatch-badge:hover {
+    border-color: rgba(154, 28, 32, 0.5);
+    background: rgba(154, 28, 32, 0.03);
+  }
+
+  .risaa-rts__badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .risaa-rts__badge-icon svg {
+    width: 16px;
+    height: 16px;
+    stroke: var(--brand-main);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .risaa-rts__badge-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .risaa-rts__badge-label {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brand-main);
+    opacity: 0.6;
+    line-height: 1;
   }
 
   .risaa-rts__dispatch-text {
-    font-size: 0.9rem;
-    color: #fbbf24;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    color: var(--brand-main);
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+  }
+
+  /* Divider between badges */
+  .risaa-rts__dispatch-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(154, 28, 32, 0.2);
+    flex-shrink: 0;
   }
 
   .risaa-rts__view-all {
@@ -131,12 +188,29 @@
       {% endif %}
       <div class="risaa-rts__dispatch-info" data-anim-stagger data-anim-delay="0.3" data-anim-step="0.12">
         <div class="risaa-rts__dispatch-badge">
-          <span class="risaa-rts__truck-icon">🚚</span>
-          <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_days }}</span>
+          <span class="risaa-rts__badge-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/>
+              <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+            </svg>
+          </span>
+          <span class="risaa-rts__badge-content">
+            <span class="risaa-rts__badge-label">Dispatch</span>
+            <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_days }}</span>
+          </span>
         </div>
+        <span class="risaa-rts__dispatch-divider"></span>
         <div class="risaa-rts__dispatch-badge">
-          <span class="risaa-rts__truck-icon">📦</span>
-          <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_note }}</span>
+          <span class="risaa-rts__badge-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </span>
+          <span class="risaa-rts__badge-content">
+            <span class="risaa-rts__badge-label">Shipping</span>
+            <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_note }}</span>
+          </span>
         </div>
       </div>
     </div>
