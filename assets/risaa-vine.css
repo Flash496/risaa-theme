@@ -1,0 +1,92 @@
+/* ============================================================
+   RiSaa Vine Animation — Scroll-driven SVG path drawing
+   ============================================================ */
+
+#risaa-vine-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+#risaa-vine-canvas svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* tall enough to cover the full scrollable page */
+  height: 500vh;
+  overflow: visible;
+}
+
+/* All vine paths start invisible — JS sets dasharray/dashoffset */
+.vine-path {
+  fill: none;
+  stroke: #e0babc;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.vine-path.vine-ready {
+  opacity: 1;
+}
+
+/* Stems — thicker */
+.vine-stem {
+  stroke-width: 2.2;
+}
+
+/* Branches — medium */
+.vine-branch {
+  stroke-width: 1.4;
+}
+
+/* Leaf outlines */
+.vine-leaf {
+  stroke-width: 1;
+  stroke: #e0babc;
+  fill: none;
+}
+
+/* Leaf veins — white, very subtle */
+.vine-vein {
+  stroke-width: 0.5;
+  stroke: rgba(255, 255, 255, 0.55);
+  fill: none;
+}
+
+/* Flower petals */
+.vine-petal {
+  stroke-width: 0.9;
+  stroke: #e0babc;
+  fill: none;
+}
+
+/* Flower center highlight */
+.vine-flower-center {
+  stroke-width: 0.6;
+  stroke: rgba(255, 255, 255, 0.7);
+  fill: none;
+}
+
+/* Tendrils — thin curly bits */
+.vine-tendril {
+  stroke-width: 0.8;
+  stroke: #e0babc;
+  fill: none;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .vine-path {
+    stroke-dashoffset: 0 !important;
+    opacity: 0.12 !important;
+    transition: none !important;
+  }
+}

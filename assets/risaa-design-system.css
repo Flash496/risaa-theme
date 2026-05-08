@@ -51,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
   border-bottom: none !important;
-  background-color: var(--brand-main);
+  background-color: #dd8c66;
   position: relative;
   z-index: 1;
 }
@@ -66,11 +66,11 @@ h1, h2, h3, h4, h5, h6 {
 .header__heading-link::after {
   content: "";
   position: absolute;
-  bottom: -14px; /* Perfectly touches the bottom of the navbar */
+  bottom: -18px; /* Perfectly touches the bottom of the navbar */
   left: 50%;
   transform: translateX(-50%);
-  width: 115px; /* Reduced by another 15% */
-  height: 36px;
+  width: 230px; /* 2x size */
+  height: 72px;
   background-image: url('white_leaves_decoration.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -98,9 +98,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .header__heading-link::after {
-    bottom: -18px; /* Sit just inside the bottom padding */
-    width: 100px; /* Slightly smaller on mobile */
-    height: 32px;
+    bottom: -22px; /* Sit just inside the bottom padding */
+    width: 200px; /* 2x size */
+    height: 64px;
   }
 }
 
@@ -154,30 +154,52 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header__menu-item {
-  font-family: var(--font-body);
-  letter-spacing: 0.1em;
+  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-size: 1.55rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-style: normal;
   transition: var(--transition-quick);
   padding: 0.5rem !important;
-  position: relative; /* For the leaf underline */
+  position: relative;
 }
 
-/* Leaf underline for Menu Tabs (Hover only) */
+/* Leaf underline for Menu Tabs — left-to-right soft wipe on hover */
+@property --leaf-reveal {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
 .header__menu-item::after {
   content: "";
   position: absolute;
-  bottom: -25px;
+  bottom: -29px;
   left: 50%;
   transform: translateX(-50%);
-  width: 80px; /* Size of the leaf under the tab */
-  height: 30px;
+  width: 160px; /* 2x size */
+  height: 60px;
   background-image: url('white_leaves_decoration.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  --leaf-reveal: 0%;
+  /* Soft feathered edge: black → opaque zone, then 30% soft fade to transparent */
+  -webkit-mask-image: linear-gradient(to right,
+    black 0%,
+    black calc(var(--leaf-reveal) - 30%),
+    transparent var(--leaf-reveal)
+  );
+  mask-image: linear-gradient(to right,
+    black 0%,
+    black calc(var(--leaf-reveal) - 30%),
+    transparent var(--leaf-reveal)
+  );
+  transition:
+    opacity 0.6s ease,
+    --leaf-reveal 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   pointer-events: none;
 }
 
@@ -186,7 +208,7 @@ h1, h2, h3, h4, h5, h6 {
 .header__menu-item[aria-current="page"],
 .header__menu-item[aria-current="page"] span,
 .header__active-menu-item {
-  color: var(--brand-text); /* Revert back to white since we have the underline now */
+  color: var(--brand-text);
   text-decoration: none !important;
   text-underline-offset: unset !important;
 }
@@ -194,6 +216,7 @@ h1, h2, h3, h4, h5, h6 {
 .header__menu-item:hover::after,
 .header__menu-item[aria-current="page"]::after {
   opacity: 0.9;
+  --leaf-reveal: 100%;
 }
 
 /* Remove gap between header and first section */
