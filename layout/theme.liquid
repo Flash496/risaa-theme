@@ -265,9 +265,7 @@
     {{ 'risaa-custom.css' | asset_url | stylesheet_tag }}
     {{ 'risaa-design-system.css' | asset_url | stylesheet_tag }}
     {{ 'risaa-scroll-animations.css' | asset_url | stylesheet_tag }}
-    {%- if request.page_type == 'index' -%}
-      {{ 'risaa-vine.css' | asset_url | stylesheet_tag }}
-    {%- endif -%}
+
     <style>
       /* Fix asset URLs for leaf decoration — must use Liquid asset_url filter */
       .header__heading-link::after {
@@ -395,9 +393,7 @@
     {%- endif -%}
 
     <script src="{{ 'risaa-scroll-animations.js' | asset_url }}" defer="defer"></script>
-    {%- if request.page_type == 'index' -%}
-      <script src="{{ 'risaa-vine.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
+
 
     <script>
       // Reveal on Scroll logic
