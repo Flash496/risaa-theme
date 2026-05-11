@@ -12,54 +12,54 @@
   }
 
   .risaa-accordion-container {
-    display: flex;
+    position: relative;
     width: 100%;
     height: {{ section.settings.height_desktop }}px;
     overflow: hidden;
-    gap: 6px;
     padding: 0 15px;
   }
 
   .risaa-accordion-item {
-    flex: 1 1 0;
+    position: absolute;
+    top: 0;
+    height: 100%;
     overflow: hidden;
-    position: relative;
     cursor: pointer;
     border-radius: 10px;
-    /* Only transition flex-grow — no width, no all */
+    transform-origin: left center;
+    /* Only GPU-composited properties */
     transition:
-      flex-grow 0.75s cubic-bezier(0.77, 0, 0.175, 1);
-    will-change: flex-grow;
+      transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+    will-change: transform;
   }
 
   .risaa-accordion-item img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Counter-scale the image so it doesn't stretch with the card */
+    transform-origin: left center;
+    transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
     will-change: transform;
     display: block;
-  }
-
-  .risaa-accordion-item.is-active img {
-    transform: scale(1.04);
   }
 
   .risaa-accordion-info {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     padding: 3rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    background: linear-gradient(transparent, rgba(0,0,0,0.78));
     color: white;
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(12px);
     transition:
-      opacity 0.4s ease 0.25s,
-      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
-    white-space: nowrap;
+      opacity 0.45s ease 0.3s,
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
   }
 
   .risaa-accordion-item.is-active .risaa-accordion-info {
@@ -81,14 +81,22 @@
 
   @media screen and (max-width: 749px) {
     .risaa-accordion-container {
+      position: static;
+      display: flex;
       flex-direction: column;
       height: auto;
       gap: 10px;
+      padding: 0 15px;
     }
     .risaa-accordion-item {
-      flex: none !important;
+      position: static;
       height: 250px;
+      width: 100% !important;
+      transform: none !important;
       transition: none;
+    }
+    .risaa-accordion-item img {
+      transform: none !important;
     }
     .risaa-accordion-info {
       opacity: 1;
@@ -152,31 +160,77 @@
     function initAccordion(container) {
       if (!container) return;
       var items = Array.from(container.querySelectorAll('.risaa-accordion-item'));
-      if (!items.length) return;
+      var n = items.length;
+      if (!n) return;
 
-      var ACTIVE_GROW = 4;
-      var DEFAULT_GROW = 1;
+      var GAP = 6;
+      var activeIdx = -1;
 
-      function setGrow(activeIndex) {
+      function layout(animate) {
+        var totalW = container.offsetWidth - 30;
+        var unitW, expandedW;
+
+        if (activeIdx === -1) {
+          unitW = (totalW - GAP * (n - 1)) / n;
+          expandedW = unitW;
+        } else {
+          var totalGap = GAP * (n - 1);
+          var units = (n - 1) * 0.6 + 4;
+          unitW = (totalW - totalGap) / units;
+          expandedW = unitW * 4;
+        }
+
+        if (!animate) {
+          items.forEach(function (item) {
+            item.style.transition = 'none';
+          });
+        }
+
+        var x = 0;
         items.forEach(function (item, i) {
-          var grow = activeIndex === null ? DEFAULT_GROW : i === activeIndex ? ACTIVE_GROW : DEFAULT_GROW * 0.55;
-          item.style.flexGrow = grow;
-          if (activeIndex === null) {
-            item.classList.remove('is-active');
-          } else {
-            item.classList.toggle('is-active', i === activeIndex);
-          }
+          var w = activeIdx !== -1 && i === activeIdx ? expandedW : unitW;
+          item.style.width = w + 'px';
+          item.style.transform = 'translateX(' + x + 'px)';
+          x += w + GAP;
+          item.classList.toggle('is-active', i === activeIdx);
         });
+
+        if (!animate) {
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              items.forEach(function (item) {
+                item.style.transition = '';
+              });
+            });
+          });
+        }
       }
+
+      // Position items from left edge of container
+      items.forEach(function (item) {
+        item.style.left = '15px';
+      });
+
+      layout(false);
 
       items.forEach(function (item, i) {
         item.addEventListener('mouseenter', function () {
-          setGrow(i);
+          activeIdx = i;
+          layout(true);
         });
       });
 
       container.addEventListener('mouseleave', function () {
-        setGrow(null);
+        activeIdx = -1;
+        layout(true);
+      });
+
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+          layout(false);
+        }, 100);
       });
     }
 
