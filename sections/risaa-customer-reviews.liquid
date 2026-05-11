@@ -323,6 +323,10 @@
       <div class="risaa-reviews__track" id="risaa-rev-track-{{ section.id }}">
         {% for block in section.blocks %}
           {%- assign star_count = block.settings.rating | plus: 0 -%}
+          {%- assign _rev_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Screenshot%202026-05-11%20122743.png,https://ik.imagekit.io/flashspdstr/risaa/Elevate%20your%20ethnic%20wardrobe%20with%20this%20gorgeous_.jpg,https://ik.imagekit.io/flashspdstr/risaa/Stunning%20royal%20red%20bridal%20lehenga%20with%20heavy_.jpg,https://ik.imagekit.io/flashspdstr/risaa/festive%20glamour%20in%20this%20stunner%20_.jpg'
+            | split: ','
+          -%}
+          {%- assign _rev_img = _rev_imgs[forloop.index0] | default: _rev_imgs[0] -%}
           <div class="risaa-reviews__card" {{ block.shopify_attributes }}>
             {% if block.settings.photo != blank %}
               {{
@@ -331,7 +335,12 @@
                 | image_tag: class: 'risaa-reviews__card-photo', loading: 'lazy', alt: block.settings.reviewer_name
               }}
             {% else %}
-              <div class="risaa-reviews__card-photo-placeholder">📸</div>
+              <img
+                src="{{ _rev_img }}"
+                alt="{{ block.settings.reviewer_name }}"
+                class="risaa-reviews__card-photo"
+                loading="lazy"
+              >
             {% endif %}
 
             <div class="risaa-reviews__card-body">
