@@ -2,7 +2,7 @@
   .risaa-hero-carousel {
     position: relative;
     width: 100%;
-    height: calc(80vh + 20px);
+    height: calc(80vh + 45px);
     overflow: hidden;
   }
 
@@ -132,16 +132,197 @@
     right: 30px;
   }
 
+  /* ── Per-slide text styles ── */
+
+  /* Slide 1 — Bridal Couture: dramatic italic serif, bottom-left */
+  .risaa-carousel-slide:nth-child(1) .risaa-carousel-overlay {
+    align-items: flex-start;
+    justify-content: flex-end;
+    text-align: left;
+    padding: 0 0 6rem 6rem;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.1) 60%, transparent 100%);
+  }
+  .risaa-carousel-slide:nth-child(1) .risaa-carousel-overlay h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 6.5rem;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+    text-transform: none;
+    max-width: 700px;
+  }
+  .risaa-carousel-slide:nth-child(1) .risaa-carousel-overlay p {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    max-width: 500px;
+  }
+
+  /* Slide 2 — Accessible Luxury: wide-tracked editorial, centered */
+  .risaa-carousel-slide:nth-child(2) .risaa-carousel-overlay {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.15) 100%);
+  }
+  .risaa-carousel-slide:nth-child(2) .risaa-carousel-overlay h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    font-size: 5.5rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .risaa-carousel-slide:nth-child(2) .risaa-carousel-overlay p {
+    font-family: 'Assistant', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  /* Slide 3 — Trousseau Dreams: right-side composition, script + details grouped */
+  .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay {
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+    text-align: right;
+    padding: 0 5rem 0 0;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 50%, transparent 80%);
+    gap: 1.2rem;
+  }
+  .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 9rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    font-weight: 400;
+    line-height: 1;
+    max-width: 600px;
+    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+  }
+  .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay p {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 1.7rem;
+    letter-spacing: 0.1em;
+    max-width: 420px;
+    border-right: 2px solid rgba(255, 255, 255, 0.45);
+    padding-right: 1.2rem;
+    color: rgba(255, 255, 255, 0.88);
+  }
+  .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay .btn-premium {
+    align-self: flex-end;
+  }
+
+  /* Slide 4 — Pret Collection: left-anchored with vertical accent + clean stacked layout */
+  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay {
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    text-align: left;
+    padding: 0 0 0 5rem;
+    background: linear-gradient(100deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 75%);
+    gap: 2.5rem;
+  }
+  /* Vertical accent bar */
+  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay::before {
+    content: '';
+    display: block;
+    width: 2px;
+    height: 180px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.7), transparent);
+    flex-shrink: 0;
+    align-self: center;
+  }
+  /* Text block sits to the right of the bar */
+  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay > * {
+    flex-shrink: 0;
+  }
+  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    font-size: 7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.93);
+    align-self: center;
+  }
+  /* Subtitle + button stacked vertically, centered on the bar */
+  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 1.05rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    align-self: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    padding-bottom: 1rem;
+  }
+  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay .btn-premium {
+    align-self: center;
+    letter-spacing: 0.2em;
+    font-size: 1rem;
+    margin-left: -1rem;
+  }
+
+  /* Slide 5 — New Arrivals: outline text center with subtitle as flanked eyebrow above */
+  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay {
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.4) 100%);
+    gap: 0;
+  }
+  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay p {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1rem;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    margin-bottom: 1.2rem;
+    order: -1;
+  }
+  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay p::before,
+  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay p::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.45);
+    flex-shrink: 0;
+  }
+  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay h2 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-weight: 400;
+    font-size: 6.5rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    line-height: 1;
+    -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
+    color: transparent;
+    text-shadow: 0 0 80px rgba(255, 255, 255, 0.12);
+  }
+  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay .btn-premium {
+    margin-top: 2.5rem;
+    letter-spacing: 0.3em;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1rem;
+  }
+
   @media screen and (max-width: 749px) {
     .risaa-hero-carousel {
       height: 60vh;
-    }
-    .risaa-carousel-overlay h2 {
-      font-size: 3rem;
-    }
-    .risaa-carousel-overlay p {
-      font-size: 1.4rem;
-      padding: 0 20px;
     }
     .risaa-arrow-left {
       left: 10px;

@@ -4,14 +4,21 @@
 */
 
 :root {
-  --color-risaa-red: #9A1C20;
-  --color-risaa-cream: #FEFDFF;
-  --color-risaa-tan: #B6827E;
-  --color-risaa-pale: #F1DCD2;
+  --color-risaa-red: #9a1c20;
+  --color-risaa-cream: #fefdff;
+  --color-risaa-tan: #b6827e;
+  --color-risaa-pale: #f1dcd2;
 }
 
 /* Typography Refinements */
-h1, h2, h3, h4, .h0, .h1, .h2, .h3 {
+h1,
+h2,
+h3,
+h4,
+.h0,
+.h1,
+.h2,
+.h3 {
   letter-spacing: 0.1rem;
   text-transform: capitalize;
   font-weight: 400; /* Editorial headings often look better less bold */
@@ -22,7 +29,8 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3 {
 }
 
 /* Button Refinements */
-.button, .shopify-payment-button__button {
+.button,
+.shopify-payment-button__button {
   border-radius: 0;
   letter-spacing: 0.15rem;
   text-transform: uppercase;
@@ -70,6 +78,9 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3 {
 /* Logo Refinement */
 .header__heading-logo {
   transition: transform 0.3s ease;
+  max-width: 96px !important;
+  height: auto !important;
+  width: 96px !important;
 }
 
 .header__heading-logo:hover {
@@ -78,7 +89,7 @@ h1, h2, h3, h4, .h0, .h1, .h2, .h3 {
 
 /* Product Page Customizations */
 .risaa-whatsapp-btn {
-  background-color: #25D366 !important; /* Standard WA color for recognition */
+  background-color: #25d366 !important; /* Standard WA color for recognition */
   color: white !important;
   border: none !important;
   font-weight: 600;
