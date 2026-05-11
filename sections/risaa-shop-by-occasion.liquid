@@ -144,7 +144,16 @@
                 | image_tag: class: 'risaa-occasions__img', loading: 'lazy', alt: block.settings.occasion_name
               }}
             {% else %}
-              {{ 'lifestyle-1' | placeholder_svg_tag: 'risaa-occasions__img' }}
+              {%- assign _occ_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/sangeet.jpg,https://ik.imagekit.io/flashspdstr/risaa/mehendi.png,https://ik.imagekit.io/flashspdstr/risaa/reception.jpg'
+                | split: ','
+              -%}
+              {%- assign _occ_img = _occ_imgs[forloop.index0] | default: _occ_imgs[0] -%}
+              <img
+                src="{{ _occ_img }}"
+                alt="{{ block.settings.occasion_name }}"
+                class="risaa-occasions__img"
+                loading="lazy"
+              >
             {% endif %}
             {% if block.settings.badge_text != blank %}
               <span class="risaa-occasions__tile-badge">{{ block.settings.badge_text }}</span>

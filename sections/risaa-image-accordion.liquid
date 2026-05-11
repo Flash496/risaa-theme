@@ -16,32 +16,34 @@
     width: 100%;
     height: {{ section.settings.height_desktop }}px;
     overflow: hidden;
-    gap: 15px;
+    gap: 6px;
     padding: 0 15px;
   }
 
   .risaa-accordion-item {
-    flex: 1;
+    flex: 1 1 0;
     overflow: hidden;
     position: relative;
-    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     cursor: pointer;
     border-radius: 10px;
-  }
-
-  .risaa-accordion-item:hover {
-    flex: 4;
+    /* Only transition flex-grow — no width, no all */
+    transition:
+      flex-grow 0.75s cubic-bezier(0.77, 0, 0.175, 1);
+    will-change: flex-grow;
   }
 
   .risaa-accordion-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 1s ease;
+    object-position: center top;
+    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    display: block;
   }
 
-  .risaa-accordion-item:hover img {
-    transform: scale(1.05);
+  .risaa-accordion-item.is-active img {
+    transform: scale(1.04);
   }
 
   .risaa-accordion-info {
@@ -50,14 +52,17 @@
     left: 0;
     width: 100%;
     padding: 3rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
     color: white;
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease 0.2s;
+    transform: translateY(16px);
+    transition:
+      opacity 0.4s ease 0.25s,
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+    white-space: nowrap;
   }
 
-  .risaa-accordion-item:hover .risaa-accordion-info {
+  .risaa-accordion-item.is-active .risaa-accordion-info {
     opacity: 1;
     transform: translateY(0);
   }
@@ -81,11 +86,9 @@
       gap: 10px;
     }
     .risaa-accordion-item {
+      flex: none !important;
       height: 250px;
-      flex: none;
-    }
-    .risaa-accordion-item:hover {
-      flex: none;
+      transition: none;
     }
     .risaa-accordion-info {
       opacity: 1;
@@ -103,13 +106,28 @@
     {% endif %}
   </div>
 
-  <div class="risaa-accordion-container" data-anim-stagger data-anim-delay="0.1" data-anim-step="0.1">
+  <div
+    class="risaa-accordion-container"
+    data-anim-stagger
+    data-anim-delay="0.1"
+    data-anim-step="0.1"
+    id="risaa-accordion-{{ section.id }}"
+  >
     {% for block in section.blocks %}
       <div class="risaa-accordion-item" {{ block.shopify_attributes }}>
         {% if block.settings.image != blank %}
           {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
         {% else %}
-          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- assign _acc_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png'
+            | split: ','
+          -%}
+          {%- assign _acc_img = _acc_imgs[forloop.index0] | default: _acc_imgs[0] -%}
+          <img
+            src="{{ _acc_img }}"
+            alt="{{ block.settings.heading }}"
+            loading="lazy"
+            style="width:100%;height:100%;object-fit:cover;"
+          >
         {% endif %}
 
         <div class="risaa-accordion-info">
@@ -128,6 +146,58 @@
     {% endfor %}
   </div>
 </div>
+
+<script>
+  (function () {
+    function initAccordion(container) {
+      if (!container) return;
+      var items = Array.from(container.querySelectorAll('.risaa-accordion-item'));
+      if (!items.length) return;
+
+      var ACTIVE_GROW = 4;
+      var DEFAULT_GROW = 1;
+
+      function setGrow(activeIndex) {
+        items.forEach(function (item, i) {
+          var grow = activeIndex === null ? DEFAULT_GROW : i === activeIndex ? ACTIVE_GROW : DEFAULT_GROW * 0.55;
+          item.style.flexGrow = grow;
+          if (activeIndex === null) {
+            item.classList.remove('is-active');
+          } else {
+            item.classList.toggle('is-active', i === activeIndex);
+          }
+        });
+      }
+
+      items.forEach(function (item, i) {
+        item.addEventListener('mouseenter', function () {
+          setGrow(i);
+        });
+      });
+
+      container.addEventListener('mouseleave', function () {
+        setGrow(null);
+      });
+    }
+
+    function boot() {
+      document.querySelectorAll('[id^="risaa-accordion-"]').forEach(initAccordion);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', boot);
+    } else {
+      boot();
+    }
+
+    if (window.Shopify && Shopify.designMode) {
+      document.addEventListener('shopify:section:load', function (e) {
+        var c = e.target.querySelector('[id^="risaa-accordion-"]');
+        if (c) initAccordion(c);
+      });
+    }
+  })();
+</script>
 
 {% schema %}
 {

@@ -2,7 +2,7 @@
   .risaa-hero-carousel {
     position: relative;
     width: 100%;
-    height: 80vh;
+    height: calc(80vh + 20px);
     overflow: hidden;
   }
 
@@ -162,8 +162,19 @@
             | image_url: width: 2000
             | image_tag: class: 'risaa-carousel-image', loading: 'lazy'
           }}
+        {% elsif block.settings.image_url != blank %}
+          <img
+            src="{{ block.settings.image_url }}"
+            alt="{{ block.settings.title }}"
+            class="risaa-carousel-image"
+            loading="lazy"
+          >
         {% else %}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'risaa-carousel-image' }}
+          {%- assign slide_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/beautiful-turkish-girl-long-red-dress-walks-summer-old-city%20(1).jpg,https://ik.imagekit.io/flashspdstr/risaa/alok-verma-jQ3UdoWiFis-unsplash.jpg,https://ik.imagekit.io/flashspdstr/risaa/naganath-chiluveru-Uzl-KYPAH44-unsplash.jpg,https://ik.imagekit.io/flashspdstr/risaa/akhil-pawar-Ys52rPvPbpU-unsplash.jpg,https://ik.imagekit.io/flashspdstr/risaa/beautiful-turkish-girl-long-red-dress-walks-summer-old-city.jpg'
+            | split: ','
+          -%}
+          {%- assign slide_img = slide_imgs[forloop.index0] | default: slide_imgs[0] -%}
+          <img src="{{ slide_img }}" alt="{{ block.settings.title }}" class="risaa-carousel-image" loading="lazy">
         {% endif %}
 
         <div class="risaa-carousel-overlay">
@@ -255,6 +266,12 @@
       "type": "slide",
       "name": "Slide",
       "settings": [
+        {
+          "type": "text",
+          "id": "image_url",
+          "label": "Image URL",
+          "info": "Enter external image URL (overrides image picker)"
+        },
         {
           "type": "image_picker",
           "id": "image",
