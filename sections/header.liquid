@@ -78,7 +78,9 @@
   }
 
   .section-header {
-    position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
   }
 
@@ -93,6 +95,52 @@
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
+  }
+
+  /* Glassmorphism Implementation */
+  .header-wrapper {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+  }
+
+  /* Force dark text and icons for visibility */
+  .header__menu-item, 
+  .header__icon, 
+  .header__heading-link,
+  .header__menu-item span,
+  .header__icon span,
+  .header__icon svg {
+    color: #1a1a1a !important;
+    fill: #1a1a1a !important;
+  }
+
+  .header-wrapper.gradient {
+    background-image: none !important;
+  }
+
+  /* Ensure visibility when scrolled */
+  .shopify-section-header-sticky .header-wrapper {
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  }
+
+  .header__menu-item:hover, .header__icon:hover {
+    opacity: 0.6;
+    color: #f8b799 !important;
+  }
+
+  /* Fix for White Logo on Light Background */
+  .header__heading-logo {
+    filter: brightness(0);
+    transition: filter 0.3s ease;
+  }
+
+  .header__heading-logo:hover {
+    filter: brightness(0) opacity(0.7);
   }
 {%- endstyle -%}
 
