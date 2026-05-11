@@ -1,4 +1,9 @@
 {%- style -%}
+  #shopify-section-{{ section.id }} {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
   .risaa-parallax-section {
     position: relative;
     z-index: 1;
@@ -19,27 +24,27 @@
   .risaa-parallax-images {
     flex: 1;
     position: relative;
-    height: 600px;
+    height: 650px;
   }
 
   .risaa-img-parallax {
     position: absolute;
-    border-radius: 150px 150px 0 0;
+    border-radius: 180px 180px 0 0;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   }
 
   .risaa-img-1 {
-    width: 300px;
-    height: 450px;
+    width: 350px;
+    height: 550px;
     top: 0;
     left: 0;
     z-index: 2;
   }
 
   .risaa-img-2 {
-    width: 250px;
-    height: 350px;
+    width: 300px;
+    height: 450px;
     bottom: 50px;
     right: 0;
     z-index: 1;
@@ -122,10 +127,46 @@
     </div>
 
     <div class="risaa-parallax-text reveal-on-scroll" data-anim="fade-up" data-anim-delay="0.2">
-      <h2>{{ section.settings.heading }}</h2>
-      <div class="rte">
-        {{ section.settings.text }}
+      <span class="active-product-tag" style="color: var(--brand-main); margin-bottom: 10px; display: block;">Since 2021</span>
+      <h2 style="font-family: 'Cinzel', serif; font-size: 3rem; line-height: 1.1; margin-bottom: 30px;">{{ section.settings.heading }}</h2>
+      
+      <div class="story-content-wrap" style="margin-bottom: 40px;">
+        <div class="rte" style="font-family: 'Montserrat', sans-serif; font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 20px;">
+          <p><strong>Risaa - Design Studio by Rima</strong> was born from a vision to bridge the gap between high-end couture and accessible elegance. What started as a passion for exquisite detailing has evolved into a full-fledged studio in the heart of Ludhiana, dedicated to celebrating the individuality of the modern woman through timeless silhouettes and contemporary fusion.</p>
+          
+          <p>Each piece in our collection is a labor of love, artfully custom-crafted by our master artisans. We believe in the philosophy of <strong>slow fashion</strong>—a commitment to quality where time-honored techniques like intricate Zardosi are given the space to shine. Experience the Risaa journey — where every stitch tells a story of passion, tradition, and accessible luxury.</p>
+        </div>
+
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'story_text' %}
+              <div class="rte" style="font-family: 'Montserrat', sans-serif; font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 20px;" {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </div>
+            {% when 'brand_quote' %}
+              <blockquote style="border-left: 3px solid var(--brand-main); padding-left: 20px; margin: 30px 0; font-family: 'Cinzel', serif; font-style: italic; font-size: 1.2rem; color: #1a1a1a;" {{ block.shopify_attributes }}>
+                "{{ block.settings.quote }}"
+                {% if block.settings.author != blank %}
+                  <cite style="display: block; font-size: 0.9rem; margin-top: 10px; font-style: normal; font-family: 'Montserrat', sans-serif;">— {{ block.settings.author }}</cite>
+                {% endif %}
+              </blockquote>
+          {% endcase %}
+        {% endfor %}
       </div>
+
+      {% if section.blocks.size > 0 %}
+        <div class="story-highlights" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+          {% for block in section.blocks %}
+            {% if block.type == 'highlight' %}
+              <div class="highlight-item" {{ block.shopify_attributes }}>
+                <h4 style="font-family: 'Cinzel', serif; font-size: 1.1rem; margin-bottom: 8px; color: #1a1a1a;">{{ block.settings.title }}</h4>
+                <p style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: #777; margin: 0;">{{ block.settings.text }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
       {% if section.settings.button_label != blank %}
         <a href="{{ section.settings.button_link }}" class="btn-premium">{{ section.settings.button_label }}</a>
       {% endif %}
@@ -141,13 +182,13 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Our Story"
+      "default": "The RiSaa Journey"
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Text",
-      "default": "<p>RiSaa is a design studio located in Ludhiana, Punjab. We ship orders worldwide. Here at RiSaa, we are not just about clothes, we're about crafting experiences and catering to your individual preferences!</p>"
+      "default": "<p>Risaa - Design Studio by Rima was born from a singular vision: to bridge the gap between high-end couture and accessible elegance. What started as a passion for exquisite detailing has evolved into a full-fledged studio in the heart of Ludhiana, dedicated to celebrating the individuality of the modern woman through timeless silhouettes and contemporary fusion.</p><p>Each piece in our collection is more than just a garment; it is a labor of love, artfully custom-crafted by our master artisans. We believe in the philosophy of slow fashion—a commitment to quality over quantity, where time-honored techniques like intricate Zardosi and delicate hand-embroidery are given the time they deserve to truly shine. Our atelier is a space where tradition meets innovation, resulting in designs that are as unique as the women who wear them.</p><p>From ethereal bridal dreams that anchor your most precious moments to effortless prêt that brings elegance to your everyday, we are dedicated to creating outfits that resonate with your spirit. We ship our curated collections worldwide, bringing the warmth and artisanal excellence of Punjab to doorsteps across the globe. Experience the Risaa journey — where every stitch tells a story of passion, tradition, and the pursuit of accessible luxury.</p>"
     },
     {
       "type": "image_picker",
@@ -163,7 +204,7 @@
       "type": "text",
       "id": "button_label",
       "label": "Button Label",
-      "default": "Read More"
+      "default": "Our Philosophy"
     },
     {
       "type": "url",
@@ -171,9 +212,40 @@
       "label": "Button Link"
     }
   ],
+  "blocks": [
+    {
+      "type": "story_text",
+      "name": "Additional Text",
+      "settings": [
+        { "type": "richtext", "id": "text", "label": "Paragraph", "default": "<p>Add more details about your process, team, or history here.</p>" }
+      ]
+    },
+    {
+      "type": "brand_quote",
+      "name": "Brand Quote",
+      "settings": [
+        { "type": "text", "id": "quote", "label": "Quote", "default": "Accessible luxury is not just a price point, it's a promise of quality and individuality." },
+        { "type": "text", "id": "author", "label": "Author", "default": "Rima" }
+      ]
+    },
+    {
+      "type": "highlight",
+      "name": "Story Highlight",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Highlight Title", "default": "Custom Crafted" },
+        { "type": "text", "id": "text", "label": "Description", "default": "Every garment is tailored to your unique measurements and style preferences." }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Parallax Story"
+      "name": "Parallax Story",
+      "blocks": [
+        { "type": "highlight", "settings": { "title": "Accessible Luxury", "text": "High-end couture quality delivered at accessible price points." } },
+        { "type": "highlight", "settings": { "title": "Slow Fashion", "text": "Mindful production that prioritizes quality and longevity over trends." } },
+        { "type": "highlight", "settings": { "title": "Worldwide Shipping", "text": "Connecting the elegance of Ludhiana to doorsteps across the globe." } },
+        { "type": "highlight", "settings": { "title": "Artisanal Details", "text": "Hand-finished embroidery and intricate detailing in every stitch." } }
+      ]
     }
   ]
 }
