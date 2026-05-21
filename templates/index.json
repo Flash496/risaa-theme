@@ -64,7 +64,7 @@
     "bestsellers": {
       "type": "featured-collection",
       "settings": {
-        "title": "Bestsellers",
+        "title": "Designer's Choice",
         "heading_size": "h2",
         "collection": "all",
         "products_to_show": 8,
@@ -113,7 +113,7 @@
       },
       "block_order": ["panel_1", "panel_2", "panel_3", "panel_4"],
       "settings": {
-        "title": "Our Signature Collections",
+        "title": "The Collections",
         "subtitle": "Individuality in every stitch",
         "height_desktop": 600,
         "padding_top": 32,
@@ -131,7 +131,7 @@
       "block_order": ["occ_1", "occ_2", "occ_3", "occ_4"],
       "settings": {
         "eyebrow": "Dressed for Every Moment",
-        "title": "Shop by Occasion",
+        "title": "Occasions",
         "subtitle": "Your perfect outfit for every celebration"
       }
     },
@@ -144,7 +144,7 @@
       },
       "block_order": ["color_1", "color_2", "color_3"],
       "settings": {
-        "title": "Shop by Colour",
+        "title": "Palettes",
         "subtitle": "Discover shades that resonate with your spirit"
       }
     },
@@ -194,7 +194,7 @@
       },
       "block_order": ["rev_1", "rev_2", "rev_3", "rev_4"],
       "settings": {
-        "title": "Love from Our Brides",
+        "title": "Brides of RiSaa",
         "subtitle": "Real stories from real women",
         "aggregate_score": "4.9",
         "review_count": "200+ Happy Clients"
@@ -210,14 +210,14 @@
       },
       "block_order": ["v1", "v2", "v3", "v4"],
       "settings": {
-        "title": "Watch & Shop",
+        "title": "In Motion",
         "subtitle": "Experience the craftsmanship in motion"
       }
     },
     "risaa_parallax_story": {
       "type": "risaa-parallax-story",
       "settings": {
-        "heading": "The RiSaa Story",
+        "heading": "Our Story",
         "text": "<p>Risaa - Design Studio by Rima. We believe in creating outfits that speak volumes about your unique style and fit your budget as well! Accessible Luxury | Slow Fashion.<\/p>",
         "button_label": "Read Our Journey"
       }

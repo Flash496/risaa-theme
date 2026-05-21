@@ -8,8 +8,12 @@
   --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-quick: all 0.3s ease;
 
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Assistant', sans-serif;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Montserrat', sans-serif;
+
+  /* Universal overrides for Shopify native settings */
+  --font-heading-family: 'Cormorant Garamond', Georgia, serif !important;
+  --font-body-family: 'Montserrat', sans-serif !important;
 }
 
 /* Global Styles for Premium Feel */
@@ -21,10 +25,11 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--brand-main);
+  font-family: var(--font-heading) !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: var(--brand-main) !important;
+  font-weight: 400 !important;
 }
 
 .btn-premium {
@@ -34,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--brand-text);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-size: 0.9rem;
+  font-size: 1.4rem;
   transition: var(--transition-quick);
   border: 1px solid var(--brand-main);
   cursor: pointer;
@@ -50,11 +55,12 @@ h1, h2, h3, h4, h5, h6 {
 .header-wrapper {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
-  border-bottom: none !important;
-  background-color: #dd8c66;
+  border-bottom: 1px solid rgba(154, 28, 32, 0.08) !important;
+  background-color: var(--brand-text) !important;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02) !important;
 }
 
 /* Logo styling */
@@ -131,15 +137,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header__menu-item {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-family: var(--font-heading) !important;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   font-weight: 500;
   font-style: normal;
   transition: var(--transition-quick);
   padding: 0.5rem !important;
   position: relative;
+  color: var(--brand-dark) !important;
 }
 
 /* Standard underline for Menu Tabs on hover */
@@ -150,7 +157,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 100%;
   height: 2px;
-  background-color: var(--brand-text);
+  background-color: var(--brand-main) !important;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -162,7 +169,7 @@ h1, h2, h3, h4, h5, h6 {
 .header__menu-item[aria-current="page"],
 .header__menu-item[aria-current="page"] span,
 .header__active-menu-item {
-  color: var(--brand-text);
+  color: var(--brand-main) !important;
   text-decoration: none !important;
   text-underline-offset: unset !important;
 }
@@ -385,7 +392,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Card heading and price refinements */
 .card__heading a {
   font-family: var(--font-heading) !important;
-  font-size: 1.35rem !important;
+  font-size: 1.8rem !important;
   letter-spacing: 0.06em !important;
   text-transform: uppercase !important;
   color: var(--brand-dark) !important;
@@ -410,7 +417,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
   border-radius: 0 !important;
-  font-size: 1.1rem !important;
+  font-size: 1.6rem !important;
   padding: 14px 40px !important;
   background: transparent !important;
   color: var(--brand-main) !important;
@@ -446,7 +453,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .risaa-divider__icon {
   color: var(--brand-undertone-1);
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   opacity: 0.6;
 }
 
@@ -466,4 +473,94 @@ h1, h2, h3, h4, h5, h6 {
   .collection .title.h1 {
     font-size: 2.2rem !important;
   }
+}
+
+/* =============================================
+   ELEGANT DECORATIVE CURSIVE SCRIPTS & SUBTITLES
+   ============================================= */
+
+.creative-script,
+.font-creative,
+.risaa-new-in__subtitle,
+.risaa-rts__subtitle,
+.risaa-occasions__subtitle,
+.section-header p,
+.risaa-occasions__tile-sub,
+.risaa-color-item span {
+  font-family: 'Great Vibes', cursive !important;
+  font-size: 2.2rem !important;
+  color: var(--brand-undertone-1) !important;
+  text-transform: none !important;
+  letter-spacing: 0.04em !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  margin-top: 8px !important;
+  display: block;
+}
+
+/* Specific adjustments for smaller texts */
+.risaa-occasions__tile-sub,
+.risaa-color-item span {
+  font-size: 1.8rem !important;
+  opacity: 0.9;
+}
+
+/* Eyebrow texts: elegant spaced sans-serif */
+.risaa-new-in__eyebrow-text,
+.risaa-rts__eyebrow-text,
+.risaa-occasions__eyebrow,
+.risaa-shop-by-occasion .eyebrow,
+.section-header span {
+  font-family: var(--font-body) !important;
+  font-size: 1.2rem !important;
+  letter-spacing: 0.25em !important;
+  text-transform: uppercase !important;
+  color: var(--brand-main) !important;
+  font-weight: 500 !important;
+}
+
+/* =============================================
+   SHARP FLAT-EDGED MINIMAL EDITORIAL CARDS & GRIDS
+   ============================================= */
+
+/* Remove rounded corners and shadows site-wide for Dawn card systems */
+.card,
+.card-wrapper,
+.card__inner,
+.card__media,
+.card__media img,
+.thumbnail,
+.risaa-collage__main,
+.risaa-collage__sub,
+.risaa-collage,
+.product-gridContainsCard,
+.risaa-rts__dispatch-badge,
+.risaa-occasions__tile-badge {
+  border-radius: 0px !important;
+  box-shadow: none !important;
+}
+
+/* Enforce thin premium border on product inner cards */
+.card__inner {
+  border: 1px solid rgba(154, 28, 32, 0.05) !important;
+}
+
+/* Premium card hover state */
+.card-wrapper:hover .card__inner {
+  border-color: rgba(154, 28, 32, 0.2) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Enforce absolute zero border radius on buttons */
+.button,
+.btn-premium,
+.collection__view-all .button,
+.collection__view-all .button--secondary,
+.shopify-payment-button__button {
+  border-radius: 0px !important;
+  letter-spacing: 0.18em !important;
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
 }
