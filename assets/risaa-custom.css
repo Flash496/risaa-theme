@@ -65,14 +65,14 @@ h4,
 
 /* Editorial Spacing */
 .section {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 @media screen and (max-width: 749px) {
   .section {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 }
 

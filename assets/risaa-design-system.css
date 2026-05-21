@@ -459,14 +459,14 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Homepage section rhythm — consistent spacing */
 .shopify-section .section {
-  padding-top: 80px !important;
-  padding-bottom: 80px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
 
 @media screen and (max-width: 749px) {
   .shopify-section .section {
-    padding-top: 50px !important;
-    padding-bottom: 50px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
   }
 
   .collection .title.h2,
