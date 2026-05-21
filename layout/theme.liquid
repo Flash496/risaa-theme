@@ -266,15 +266,6 @@
     {{ 'risaa-design-system.css' | asset_url | stylesheet_tag }}
     {{ 'risaa-scroll-animations.css' | asset_url | stylesheet_tag }}
 
-    <style>
-      /* Fix asset URLs for leaf decoration — must use Liquid asset_url filter */
-      .header__heading-link::after {
-        background-image: url('{{ 'white_leaves_decoration.png' | asset_url }}');
-      }
-      .header__menu-item::after {
-        background-image: url('{{ 'white_leaves_decoration.png' | asset_url }}');
-      }
-    </style>
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}

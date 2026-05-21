@@ -55,16 +55,6 @@
     display: block;
   }
 
-  .risaa-footer__leaves {
-    position: absolute;
-    left: 0;
-    /* sits at the very bottom of the logo, overlapping upward by ~10px */
-    bottom: -55px;
-    width: 160px;
-    height: auto;
-    opacity: 0.75;
-  }
-
   .risaa-footer__logo-text {
     font-family: var(--font-heading-family);
     font-size: 2rem;
@@ -405,12 +395,6 @@
               >
             {%- endif -%}
           </a>
-          <img
-            src="{{ 'white_leaves_decoration.png' | asset_url }}"
-            alt=""
-            aria-hidden="true"
-            class="risaa-footer__leaves"
-          >
         </div>
 
         {%- if section.settings.brand_description != blank -%}

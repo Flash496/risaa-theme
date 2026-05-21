@@ -14,12 +14,8 @@
     pointer-events: none;
     z-index: 1;
     background-size: contain;
-    background-repeat: no-repeat;
   }
-  .decor-top-left { top: -20px; left: -20px; transform: rotate(15deg); background-image: url('{{ "white_leaves_decoration.png" | asset_url }}'); }
-  .decor-bottom-right { bottom: -20px; right: -20px; transform: rotate(195deg); background-image: url('{{ "white_leaves_decoration.png" | asset_url }}'); }
 
-  .risaa-reels-layout {
     display: flex;
     max-width: 1100px;
     margin: 40px auto;
@@ -298,8 +294,6 @@
 {%- endstyle -%}
 
 <div class="risaa-watch-and-shop section-{{ section.id }}-padding reveal-on-scroll">
-  <div class="risaa-reels-decor decor-top-left"></div>
-  <div class="risaa-reels-decor decor-bottom-right"></div>
 
   <div class="section-header" data-anim="fade-up" style="text-align: center; margin-bottom: 40px;">
     <h2 class="h1">{{ section.settings.title }}</h2>
