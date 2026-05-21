@@ -16,6 +16,7 @@
     background-size: contain;
   }
 
+  .risaa-reels-layout {
     display: flex;
     max-width: 1100px;
     margin: 40px auto;
@@ -53,19 +54,46 @@
     cursor: pointer;
   }
 
-  .risaa-video-card.card-1 { transform: rotate(0) translateZ(0); z-index: 10; opacity: 1; }
-  .risaa-video-card.card-2 { transform: rotate(4deg) translateZ(-30px) translateX(20px); z-index: 9; opacity: 0.8; }
-  .risaa-video-card.card-3 { transform: rotate(-3deg) translateZ(-60px) translateX(-20px); z-index: 8; opacity: 0.6; }
-  .risaa-video-card.card-hidden { transform: translateZ(-200px) translateY(100px); z-index: 1; opacity: 0; pointer-events: none; }
+  .risaa-video-card.card-1 {
+    transform: rotate(0) translateZ(0);
+    z-index: 10;
+    opacity: 1;
+  }
+  .risaa-video-card.card-2 {
+    transform: rotate(4deg) translateZ(-30px) translateX(20px);
+    z-index: 9;
+    opacity: 0.8;
+  }
+  .risaa-video-card.card-3 {
+    transform: rotate(-3deg) translateZ(-60px) translateX(-20px);
+    z-index: 8;
+    opacity: 0.6;
+  }
+  .risaa-video-card.card-hidden {
+    transform: translateZ(-200px) translateY(100px);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+  }
 
   .risaa-video-card.shuffling {
     animation: shuffle-animation 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   @keyframes shuffle-animation {
-    0% { transform: scale(1) translateX(0); z-index: 100; }
-    40% { transform: scale(0.9) translateX(-200px) rotate(-15deg); opacity: 0.8; }
-    100% { transform: scale(0.8) translateX(0) translateZ(-100px); z-index: 1; opacity: 0; }
+    0% {
+      transform: scale(1) translateX(0);
+      z-index: 100;
+    }
+    40% {
+      transform: scale(0.9) translateX(-200px) rotate(-15deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(0.8) translateX(0) translateZ(-100px);
+      z-index: 1;
+      opacity: 0;
+    }
   }
 
   .risaa-video-card video {
@@ -86,15 +114,21 @@
   }
 
   @keyframes fade-in-right {
-    from { opacity: 0; transform: translateX(30px); }
-    to { opacity: 1; transform: translateX(0); }
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   .active-product-card {
     background: #fff;
     padding: 30px;
     border-radius: 24px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
     border: 1px solid #f5f5f5;
   }
 
@@ -160,7 +194,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,7 +204,7 @@
     backdrop-filter: blur(5px);
     color: #1a1a1a;
     pointer-events: auto; /* Re-enable for the buttons */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   }
 
   .nav-arrow:hover {
@@ -204,7 +238,8 @@
   }
 
   @media screen and (max-width: 749px) {
-    .risaa-reels-stack, .risaa-reels-stack-side {
+    .risaa-reels-stack,
+    .risaa-reels-stack-side {
       width: 280px;
       height: 497px;
     }
@@ -243,8 +278,14 @@
   }
 
   @keyframes modal-pop {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 
   .risaa-modal-video {
@@ -288,13 +329,16 @@
       flex-direction: column;
       height: 95vh;
     }
-    .risaa-modal-video { flex: 1; }
-    .risaa-modal-sidebar { padding: 30px; }
+    .risaa-modal-video {
+      flex: 1;
+    }
+    .risaa-modal-sidebar {
+      padding: 30px;
+    }
   }
 {%- endstyle -%}
 
 <div class="risaa-watch-and-shop section-{{ section.id }}-padding reveal-on-scroll">
-
   <div class="section-header" data-anim="fade-up" style="text-align: center; margin-bottom: 40px;">
     <h2 class="h1">{{ section.settings.title }}</h2>
     <p>{{ section.settings.subtitle }}</p>
@@ -305,18 +349,24 @@
     <div class="risaa-reels-stack-side">
       <div class="risaa-reels-stack" id="reelsStack-{{ section.id }}">
         {% for block in section.blocks %}
-          <div class="risaa-video-card card-{{ forloop.index }} {% if forloop.index > 3 %}card-hidden{% endif %}" 
-               onclick="handleCardClick(this, '{{ block.id }}')"
-               data-block-id="{{ block.id }}"
-               {{ block.shopify_attributes }}>
-            
+          <div
+            class="risaa-video-card card-{{ forloop.index }} {% if forloop.index > 3 %}card-hidden{% endif %}"
+            onclick="handleCardClick(this, '{{ block.id }}')"
+            data-block-id="{{ block.id }}"
+            {{ block.shopify_attributes }}
+          >
             {% if block.settings.video_url != blank %}
               <video muted loop playsinline class="reel-video">
                 <source src="{{ block.settings.video_url }}" type="video/mp4">
               </video>
             {% else %}
               <div style="width:100%; height:100%; background:linear-gradient(45deg, #f8b799, #ffd1bc); display:flex; align-items:center; justify-content:center; color:white;">
-                <img src="https://ik.imagekit.io/flashspdstr/risaa/Elevate%20your%20ethnic%20wardrobe%20with%20this%20gorgeous_.jpg" class="placeholder-svg" alt="Product Placeholder" style="width: 100%; height: 100%; object-fit: cover;">
+                <img
+                  src="https://ik.imagekit.io/flashspdstr/risaa/Elevate%20your%20ethnic%20wardrobe%20with%20this%20gorgeous_.jpg"
+                  class="placeholder-svg"
+                  alt="Product Placeholder"
+                  style="width: 100%; height: 100%; object-fit: cover;"
+                >
               </div>
             {% endif %}
           </div>
@@ -329,16 +379,19 @@
       <div id="activeProductInfo-{{ section.id }}" class="active-product-card">
         <!-- Injected by JS -->
       </div>
-      
     </div>
   </div>
 
   <div class="risaa-reels-nav">
     <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'prev')">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
     </div>
     <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'next')">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
     </div>
   </div>
 </div>
@@ -355,10 +408,10 @@
   function updateProductInfo(sectionId, blockId) {
     const data = videoData[blockId];
     if (!data) return;
-    
+
     const container = document.getElementById(`activeProductInfo-${sectionId}`);
     container.style.opacity = '0';
-    
+
     setTimeout(() => {
       container.innerHTML = `
         <div class="active-product-image-wrap" style="margin-bottom: 20px; border-radius: 15px; overflow: hidden; aspect-ratio: 4/5;">
@@ -381,25 +434,25 @@
     if (!topCard) return;
 
     topCard.classList.add('shuffling');
-    
+
     setTimeout(() => {
       topCard.classList.remove('shuffling');
       stack.appendChild(topCard);
-      
+
       const newCards = Array.from(stack.querySelectorAll('.risaa-video-card'));
       newCards.forEach((card, i) => {
         card.className = 'risaa-video-card';
         const pos = i + 1;
         if (pos <= 3) card.classList.add(`card-${pos}`);
         else card.classList.add('card-hidden');
-        
+
         const video = card.querySelector('video');
         if (video) {
           if (pos === 1) video.play();
           else video.pause();
         }
       });
-      
+
       const activeBlockId = stack.querySelector('.card-1').getAttribute('data-block-id');
       updateProductInfo(sectionId, activeBlockId);
     }, 600);
