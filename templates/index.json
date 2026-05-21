@@ -256,7 +256,7 @@
     "risaa_whatsapp": {
       "type": "risaa-whatsapp-button",
       "settings": {
-        "phone_number": "9501032126",
+        "phone_number": "+919501032126",
         "custom_message": "Hello RiSaa! I'm reaching out from your website. I'd love to discuss a custom design for my upcoming occasion."
       }
     }
