@@ -120,37 +120,6 @@
         "padding_bottom": 32
       }
     },
-    "risaa_categories_showcase": {
-      "type": "risaa-categories-showcase",
-      "blocks": {
-        "cat_1": {
-          "type": "category",
-          "settings": { "name": "Bridal", "description": "Handcrafted for your big day" }
-        },
-        "cat_2": {
-          "type": "category",
-          "settings": { "name": "Couture", "description": "Statement pieces, artfully made" }
-        },
-        "cat_3": {
-          "type": "category",
-          "settings": { "name": "Pret", "description": "Effortless everyday elegance" }
-        },
-        "cat_4": {
-          "type": "category",
-          "settings": { "name": "Trousseau", "description": "A complete bridal trousseau" }
-        },
-        "cat_5": {
-          "type": "category",
-          "settings": { "name": "Indo-Western", "description": "Fusion styles for modern women" }
-        }
-      },
-      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4", "cat_5"],
-      "settings": {
-        "eyebrow": "The RiSaa Universe",
-        "title": "Shop by Category",
-        "subtitle": "Every silhouette, every occasion"
-      }
-    },
     "risaa_shop_by_occasion": {
       "type": "risaa-shop-by-occasion",
       "blocks": {
@@ -268,7 +237,6 @@
     "bestsellers",
     "risaa_ready_to_ship",
     "risaa_accordion",
-    "risaa_categories_showcase",
     "risaa_shop_by_color",
     "risaa_watch_and_shop",
     "risaa_customer_reviews",
