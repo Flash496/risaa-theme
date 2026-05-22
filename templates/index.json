@@ -129,16 +129,22 @@
     "risaa_shop_by_occasion": {
       "type": "risaa-shop-by-occasion",
       "blocks": {
-        "occ_1": { "type": "occasion", "settings": { "occasion_name": "Bridal", "sub_text": "Your big day", "badge_text": "Explore" } },
-        "occ_2": { "type": "occasion", "settings": { "occasion_name": "Sangeet", "sub_text": "Dance & celebrate", "badge_text": "Explore" } },
-        "occ_3": { "type": "occasion", "settings": { "occasion_name": "Mehendi", "sub_text": "Vibrant & playful", "badge_text": "Explore" } },
-        "occ_4": { "type": "occasion", "settings": { "occasion_name": "Reception", "sub_text": "Elegant evenings", "badge_text": "Explore" } }
+        "occ_1": { "type": "occasion", "settings": { "occasion_name": "Bridal" } },
+        "occ_2": { "type": "occasion", "settings": { "occasion_name": "Sangeet" } },
+        "occ_3": { "type": "occasion", "settings": { "occasion_name": "Mehendi" } },
+        "occ_4": { "type": "occasion", "settings": { "occasion_name": "Reception" } },
+        "occ_5": { "type": "occasion", "settings": { "occasion_name": "Couture" } },
+        "occ_6": { "type": "occasion", "settings": { "occasion_name": "Pret" } },
+        "occ_7": { "type": "occasion", "settings": { "occasion_name": "Trousseau" } },
+        "occ_8": { "type": "occasion", "settings": { "occasion_name": "Festive" } },
+        "occ_9": { "type": "occasion", "settings": { "occasion_name": "Cocktail" } },
+        "occ_10": { "type": "occasion", "settings": { "occasion_name": "Casual Chic" } }
       },
-      "block_order": ["occ_1", "occ_2", "occ_3", "occ_4"],
+      "block_order": ["occ_1", "occ_2", "occ_3", "occ_4", "occ_5", "occ_6", "occ_7", "occ_8", "occ_9", "occ_10"],
       "settings": {
-        "eyebrow": "Dressed for Every Moment",
+        "eyebrow": "",
         "title": "Occasions",
-        "subtitle": ""
+        "speed": 40
       }
     },
     "risaa_shop_by_color": {

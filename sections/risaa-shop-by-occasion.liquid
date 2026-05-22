@@ -1,184 +1,332 @@
 {%- style -%}
   .risaa-occasions {
-    padding: 40px 0;
-    background: var(--brand-text);
+    padding: 80px 0 60px;
+    background: #faf8f5;
+    overflow: hidden;
   }
-  .risaa-occasions__inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
+
   .risaa-occasions__header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 52px;
+    padding: 0 20px;
   }
+
   .risaa-occasions__eyebrow {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    letter-spacing: 0.25em;
+    font-family: var(--font-body-family);
+    font-size: 0.75rem;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--brand-undertone-1);
+    color: #f8b799;
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    font-weight: 600;
   }
+
   .risaa-occasions__title {
-    font-family: var(--font-heading);
-    font-size: 3.2rem;
-    color: var(--brand-main);
+    font-family: var(--font-heading-family);
+    font-size: 3rem;
+    color: #9a1c20;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin: 0;
+    line-height: 1.1;
   }
-  .risaa-occasions__subtitle {
-    color: #888;
-    font-size: 1.3rem;
-    margin-top: 8px;
+
+  /* Carousel wrapper */
+  .risaa-occasions__carousel-outer {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
   }
-  .risaa-occasions__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 28px;
+
+  .risaa-occasions__carousel-outer:active {
+    cursor: grabbing;
   }
-  .risaa-occasions__tile {
+
+  /* Fade edges */
+  .risaa-occasions__carousel-outer::before,
+  .risaa-occasions__carousel-outer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .risaa-occasions__carousel-outer::before {
+    left: 0;
+    background: linear-gradient(to right, #faf8f5, transparent);
+  }
+
+  .risaa-occasions__carousel-outer::after {
+    right: 0;
+    background: linear-gradient(to left, #faf8f5, transparent);
+  }
+
+  .risaa-occasions__track {
+    display: flex;
+    gap: 24px;
+    padding: 12px 60px 24px;
+    width: max-content;
+    animation: occasions-scroll {{ section.settings.speed | default: 40 }}s linear infinite;
+    will-change: transform;
+  }
+
+  .risaa-occasions__carousel-outer:hover .risaa-occasions__track,
+  .risaa-occasions__carousel-outer.is-dragging .risaa-occasions__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes occasions-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* Card */
+  .risaa-occasions__card {
+    flex: 0 0 317px;
     text-decoration: none;
     color: inherit;
     display: block;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .risaa-occasions__tile:hover .risaa-occasions__img {
+
+  .risaa-occasions__card:hover {
     transform: translateY(-8px);
   }
-  .risaa-occasions__tile:hover .risaa-occasions__tile-name {
-    color: var(--brand-main);
-  }
+
   .risaa-occasions__img-wrap {
-    width: 100%;
-    aspect-ratio: 2/3;
+    width: 317px;
+    height: 446px;
     overflow: hidden;
-    border-radius: 120px 120px 20px 20px;
+    border-radius: 158px 158px 18px 18px;
     position: relative;
-    background: var(--brand-undertone-2);
+    background: #f1dcd2;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
   }
+
   .risaa-occasions__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    display: block;
   }
-  .risaa-occasions__tile-badge {
+
+  .risaa-occasions__card:hover .risaa-occasions__img {
+    transform: scale(1.06);
+  }
+
+  .risaa-occasions__badge {
     position: absolute;
-    bottom: 16px;
+    bottom: 14px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(4px);
-    padding: 6px 18px;
+    background: rgba(255, 255, 255, 0.93);
+    backdrop-filter: blur(6px);
+    padding: 5px 16px;
     border-radius: 20px;
     white-space: nowrap;
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
+    font-family: var(--font-body-family);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--brand-main);
-    font-weight: 600;
+    color: #9a1c20;
+    font-weight: 700;
   }
-  .risaa-occasions__tile-name {
-    font-family: var(--font-heading);
-    font-size: 1.6rem;
+
+  .risaa-occasions__name {
+    font-family: var(--font-heading-family);
+    font-size: 1.4rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--brand-dark);
+    color: #1a1a1a;
     text-align: center;
-    margin: 18px 0 4px;
+    margin: 16px 0 0;
     transition: color 0.3s ease;
   }
-  .risaa-occasions__tile-sub {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #999;
+
+  .risaa-occasions__card:hover .risaa-occasions__name {
+    color: #9a1c20;
   }
-  @media screen and (max-width: 989px) {
-    .risaa-occasions__grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-    .risaa-occasions__inner {
-      padding: 0 24px;
-    }
-  }
+
   @media screen and (max-width: 749px) {
     .risaa-occasions {
-      padding: 25px 0;
+      padding: 50px 0 40px;
     }
     .risaa-occasions__title {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
     }
-    .risaa-occasions__grid {
-      gap: 14px;
-    }
-    .risaa-occasions__inner {
-      padding: 0 16px;
+    .risaa-occasions__card {
+      flex: 0 0 245px;
     }
     .risaa-occasions__img-wrap {
-      border-radius: 80px 80px 14px 14px;
+      width: 245px;
+      height: 346px;
+      border-radius: 122px 122px 14px 14px;
+    }
+    .risaa-occasions__track {
+      gap: 16px;
+      padding: 8px 30px 20px;
     }
   }
 {%- endstyle -%}
 
+{%- liquid
+  assign occ_images = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/sangeet.jpg,https://ik.imagekit.io/flashspdstr/risaa/mehendi.png,https://ik.imagekit.io/flashspdstr/risaa/reception.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png,https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg,https://ik.imagekit.io/flashspdstr/risaa/Elevate%20your%20ethnic%20wardrobe%20with%20this%20gorgeous_.jpg' | split: ','
+  assign occ_names = 'Bridal,Sangeet,Mehendi,Reception,Couture,Pret,Trousseau,Festive,Cocktail,Casual Chic' | split: ','
+  assign occ_links = '/collections/bridal,/collections/sangeet,/collections/mehendi,/collections/reception,/collections/couture,/collections/pret,/collections/trousseau,/collections/festive,/collections/cocktail,/collections/all' | split: ','
+-%}
+
 <section class="risaa-occasions reveal-on-scroll">
-  <div class="risaa-occasions__inner">
-    <div class="risaa-occasions__header" data-anim="fade-up">
+  <div class="risaa-occasions__header" data-anim="fade-up">
+    {%- if section.settings.eyebrow != blank -%}
       <span class="risaa-occasions__eyebrow">{{ section.settings.eyebrow }}</span>
-      <h2 class="risaa-occasions__title">{{ section.settings.title }}</h2>
-      {% if section.settings.subtitle != blank %}
-        <p class="risaa-occasions__subtitle">{{ section.settings.subtitle }}</p>
-      {% endif %}
-    </div>
-    <div class="risaa-occasions__grid" data-anim-stagger="bloom" data-anim-delay="0.1" data-anim-step="0.1">
-      {% for block in section.blocks %}
-        <a href="{{ block.settings.link }}" class="risaa-occasions__tile" {{ block.shopify_attributes }}>
-          <div class="risaa-occasions__img-wrap">
-            {% if block.settings.image != blank %}
-              {{
-                block.settings.image
-                | image_url: width: 800
-                | image_tag: class: 'risaa-occasions__img', loading: 'lazy', alt: block.settings.occasion_name
-              }}
-            {% else %}
-              {%- assign _occ_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/sangeet.jpg,https://ik.imagekit.io/flashspdstr/risaa/mehendi.png,https://ik.imagekit.io/flashspdstr/risaa/reception.jpg'
-                | split: ','
-              -%}
-              {%- assign _occ_img = _occ_imgs[forloop.index0] | default: _occ_imgs[0] -%}
-              <img
-                src="{{ _occ_img }}"
-                alt="{{ block.settings.occasion_name }}"
-                class="risaa-occasions__img"
-                loading="lazy"
-              >
-            {% endif %}
-            {% if block.settings.badge_text != blank %}
-              <span class="risaa-occasions__tile-badge">{{ block.settings.badge_text }}</span>
-            {% endif %}
-          </div>
-          <p class="risaa-occasions__tile-name">{{ block.settings.occasion_name }}</p>
-          {% if block.settings.sub_text != blank %}
-            <p class="risaa-occasions__tile-sub">{{ block.settings.sub_text }}</p>
-          {% endif %}
-        </a>
-      {% endfor %}
+    {%- endif -%}
+    <h2 class="risaa-occasions__title">{{ section.settings.title }}</h2>
+  </div>
+
+  <div class="risaa-occasions__carousel-outer" id="occasionsCarousel-{{ section.id }}">
+    <div class="risaa-occasions__track" id="occasionsTrack-{{ section.id }}">
+      {%- comment -%}Render twice for seamless infinite loop{%- endcomment -%}
+      {%- for i in (1..2) -%}
+        {%- for block in section.blocks -%}
+          {%- assign img_index = forloop.index0 | modulo: 10 -%}
+          {%- assign fallback_img = occ_images[img_index] -%}
+          {%- assign fallback_name = occ_names[img_index] -%}
+          {%- assign fallback_link = occ_links[img_index] -%}
+          {%- assign card_name = block.settings.occasion_name | default: fallback_name -%}
+          {%- assign card_link = block.settings.link | default: fallback_link -%}
+          <a href="{{ card_link }}" class="risaa-occasions__card" draggable="false">
+            <div class="risaa-occasions__img-wrap">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 600
+                  | image_tag: class: 'risaa-occasions__img', loading: 'lazy', alt: card_name, draggable: 'false'
+                }}
+              {%- else -%}
+                <img
+                  src="{{ fallback_img }}"
+                  alt="{{ card_name }}"
+                  class="risaa-occasions__img"
+                  loading="lazy"
+                  draggable="false"
+                >
+              {%- endif -%}
+              <span class="risaa-occasions__badge">Explore</span>
+            </div>
+            <p class="risaa-occasions__name">{{ card_name }}</p>
+          </a>
+        {%- endfor -%}
+      {%- endfor -%}
     </div>
   </div>
 </section>
+
+<script>
+  (function () {
+    const outer = document.getElementById('occasionsCarousel-{{ section.id }}');
+    const track = document.getElementById('occasionsTrack-{{ section.id }}');
+    if (!outer || !track) return;
+
+    // Drag-to-scroll
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+    let dragOffset = 0;
+
+    outer.addEventListener('mousedown', (e) => {
+      isDown = true;
+      outer.classList.add('is-dragging');
+      startX = e.pageX - outer.offsetLeft;
+      dragOffset = 0;
+    });
+
+    outer.addEventListener('mouseleave', () => {
+      isDown = false;
+      outer.classList.remove('is-dragging');
+    });
+
+    outer.addEventListener('mouseup', () => {
+      isDown = false;
+      outer.classList.remove('is-dragging');
+    });
+
+    outer.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - outer.offsetLeft;
+      dragOffset = (x - startX) * 1.5;
+      track.style.transform = `translateX(${dragOffset}px)`;
+    });
+
+    // Prevent link clicks when dragging
+    outer.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        if (Math.abs(dragOffset) > 5) e.preventDefault();
+      });
+    });
+
+    // Touch support
+    let touchStartX = 0;
+    outer.addEventListener(
+      'touchstart',
+      (e) => {
+        touchStartX = e.touches[0].clientX;
+        outer.classList.add('is-dragging');
+      },
+      { passive: true }
+    );
+
+    outer.addEventListener('touchend', () => {
+      outer.classList.remove('is-dragging');
+      track.style.transform = '';
+    });
+
+    outer.addEventListener(
+      'touchmove',
+      (e) => {
+        const diff = (e.touches[0].clientX - touchStartX) * 1.2;
+        track.style.transform = `translateX(${diff}px)`;
+      },
+      { passive: true }
+    );
+  })();
+</script>
 
 {% schema %}
 {
   "name": "Shop by Occasion",
   "tag": "section",
   "class": "section",
-  "max_blocks": 8,
+  "max_blocks": 10,
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Dressed for Every Moment" },
-    { "type": "text", "id": "title", "label": "Title", "default": "Shop by Occasion" },
-    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Your perfect outfit for every celebration" }
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Dressed for Every Moment"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop by Occasion"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll Speed (seconds)",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "default": 40
+    }
   ],
   "blocks": [
     {
@@ -187,8 +335,6 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "occasion_name", "label": "Occasion Name", "default": "Wedding" },
-        { "type": "text", "id": "sub_text", "label": "Subtext", "default": "Be unforgettable" },
-        { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "Shop Now" },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
@@ -197,22 +343,16 @@
     {
       "name": "Shop by Occasion",
       "blocks": [
-        {
-          "type": "occasion",
-          "settings": { "occasion_name": "Bridal", "sub_text": "Your big day", "badge_text": "Explore" }
-        },
-        {
-          "type": "occasion",
-          "settings": { "occasion_name": "Sangeet", "sub_text": "Dance & celebrate", "badge_text": "Explore" }
-        },
-        {
-          "type": "occasion",
-          "settings": { "occasion_name": "Mehendi", "sub_text": "Vibrant & playful", "badge_text": "Explore" }
-        },
-        {
-          "type": "occasion",
-          "settings": { "occasion_name": "Reception", "sub_text": "Elegant evenings", "badge_text": "Explore" }
-        }
+        { "type": "occasion", "settings": { "occasion_name": "Bridal" } },
+        { "type": "occasion", "settings": { "occasion_name": "Sangeet" } },
+        { "type": "occasion", "settings": { "occasion_name": "Mehendi" } },
+        { "type": "occasion", "settings": { "occasion_name": "Reception" } },
+        { "type": "occasion", "settings": { "occasion_name": "Couture" } },
+        { "type": "occasion", "settings": { "occasion_name": "Pret" } },
+        { "type": "occasion", "settings": { "occasion_name": "Trousseau" } },
+        { "type": "occasion", "settings": { "occasion_name": "Festive" } },
+        { "type": "occasion", "settings": { "occasion_name": "Cocktail" } },
+        { "type": "occasion", "settings": { "occasion_name": "Casual Chic" } }
       ]
     }
   ]
