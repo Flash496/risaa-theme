@@ -163,41 +163,7 @@
 <section class="risaa-rts reveal-on-scroll">
   <div class="page-width">
     <div class="risaa-rts__header" data-anim="fade-up">
-      <div class="risaa-rts__eyebrow">
-        <span class="risaa-rts__eyebrow-dot"></span>
-        <span class="risaa-rts__eyebrow-text">In Stock · Ships Quickly</span>
-      </div>
       <h2 class="risaa-rts__title">{{ section.settings.title }}</h2>
-      {% if section.settings.subtitle != blank %}
-        <p class="risaa-rts__subtitle">{{ section.settings.subtitle }}</p>
-      {% endif %}
-      <div class="risaa-rts__dispatch-info" data-anim-stagger data-anim-delay="0.3" data-anim-step="0.12">
-        <div class="risaa-rts__dispatch-badge">
-          <span class="risaa-rts__badge-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/>
-              <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
-            </svg>
-          </span>
-          <span class="risaa-rts__badge-content">
-            <span class="risaa-rts__badge-label">Dispatch</span>
-            <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_days }}</span>
-          </span>
-        </div>
-        <span class="risaa-rts__dispatch-divider"></span>
-        <div class="risaa-rts__dispatch-badge">
-          <span class="risaa-rts__badge-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
-            </svg>
-          </span>
-          <span class="risaa-rts__badge-content">
-            <span class="risaa-rts__badge-label">Shipping</span>
-            <span class="risaa-rts__dispatch-text">{{ section.settings.dispatch_note }}</span>
-          </span>
-        </div>
-      </div>
     </div>
 
     <ul

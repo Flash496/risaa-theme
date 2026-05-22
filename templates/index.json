@@ -63,7 +63,7 @@
       "type": "risaa-new-in",
       "settings": {
         "title": "New In",
-        "subtitle": "Fresh from the atelier, made with love",
+        "subtitle": "",
         "view_all_link": "shopify://collections/all"
       }
     },
@@ -91,9 +91,9 @@
       "type": "risaa-ready-to-ship",
       "settings": {
         "title": "Ready to Ship",
-        "subtitle": "Handpicked pieces crafted and ready for you",
-        "dispatch_days": "Ships in 24 Hours",
-        "dispatch_note": "Free shipping above ₹5,000",
+        "subtitle": "",
+        "dispatch_days": "",
+        "dispatch_note": "",
         "view_all_link": "shopify://collections/all"
       }
     },
@@ -120,7 +120,7 @@
       "block_order": ["panel_1", "panel_2", "panel_3", "panel_4"],
       "settings": {
         "title": "The Collections",
-        "subtitle": "Individuality in every stitch",
+        "subtitle": "",
         "height_desktop": 600,
         "padding_top": 32,
         "padding_bottom": 32
@@ -138,7 +138,7 @@
       "settings": {
         "eyebrow": "Dressed for Every Moment",
         "title": "Occasions",
-        "subtitle": "Your perfect outfit for every celebration"
+        "subtitle": ""
       }
     },
     "risaa_shop_by_color": {
@@ -151,7 +151,7 @@
       "block_order": ["color_1", "color_2", "color_3"],
       "settings": {
         "title": "Palettes",
-        "subtitle": "Discover shades that resonate with your spirit"
+        "subtitle": ""
       }
     },
     "risaa_customer_reviews": {
