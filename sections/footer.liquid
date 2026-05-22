@@ -28,8 +28,8 @@
 
   .risaa-footer__top {
     display: grid;
-    grid-template-columns: 420px 0.5fr 0.5fr 0.7fr 1.3fr;
-    gap: 48px;
+    grid-template-columns: 420px 0.45fr 0.45fr 0.65fr 0.8fr 1.2fr;
+    gap: 32px;
     padding: 60px 0 48px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   }
@@ -114,10 +114,17 @@
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.95);
+    color: white !important;
     margin: 0 0 18px;
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  /* Override any inline styles on headings */
+  .risaa-footer__nav-heading,
+  .risaa-footer__nav-heading *,
+  .risaa-footer__newsletter-label {
+    color: white !important;
   }
 
   .risaa-footer__nav-list {
@@ -235,6 +242,26 @@
     color: white;
   }
 
+  /* Force all footer links to be white */
+  .risaa-footer a {
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  .risaa-footer a:hover {
+    color: white !important;
+  }
+
+  /* Override Shopify powered_by_link default styling */
+  .risaa-footer__copyright a,
+  .risaa-footer__copyright a:visited,
+  .risaa-footer__copyright a:link {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  .risaa-footer__copyright a:hover {
+    color: white !important;
+  }
+
   .risaa-footer__payment .list-payment {
     display: flex;
     flex-wrap: wrap;
@@ -270,6 +297,28 @@
 
   .risaa-footer__text-block p {
     margin: 0 0 6px;
+  }
+
+  /* Map container for store location */
+  .risaa-footer__map-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .risaa-footer__map-container {
+    width: 100%;
+    height: 320px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .risaa-footer__map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
   }
 
   .risaa-footer__directions-btn,
@@ -323,6 +372,9 @@
       gap: 36px;
     }
     .risaa-footer__brand {
+      grid-column: span 3;
+    }
+    .risaa-footer__map-wrapper {
       grid-column: span 3;
     }
   }
@@ -442,7 +494,7 @@
             <div class="risaa-footer__text-block">
               {{ block.settings.subtext }}
             </div>
-            {%- if block.settings.heading == 'Contact Us' -%}
+            {%- if block.settings.heading == 'Contact Us' or block.settings.heading == 'Visit Our Store' -%}
               <div class="risaa-footer__social risaa-footer__social--inline">
                 {%- if settings.social_instagram_link != blank -%}
                   <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
@@ -484,6 +536,19 @@
           </div>
         {%- endif -%}
       {%- endfor -%}
+
+      <!-- Map column (rightmost) -->
+      <div class="risaa-footer__map-wrapper">
+        <div class="risaa-footer__map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3422.9876543210987!2d75.8321064!3d30.8904329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a838f0056f067%3A0xb9f05c5a3ffd943b!2sRisaa%20-%20The%20Design%20Studio!5e0!3m2!1sen!2sin!4v1716480000000!5m2!1sen!2sin"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Risaa - The Design Studio, 117-B Jyoti Colony, Model Town Extension, Ludhiana"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
     </div>
 
     {%- if section.settings.newsletter_enable -%}
