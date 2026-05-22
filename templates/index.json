@@ -208,9 +208,49 @@
             "reviewer_meta": "Reception outfit · Chandigarh",
             "show_verified": true
           }
+        },
+        "rev_5": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "I ordered a Mehendi outfit and it was even more beautiful in person. The colours were so vibrant and the fabric was incredibly soft. Will definitely order again!",
+            "reviewer_name": "Naina V.",
+            "reviewer_meta": "Mehendi look · Jaipur",
+            "show_verified": true
+          }
+        },
+        "rev_6": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "RiSaa's pret collection is exactly what I was looking for — elegant yet wearable every day. The quality is unmatched at this price point.",
+            "reviewer_name": "Divya M.",
+            "reviewer_meta": "Pret collection · Bangalore",
+            "show_verified": true
+          }
+        },
+        "rev_7": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "Got my entire trousseau done here. Rima didi understood my vision perfectly. Every single piece was crafted with so much love and attention to detail.",
+            "reviewer_name": "Riya S.",
+            "reviewer_meta": "Trousseau client · Delhi",
+            "show_verified": true
+          }
+        },
+        "rev_8": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "The Sangeet lehenga was a showstopper. I got so many compliments and everyone wanted to know where it was from. Thank you RiSaa for making me feel so special!",
+            "reviewer_name": "Pooja K.",
+            "reviewer_meta": "Sangeet outfit · Mumbai",
+            "show_verified": true
+          }
         }
       },
-      "block_order": ["rev_1", "rev_2", "rev_3", "rev_4"],
+      "block_order": ["rev_1", "rev_2", "rev_3", "rev_4", "rev_5", "rev_6", "rev_7", "rev_8"],
       "settings": {
         "title": "Brides of RiSaa",
         "subtitle": "Real stories from real women",
