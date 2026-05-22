@@ -605,6 +605,67 @@
   </div>
 </footer>
 
+<script>
+  (function() {
+    function setupFooterReveal() {
+      const footer = document.querySelector('.risaa-footer');
+      if (!footer) return;
+      
+      // Find the outermost wrapper for the footer
+      const footerWrapper = footer.closest('.shopify-section-group-footer-group') || 
+                            footer.closest('.shopify-section') || 
+                            footer;
+                            
+      const main = document.getElementById('MainContent');
+      if (!main) return;
+      
+      // Make main sit above the footer
+      main.style.position = 'relative';
+      main.style.zIndex = '2';
+      
+      // Ensure main has a solid background to hide the footer during scroll
+      const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+      main.style.backgroundColor = (bodyBg === 'rgba(0, 0, 0, 0)' || bodyBg === 'transparent') ? '#ffffff' : bodyBg;
+      
+      function updateReveal() {
+        // Temporarily unset fixed to measure natural height if needed, 
+        // but offsetHeight usually works fine on fixed elements.
+        const height = footerWrapper.offsetHeight;
+        
+        // Only apply reveal effect if the footer fits within the viewport.
+        // If it's taller than the screen (e.g. on mobile), fixing it to bottom 
+        // would permanently hide the top part of the footer.
+        if (height < window.innerHeight) {
+          footerWrapper.style.position = 'fixed';
+          footerWrapper.style.bottom = '0';
+          footerWrapper.style.left = '0';
+          footerWrapper.style.width = '100%';
+          footerWrapper.style.zIndex = '0';
+          main.style.marginBottom = height + 'px';
+        } else {
+          // Revert to normal flow
+          footerWrapper.style.position = 'static';
+          main.style.marginBottom = '0px';
+        }
+      }
+      
+      const resizeObserver = new ResizeObserver(() => {
+        updateReveal();
+      });
+      resizeObserver.observe(footerWrapper);
+      window.addEventListener('resize', updateReveal);
+      
+      updateReveal();
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupFooterReveal);
+    } else {
+      setupFooterReveal();
+    }
+  })();
+</script>
+
 {% schema %}
 {
   "name": "t:sections.footer.name",
