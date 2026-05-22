@@ -23,7 +23,8 @@
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
                 {%- assign display_title = link.title | escape -%}
-                {%- if link.title == 'Catalogue' or link.title == 'catalogue' -%}
+                {%- assign link_title_lower = link.title | downcase | strip -%}
+                {%- if link_title_lower == 'catalogue' or link_title_lower == 'catalog' -%}
                   {%- assign display_title = 'Shop' -%}
                 {%- endif -%}
                 <li>
