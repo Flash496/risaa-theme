@@ -26,9 +26,7 @@
     position: relative;
     cursor: pointer;
     border-radius: 10px;
-    /* Only transition flex-grow — no width, no all */
-    transition:
-      flex-grow 0.75s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: flex-grow 1.3s ease;
     will-change: flex-grow;
   }
 
@@ -37,13 +35,13 @@
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 1.6s ease;
     will-change: transform;
     display: block;
   }
 
   .risaa-accordion-item.is-active img {
-    transform: scale(1.04);
+    transform: scale(1.06);
   }
 
   .risaa-accordion-info {
@@ -156,16 +154,22 @@
 
       var ACTIVE_GROW = 4;
       var DEFAULT_GROW = 1;
+      var pendingFrame = null;
 
       function setGrow(activeIndex) {
-        items.forEach(function (item, i) {
-          var grow = activeIndex === null ? DEFAULT_GROW : i === activeIndex ? ACTIVE_GROW : DEFAULT_GROW * 0.55;
-          item.style.flexGrow = grow;
-          if (activeIndex === null) {
-            item.classList.remove('is-active');
-          } else {
-            item.classList.toggle('is-active', i === activeIndex);
-          }
+        // Cancel any queued frame so rapid hovers only fire once per frame
+        if (pendingFrame) cancelAnimationFrame(pendingFrame);
+        pendingFrame = requestAnimationFrame(function () {
+          items.forEach(function (item, i) {
+            var grow = activeIndex === null ? DEFAULT_GROW : i === activeIndex ? ACTIVE_GROW : DEFAULT_GROW * 0.55;
+            item.style.flexGrow = grow;
+            if (activeIndex === null) {
+              item.classList.remove('is-active');
+            } else {
+              item.classList.toggle('is-active', i === activeIndex);
+            }
+          });
+          pendingFrame = null;
         });
       }
 
