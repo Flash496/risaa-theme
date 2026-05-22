@@ -10,6 +10,51 @@
   --color-risaa-pale: #f1dcd2;
 }
 
+/* ── Body Font Override: Jost ── */
+body,
+p,
+li,
+a,
+span,
+input,
+textarea,
+select,
+button,
+label,
+.caption,
+.caption-with-letter-spacing,
+.list-menu__item,
+.header__menu-item,
+.footer__content,
+.risaa-footer__nav-list a,
+.risaa-footer__brand-desc,
+.risaa-footer__newsletter-label,
+.risaa-footer__copyright,
+.risaa-reviews__card-quote,
+.risaa-reviews__reviewer-meta,
+.risaa-occasions__name,
+.risaa-hero-marquee__text,
+.risaa-parallax-text p,
+.active-product-tag,
+.risaa-rts__subtitle,
+.risaa-new-in__subtitle {
+  font-family: 'Jost', sans-serif !important;
+  letter-spacing: 0.02em;
+}
+
+/* Keep heading font intact for display elements */
+h1, h2, h3, h4, h5, h6,
+.h0, .h1, .h2, .h3, .h4, .h5,
+.risaa-reviews__title,
+.risaa-reviews__reviewer-name,
+.risaa-occasions__title,
+.risaa-new-in__title,
+.risaa-summer-picks__title,
+.risaa-rts__title,
+.risaa-parallax-text h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+}
+
 /* Typography Refinements */
 h1,
 h2,
