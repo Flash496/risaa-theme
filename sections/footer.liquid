@@ -427,6 +427,10 @@
                     <a href="{{ link.url }}">{{ link.title | escape }}</a>
                   </li>
                 {%- endfor -%}
+                {%- if block.settings.heading == 'Shop' or block.settings.heading == 'Quick Links' -%}
+                  <li><a href="/collections/summer-favourites">Summer Favourites</a></li>
+                  <li><a href="/collections/founders-pick">Founder's Pick</a></li>
+                {%- endif -%}
               </ul>
             {%- endif -%}
           </div>

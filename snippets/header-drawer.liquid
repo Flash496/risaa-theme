@@ -22,6 +22,10 @@
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
+                {%- assign display_title = link.title | escape -%}
+                {%- if link.title == 'Catalogue' or link.title == 'catalogue' -%}
+                  {%- assign display_title = 'Shop' -%}
+                {%- endif -%}
                 <li>
                   {%- if link.links != blank -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
@@ -29,7 +33,7 @@
                         id="HeaderDrawer-{{ link.handle }}"
                         class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if link.child_active %} menu-drawer__menu-item--active{% endif %}"
                       >
-                        {{ link.title | escape }}
+                        {{ display_title }}
                         <span class="svg-wrapper">
                           {{- 'icon-arrow.svg' | inline_asset_content -}}
                         </span>
@@ -128,20 +132,36 @@
                         aria-current="page"
                       {% endif %}
                     >
-                      {{ link.title | escape }}
+                      {{ display_title }}
                     </a>
                   {%- endif -%}
                 </li>
               {%- endfor -%}
 
-              {%- assign extra_tabs = 'About Us' | split: ',' -%}
+              {%- assign extra_tabs = 'About Us,Our Store,Summer Favourites,Founders Pick' | split: ',' -%}
               {%- for tab in extra_tabs -%}
+                {%- if tab == 'About Us' -%}
+                  {%- assign tab_url = '/pages/about' -%}
+                {%- elsif tab == 'Our Store' -%}
+                  {%- assign tab_url = '/pages/our-store' -%}
+                {%- elsif tab == 'Summer Favourites' -%}
+                  {%- assign tab_url = '/collections/summer-favourites' -%}
+                {%- elsif tab == 'Founders Pick' -%}
+                  {%- assign tab_url = '/collections/founders-pick' -%}
+                {%- else -%}
+                  {%- assign tab_url = '/collections/all' -%}
+                {%- endif -%}
+                {%- if tab == 'Founders Pick' -%}
+                  {%- assign tab_label = "Founder's Pick" -%}
+                {%- else -%}
+                  {%- assign tab_label = tab -%}
+                {%- endif -%}
                 <li>
                   <a
-                    href="{% if tab == 'About Us' %}/pages/about{% else %}shopify://collections/all{% endif %}"
+                    href="{{ tab_url }}"
                     class="menu-drawer__menu-item list-menu__item link link--text focus-inset"
                   >
-                    {{ tab }}
+                    {{ tab_label }}
                   </a>
                 </li>
               {%- endfor -%}

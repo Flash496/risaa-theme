@@ -8,6 +8,10 @@
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
+      {%- assign display_title = link.title | escape -%}
+      {%- if link.title == 'Catalogue' or link.title == 'catalogue' -%}
+        {%- assign display_title = 'Shop' -%}
+      {%- endif -%}
       <li>
         {%- if link.links != blank -%}
           <header-menu>
@@ -21,7 +25,7 @@
                     class="header__active-menu-item"
                   {% endif %}
                 >
-                  {{- link.title | escape -}}
+                  {{- display_title -}}
                 </span>
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </summary>
@@ -93,14 +97,14 @@
                 class="header__active-menu-item"
               {% endif %}
             >
-              {{- link.title | escape -}}
+              {{- display_title -}}
             </span>
           </a>
         {%- endif -%}
       </li>
     {%- endfor -%}
 
-    {%- assign extra_tabs = 'About Us' | split: ',' -%}
+    {%- assign extra_tabs = 'About Us,Our Store,Summer Favourites,Founders Pick' | split: ',' -%}
     {%- for tab in extra_tabs -%}
       <li>
         {%- assign is_about_active = false -%}
@@ -109,8 +113,24 @@
             {%- assign is_about_active = true -%}
           {%- endif -%}
         {%- endif -%}
+        {%- if tab == 'About Us' -%}
+          {%- assign tab_url = '/pages/about' -%}
+        {%- elsif tab == 'Our Store' -%}
+          {%- assign tab_url = '/pages/our-store' -%}
+        {%- elsif tab == 'Summer Favourites' -%}
+          {%- assign tab_url = '/collections/summer-favourites' -%}
+        {%- elsif tab == 'Founders Pick' -%}
+          {%- assign tab_url = '/collections/founders-pick' -%}
+        {%- else -%}
+          {%- assign tab_url = '/collections/all' -%}
+        {%- endif -%}
+        {%- if tab == 'Founders Pick' -%}
+          {%- assign tab_label = "Founder's Pick" -%}
+        {%- else -%}
+          {%- assign tab_label = tab -%}
+        {%- endif -%}
         <a
-          href="{% if tab == 'About Us' %}/pages/about{% else %}shopify://collections/all{% endif %}"
+          href="{{ tab_url }}"
           class="header__menu-item list-menu__item link link--text focus-inset"
           {% if is_about_active %}
             aria-current="page"
@@ -121,7 +141,7 @@
               class="header__active-menu-item"
             {% endif %}
           >
-            {{- tab -}}
+            {{- tab_label -}}
           </span>
         </a>
       </li>
