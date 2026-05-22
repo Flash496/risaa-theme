@@ -1,0 +1,114 @@
+{%- style -%}
+  .risaa-hero-marquee {
+    background: #9a1c20;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .risaa-hero-marquee__track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: risaa-marquee-scroll {{ section.settings.speed }}s linear infinite;
+    padding: 0;
+  }
+
+  .risaa-hero-marquee:hover .risaa-hero-marquee__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes risaa-marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .risaa-hero-marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    white-space: nowrap;
+    padding: 14px 0;
+  }
+
+  .risaa-hero-marquee__text {
+    font-family: 'Cormorant Garamond', 'Cinzel', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.92);
+    padding: 0 28px;
+  }
+
+  .risaa-hero-marquee__divider {
+    display: inline-flex;
+    align-items: center;
+    color: rgba(248, 183, 153, 0.8);
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .risaa-hero-marquee__divider svg {
+    width: 14px;
+    height: 14px;
+    fill: rgba(248, 183, 153, 0.8);
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-hero-marquee__text {
+      font-size: 1rem;
+      letter-spacing: 0.16em;
+      padding: 0 20px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign items = 'Handcrafted Couture,Bridal Trousseau,Slow Fashion,Accessible Luxury,Pret Collection,Custom Atelier,Artisan Embroidery,Made with Love,Born in Ludhiana,Dressed for Every Moment' | split: ','
+-%}
+
+<div class="risaa-hero-marquee" role="marquee" aria-label="Brand highlights">
+  <div class="risaa-hero-marquee__track">
+    {%- comment -%}Render twice for seamless infinite loop{%- endcomment -%}
+    {%- for i in (1..2) -%}
+      {%- for item in items -%}
+        <span class="risaa-hero-marquee__item">
+          <span class="risaa-hero-marquee__text">{{ item }}</span>
+          <span class="risaa-hero-marquee__divider" aria-hidden="true">
+            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 0 L12.5 7.5 L20 10 L12.5 12.5 L10 20 L7.5 12.5 L0 10 L7.5 7.5 Z"/>
+            </svg>
+          </span>
+        </span>
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Marquee",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll Speed (seconds)",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "default": 35
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Marquee"
+    }
+  ]
+}
+{% endschema %}

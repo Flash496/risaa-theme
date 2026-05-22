@@ -53,6 +53,12 @@
       "block_order": ["slide_1", "slide_2", "slide_3", "slide_4", "slide_5"],
       "settings": {}
     },
+    "risaa_hero_marquee": {
+      "type": "risaa-hero-marquee",
+      "settings": {
+        "speed": 35
+      }
+    },
     "risaa_new_in": {
       "type": "risaa-new-in",
       "settings": {
@@ -232,6 +238,7 @@
   },
   "order": [
     "hero_carousel",
+    "risaa_hero_marquee",
     "risaa_new_in",
     "risaa_shop_by_occasion",
     "bestsellers",
