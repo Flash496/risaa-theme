@@ -1,26 +1,26 @@
 {%- style -%}
   .risaa-reviews {
     padding: 80px 0 70px;
-    background: #fff;
+    background: #f8f9fa;
     overflow: hidden;
   }
 
   /* ── Header ── */
   .risaa-reviews__header {
     text-align: center;
-    margin-bottom: 56px;
+    margin-bottom: 52px;
     padding: 0 20px;
   }
 
   .risaa-reviews__eyebrow {
     display: block;
-    font-family: var(--font-body-family);
+    font-family: 'Jost', sans-serif;
     font-size: 0.72rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: #f8b799;
     font-weight: 600;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .risaa-reviews__title {
@@ -29,38 +29,56 @@
     color: #9a1c20;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin: 0 0 18px;
+    margin: 0 0 16px;
     line-height: 1.1;
   }
 
   .risaa-reviews__aggregate {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
+  }
+
+  .risaa-reviews__agg-score {
+    font-family: 'Jost', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1;
+  }
+
+  .risaa-reviews__agg-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
   }
 
   .risaa-reviews__agg-stars {
     display: flex;
-    gap: 3px;
+    gap: 2px;
   }
 
   .risaa-reviews__agg-star {
-    color: #c9a84c;
-    font-size: 1.1rem;
+    color: #fbbc04;
+    font-size: 1.3rem;
+    line-height: 1;
   }
 
   .risaa-reviews__agg-label {
-    font-family: var(--font-body-family);
+    font-family: 'Jost', sans-serif;
     font-size: 1.1rem;
-    color: #999;
-    letter-spacing: 0.04em;
+    color: #70757a;
   }
 
-  .risaa-reviews__agg-score {
-    font-family: var(--font-heading-family);
-    font-size: 1.3rem;
-    color: #1a1a1a;
-    font-weight: 600;
+  /* ── Review image — full-bleed top of card ── */
+  .risaa-reviews__card-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    flex-shrink: 0;
   }
 
   /* ── Carousel ── */
@@ -82,22 +100,22 @@
 
   .risaa-reviews__carousel-outer::before {
     left: 0;
-    background: linear-gradient(to right, #fff, transparent);
+    background: linear-gradient(to right, #f8f9fa, transparent);
   }
 
   .risaa-reviews__carousel-outer::after {
     right: 0;
-    background: linear-gradient(to left, #fff, transparent);
+    background: linear-gradient(to left, #f8f9fa, transparent);
   }
 
   .risaa-reviews__track {
     display: flex;
-    gap: 28px;
+    gap: 16px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 8px 60px 16px;
+    padding: 8px 60px 20px;
   }
 
   .risaa-reviews__track::-webkit-scrollbar {
@@ -106,156 +124,145 @@
 
   /* ── Card ── */
   .risaa-reviews__card {
-    flex: 0 0 340px;
+    flex: 0 0 300px;
     scroll-snap-align: start;
-    background: #faf8f5;
-    border: 1px solid #f0ebe4;
-    border-radius: 4px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
-    transition: box-shadow 0.35s ease, transform 0.35s ease;
   }
 
   .risaa-reviews__card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
-  .risaa-reviews__card-photo {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    display: block;
-  }
-
+  /* padded body below the image */
   .risaa-reviews__card-body {
-    padding: 24px 26px 26px;
-  }
-
-  /* Stars + date row */
-  .risaa-reviews__card-top {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 20px 20px;
+    flex: 1;
   }
 
-  .risaa-reviews__card-stars {
-    display: flex;
-    gap: 3px;
-  }
-
-  .risaa-reviews__card-star {
-    color: #c9a84c;
-    font-size: 1.1rem;
-  }
-
-  .risaa-reviews__card-star.empty {
-    color: #e0d8cc;
-  }
-
-  /* Quote */
-  .risaa-reviews__card-quote {
-    font-family: var(--font-body-family);
-    font-size: 1.25rem;
-    line-height: 1.75;
-    color: #444;
-    margin: 0 0 22px;
-    padding-left: 14px;
-    border-left: 2px solid #9a1c20;
-    font-style: italic;
-  }
-
-  /* Reviewer */
-  .risaa-reviews__card-bottom {
+  /* Top row: avatar + name + meta */
+  .risaa-reviews__card-header {
     display: flex;
     align-items: center;
     gap: 12px;
   }
 
   .risaa-reviews__avatar-initial {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: #9a1c20;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-heading-family);
-    font-size: 1.4rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
     color: #fff;
     flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  /* Google-style avatar colours cycling through 4 */
+  .risaa-reviews__card:nth-child(4n + 1) .risaa-reviews__avatar-initial {
+    background: #4285f4;
+  }
+  .risaa-reviews__card:nth-child(4n + 2) .risaa-reviews__avatar-initial {
+    background: #ea4335;
+  }
+  .risaa-reviews__card:nth-child(4n + 3) .risaa-reviews__avatar-initial {
+    background: #34a853;
+  }
+  .risaa-reviews__card:nth-child(4n + 4) .risaa-reviews__avatar-initial {
+    background: #fbbc04;
   }
 
   .risaa-reviews__avatar {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
   }
 
+  .risaa-reviews__card-meta {
+    flex: 1;
+    min-width: 0;
+  }
+
   .risaa-reviews__reviewer-name {
-    font-family: var(--font-heading-family);
-    font-size: 1.2rem;
-    color: #1a1a1a;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
+    font-family: 'Jost', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #202124;
     margin: 0;
-    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .risaa-reviews__reviewer-meta {
-    font-size: 1rem;
-    color: #aaa;
-    margin: 3px 0 0;
-    letter-spacing: 0.02em;
+    font-family: 'Jost', sans-serif;
+    font-size: 1.1rem;
+    color: #70757a;
+    margin: 2px 0 0;
   }
 
-  .risaa-reviews__verified {
-    margin-left: auto;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #4ade80;
-    font-weight: 600;
-    white-space: nowrap;
+  /* Stars row */
+  .risaa-reviews__card-stars-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  /* ── Nav ── */
+  .risaa-reviews__card-stars {
+    display: flex;
+    gap: 1px;
+  }
+
+  .risaa-reviews__card-star {
+    color: #fbbc04;
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+
+  .risaa-reviews__card-star.empty {
+    color: #dadce0;
+  }
+
+  .risaa-reviews__card-date {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.1rem;
+    color: #70757a;
+  }
+
+  /* Review text */
+  .risaa-reviews__card-quote {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.65;
+    color: #3c4043;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+
+
+  /* ── Dots ── */
   .risaa-reviews__nav {
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 20px;
-    margin-top: 44px;
-  }
-
-  .risaa-reviews__nav-btn {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    border: 1px solid #e0d8cc;
-    background: transparent;
-    color: #1a1a1a;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-  }
-
-  .risaa-reviews__nav-btn svg {
-    width: 18px;
-    height: 18px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-  }
-
-  .risaa-reviews__nav-btn:hover {
-    background: #9a1c20;
-    border-color: #9a1c20;
-    color: #fff;
+    margin-top: 32px;
   }
 
   .risaa-reviews__dots {
@@ -267,20 +274,21 @@
   .risaa-reviews__dot {
     width: 6px;
     height: 6px;
-    border-radius: 3px;
-    background: #e0d8cc;
+    border-radius: 50%;
+    background: #dadce0;
     cursor: pointer;
     transition: all 0.3s ease;
   }
 
   .risaa-reviews__dot.active {
     background: #9a1c20;
-    width: 22px;
+    width: 20px;
+    border-radius: 3px;
   }
 
   @media screen and (max-width: 989px) {
     .risaa-reviews__card {
-      flex: 0 0 300px;
+      flex: 0 0 270px;
     }
   }
 
@@ -292,86 +300,98 @@
       font-size: 2.2rem;
     }
     .risaa-reviews__card {
-      flex: 0 0 270px;
+      flex: 0 0 260px;
     }
     .risaa-reviews__track {
       padding: 8px 24px 16px;
-      gap: 18px;
+      gap: 12px;
     }
   }
 {%- endstyle -%}
+
+{%- assign date_labels = '1 week ago,2 weeks ago,1 month ago,2 months ago,3 months ago,4 months ago,5 months ago,6 months ago'
+  | split: ','
+-%}
 
 <section class="risaa-reviews reveal-on-scroll" id="risaa-reviews-{{ section.id }}">
   <div class="risaa-reviews__header" data-anim="fade-up">
     <span class="risaa-reviews__eyebrow">What Our Brides Say</span>
     <h2 class="risaa-reviews__title">{{ section.settings.title }}</h2>
     <div class="risaa-reviews__aggregate">
-      <div class="risaa-reviews__agg-stars">
-        {%- for i in (1..5) -%}
-          <span class="risaa-reviews__agg-star">★</span>
-        {%- endfor -%}
-      </div>
       <span class="risaa-reviews__agg-score">{{ section.settings.aggregate_score }}</span>
-      <span class="risaa-reviews__agg-label">· {{ section.settings.review_count }}</span>
+      <div class="risaa-reviews__agg-right">
+        <div class="risaa-reviews__agg-stars">
+          {%- for i in (1..5) -%}
+            <span class="risaa-reviews__agg-star">★</span>
+          {%- endfor -%}
+        </div>
+        <span class="risaa-reviews__agg-label">{{ section.settings.review_count }}</span>
+      </div>
     </div>
+
   </div>
 
   <div class="risaa-reviews__carousel-outer">
     <div class="risaa-reviews__track" id="risaa-rev-track-{{ section.id }}">
-      {%- assign rev_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Screenshot%202026-05-11%20122743.png,https://ik.imagekit.io/flashspdstr/risaa/Elevate%20your%20ethnic%20wardrobe%20with%20this%20gorgeous_.jpg,https://ik.imagekit.io/flashspdstr/risaa/Stunning%20royal%20red%20bridal%20lehenga%20with%20heavy_.jpg,https://ik.imagekit.io/flashspdstr/risaa/festive%20glamour%20in%20this%20stunner%20_.jpg,https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg'
-        | split: ','
-      -%}
       {%- for block in section.blocks -%}
         {%- assign star_count = block.settings.rating | plus: 0 -%}
-        {%- assign fallback_img = rev_imgs[forloop.index0] | default: rev_imgs[0] -%}
+        {%- assign date_label = date_labels[forloop.index0] | default: '6 months ago' -%}
         <div class="risaa-reviews__card" {{ block.shopify_attributes }}>
-          {%- if block.settings.photo != blank -%}
+
+          <!-- Review image sits at top, full-bleed -->
+          {%- if block.settings.review_image != blank -%}
             {{
-              block.settings.photo
-              | image_url: width: 700
-              | image_tag: class: 'risaa-reviews__card-photo', loading: 'lazy', alt: block.settings.reviewer_name
+              block.settings.review_image
+              | image_url: width: 600
+              | image_tag: class: 'risaa-reviews__card-image', alt: block.settings.reviewer_name
             }}
           {%- else -%}
+            {%- assign _rev_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/sangeet.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/reception.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png,https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg' | split: ',' -%}
+            {%- assign _rev_img_idx = forloop.index0 | modulo: 8 -%}
             <img
-              src="{{ fallback_img }}"
+              class="risaa-reviews__card-image"
+              src="{{ _rev_imgs[_rev_img_idx] }}"
               alt="{{ block.settings.reviewer_name }}"
-              class="risaa-reviews__card-photo"
               loading="lazy"
             >
           {%- endif -%}
 
+          <!-- Padded body -->
           <div class="risaa-reviews__card-body">
-            <div class="risaa-reviews__card-top">
-              <div class="risaa-reviews__card-stars">
-                {%- for i in (1..5) -%}
-                  <span class="risaa-reviews__card-star{% if i > star_count %} empty{% endif %}">★</span>
-                {%- endfor -%}
-              </div>
-              {%- if block.settings.show_verified -%}
-                <span class="risaa-reviews__verified">✓ Verified</span>
-              {%- endif -%}
-            </div>
 
-            <p class="risaa-reviews__card-quote">{{ block.settings.review_text }}</p>
-
-            <div class="risaa-reviews__card-bottom">
+            <!-- Header: avatar + name -->
+            <div class="risaa-reviews__card-header">
               {%- if block.settings.avatar != blank -%}
                 {{
                   block.settings.avatar
-                  | image_url: width: 100
+                  | image_url: width: 80
                   | image_tag: class: 'risaa-reviews__avatar', alt: block.settings.reviewer_name
                 }}
               {%- else -%}
                 <div class="risaa-reviews__avatar-initial">{{ block.settings.reviewer_name | slice: 0 }}</div>
               {%- endif -%}
-              <div>
+              <div class="risaa-reviews__card-meta">
                 <p class="risaa-reviews__reviewer-name">{{ block.settings.reviewer_name }}</p>
                 {%- if block.settings.reviewer_meta != blank -%}
                   <p class="risaa-reviews__reviewer-meta">{{ block.settings.reviewer_meta }}</p>
                 {%- endif -%}
               </div>
             </div>
-          </div>
+
+            <!-- Stars + date -->
+            <div class="risaa-reviews__card-stars-row">
+              <div class="risaa-reviews__card-stars">
+                {%- for i in (1..5) -%}
+                  <span class="risaa-reviews__card-star{% if i > star_count %} empty{% endif %}">★</span>
+                {%- endfor -%}
+              </div>
+              <span class="risaa-reviews__card-date">{{ date_label }}</span>
+            </div>
+
+            <!-- Review text -->
+            <p class="risaa-reviews__card-quote">{{ block.settings.review_text }}</p>
+
+          </div><!-- /.card-body -->
         </div>
       {%- endfor -%}
     </div>
@@ -391,37 +411,70 @@
     const id = '{{ section.id }}';
     const track = document.getElementById('risaa-rev-track-' + id);
     const dotsWrap = document.getElementById('risaa-rev-dots-' + id);
-    const prevBtn = document.getElementById('risaa-rev-prev-' + id);
-    const nextBtn = document.getElementById('risaa-rev-next-' + id);
     if (!track) return;
 
     const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.risaa-reviews__dot')) : [];
     let activeIdx = 0;
+    let autoTimer = null;
+    let isPaused = false;
+
+    function total() {
+      return track.querySelectorAll('.risaa-reviews__card').length;
+    }
 
     function cardWidth() {
       const c = track.querySelector('.risaa-reviews__card');
-      return c ? c.offsetWidth + parseInt(getComputedStyle(track).gap) : 368;
+      return c ? c.offsetWidth + parseInt(getComputedStyle(track).gap) : 316;
     }
 
     function goTo(idx) {
-      const total = track.querySelectorAll('.risaa-reviews__card').length;
-      activeIdx = Math.max(0, Math.min(idx, total - 1));
+      const n = total();
+      activeIdx = ((idx % n) + n) % n;
       track.scrollTo({ left: activeIdx * cardWidth(), behavior: 'smooth' });
       dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
     }
 
-    prevBtn && prevBtn.addEventListener('click', () => goTo(activeIdx - 1));
-    nextBtn && nextBtn.addEventListener('click', () => goTo(activeIdx + 1));
-    dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+    function next() {
+      goTo(activeIdx + 1);
+    }
 
-    let t;
+    function startAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(() => {
+        if (!isPaused) next();
+      }, 2000);
+    }
+
+    /* dot clicks */
+    dots.forEach((d, i) => d.addEventListener('click', () => {
+      goTo(i);
+      isPaused = true;
+      clearTimeout(window['_risaa_resume_' + id]);
+      window['_risaa_resume_' + id] = setTimeout(() => { isPaused = false; }, 6000);
+    }));
+
+    /* pause on hover */
+    track.addEventListener('mouseenter', () => { isPaused = true; });
+    track.addEventListener('mouseleave', () => { isPaused = false; });
+
+    /* pause on touch / manual drag */
+    track.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
+    track.addEventListener('touchend', () => {
+      clearTimeout(window['_risaa_resume_' + id]);
+      window['_risaa_resume_' + id] = setTimeout(() => { isPaused = false; }, 4000);
+    }, { passive: true });
+
+    /* sync dot on manual scroll */
+    let scrollT;
     track.addEventListener('scroll', () => {
-      clearTimeout(t);
-      t = setTimeout(() => {
+      clearTimeout(scrollT);
+      scrollT = setTimeout(() => {
         activeIdx = Math.round(track.scrollLeft / cardWidth());
         dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
       }, 80);
     });
+
+    startAuto();
   })();
 </script>
 
@@ -434,15 +487,15 @@
   "settings": [
     { "type": "text", "id": "title", "label": "Section Title", "default": "Brides of RiSaa" },
     { "type": "text", "id": "aggregate_score", "label": "Aggregate Score", "default": "4.9" },
-    { "type": "text", "id": "review_count", "label": "Review Count Text", "default": "200+ Happy Clients" }
+    { "type": "text", "id": "review_count", "label": "Review Count Text", "default": "200+ Reviews" }
   ],
   "blocks": [
     {
       "type": "review",
       "name": "Review",
       "settings": [
-        { "type": "image_picker", "id": "photo", "label": "Customer Photo" },
-        { "type": "image_picker", "id": "avatar", "label": "Avatar" },
+        { "type": "image_picker", "id": "review_image", "label": "Review Image" },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar Photo" },
         { "type": "range", "id": "rating", "min": 1, "max": 5, "step": 1, "default": 5, "label": "Star Rating" },
         {
           "type": "textarea",
@@ -451,8 +504,7 @@
           "default": "RiSaa made my dream lehenga a reality. The craftsmanship, the fit, the detailing — absolutely beyond what I imagined!"
         },
         { "type": "text", "id": "reviewer_name", "label": "Name", "default": "Priya S." },
-        { "type": "text", "id": "reviewer_meta", "label": "Location / Occasion", "default": "Bridal · Ludhiana" },
-        { "type": "checkbox", "id": "show_verified", "label": "Show Verified Badge", "default": true }
+        { "type": "text", "id": "reviewer_meta", "label": "Location / Occasion", "default": "Bridal · Ludhiana" }
       ]
     }
   ],
