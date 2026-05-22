@@ -18,6 +18,11 @@
     max-width: calc((100% - 60px) / 3);
   }
 
+  .risaa-color-parallax-inner {
+    will-change: transform;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
   .risaa-collage {
     position: relative;
     height: 225px;
@@ -103,33 +108,100 @@
       {%- assign _col_main = _col_main_imgs[forloop.index0] | default: _col_main_imgs[0] -%}
       {%- assign _col_sub = _col_sub_imgs[forloop.index0] | default: _col_sub_imgs[0] -%}
       <a href="{{ block.settings.link }}" class="risaa-color-item" {{ block.shopify_attributes }}>
-        <div class="risaa-collage">
-          {% if block.settings.main_image != blank %}
-            {{
-              block.settings.main_image
-              | image_url: width: 600
-              | image_tag: class: 'risaa-collage__main', loading: 'lazy'
-            }}
-          {% else %}
-            <img src="{{ _col_main }}" alt="{{ block.settings.color_name }}" class="risaa-collage__main" loading="lazy">
-          {% endif %}
+        <div class="risaa-color-parallax-inner">
+          <div class="risaa-collage">
+            {% if block.settings.main_image != blank %}
+              {{
+                block.settings.main_image
+                | image_url: width: 600
+                | image_tag: class: 'risaa-collage__main', loading: 'lazy'
+              }}
+            {% else %}
+              <img src="{{ _col_main }}" alt="{{ block.settings.color_name }}" class="risaa-collage__main" loading="lazy">
+            {% endif %}
 
-          {% if block.settings.sub_image != blank %}
-            {{
-              block.settings.sub_image
-              | image_url: width: 400
-              | image_tag: class: 'risaa-collage__sub', loading: 'lazy'
-            }}
-          {% else %}
-            <img src="{{ _col_sub }}" alt="{{ block.settings.color_name }}" class="risaa-collage__sub" loading="lazy">
-          {% endif %}
+            {% if block.settings.sub_image != blank %}
+              {{
+                block.settings.sub_image
+                | image_url: width: 400
+                | image_tag: class: 'risaa-collage__sub', loading: 'lazy'
+              }}
+            {% else %}
+              <img src="{{ _col_sub }}" alt="{{ block.settings.color_name }}" class="risaa-collage__sub" loading="lazy">
+            {% endif %}
+          </div>
+          <h3>{{ block.settings.color_name }}</h3>
+          <span>{{ block.settings.count_text }}</span>
         </div>
-        <h3>{{ block.settings.color_name }}</h3>
-        <span>{{ block.settings.count_text }}</span>
       </a>
     {% endfor %}
   </div>
 </div>
+
+<script>
+  (function() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const wrapper = document.querySelector('.section-{{ section.id }}-padding');
+      if (!wrapper) return;
+      
+      const grid = wrapper.querySelector('.risaa-color-grid');
+      if (!grid) return;
+      
+      const items = grid.querySelectorAll('.risaa-color-item');
+      
+      // Different multiplier speeds for the 5 cards to create uneven scrolling
+      const speeds = [0.12, 0.11, 0.15, 0.08, 0.18];
+      
+      let ticking = false;
+      
+      function updateParallax() {
+        const rect = wrapper.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Calculate offset from center of viewport
+        const sectionCenter = rect.top + rect.height / 2;
+        const viewportCenter = windowHeight / 2;
+        const offset = sectionCenter - viewportCenter;
+        
+        // Only animate if the section is in view
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          // Disable parallax on mobile (single column layout)
+          if (window.innerWidth > 749) {
+            items.forEach((item, index) => {
+              const inner = item.querySelector('.risaa-color-parallax-inner');
+              if (!inner) return;
+              const speed = speeds[index % speeds.length];
+              const yPos = offset * speed;
+              inner.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+          } else {
+            items.forEach((item) => {
+              const inner = item.querySelector('.risaa-color-parallax-inner');
+              if (inner) inner.style.transform = 'none';
+            });
+          }
+        }
+        ticking = false;
+      }
+      
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }, { passive: true });
+      
+      window.addEventListener('resize', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      });
+      
+      updateParallax();
+    });
+  })();
+</script>
 
 {% schema %}
 {
