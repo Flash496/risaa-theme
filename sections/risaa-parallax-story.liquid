@@ -9,7 +9,6 @@
     z-index: 1;
     padding: 50px 0;
     background-color: var(--brand-undertone-2);
-    overflow: hidden;
   }
 
   .risaa-parallax-container {
@@ -32,6 +31,8 @@
     border-radius: 180px 180px 0 0;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    will-change: transform;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .risaa-img-1 {
@@ -90,12 +91,7 @@
 <section class="risaa-parallax-section">
   <div class="risaa-parallax-container">
     <div class="risaa-parallax-images">
-      <div
-        class="risaa-img-parallax risaa-img-1 reveal-on-scroll"
-        style="transition-delay: 0.2s;"
-        data-anim="slide-left"
-        data-anim-delay="0.1"
-      >
+      <div class="risaa-img-parallax risaa-img-1">
         {% if section.settings.image_1 != blank %}
           {{ section.settings.image_1 | image_url: width: 600 | image_tag: loading: 'lazy' }}
         {% else %}
@@ -107,12 +103,7 @@
           >
         {% endif %}
       </div>
-      <div
-        class="risaa-img-parallax risaa-img-2 reveal-on-scroll"
-        style="transition-delay: 0.5s;"
-        data-anim="slide-right"
-        data-anim-delay="0.25"
-      >
+      <div class="risaa-img-parallax risaa-img-2">
         {% if section.settings.image_2 != blank %}
           {{ section.settings.image_2 | image_url: width: 600 | image_tag: loading: 'lazy' }}
         {% else %}
@@ -208,6 +199,67 @@
     </div>
   </div>
 </section>
+
+<script>
+  (function() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const section = document.querySelector('.risaa-parallax-section');
+      if (!section) return;
+      
+      const img1 = section.querySelector('.risaa-img-1');
+      const img2 = section.querySelector('.risaa-img-2');
+      
+      let ticking = false;
+      
+      function updateStoryParallax() {
+        const rect = section.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        const sectionCenter = rect.top + rect.height / 2;
+        const viewportCenter = windowHeight / 2;
+        const offset = sectionCenter - viewportCenter;
+        
+        if (rect.top < windowHeight && rect.bottom > 0) {
+          if (window.innerWidth > 989) {
+            // img1 (top left) starts farther top-left (-X, -Y) when section is below viewport (offset > 0)
+            const speed1X = 0.12;
+            const speed1Y = 0.18;
+            const x1 = -offset * speed1X;
+            const y1 = -offset * speed1Y;
+            if (img1) img1.style.transform = `translate3d(${x1}px, ${y1}px, 0)`;
+            
+            // img2 (bottom right) starts farther bottom-right (+X, +Y) when section is below viewport (offset > 0)
+            const speed2X = 0.15;
+            const speed2Y = 0.22;
+            const x2 = offset * speed2X;
+            const y2 = offset * speed2Y;
+            if (img2) img2.style.transform = `translate3d(${x2}px, ${y2}px, 0)`;
+          } else {
+            if (img1) img1.style.transform = 'none';
+            if (img2) img2.style.transform = 'none';
+          }
+        }
+        ticking = false;
+      }
+      
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateStoryParallax);
+          ticking = true;
+        }
+      }, { passive: true });
+      
+      window.addEventListener('resize', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateStoryParallax);
+          ticking = true;
+        }
+      });
+      
+      updateStoryParallax();
+    });
+  })();
+</script>
 
 {% schema %}
 {
