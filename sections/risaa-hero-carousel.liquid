@@ -53,7 +53,7 @@
     color: #ffffff !important;
     font-size: 5rem;
     margin-bottom: 1.5rem;
-    text-transform: uppercase;
+    text-transform: none;
     letter-spacing: 0.1em;
     opacity: 0;
     transform: translateY(30px);
@@ -136,7 +136,7 @@
     color: #ffffff !important;
   }
   .risaa-carousel-slide:nth-child(1) .risaa-carousel-overlay p {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Cormorant Garamond', Georgia, serif !important;
     font-size: 1.6rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -157,16 +157,16 @@
     font-weight: 300;
     font-size: 5.5rem;
     letter-spacing: 0.35em;
-    text-transform: uppercase;
+    text-transform: uppercase !important;
     line-height: 1.2;
     /* Pure white */
     color: #ffffff !important;
   }
   .risaa-carousel-slide:nth-child(2) .risaa-carousel-overlay p {
-    font-family: 'Assistant', sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+    font-family: 'Great Vibes', cursive !important;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    text-transform: none;
     /* Light red accent */
     color: #ff9999 !important;
   }
@@ -182,9 +182,10 @@
     gap: 1.2rem;
   }
   .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay h2 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 9rem;
-    letter-spacing: 0.02em;
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-style: italic;
+    font-size: 7rem;
+    letter-spacing: 0.05em;
     text-transform: none;
     font-weight: 400;
     line-height: 1;
@@ -237,15 +238,19 @@
     flex-shrink: 0;
   }
   .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 100;
-    font-size: 7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-family: 'Great Vibes', cursive !important;
+    font-weight: 400;
+    font-size: 9rem;
+    letter-spacing: 0.05em;
+    text-transform: capitalize !important;
     line-height: 1;
     /* Pure white */
     color: #ffffff !important;
     align-self: center;
+  }
+
+  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay h2::first-letter {
+    text-transform: uppercase !important;
   }
   .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay p {
     font-family: 'Montserrat', sans-serif;
@@ -290,7 +295,7 @@
     letter-spacing: 0.55em;
     text-transform: uppercase;
     /* Light pink eyebrow */
-    color: #ffb3ba;
+    color: #ffb3ba !important;
     display: flex;
     align-items: center;
     gap: 1.4rem;
@@ -311,10 +316,10 @@
     font-weight: 400;
     font-size: 6.5rem;
     letter-spacing: 0.15em;
-    text-transform: uppercase;
+    text-transform: uppercase !important;
     line-height: 1;
     -webkit-text-stroke: 1.5px #ffffff;
-    color: transparent;
+    color: transparent !important;
     text-shadow: 0 0 80px rgba(255, 255, 255, 0.12);
   }
   .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay .btn-premium {
