@@ -1,9 +1,12 @@
 {%- style -%}
   .risaa-color-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
     padding: 0 15px;
+    max-width: 65%;
+    margin: 0 auto;
   }
 
   .risaa-color-item {
@@ -11,11 +14,13 @@
     text-decoration: none;
     color: inherit;
     text-align: center;
+    flex: 0 0 calc((100% - 60px) / 3);
+    max-width: calc((100% - 60px) / 3);
   }
 
   .risaa-collage {
     position: relative;
-    height: 450px;
+    height: 225px;
     margin-bottom: 20px;
     transition: transform 0.5s ease;
   }
@@ -61,17 +66,22 @@
   }
 
   @media screen and (max-width: 989px) {
-    .risaa-color-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .risaa-color-item {
+      flex: 0 0 calc((100% - 30px) / 2);
+      max-width: calc((100% - 30px) / 2);
     }
   }
 
   @media screen and (max-width: 749px) {
     .risaa-color-grid {
-      grid-template-columns: 1fr;
+      max-width: 100%;
+    }
+    .risaa-color-item {
+      flex: 0 0 100%;
+      max-width: 100%;
     }
     .risaa-collage {
-      height: 350px;
+      height: 250px;
     }
   }
 {%- endstyle -%}
@@ -84,10 +94,10 @@
 
   <div class="risaa-color-grid" data-anim-stagger data-anim-delay="0.1" data-anim-step="0.15">
     {% for block in section.blocks %}
-      {%- assign _col_main_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20primary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20primary.jpg'
+      {%- assign _col_main_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20primary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20main.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20main.jpg'
         | split: ','
       -%}
-      {%- assign _col_sub_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20secondary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20secondary.jpg'
+      {%- assign _col_sub_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20secondary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20secondary.jpg'
         | split: ','
       -%}
       {%- assign _col_main = _col_main_imgs[forloop.index0] | default: _col_main_imgs[0] -%}
@@ -182,7 +192,9 @@
       "blocks": [
         { "type": "color_block", "settings": { "color_name": "RUBY" } },
         { "type": "color_block", "settings": { "color_name": "SAFFRON" } },
-        { "type": "color_block", "settings": { "color_name": "MOCHA" } }
+        { "type": "color_block", "settings": { "color_name": "MOCHA" } },
+        { "type": "color_block", "settings": { "color_name": "INDIGO" } },
+        { "type": "color_block", "settings": { "color_name": "MATCHA" } }
       ]
     }
   ]

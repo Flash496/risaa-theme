@@ -158,9 +158,11 @@
       "blocks": {
         "color_1": { "type": "color_block", "settings": { "color_name": "RUBY" } },
         "color_2": { "type": "color_block", "settings": { "color_name": "SAFFRON" } },
-        "color_3": { "type": "color_block", "settings": { "color_name": "MOCHA" } }
+        "color_3": { "type": "color_block", "settings": { "color_name": "MOCHA" } },
+        "color_4": { "type": "color_block", "settings": { "color_name": "INDIGO" } },
+        "color_5": { "type": "color_block", "settings": { "color_name": "MATCHA" } }
       },
-      "block_order": ["color_1", "color_2", "color_3"],
+      "block_order": ["color_1", "color_2", "color_3", "color_4", "color_5"],
       "settings": {
         "title": "Palettes",
         "subtitle": ""
