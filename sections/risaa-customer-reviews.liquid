@@ -256,8 +256,6 @@
     overflow: hidden;
   }
 
-
-
   /* ── Dots ── */
   .risaa-reviews__nav {
     display: flex;
@@ -328,7 +326,6 @@
         <span class="risaa-reviews__agg-label">{{ section.settings.review_count }}</span>
       </div>
     </div>
-
   </div>
 
   <div class="risaa-reviews__carousel-outer">
@@ -337,7 +334,6 @@
         {%- assign star_count = block.settings.rating | plus: 0 -%}
         {%- assign date_label = date_labels[forloop.index0] | default: '6 months ago' -%}
         <div class="risaa-reviews__card" {{ block.shopify_attributes }}>
-
           <!-- Review image sits at top, full-bleed -->
           {%- if block.settings.review_image != blank -%}
             {{
@@ -346,7 +342,9 @@
               | image_tag: class: 'risaa-reviews__card-image', alt: block.settings.reviewer_name
             }}
           {%- else -%}
-            {%- assign _rev_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/sangeet.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/reception.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png,https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg' | split: ',' -%}
+            {%- assign _rev_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/sangeet.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/reception.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png,https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg'
+              | split: ','
+            -%}
             {%- assign _rev_img_idx = forloop.index0 | modulo: 8 -%}
             <img
               class="risaa-reviews__card-image"
@@ -358,7 +356,6 @@
 
           <!-- Padded body -->
           <div class="risaa-reviews__card-body">
-
             <!-- Header: avatar + name -->
             <div class="risaa-reviews__card-header">
               {%- if block.settings.avatar != blank -%}
@@ -390,8 +387,8 @@
 
             <!-- Review text -->
             <p class="risaa-reviews__card-quote">{{ block.settings.review_text }}</p>
-
-          </div><!-- /.card-body -->
+          </div>
+          <!-- /.card-body -->
         </div>
       {%- endfor -%}
     </div>
@@ -429,7 +426,14 @@
 
     function goTo(idx) {
       const n = total();
-      activeIdx = ((idx % n) + n) % n;
+      // Loop infinitely: when reaching the end, go back to start
+      if (idx >= n) {
+        activeIdx = 0;
+      } else if (idx < 0) {
+        activeIdx = n - 1;
+      } else {
+        activeIdx = idx;
+      }
       track.scrollTo({ left: activeIdx * cardWidth(), behavior: 'smooth' });
       dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
     }
@@ -446,23 +450,43 @@
     }
 
     /* dot clicks */
-    dots.forEach((d, i) => d.addEventListener('click', () => {
-      goTo(i);
-      isPaused = true;
-      clearTimeout(window['_risaa_resume_' + id]);
-      window['_risaa_resume_' + id] = setTimeout(() => { isPaused = false; }, 6000);
-    }));
+    dots.forEach((d, i) =>
+      d.addEventListener('click', () => {
+        goTo(i);
+        isPaused = true;
+        clearTimeout(window['_risaa_resume_' + id]);
+        window['_risaa_resume_' + id] = setTimeout(() => {
+          isPaused = false;
+        }, 6000);
+      })
+    );
 
     /* pause on hover */
-    track.addEventListener('mouseenter', () => { isPaused = true; });
-    track.addEventListener('mouseleave', () => { isPaused = false; });
+    track.addEventListener('mouseenter', () => {
+      isPaused = true;
+    });
+    track.addEventListener('mouseleave', () => {
+      isPaused = false;
+    });
 
     /* pause on touch / manual drag */
-    track.addEventListener('touchstart', () => { isPaused = true; }, { passive: true });
-    track.addEventListener('touchend', () => {
-      clearTimeout(window['_risaa_resume_' + id]);
-      window['_risaa_resume_' + id] = setTimeout(() => { isPaused = false; }, 4000);
-    }, { passive: true });
+    track.addEventListener(
+      'touchstart',
+      () => {
+        isPaused = true;
+      },
+      { passive: true }
+    );
+    track.addEventListener(
+      'touchend',
+      () => {
+        clearTimeout(window['_risaa_resume_' + id]);
+        window['_risaa_resume_' + id] = setTimeout(() => {
+          isPaused = false;
+        }, 4000);
+      },
+      { passive: true }
+    );
 
     /* sync dot on manual scroll */
     let scrollT;
@@ -485,7 +509,7 @@
   "class": "section",
   "max_blocks": 12,
   "settings": [
-    { "type": "text", "id": "title", "label": "Section Title", "default": "Brides of RiSaa" },
+    { "type": "text", "id": "title", "label": "Section Title", "default": "BEAUTIES OF RISAA" },
     { "type": "text", "id": "aggregate_score", "label": "Aggregate Score", "default": "4.9" },
     { "type": "text", "id": "review_count", "label": "Review Count Text", "default": "200+ Reviews" }
   ],

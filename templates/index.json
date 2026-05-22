@@ -250,11 +250,51 @@
             "reviewer_meta": "Sangeet outfit · Mumbai",
             "show_verified": true
           }
+        },
+        "rev_9": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "Absolutely stunning craftsmanship! The attention to detail on my bridal lehenga was impeccable. Rima and her team brought my Pinterest board to life!",
+            "reviewer_name": "Kavya P.",
+            "reviewer_meta": "Bridal couture · Pune",
+            "show_verified": true
+          }
+        },
+        "rev_10": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "I was skeptical about ordering online but RiSaa exceeded all expectations. The fabric quality is luxurious and the fit was perfect. Highly recommend!",
+            "reviewer_name": "Ishita B.",
+            "reviewer_meta": "Festive wear · Ahmedabad",
+            "show_verified": true
+          }
+        },
+        "rev_11": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "My cocktail outfit was the talk of the evening! The modern silhouette with traditional embroidery was exactly what I wanted. Thank you for making me shine!",
+            "reviewer_name": "Tanvi G.",
+            "reviewer_meta": "Cocktail look · Hyderabad",
+            "show_verified": true
+          }
+        },
+        "rev_12": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "review_text": "RiSaa's customer service is as beautiful as their outfits. They were patient with all my changes and the final result was worth the wait. Pure elegance!",
+            "reviewer_name": "Ananya T.",
+            "reviewer_meta": "Reception ensemble · Kolkata",
+            "show_verified": true
+          }
         }
       },
-      "block_order": ["rev_1", "rev_2", "rev_3", "rev_4", "rev_5", "rev_6", "rev_7", "rev_8"],
+      "block_order": ["rev_1", "rev_2", "rev_3", "rev_4", "rev_5", "rev_6", "rev_7", "rev_8", "rev_9", "rev_10", "rev_11", "rev_12"],
       "settings": {
-        "title": "Brides of RiSaa",
+        "title": "BEAUTIES OF RISAA",
         "subtitle": "Real stories from real women",
         "aggregate_score": "4.9",
         "review_count": "200+ Happy Clients"
