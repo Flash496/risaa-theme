@@ -59,6 +59,12 @@
         "speed": 35
       }
     },
+    "risaa_summer_picks": {
+      "type": "risaa-summer-picks",
+      "settings": {
+        "title": "Sun-Kissed Picks"
+      }
+    },
     "risaa_new_in": {
       "type": "risaa-new-in",
       "settings": {
@@ -245,6 +251,7 @@
   "order": [
     "hero_carousel",
     "risaa_hero_marquee",
+    "risaa_summer_picks",
     "risaa_new_in",
     "risaa_shop_by_occasion",
     "bestsellers",
