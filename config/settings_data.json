@@ -6,7 +6,7 @@
       "color_schemes": {
         "scheme-1": {
           "settings": {
-            "background": "#FEFDFF",
+            "background": "#FAF8F5",
             "background_gradient": "",
             "text": "#121212",
             "button": "#9A1C20",
@@ -50,7 +50,7 @@
         },
         "scheme-5": {
           "settings": {
-            "background": "#FEFDFF",
+            "background": "#FAF8F5",
             "background_gradient": "",
             "text": "#121212",
             "button": "#121212",
