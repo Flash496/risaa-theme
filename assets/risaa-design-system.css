@@ -51,16 +51,32 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--brand-main);
 }
 
-/* Header Polish */
+/* Header Polish with Glassmorphism */
 .header-wrapper {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
-  border-bottom: 1px solid rgba(154, 28, 32, 0.08) !important;
-  background-color: var(--brand-text) !important;
+  border-bottom: 1px solid rgba(154, 28, 32, 0.1) !important;
+  /* Glassmorphism effect */
+  background: rgba(250, 248, 245, 0.75) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02) !important;
+  box-shadow: 0 8px 32px rgba(154, 28, 32, 0.08), 
+              0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Enhanced glass effect on scroll */
+.header-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.4) 0%, 
+    rgba(255, 255, 255, 0.1) 100%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Logo styling */
