@@ -56,8 +56,8 @@ h1, h2, h3, h4, h5, h6 {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
   border-bottom: 1px solid rgba(154, 28, 32, 0.1) !important;
-  /* Glassmorphism effect */
-  background: rgba(250, 248, 245, 0.75) !important;
+  /* Solid background color */
+  background: #FAF8F5 !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   position: sticky;
