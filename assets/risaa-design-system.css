@@ -1,6 +1,6 @@
 :root {
   --brand-main: #9a1c20;
-  --brand-text: #fefdff;
+  --brand-text: #FAF8F5;
   --brand-undertone-1: #b6827e;
   --brand-undertone-2: #f1dcd2;
   --brand-dark: #121212;
@@ -22,6 +22,10 @@ body {
   color: var(--brand-dark);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+}
+
+.risaa-scroll-slide-up {
+  will-change: transform, opacity;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -609,4 +613,3 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 2.2rem !important;
   }
 }
-

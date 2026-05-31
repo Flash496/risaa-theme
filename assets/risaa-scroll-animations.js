@@ -14,6 +14,25 @@
 
   // ── Scroll-driven (Scrubbed) animations for reveal-behind ─────────
   const scrubElements = [];
+  const headingScrubTexts = new Set([
+    'summer favourites',
+    'new in',
+    "designer's choice",
+    'ready to ship',
+    'in motion',
+    'beauties of risaa',
+  ]);
+
+  function normalizeText(text) {
+    return (text || '').replace(/\s+/g, ' ').trim().toLowerCase();
+  }
+
+  function addScrubElement(el) {
+    if (!scrubElements.includes(el)) {
+      el.classList.add('risaa-scroll-slide-up');
+      scrubElements.push(el);
+    }
+  }
 
   function updateScrub() {
     const vh = window.innerHeight;
@@ -39,7 +58,8 @@
       p = Math.max(0, Math.min(1, p)); // Clamp 0 to 1
 
       // Apply opacity and translation
-      const y = (1 - p) * 80; // starts at 80px, ends at 0px
+      const distance = el.classList.contains('risaa-scroll-slide-up') ? 46 : 80;
+      const y = (1 - p) * distance;
       el.style.opacity = p.toFixed(3);
       el.style.transform = `translateY(${y.toFixed(2)}px)`;
     });
@@ -128,11 +148,22 @@
 
     root.querySelectorAll('[data-anim]').forEach((el) => {
       if (el.dataset.anim === 'reveal-behind') {
-        if (!scrubElements.includes(el)) {
-          scrubElements.push(el);
-        }
+        addScrubElement(el);
       } else {
         singleObserver.observe(el);
+      }
+    });
+
+    root.querySelectorAll('h1, h2, .risaa-reviews__aggregate').forEach((el) => {
+      const text = normalizeText(el.textContent);
+      const isTargetHeading = headingScrubTexts.has(text);
+      const isReviewsAggregate =
+        el.classList.contains('risaa-reviews__aggregate') &&
+        text.includes('4.9') &&
+        text.includes('200+ happy clients');
+
+      if (isTargetHeading || isReviewsAggregate) {
+        addScrubElement(el);
       }
     });
 
