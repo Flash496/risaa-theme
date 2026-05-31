@@ -32,16 +32,16 @@
     line-height: 1.1;
   }
 
-  /* Carousel wrapper */
+  /* Outer clipping container */
   .risaa-occasions__carousel-outer {
     position: relative;
     width: 100%;
     overflow: hidden;
-    cursor: grab;
     user-select: none;
+    cursor: grab;
   }
 
-  .risaa-occasions__carousel-outer:active {
+  .risaa-occasions__carousel-outer.is-dragging {
     cursor: grabbing;
   }
 
@@ -53,37 +53,72 @@
     top: 0;
     bottom: 0;
     width: 80px;
-    z-index: 2;
+    z-index: 3;
     pointer-events: none;
   }
-
   .risaa-occasions__carousel-outer::before {
     left: 0;
     background: linear-gradient(to right, #faf8f5, transparent);
   }
-
   .risaa-occasions__carousel-outer::after {
     right: 0;
     background: linear-gradient(to left, #faf8f5, transparent);
   }
 
-  .risaa-occasions__track {
+  /* Arrow buttons */
+  .risaa-occasions__arrow {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(154, 28, 32, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, background 0.2s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    pointer-events: none;
+    padding: 0;
+  }
+  .risaa-occasions__arrow svg {
+    width: 18px;
+    height: 18px;
+    stroke: #9a1c20;
+    stroke-width: 2.5;
+    fill: none;
+    display: block;
+  }
+  .risaa-occasions__arrow--prev {
+    left: 16px;
+  }
+  .risaa-occasions__arrow--next {
+    right: 16px;
+  }
+
+  .risaa-occasions__carousel-outer:hover .risaa-occasions__arrow {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .risaa-occasions__arrow:hover {
+    background: #9a1c20;
+  }
+  .risaa-occasions__arrow:hover svg {
+    stroke: #fff;
+  }
+
+  /* Belt — JS drives translateX, no CSS animation */
+  .risaa-occasions__belt {
     display: flex;
     gap: 24px;
-    padding: 12px 60px 24px;
+    padding: 12px 0 24px;
     width: max-content;
-    animation: occasions-scroll {{ section.settings.speed | default: 60 }}s linear infinite;
     will-change: transform;
-  }
-
-  .risaa-occasions__carousel-outer:hover .risaa-occasions__track,
-  .risaa-occasions__carousel-outer.is-dragging .risaa-occasions__track {
-    animation-play-state: paused;
-  }
-
-  @keyframes occasions-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
   }
 
   /* Card */
@@ -94,7 +129,6 @@
     display: block;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
-
   .risaa-occasions__card:hover {
     transform: translateY(-8px);
   }
@@ -106,9 +140,8 @@
     border-radius: 158px 158px 18px 18px;
     position: relative;
     background: #f1dcd2;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
   }
-
   .risaa-occasions__img {
     width: 100%;
     height: 100%;
@@ -116,27 +149,8 @@
     transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     display: block;
   }
-
   .risaa-occasions__card:hover .risaa-occasions__img {
     transform: scale(1.06);
-  }
-
-  .risaa-occasions__badge {
-    position: absolute;
-    bottom: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.93);
-    backdrop-filter: blur(6px);
-    padding: 5px 16px;
-    border-radius: 20px;
-    white-space: nowrap;
-    font-family: var(--font-body-family);
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #9a1c20;
-    font-weight: 700;
   }
 
   .risaa-occasions__name {
@@ -149,7 +163,6 @@
     margin: 16px 0 0;
     transition: color 0.3s ease;
   }
-
   .risaa-occasions__card:hover .risaa-occasions__name {
     color: #9a1c20;
   }
@@ -169,9 +182,8 @@
       height: 346px;
       border-radius: 122px 122px 14px 14px;
     }
-    .risaa-occasions__track {
+    .risaa-occasions__belt {
       gap: 16px;
-      padding: 8px 30px 20px;
     }
   }
 {%- endstyle -%}
@@ -190,17 +202,34 @@
     <h2 class="risaa-occasions__title">{{ section.settings.title }}</h2>
   </div>
 
-  <div class="risaa-occasions__carousel-outer" id="occasionsCarousel-{{ section.id }}">
-    <div class="risaa-occasions__track" id="occasionsTrack-{{ section.id }}">
-      {%- comment -%}Render twice for seamless infinite loop{%- endcomment -%}
-      {%- for i in (1..2) -%}
+  <div class="risaa-occasions__carousel-outer" id="occasionsOuter-{{ section.id }}">
+    <button
+      class="risaa-occasions__arrow risaa-occasions__arrow--prev"
+      id="occasionsPrev-{{ section.id }}"
+      aria-label="Previous"
+    >
+      <svg viewBox="0 0 24 24">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <button
+      class="risaa-occasions__arrow risaa-occasions__arrow--next"
+      id="occasionsNext-{{ section.id }}"
+      aria-label="Next"
+    >
+      <svg viewBox="0 0 24 24">
+        <polyline points="9 6 15 12 9 18"/>
+      </svg>
+    </button>
+
+    <div class="risaa-occasions__belt" id="occasionsBelt-{{ section.id }}">
+      {%- comment -%}Render 3 copies so there's always content on both sides{%- endcomment -%}
+      {%- for i in (1..3) -%}
         {%- for block in section.blocks -%}
           {%- assign img_index = forloop.index0 | modulo: 10 -%}
+          {%- assign card_name = block.settings.occasion_name | default: occ_names[img_index] -%}
+          {%- assign card_link = block.settings.link | default: occ_links[img_index] -%}
           {%- assign fallback_img = occ_images[img_index] -%}
-          {%- assign fallback_name = occ_names[img_index] -%}
-          {%- assign fallback_link = occ_links[img_index] -%}
-          {%- assign card_name = block.settings.occasion_name | default: fallback_name -%}
-          {%- assign card_link = block.settings.link | default: fallback_link -%}
           <a href="{{ card_link }}" class="risaa-occasions__card" draggable="false">
             <div class="risaa-occasions__img-wrap">
               {%- if block.settings.image != blank -%}
@@ -216,6 +245,8 @@
                   class="risaa-occasions__img"
                   loading="lazy"
                   draggable="false"
+                  width="317"
+                  height="446"
                 >
               {%- endif -%}
             </div>
@@ -229,72 +260,249 @@
 
 <script>
   (function () {
-    const outer = document.getElementById('occasionsCarousel-{{ section.id }}');
-    const track = document.getElementById('occasionsTrack-{{ section.id }}');
-    if (!outer || !track) return;
+    var sid = '{{ section.id }}';
+    var outer = document.getElementById('occasionsOuter-' + sid);
+    var belt = document.getElementById('occasionsBelt-' + sid);
+    var btnPrev = document.getElementById('occasionsPrev-' + sid);
+    var btnNext = document.getElementById('occasionsNext-' + sid);
+    if (!outer || !belt) return;
 
-    // Drag-to-scroll
-    let isDown = false;
-    let startX = 0;
-    let scrollLeft = 0;
-    let dragOffset = 0;
+    /* ── Config ── */
+    var SPEED = 0.6; // px per frame at 60 fps (auto-scroll)
+    var STEP = 341; // card (317) + gap (24) — for arrow nudge
+    var GAP = 24;
 
-    outer.addEventListener('mousedown', (e) => {
+    /* ── State ── */
+    var pos = 0; // current translateX (negative = scrolled right)
+    var velocity = 0; // extra velocity from drag momentum
+    var paused = false;
+    var isDown = false;
+    var dragStartX = 0;
+    var dragStartPos = 0;
+    var hasDragged = false;
+    var lastDragX = 0;
+    var lastDragT = 0;
+    var resumeTimer = null;
+    var raf = null;
+    var oneSetW = 0; // width of one set of cards
+
+    /* ── Measure one set width after layout ── */
+    function measure() {
+      var cards = belt.querySelectorAll('.risaa-occasions__card');
+      var n = cards.length / 3; // 3 copies rendered
+      if (n < 1) return;
+      var w = 0;
+      for (var i = 0; i < n; i++) w += cards[i].offsetWidth + GAP;
+      oneSetW = w;
+      // Start in the middle copy so we can scroll both ways
+      pos = -oneSetW;
+      apply();
+    }
+
+    /* ── Apply transform ── */
+    function apply() {
+      belt.style.transform = 'translateX(' + pos + 'px)';
+    }
+
+    /* ── Wrap pos to stay in middle copy ── */
+    function wrap() {
+      if (!oneSetW) return;
+      // If we've scrolled past the end of the middle copy, jump back one set
+      if (pos <= -oneSetW * 2) pos += oneSetW;
+      // If we've scrolled before the start of the middle copy, jump forward one set
+      if (pos > 0) pos -= oneSetW;
+    }
+
+    /* ── RAF loop ── */
+    function tick() {
+      raf = requestAnimationFrame(tick);
+      if (!paused) {
+        pos -= SPEED;
+      }
+      // Apply momentum from drag
+      if (Math.abs(velocity) > 0.1) {
+        pos += velocity;
+        velocity *= 0.92; // friction
+      } else {
+        velocity = 0;
+      }
+      wrap();
+      apply();
+    }
+
+    /* ── Pause / resume ── */
+    function pause() {
+      paused = true;
+    }
+    function resume() {
+      paused = false;
+    }
+    function scheduleResume(ms) {
+      clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(function () {
+        if (!outer.matches(':hover')) resume();
+      }, ms);
+    }
+
+    /* ── Arrow nudge (smooth) ── */
+    function nudge(dir) {
+      pause();
+      var target = pos + dir * -STEP;
+      var start = pos;
+      var t0 = null;
+      var dur = 420;
+      function ease(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      }
+      function animNudge(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        pos = start + (target - start) * ease(p);
+        wrap();
+        apply();
+        if (p < 1) {
+          requestAnimationFrame(animNudge);
+        } else {
+          pos = target;
+          wrap();
+          apply();
+          scheduleResume(2000);
+        }
+      }
+      requestAnimationFrame(animNudge);
+    }
+
+    /* ── Arrows ── */
+    if (btnPrev)
+      btnPrev.addEventListener('click', function (e) {
+        e.stopPropagation();
+        nudge(-1);
+      });
+    if (btnNext)
+      btnNext.addEventListener('click', function (e) {
+        e.stopPropagation();
+        nudge(1);
+      });
+
+    /* ── Hover ── */
+    outer.addEventListener('mouseenter', pause);
+    outer.addEventListener('mouseleave', function () {
+      if (!isDown) scheduleResume(500);
+    });
+
+    /* ── Mouse drag ── */
+    outer.addEventListener('mousedown', function (e) {
+      if (e.target.closest('.risaa-occasions__arrow')) return;
+      pause();
       isDown = true;
+      hasDragged = false;
+      dragStartX = e.pageX;
+      dragStartPos = pos;
+      lastDragX = e.pageX;
+      lastDragT = Date.now();
+      velocity = 0;
       outer.classList.add('is-dragging');
-      startX = e.pageX - outer.offsetLeft;
-      dragOffset = 0;
     });
 
-    outer.addEventListener('mouseleave', () => {
-      isDown = false;
-      outer.classList.remove('is-dragging');
-    });
-
-    outer.addEventListener('mouseup', () => {
-      isDown = false;
-      outer.classList.remove('is-dragging');
-    });
-
-    outer.addEventListener('mousemove', (e) => {
+    window.addEventListener('mouseup', function () {
       if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - outer.offsetLeft;
-      dragOffset = (x - startX) * 1.5;
-      track.style.transform = `translateX(${dragOffset}px)`;
+      isDown = false;
+      outer.classList.remove('is-dragging');
+      scheduleResume(hasDragged ? 1800 : 500);
     });
 
-    // Prevent link clicks when dragging
-    outer.querySelectorAll('a').forEach((a) => {
-      a.addEventListener('click', (e) => {
-        if (Math.abs(dragOffset) > 5) e.preventDefault();
+    window.addEventListener('mousemove', function (e) {
+      if (!isDown) return;
+      var diff = e.pageX - dragStartX;
+      if (Math.abs(diff) > 3) hasDragged = true;
+      // Track velocity for momentum
+      var now = Date.now();
+      var dt = now - lastDragT || 1;
+      velocity = ((e.pageX - lastDragX) / dt) * 16; // scale to ~px/frame
+      lastDragX = e.pageX;
+      lastDragT = now;
+      pos = dragStartPos + diff;
+      wrap();
+      apply();
+    });
+
+    /* ── Block clicks on drag ── */
+    outer.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        if (hasDragged) e.preventDefault();
       });
     });
 
-    // Touch support
-    let touchStartX = 0;
+    /* ── Trackpad / wheel ── */
+    outer.addEventListener(
+      'wheel',
+      function (e) {
+        var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        if (Math.abs(delta) < 2) return;
+        e.preventDefault();
+        pause();
+        pos -= delta;
+        wrap();
+        apply();
+        scheduleResume(1000);
+      },
+      { passive: false }
+    );
+
+    /* ── Touch ── */
+    var tStartX = 0,
+      tStartPos = 0,
+      tDragged = false,
+      tLastX = 0,
+      tLastT = 0;
+
     outer.addEventListener(
       'touchstart',
-      (e) => {
-        touchStartX = e.touches[0].clientX;
+      function (e) {
+        pause();
+        tStartX = e.touches[0].clientX;
+        tStartPos = pos;
+        tDragged = false;
+        tLastX = tStartX;
+        tLastT = Date.now();
+        velocity = 0;
         outer.classList.add('is-dragging');
       },
       { passive: true }
     );
 
-    outer.addEventListener('touchend', () => {
-      outer.classList.remove('is-dragging');
-      track.style.transform = '';
-    });
-
     outer.addEventListener(
       'touchmove',
-      (e) => {
-        const diff = (e.touches[0].clientX - touchStartX) * 1.2;
-        track.style.transform = `translateX(${diff}px)`;
+      function (e) {
+        var diff = e.touches[0].clientX - tStartX;
+        if (Math.abs(diff) > 5) tDragged = true;
+        var now = Date.now();
+        velocity = ((e.touches[0].clientX - tLastX) / (now - tLastT || 1)) * 16;
+        tLastX = e.touches[0].clientX;
+        tLastT = now;
+        pos = tStartPos + diff;
+        wrap();
+        apply();
       },
       { passive: true }
     );
+
+    outer.addEventListener('touchend', function () {
+      outer.classList.remove('is-dragging');
+      scheduleResume(tDragged ? 1800 : 400);
+    });
+
+    outer.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('touchend', function (e) {
+        if (tDragged) e.preventDefault();
+      });
+    });
+
+    /* ── Init ── */
+    requestAnimationFrame(function () {
+      measure();
+      tick();
+    });
   })();
 </script>
 
@@ -305,18 +513,8 @@
   "class": "section",
   "max_blocks": 10,
   "settings": [
-    {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow Text",
-      "default": "Dressed for Every Moment"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Shop by Occasion"
-    },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow Text", "default": "Dressed for Every Moment" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Shop by Occasion" },
     {
       "type": "range",
       "id": "speed",
