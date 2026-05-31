@@ -10,6 +10,7 @@
   --color-risaa-pale: #f1dcd2;
 }
 
+
 /* ── Body Font Override: Jost ── */
 body,
 p,
@@ -23,8 +24,6 @@ button,
 label,
 .caption,
 .caption-with-letter-spacing,
-.list-menu__item,
-.header__menu-item,
 .footer__content,
 .risaa-footer__nav-list a,
 .risaa-footer__brand-desc,
@@ -49,8 +48,8 @@ h1, h2, h3, h4, h5, h6,
 .risaa-reviews__reviewer-name,
 .risaa-occasions__title,
 .risaa-new-in__title,
-.risaa-summer-picks__title,
 .risaa-rts__title,
+.risaa-cat-showcase__title,
 .risaa-parallax-text h2 {
   font-family: 'Cormorant Garamond', Georgia, serif !important;
 }

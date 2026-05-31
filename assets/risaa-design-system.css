@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
   --brand-main: #9a1c20;
   --brand-text: #FAF8F5;
@@ -628,8 +630,17 @@ h1, h2, h3, h4, h5, h6 {
 .collection .title.h1,
 .collection .title.hxl,
 .risaa-new-in__title,
-.risaa-summer-picks__title {
-  font-family: var(--font-heading-family) !important;
+.risaa-summer-picks__title,
+.risaa-occasions__title,
+.risaa-reviews__title,
+.risaa-about-hero-content h1,
+.risaa-story-text h2,
+.risaa-about-info h2,
+.risaa-about-social h2,
+.risaa-about-maps h2,
+.risaa-youtube-shorts h2,
+.risaa-about-youtube h2 {
+  font-family: 'Inter', sans-serif !important;
   font-size: 3rem !important;
   color: #9a1c20 !important;
   text-transform: uppercase !important;
@@ -645,7 +656,16 @@ h1, h2, h3, h4, h5, h6 {
   .collection .title.h1,
   .collection .title.hxl,
   .risaa-new-in__title,
-  .risaa-summer-picks__title {
+  .risaa-summer-picks__title,
+  .risaa-occasions__title,
+  .risaa-reviews__title,
+  .risaa-about-hero-content h1,
+  .risaa-story-text h2,
+  .risaa-about-info h2,
+  .risaa-about-social h2,
+  .risaa-about-maps h2,
+  .risaa-youtube-shorts h2,
+  .risaa-about-youtube h2 {
     font-size: 2.2rem !important;
   }
 }
@@ -664,6 +684,15 @@ h1, h2, h3, h4, h5, h6 {
 .utility-bar .announcement-bar__message span::first-letter {
   text-transform: uppercase !important;
 }
+
+/* ── Nimbus Sans Overrides for Tabs ── */
+.header__menu-item,
+.list-menu__item {
+  font-family: 'Nimbus Sans Light', 'Nimbus Sans', sans-serif !important;
+  font-weight: 300 !important;
+}
+
+
 
 /* Homepage product cards: quieter product copy and subtle pricing. */
 .product-card-wrapper--landing .card__content {
