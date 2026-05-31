@@ -80,6 +80,11 @@
   if section.settings.enable_desktop_slider and products_to_display > section.settings.columns_desktop
     assign show_desktop_slider = true
   endif
+
+  assign landing_card_price = 'false'
+  if section.settings.title contains "Designer's Choice"
+    assign landing_card_price = 'true'
+  endif
 -%}
 
 <div
@@ -153,7 +158,8 @@
                   show_rating: section.settings.show_rating,
                   skip_styles: skip_card_product_styles,
                   section_id: section.id,
-                  quick_add: section.settings.quick_add
+                  quick_add: section.settings.quick_add,
+                  landing_card_price: landing_card_price
                 %}
               </li>
               {%- assign skip_card_product_styles = true -%}
@@ -183,7 +189,8 @@
                 media_aspect_ratio: section.settings.image_ratio,
                 image_shape: section.settings.image_shape,
                 lazy_load: false,
-                placeholder_image: placeholder_image
+                placeholder_image: placeholder_image,
+                landing_card_price: landing_card_price
               %}
             </li>
           {%- endfor -%}

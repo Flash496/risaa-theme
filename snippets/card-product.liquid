@@ -16,6 +16,7 @@
   - horizontal_class: {Boolean} Add a card--horizontal class if set to true. Default: false (optional)
   - horizontal_quick_add: {Boolean} Changes the quick add button styles when set to true. Default: false (optional)
   - placeholder_image: {String} The placeholder image to use when no product exists. Default: 'product-apparel-2' (optional)
+  - landing_card_price: {Boolean} Render subtle landing-page price copy. Default: false (optional)
 
   Usage:
   {% render 'card-product', show_vendor: section.settings.show_vendor %}
@@ -28,6 +29,49 @@
   {{ 'quick-order-list.css' | asset_url | stylesheet_tag }}
   {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
+{%- liquid
+  assign use_landing_card_price = false
+  if landing_card_price == true or landing_card_price == 'true'
+    assign use_landing_card_price = true
+  endif
+-%}
+{%- if use_landing_card_price -%}
+  <style>
+    .product-card-wrapper--landing .card__content {
+      text-align: center !important;
+    }
+
+    .product-card-wrapper--landing .card__information {
+      padding-top: 1rem !important;
+    }
+
+    .product-card-wrapper--landing .card__heading,
+    .product-card-wrapper--landing .card__heading a {
+      color: #32411f !important;
+      font-size: 15px !important;
+      font-weight: 400 !important;
+      line-height: 1.35 !important;
+      margin-bottom: 4px !important;
+      text-decoration: none !important;
+    }
+
+    .product-card-wrapper--landing .price--landing-subtle,
+    .product-card-wrapper--landing .price--landing-subtle .price-item {
+      color: rgba(50, 65, 31, 0.62) !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.01em !important;
+      line-height: 1.3 !important;
+      margin: 0 !important;
+    }
+
+    .product-card-wrapper--landing .price--landing-subtle {
+      display: block !important;
+      text-align: center !important;
+      width: 100% !important;
+    }
+  </style>
+{%- endif -%}
 {%- if card_product and card_product != empty -%}
   {%- liquid
     assign ratio = 1
@@ -40,7 +84,7 @@
       assign ratio = 1
     endif
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+  <div class="card-wrapper product-card-wrapper underline-links-hover{% if use_landing_card_price %} product-card-wrapper--landing{% endif %}">
     <div
       class="
         card card--{{ settings.card_style }}
@@ -204,7 +248,15 @@
               </p>
             {%- endif -%}
 
-            {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+            {%- if use_landing_card_price -%}
+              <div class="price price--landing-subtle">
+                <span class="price-item price-item--regular">
+                  Starting from INR {{ card_product.price_min | money_without_currency }}
+                </span>
+              </div>
+            {%- else -%}
+              {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+            {%- endif -%}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                 {% liquid
@@ -576,7 +628,7 @@
       assign ratio = 0.8
     endif
   -%}
-  <div class="card-wrapper product-card-wrapper underline-links-hover">
+  <div class="card-wrapper product-card-wrapper underline-links-hover{% if use_landing_card_price %} product-card-wrapper--landing{% endif %}">
     <div
       class="
         card card--{{ settings.card_style }}
@@ -615,7 +667,15 @@
               <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
               <div class="caption-with-letter-spacing light">{{ 'products.product.vendor' | t }}</div>
             {%- endif -%}
-            {% render 'price', placeholder: placeholder, show_compare_at_price: true %}
+            {%- if use_landing_card_price -%}
+              <div class="price price--landing-subtle">
+                <span class="price-item price-item--regular">
+                  Starting from INR 1,999.00
+                </span>
+              </div>
+            {%- else -%}
+              {% render 'price', placeholder: placeholder, show_compare_at_price: true %}
+            {%- endif -%}
           </div>
         </div>
       </div>

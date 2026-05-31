@@ -185,7 +185,8 @@
               show_rating: false,
               lazy_load: true,
               skip_styles: skip_card_product_styles,
-              section_id: section.id
+              section_id: section.id,
+              landing_card_price: 'true'
             %}
             {%- assign skip_card_product_styles = true -%}
           </li>
@@ -194,7 +195,11 @@
         {% for i in (1..4) %}
           <li class="grid__item">
             {%- assign placeholder_image = 'product-apparel-' | append: i -%}
-            {% render 'card-product', media_aspect_ratio: 'portrait', placeholder_image: placeholder_image %}
+            {% render 'card-product',
+              media_aspect_ratio: 'portrait',
+              placeholder_image: placeholder_image,
+              landing_card_price: 'true'
+            %}
           </li>
         {% endfor %}
       {% endif %}

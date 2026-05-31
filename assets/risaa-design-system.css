@@ -628,3 +628,35 @@ h1, h2, h3, h4, h5, h6 {
 .utility-bar .announcement-bar__message span::first-letter {
   text-transform: uppercase !important;
 }
+
+/* Homepage product cards: quieter product copy and subtle pricing. */
+.product-card-wrapper--landing .card__content {
+  text-align: center;
+}
+
+.product-card-wrapper--landing .card__information {
+  padding-top: 1rem;
+}
+
+.product-card-wrapper--landing .card__heading {
+  font-size: 1.35rem !important;
+  line-height: 1.35 !important;
+  margin-bottom: 0.35rem !important;
+  color: #32411f !important;
+  font-weight: 400 !important;
+}
+
+.product-card-wrapper--landing .price--landing-subtle {
+  margin-top: 0.15rem;
+  color: rgba(50, 65, 31, 0.7);
+  font-size: 1.1rem !important;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+.product-card-wrapper--landing .price--landing-subtle .price-item {
+  color: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
