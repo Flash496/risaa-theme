@@ -9,12 +9,26 @@
     border-bottom: 1px solid rgba(255,255,255,0.12);
   }
 
+  .risaa-hero-marquee__row {
+    overflow: hidden;
+  }
+
+  .risaa-hero-marquee__row--secondary {
+    background: linear-gradient(90deg, #fffaf3 0%, #D8A764 50%, #fffaf3 100%);
+    border-top: 1px solid rgba(154, 28, 32, 0.18);
+  }
+
   .risaa-hero-marquee__track {
     display: flex;
     align-items: center;
     width: max-content;
     animation: risaa-marquee-scroll {{ section.settings.speed }}s linear infinite;
     padding: 0;
+  }
+
+  .risaa-hero-marquee__row--secondary .risaa-hero-marquee__track {
+    animation-name: risaa-marquee-scroll-reverse;
+    animation-duration: {{ section.settings.speed | plus: 6 }}s;
   }
 
   .risaa-hero-marquee:hover .risaa-hero-marquee__track {
@@ -24,6 +38,11 @@
   @keyframes risaa-marquee-scroll {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
+  }
+
+  @keyframes risaa-marquee-scroll-reverse {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
   }
 
   .risaa-hero-marquee__item {
@@ -44,12 +63,34 @@
     padding: 0 28px;
   }
 
+  .risaa-hero-marquee__row--secondary .risaa-hero-marquee__text {
+    color: #7f171b;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    padding: 0 24px;
+  }
+
+  .risaa-hero-marquee__row--secondary .risaa-hero-marquee__item:nth-child(even) .risaa-hero-marquee__text {
+    color: #ffffff;
+    text-shadow: 0 1px 8px rgba(127, 23, 27, 0.22);
+  }
+
   .risaa-hero-marquee__divider {
     display: inline-flex;
     align-items: center;
     color: rgba(248, 183, 153, 0.8);
     font-size: 1rem;
     flex-shrink: 0;
+  }
+
+  .risaa-hero-marquee__row--secondary .risaa-hero-marquee__divider {
+    color: #9a1c20;
+  }
+
+  .risaa-hero-marquee__row--secondary .risaa-hero-marquee__divider svg {
+    fill: #9a1c20;
   }
 
   .risaa-hero-marquee__divider svg {
@@ -69,23 +110,43 @@
 
 {%- liquid
   assign items = 'Handcrafted Couture,Bridal Trousseau,Slow Fashion,Accessible Luxury,Pret Collection,Custom Atelier,Artisan Embroidery,Made with Love,Born in Ludhiana,Dressed for Every Moment' | split: ','
+  assign secondary_items = 'Gold Zari Details,Dark Red Elegance,White Occasionwear,Luxe Custom Fits,Atelier Finish,Wedding Ready,Festive Edits,Heritage Craft,Made to Measure,Signature RiSaa' | split: ','
 -%}
 
 <div class="risaa-hero-marquee" role="marquee" aria-label="Brand highlights">
-  <div class="risaa-hero-marquee__track">
-    {%- comment -%}Render twice for seamless infinite loop{%- endcomment -%}
-    {%- for i in (1..2) -%}
-      {%- for item in items -%}
-        <span class="risaa-hero-marquee__item">
-          <span class="risaa-hero-marquee__text">{{ item }}</span>
-          <span class="risaa-hero-marquee__divider" aria-hidden="true">
-            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 0 L12.5 7.5 L20 10 L12.5 12.5 L10 20 L7.5 12.5 L0 10 L7.5 7.5 Z"/>
-            </svg>
+  <div class="risaa-hero-marquee__row">
+    <div class="risaa-hero-marquee__track">
+      {%- comment -%}Render twice for seamless infinite loop{%- endcomment -%}
+      {%- for i in (1..2) -%}
+        {%- for item in items -%}
+          <span class="risaa-hero-marquee__item">
+            <span class="risaa-hero-marquee__text">{{ item }}</span>
+            <span class="risaa-hero-marquee__divider" aria-hidden="true">
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 0 L12.5 7.5 L20 10 L12.5 12.5 L10 20 L7.5 12.5 L0 10 L7.5 7.5 Z"/>
+              </svg>
+            </span>
           </span>
-        </span>
+        {%- endfor -%}
       {%- endfor -%}
-    {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="risaa-hero-marquee__row risaa-hero-marquee__row--secondary" aria-label="Atelier highlights">
+    <div class="risaa-hero-marquee__track">
+      {%- for i in (1..2) -%}
+        {%- for item in secondary_items -%}
+          <span class="risaa-hero-marquee__item">
+            <span class="risaa-hero-marquee__text">{{ item }}</span>
+            <span class="risaa-hero-marquee__divider" aria-hidden="true">
+              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 0 L12.5 7.5 L20 10 L12.5 12.5 L10 20 L7.5 12.5 L0 10 L7.5 7.5 Z"/>
+              </svg>
+            </span>
+          </span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
   </div>
 </div>
 
