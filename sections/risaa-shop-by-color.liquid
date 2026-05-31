@@ -1,4 +1,40 @@
 {%- style -%}
+  .section-{{ section.id }}-padding {
+    --risaa-active-glow: 154, 28, 32;
+    position: relative;
+    overflow: visible;
+    isolation: isolate;
+  }
+
+  .section-{{ section.id }}-padding::before,
+  .section-{{ section.id }}-padding::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .section-{{ section.id }}-padding::before {
+    inset: -140px -12vw -110px;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(var(--risaa-active-glow), 0.28), rgba(var(--risaa-active-glow), 0.1) 30%, transparent 64%),
+      radial-gradient(circle at 18% 55%, rgba(var(--risaa-active-glow), 0.15), transparent 44%),
+      radial-gradient(circle at 82% 55%, rgba(var(--risaa-active-glow), 0.15), transparent 44%);
+    filter: blur(20px);
+    opacity: 1;
+    transition: background 0.7s ease, opacity 0.7s ease;
+  }
+
+  .section-{{ section.id }}-padding::after {
+    inset: 8% 18% -18%;
+    background:
+      radial-gradient(ellipse at 50% 62%, rgba(var(--risaa-active-glow), 0.2), rgba(var(--risaa-active-glow), 0.08) 38%, transparent 68%);
+    filter: blur(44px);
+    opacity: 0.85;
+    transform: translateY(32px) scaleX(1.2);
+    transition: background 0.7s ease, opacity 0.7s ease;
+  }
+
   .section-{{ section.id }}-padding .section-header {
     margin-bottom: 20px !important;
   }
@@ -9,7 +45,7 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px 10px;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .risaa-3d-carousel-container {
@@ -327,6 +363,20 @@
       if (!items.length) return;
       
       let currentIndex = Math.floor(items.length / 2); // Start with middle item active
+      const glowColors = {
+        ruby: '154, 28, 32',
+        kesar: '225, 140, 35',
+        saffron: '225, 140, 35',
+        mocha: '126, 80, 55',
+        indigo: '53, 68, 132',
+        matcha: '105, 139, 79'
+      };
+
+      function updateGlowColor() {
+        const activeName = items[currentIndex]?.querySelector('h3')?.textContent.trim().toLowerCase();
+        const glowColor = glowColors[activeName] || '154, 28, 32';
+        wrapper.style.setProperty('--risaa-active-glow', glowColor);
+      }
       
       // Generate dots
       items.forEach((_, index) => {
@@ -417,6 +467,8 @@
             dot.classList.remove('is-active');
           }
         });
+
+        updateGlowColor();
       }
       
       // Control buttons action
