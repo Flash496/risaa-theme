@@ -12,6 +12,53 @@
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ── Scroll-driven (Scrubbed) animations for reveal-behind ─────────
+  const scrubElements = [];
+
+  function updateScrub() {
+    const vh = window.innerHeight;
+    scrubElements.forEach((el) => {
+      if (prefersReduced) {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+        return;
+      }
+
+      const rect = el.getBoundingClientRect();
+      
+      // Calculate progress of entrance
+      // Starts when element top enters bottom of viewport (rect.top = vh)
+      // Ends when element top is at 55% of viewport height (rect.top = vh * 0.55)
+      const start = vh;
+      const end = vh * 0.55; 
+      
+      let p = 0;
+      if (rect.top < start) {
+        p = (start - rect.top) / (start - end);
+      }
+      p = Math.max(0, Math.min(1, p)); // Clamp 0 to 1
+
+      // Apply opacity and translation
+      const y = (1 - p) * 80; // starts at 80px, ends at 0px
+      el.style.opacity = p.toFixed(3);
+      el.style.transform = `translateY(${y.toFixed(2)}px)`;
+    });
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateScrub();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
   // ── Single element observer ──────────────────────────────────────
   const singleObserver = new IntersectionObserver(
     (entries) => {
@@ -80,12 +127,20 @@
     root = root || document;
 
     root.querySelectorAll('[data-anim]').forEach((el) => {
-      singleObserver.observe(el);
+      if (el.dataset.anim === 'reveal-behind') {
+        if (!scrubElements.includes(el)) {
+          scrubElements.push(el);
+        }
+      } else {
+        singleObserver.observe(el);
+      }
     });
 
     root.querySelectorAll('[data-anim-stagger]').forEach((el) => {
       staggerObserver.observe(el);
     });
+
+    updateScrub();
   }
 
   if (document.readyState === 'loading') {

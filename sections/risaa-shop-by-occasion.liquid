@@ -2,7 +2,6 @@
   .risaa-occasions {
     padding: 0 0 60px;
     background: #faf8f5;
-    overflow: hidden;
   }
 
   .risaa-occasions__header {
@@ -39,10 +38,14 @@
     overflow: hidden;
     user-select: none;
     cursor: grab;
+    z-index: 2;
+    background: #faf8f5;
+    padding-top: 30px;
+    margin-top: -30px;
   }
 
   .risaa-occasions__carousel-outer.is-dragging {
-    cursor: grabbing;
+    box-shadow: none;
   }
 
   /* Fade edges */
@@ -136,7 +139,7 @@
   .risaa-occasions__img-wrap {
     width: 317px;
     height: 446px;
-    overflow: hidden;
+    overflow: visible;
     border-radius: 158px 158px 18px 18px;
     position: relative;
     background: #f1dcd2;
@@ -148,6 +151,7 @@
     object-fit: cover;
     transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     display: block;
+    border-radius: 158px 158px 18px 18px;
   }
   .risaa-occasions__card:hover .risaa-occasions__img {
     transform: scale(1.06);
@@ -182,6 +186,9 @@
       height: 346px;
       border-radius: 122px 122px 14px 14px;
     }
+    .risaa-occasions__img {
+      border-radius: 122px 122px 14px 14px;
+    }
     .risaa-occasions__belt {
       gap: 16px;
     }
@@ -195,7 +202,7 @@
 -%}
 
 <section class="risaa-occasions reveal-on-scroll">
-  <div class="risaa-occasions__header" data-anim="fade-up">
+  <div class="risaa-occasions__header" data-anim="reveal-behind">
     {%- if section.settings.eyebrow != blank -%}
       <span class="risaa-occasions__eyebrow">{{ section.settings.eyebrow }}</span>
     {%- endif -%}

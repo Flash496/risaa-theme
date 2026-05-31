@@ -51,7 +51,7 @@
     margin-bottom: 20px;
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1), box-shadow 0.5s ease;
     border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .risaa-collage__main {
@@ -76,7 +76,7 @@
     z-index: 2;
     border: 5px solid white;
     border-radius: 6px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22), 0 4px 10px rgba(0, 0, 0, 0.12);
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1);
   }
 
@@ -216,7 +216,7 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
-  <div class="section-header" data-anim="fade-up">
+  <div class="section-header" data-anim="reveal-behind">
     <h2>{{ section.settings.title }}</h2>
     <p>{{ section.settings.subtitle }}</p>
   </div>

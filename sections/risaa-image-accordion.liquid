@@ -30,6 +30,9 @@
     padding: 0;
     border-radius: 16px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 2;
+    background: #ffffff;
   }
 
   .risaa-accordion-item {
@@ -208,7 +211,7 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
-  <div class="section-header" data-anim="fade-up">
+  <div class="section-header" data-anim="reveal-behind">
     <h2>{{ section.settings.title }}</h2>
     {% if section.settings.subtitle != blank %}
       <p>{{ section.settings.subtitle }}</p>
@@ -217,9 +220,6 @@
 
   <div
     class="risaa-accordion-container"
-    data-anim-stagger
-    data-anim-delay="0.1"
-    data-anim-step="0.1"
     id="risaa-accordion-{{ section.id }}"
   >
     {% for block in section.blocks %}
