@@ -15,7 +15,7 @@
   }
 
   .section-{{ section.id }}-padding::before {
-    inset: -140px -12vw -110px;
+    inset: -140px 0 -110px;
     background:
       radial-gradient(circle at 50% 45%, rgba(var(--risaa-active-glow), 0.28), rgba(var(--risaa-active-glow), 0.1) 30%, transparent 64%),
       radial-gradient(circle at 18% 55%, rgba(var(--risaa-active-glow), 0.15), transparent 44%),
@@ -26,12 +26,12 @@
   }
 
   .section-{{ section.id }}-padding::after {
-    inset: 8% 18% -18%;
+    inset: 8% 14% -18%;
     background:
       radial-gradient(ellipse at 50% 62%, rgba(var(--risaa-active-glow), 0.2), rgba(var(--risaa-active-glow), 0.08) 38%, transparent 68%);
     filter: blur(44px);
     opacity: 0.85;
-    transform: translateY(32px) scaleX(1.2);
+    transform: translateY(32px);
     transition: background 0.7s ease, opacity 0.7s ease;
   }
 
@@ -45,7 +45,8 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px 10px;
-    overflow: visible;
+    overflow-x: clip;
+    overflow-y: visible;
   }
 
   .risaa-3d-carousel-container {
