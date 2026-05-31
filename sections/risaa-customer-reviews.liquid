@@ -410,12 +410,23 @@
     if (!track) return;
 
     const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.risaa-reviews__dot')) : [];
+    const originalCards = Array.from(track.querySelectorAll('.risaa-reviews__card'));
+    const originalCount = originalCards.length;
     let activeIdx = 0;
     let autoTimer = null;
     let isPaused = false;
+    let resetTimer = null;
+    let isResetting = false;
+
+    originalCards.forEach((card) => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.dataset.carouselClone = 'true';
+      track.appendChild(clone);
+    });
 
     function total() {
-      return track.querySelectorAll('.risaa-reviews__card').length;
+      return originalCount;
     }
 
     function cardWidth() {
@@ -425,16 +436,36 @@
 
     function goTo(idx) {
       const n = total();
-      // Loop infinitely: when reaching the end, go back to start
+      if (!n) return;
+
+      clearTimeout(resetTimer);
+
+      if (idx < 0) {
+        isResetting = true;
+        track.scrollLeft = n * cardWidth();
+        idx = n - 1;
+        requestAnimationFrame(() => {
+          isResetting = false;
+          goTo(idx);
+        });
+        return;
+      }
+
+      activeIdx = idx;
+      track.scrollTo({ left: idx * cardWidth(), behavior: 'smooth' });
+      dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+
       if (idx >= n) {
         activeIdx = 0;
-      } else if (idx < 0) {
-        activeIdx = n - 1;
-      } else {
-        activeIdx = idx;
+        dots.forEach((d, i) => d.classList.toggle('active', i === 0));
+        resetTimer = setTimeout(() => {
+          isResetting = true;
+          track.scrollLeft = 0;
+          requestAnimationFrame(() => {
+            isResetting = false;
+          });
+        }, 520);
       }
-      track.scrollTo({ left: activeIdx * cardWidth(), behavior: 'smooth' });
-      dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
     }
 
     function next() {
@@ -490,10 +521,22 @@
     /* sync dot on manual scroll */
     let scrollT;
     track.addEventListener('scroll', () => {
+      if (isResetting) return;
       clearTimeout(scrollT);
       scrollT = setTimeout(() => {
-        activeIdx = Math.round(track.scrollLeft / cardWidth());
+        const n = total();
+        if (!n) return;
+        const rawIdx = Math.round(track.scrollLeft / cardWidth());
+        activeIdx = rawIdx % n;
         dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+
+        if (rawIdx >= n) {
+          isResetting = true;
+          track.scrollLeft = (rawIdx - n) * cardWidth();
+          requestAnimationFrame(() => {
+            isResetting = false;
+          });
+        }
       }, 80);
     });
 
