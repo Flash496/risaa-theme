@@ -40,8 +40,8 @@
     cursor: grab;
     z-index: 2;
     background: #faf8f5;
-    padding-top: 30px;
-    margin-top: -30px;
+    padding-top: 25px;
+    margin-top: -25px;
   }
 
   .risaa-occasions__carousel-outer.is-dragging {
@@ -440,21 +440,7 @@
       });
     });
 
-    /* ── Trackpad / wheel ── */
-    outer.addEventListener(
-      'wheel',
-      function (e) {
-        var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        if (Math.abs(delta) < 2) return;
-        e.preventDefault();
-        pause();
-        pos -= delta;
-        wrap();
-        apply();
-        scheduleResume(1000);
-      },
-      { passive: false }
-    );
+
 
     /* ── Touch ── */
     var tStartX = 0,
