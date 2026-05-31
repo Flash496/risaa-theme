@@ -2,6 +2,15 @@
   #shopify-section-{{ section.id }} {
     margin-top: 0 !important;
     padding-top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} > * {
+    max-width: 100% !important;
   }
 
   .risaa-parallax-section {
@@ -10,14 +19,16 @@
     padding: 50px 0;
     background-color: var(--brand-undertone-2);
     border-radius: 0 0 32px 32px;
+    width: 100%;
   }
 
   .risaa-parallax-container {
     display: flex;
     align-items: center;
-    max-width: 1200px;
+    width: 100%;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 60px;
     gap: 60px;
   }
 
