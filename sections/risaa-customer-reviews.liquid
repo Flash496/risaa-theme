@@ -8,7 +8,7 @@
   /* ── Header ── */
   .risaa-reviews__header {
     text-align: center;
-    margin-bottom: 52px;
+    margin-bottom: 36px;
     padding: 0 20px;
   }
 
@@ -25,25 +25,26 @@
 
   .risaa-reviews__title {
     font-family: var(--font-heading-family);
-    font-size: 2.8rem;
+    font-size: 3rem;
     color: #9a1c20;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin: 0 0 16px;
+    margin: 0 0 12px;
     line-height: 1.1;
+    font-weight: 400;
   }
 
   .risaa-reviews__aggregate {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
   }
 
   .risaa-reviews__agg-score {
-    font-family: 'Jost', sans-serif;
-    font-size: 2.2rem;
-    font-weight: 600;
-    color: #1a1a1a;
+    font-family: var(--font-heading-family);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #D8A764;
     line-height: 1;
   }
 
@@ -60,15 +61,17 @@
   }
 
   .risaa-reviews__agg-star {
-    color: #fbbc04;
-    font-size: 1.3rem;
+    color: #D8A764;
+    font-size: 1.1rem;
     line-height: 1;
   }
 
   .risaa-reviews__agg-label {
-    font-family: 'Jost', sans-serif;
-    font-size: 1.1rem;
-    color: #70757a;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    color: rgba(154, 28, 32, 0.6);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   /* ── Review image — full-bleed top of card ── */
@@ -77,7 +80,7 @@
     width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
-    border-radius: 12px 12px 0 0;
+    border-radius: 12px 12px 0 0 !important;
     flex-shrink: 0;
   }
 
@@ -124,27 +127,29 @@
 
   /* ── Card ── */
   .risaa-reviews__card {
-    flex: 0 0 300px;
+    flex: 0 0 419px;
     scroll-snap-align: start;
     background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
-    transition: box-shadow 0.25s ease;
+    border: 1px solid rgba(216, 167, 100, 0.24);
+    border-radius: 12px 12px 0 0 !important;
+    box-shadow: none;
+    transition: border-color 0.25s ease, transform 0.25s ease;
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
 
   .risaa-reviews__card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-color: rgba(216, 167, 100, 0.7);
+    transform: translateY(-3px);
   }
 
   /* padded body below the image */
   .risaa-reviews__card-body {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 16px 20px 20px;
+    gap: 10px;
+    padding: 16px 18px 18px;
     flex: 1;
   }
 
@@ -228,8 +233,8 @@
   }
 
   .risaa-reviews__card-star {
-    color: #fbbc04;
-    font-size: 1.3rem;
+    color: #D8A764;
+    font-size: 1.15rem;
     line-height: 1;
   }
 
@@ -238,22 +243,60 @@
   }
 
   .risaa-reviews__card-date {
-    font-family: 'Jost', sans-serif;
-    font-size: 1.1rem;
-    color: #70757a;
+    display: none;
   }
 
   /* Review text */
+  .risaa-reviews__card-quote-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .risaa-reviews__card-quote {
-    font-family: 'Jost', sans-serif;
-    font-size: 1.3rem;
-    line-height: 1.65;
-    color: #3c4043;
+    font-family: var(--font-body-family);
+    font-size: 1.18rem;
+    line-height: 1.55;
+    color: rgba(18, 18, 18, 0.74);
     margin: 0;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .risaa-reviews__card-quote.is-expanded {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+
+  .risaa-reviews__read-more {
+    background: none;
+    border: none;
+    color: #9a1c20;
+    font-family: var(--font-body-family);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 6px;
+    text-decoration: underline;
+    display: none; /* Shown by JS if overflowing */
+  }
+
+  .risaa-reviews__read-more.is-visible {
+    display: inline-block;
+  }
+
+  .risaa-reviews__signoff {
+    color: rgba(154, 28, 32, 0.62);
+    font-family: var(--font-heading-family);
+    font-size: 1.25rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    margin: 2px 0 0;
+    text-align: right;
   }
 
   /* ── Dots ── */
@@ -286,7 +329,7 @@
 
   @media screen and (max-width: 989px) {
     .risaa-reviews__card {
-      flex: 0 0 270px;
+      flex: 0 0 389px;
     }
   }
 
@@ -298,7 +341,7 @@
       font-size: 2.2rem;
     }
     .risaa-reviews__card {
-      flex: 0 0 260px;
+      flex: 0 0 367px;
     }
     .risaa-reviews__track {
       padding: 8px 24px 16px;
@@ -355,26 +398,7 @@
 
           <!-- Padded body -->
           <div class="risaa-reviews__card-body">
-            <!-- Header: avatar + name -->
-            <div class="risaa-reviews__card-header">
-              {%- if block.settings.avatar != blank -%}
-                {{
-                  block.settings.avatar
-                  | image_url: width: 80
-                  | image_tag: class: 'risaa-reviews__avatar', alt: block.settings.reviewer_name
-                }}
-              {%- else -%}
-                <div class="risaa-reviews__avatar-initial">{{ block.settings.reviewer_name | slice: 0 }}</div>
-              {%- endif -%}
-              <div class="risaa-reviews__card-meta">
-                <p class="risaa-reviews__reviewer-name">{{ block.settings.reviewer_name }}</p>
-                {%- if block.settings.reviewer_meta != blank -%}
-                  <p class="risaa-reviews__reviewer-meta">{{ block.settings.reviewer_meta }}</p>
-                {%- endif -%}
-              </div>
-            </div>
-
-            <!-- Stars + date -->
+            <!-- Stars -->
             <div class="risaa-reviews__card-stars-row">
               <div class="risaa-reviews__card-stars">
                 {%- for i in (1..5) -%}
@@ -385,7 +409,11 @@
             </div>
 
             <!-- Review text -->
-            <p class="risaa-reviews__card-quote">{{ block.settings.review_text }}</p>
+            <div class="risaa-reviews__card-quote-wrapper">
+              <p class="risaa-reviews__card-quote">{{ block.settings.review_text | strip_html }}</p>
+              <button type="button" class="risaa-reviews__read-more" aria-expanded="false">Read More</button>
+            </div>
+            <p class="risaa-reviews__signoff">- {{ block.settings.reviewer_name }}</p>
           </div>
           <!-- /.card-body -->
         </div>
@@ -432,6 +460,20 @@
     function cardWidth() {
       const c = track.querySelector('.risaa-reviews__card');
       return c ? c.offsetWidth + parseInt(getComputedStyle(track).gap) : 316;
+    }
+
+    function checkOverflow() {
+      track.querySelectorAll('.risaa-reviews__card-quote').forEach((quote) => {
+        const btn = quote.nextElementSibling;
+        if (btn && btn.classList.contains('risaa-reviews__read-more')) {
+          // Temporarily remove clamp to check full height
+          const wasExpanded = quote.classList.contains('is-expanded');
+          if (!wasExpanded) {
+            const isOverflowing = quote.scrollHeight > quote.clientHeight;
+            btn.classList.toggle('is-visible', isOverflowing);
+          }
+        }
+      });
     }
 
     function goTo(idx) {
@@ -539,6 +581,21 @@
         }
       }, 80);
     });
+
+    /* Read More Toggle */
+    track.addEventListener('click', (e) => {
+      if (e.target.classList.contains('risaa-reviews__read-more')) {
+        const btn = e.target;
+        const quote = btn.previousElementSibling;
+        const isExpanded = quote.classList.toggle('is-expanded');
+        btn.textContent = isExpanded ? 'Read Less' : 'Read More';
+        btn.setAttribute('aria-expanded', isExpanded);
+        isPaused = true;
+      }
+    });
+
+    window.addEventListener('resize', checkOverflow);
+    checkOverflow();
 
     startAuto();
   })();
