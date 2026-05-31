@@ -169,19 +169,33 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--brand-dark) !important;
 }
 
-/* Standard underline for Menu Tabs on hover */
+/* Single gold underline with a double loading sweep */
+.header__menu-item::before,
 .header__menu-item::after {
   content: "";
   position: absolute;
-  bottom: 0;
+  pointer-events: none;
+}
+
+.header__menu-item::before {
   left: 0;
+  bottom: -0.28rem;
   width: 100%;
-  height: 2px;
-  background-color: var(--brand-main) !important;
+  height: 1px;
+  background: #D8A764;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s ease;
-  pointer-events: none;
+  transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header__menu-item::after {
+  left: 0;
+  bottom: -0.28rem;
+  width: 38%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D8A764, transparent) !important;
+  opacity: 0;
+  transform: translateX(-110%);
 }
 
 .header__menu-item:hover,
@@ -196,7 +210,29 @@ h1, h2, h3, h4, h5, h6 {
 
 .header__menu-item:hover::after,
 .header__menu-item[aria-current="page"]::after {
+  animation: header-underline-loader 0.92s ease-out 0.12s 2;
+}
+
+.header__menu-item:hover::before,
+.header__menu-item[aria-current="page"]::before {
   transform: scaleX(1);
+}
+
+@keyframes header-underline-loader {
+  0% {
+    opacity: 0;
+    transform: translateX(-110%);
+  }
+  18% {
+    opacity: 0.85;
+  }
+  72% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(265%);
+  }
 }
 
 /* Remove gap between header and first section */
