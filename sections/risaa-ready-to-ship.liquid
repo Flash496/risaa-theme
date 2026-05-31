@@ -176,6 +176,7 @@
       {% if section.settings.collection != blank and section.settings.collection.products.size > 0 %}
         {%- assign skip_card_product_styles = false -%}
         {% for product in section.settings.collection.products limit: 4 %}
+          {%- assign curated_card_image_index = forloop.index0 | plus: 4 -%}
           <li class="grid__item">
             {% render 'card-product',
               card_product: product,
@@ -186,7 +187,8 @@
               lazy_load: true,
               skip_styles: skip_card_product_styles,
               section_id: section.id,
-              landing_card_price: 'true'
+              landing_card_price: 'true',
+              custom_card_image_index: curated_card_image_index
             %}
             {%- assign skip_card_product_styles = true -%}
           </li>
@@ -194,7 +196,8 @@
       {% else %}
         {% for i in (1..4) %}
           <li class="grid__item">
-            {%- assign placeholder_image = 'product-apparel-' | append: i -%}
+            {%- assign placeholder_index = i | plus: 4 -%}
+            {%- assign placeholder_image = 'product-apparel-' | append: placeholder_index -%}
             {% render 'card-product',
               media_aspect_ratio: 'portrait',
               placeholder_image: placeholder_image,

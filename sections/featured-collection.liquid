@@ -82,8 +82,10 @@
   endif
 
   assign landing_card_price = 'false'
+  assign use_curated_landing_images = false
   if section.settings.title contains "Designer's Choice"
     assign landing_card_price = 'true'
+    assign use_curated_landing_images = true
   endif
 -%}
 
@@ -140,6 +142,10 @@
               {% if lazy_load == false and forloop.index > max_columns_to_show %}
                 {% assign lazy_load = true %}
               {% endif %}
+              {%- assign curated_card_image_index = blank -%}
+              {%- if use_curated_landing_images -%}
+                {%- assign curated_card_image_index = forloop.index0 -%}
+              {%- endif -%}
               <li
                 id="Slide-{{ section.id }}-{{ forloop.index }}"
                 class="grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
@@ -159,7 +165,8 @@
                   skip_styles: skip_card_product_styles,
                   section_id: section.id,
                   quick_add: section.settings.quick_add,
-                  landing_card_price: landing_card_price
+                  landing_card_price: landing_card_price,
+                  custom_card_image_index: curated_card_image_index
                 %}
               </li>
               {%- assign skip_card_product_styles = true -%}
