@@ -187,17 +187,29 @@
     const popup = document.getElementById('RisaaWelcomePopup');
     const closeBtn = document.getElementById('RisaaPopupClose');
     const continueBtn = document.getElementById('RisaaPopupContinue');
+    let popupTriggered = false;
+    let popupTimer = null;
+
+    const showPopup = () => {
+      if (popupTriggered) return;
+      popupTriggered = true;
+      popup.classList.add('active');
+      window.removeEventListener('scroll', scrollTrigger);
+      if (popupTimer) {
+        clearTimeout(popupTimer);
+      }
+    };
 
     // Scroll trigger
     const scrollTrigger = () => {
       // Show when user scrolls down
       if (window.scrollY > 300) {
-        popup.classList.add('active');
-        window.removeEventListener('scroll', scrollTrigger);
+        showPopup();
       }
     };
 
     window.addEventListener('scroll', scrollTrigger);
+    popupTimer = setTimeout(showPopup, 5000);
 
     const closePopup = () => {
       popup.classList.remove('active');
