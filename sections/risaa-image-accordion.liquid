@@ -8,6 +8,16 @@
     display: none !important;
   }
 
+  .section-{{ section.id }}-padding .section-header h2,
+  .section-{{ section.id }}-padding .section-header p {
+    transition: color 0.35s ease;
+  }
+
+  .section-{{ section.id }}-padding:hover .section-header h2,
+  .section-{{ section.id }}-padding:hover .section-header p {
+    color: #D8A764 !important;
+  }
+
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -98,6 +108,18 @@
     text-overflow: ellipsis;
   }
 
+  .risaa-accordion-info h3,
+  .risaa-accordion-info p,
+  .risaa-accordion-info .btn-premium {
+    transition:
+      color 0.35s ease,
+      border-color 0.35s ease,
+      background 0.35s ease,
+      opacity 0.8s cubic-bezier(0.25, 1, 0.2, 1),
+      max-height 0.8s cubic-bezier(0.25, 1, 0.2, 1),
+      margin-top 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+  }
+
   .risaa-accordion-info p {
     margin: 0;
     font-size: 1.4rem;
@@ -153,12 +175,19 @@
   }
 
   .risaa-accordion-item:hover .risaa-accordion-info p {
+    color: #D8A764;
     margin-top: 10px;
     opacity: 0.9;
     max-height: 60px;
   }
 
+  .risaa-accordion-item:hover .risaa-accordion-info h3 {
+    color: #D8A764 !important;
+  }
+
   .risaa-accordion-item:hover .risaa-accordion-info .btn-premium {
+    border-color: #D8A764;
+    color: #D8A764;
     margin-top: 15px;
     opacity: 1;
     max-height: 42px;
