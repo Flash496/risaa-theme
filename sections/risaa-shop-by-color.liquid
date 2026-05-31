@@ -15,7 +15,7 @@
   .risaa-3d-carousel-container {
     position: relative;
     width: 100%;
-    height: 504px;
+    height: 655px;
     perspective: 1200px;
     display: flex;
     align-items: center;
@@ -34,8 +34,8 @@
 
   .risaa-3d-carousel-item {
     position: absolute;
-    width: 350px;
-    height: 470px;
+    width: 455px;
+    height: 611px;
     background: transparent;
     text-decoration: none;
     color: inherit;
@@ -47,7 +47,7 @@
 
   .risaa-collage {
     position: relative;
-    height: 350px;
+    height: 455px;
     margin-bottom: 20px;
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1), box-shadow 0.5s ease;
     border-radius: 8px;
@@ -55,26 +55,42 @@
   }
 
   .risaa-collage__main {
-    width: 80%;
-    height: 90%;
+    width: 81%;
+    height: 85%;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 5%;
+    left: 2%;
     object-fit: cover;
     z-index: 1;
     border-radius: 6px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1);
+  }
+
+  .risaa-collage__third {
+    width: 50%;
+    height: 65%;
+    position: absolute;
+    top: 15%;
+    left: 32%;
+    object-fit: cover;
+    z-index: 3;
+    border: 4px solid white;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: rotate(6deg);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1);
   }
 
   .risaa-collage__sub {
-    width: 60%;
-    height: 60%;
+    width: 59%;
+    height: 50%;
     position: absolute;
-    bottom: 0;
-    right: 0;
+    top: calc(40% + 5px);
+    left: 53%;
     object-fit: cover;
     z-index: 2;
-    border: 5px solid white;
+    border: 4px solid white;
     border-radius: 6px;
     box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22), 0 4px 10px rgba(0, 0, 0, 0.12);
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1);
@@ -83,11 +99,19 @@
   /* Interaction effects on active card hover */
   .risaa-3d-carousel-item.is-active:hover .risaa-collage {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.25);
   }
   
+  .risaa-3d-carousel-item.is-active:hover .risaa-collage__main {
+    transform: translate(-4px, -4px) scale(1.02);
+  }
+
+  .risaa-3d-carousel-item.is-active:hover .risaa-collage__third {
+    transform: translate(0px, 2px) scale(1.04) rotate(8deg);
+  }
+
   .risaa-3d-carousel-item.is-active:hover .risaa-collage__sub {
-    transform: translate(6px, 6px) scale(1.04);
+    transform: translate(6px, 8px) scale(1.06);
   }
 
   .risaa-3d-carousel-item h3 {
@@ -185,17 +209,17 @@
       right: 15px;
     }
     .risaa-3d-carousel-item {
-      width: 300px;
-      height: 420px;
+      width: 390px;
+      height: 546px;
     }
     .risaa-collage {
-      height: 300px;
+      height: 390px;
     }
   }
 
   @media screen and (max-width: 749px) {
     .risaa-3d-carousel-container {
-      height: 432px;
+      height: 561px;
     }
     .risaa-3d-carousel-btn {
       width: 40px;
@@ -206,11 +230,11 @@
       height: 16px;
     }
     .risaa-3d-carousel-item {
-      width: 240px;
-      height: 360px;
+      width: 312px;
+      height: 468px;
     }
     .risaa-collage {
-      height: 240px;
+      height: 312px;
     }
   }
 {%- endstyle -%}
@@ -235,8 +259,12 @@
           {%- assign _col_sub_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20secondary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20secondary.jpg'
             | split: ','
           -%}
+          {%- assign _col_third_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/ruby%20third.jpg,https://ik.imagekit.io/flashspdstr/risaa/saffron%20third.jpg,https://ik.imagekit.io/flashspdstr/risaa/mocha%20third.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20third.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20third.jpg'
+            | split: ','
+          -%}
           {%- assign _col_main = _col_main_imgs[forloop.index0] | default: _col_main_imgs[0] -%}
           {%- assign _col_sub = _col_sub_imgs[forloop.index0] | default: _col_sub_imgs[0] -%}
+          {%- assign _col_third = _col_third_imgs[forloop.index0] | default: _col_third_imgs[0] -%}
           
           <a href="{{ block.settings.link }}" class="risaa-3d-carousel-item" {{ block.shopify_attributes }}>
             <div class="risaa-collage">
@@ -248,6 +276,16 @@
                 }}
               {% else %}
                 <img src="{{ _col_main }}" alt="{{ block.settings.color_name }}" class="risaa-collage__main" loading="lazy">
+              {% endif %}
+
+              {% if block.settings.third_image != blank %}
+                {{
+                  block.settings.third_image
+                  | image_url: width: 500
+                  | image_tag: class: 'risaa-collage__third', loading: 'lazy'
+                }}
+              {% else %}
+                <img src="{{ _col_third }}" alt="{{ block.settings.color_name }}" class="risaa-collage__third" loading="lazy">
               {% endif %}
 
               {% if block.settings.sub_image != blank %}
@@ -309,7 +347,7 @@
         const isTablet = window.innerWidth <= 989 && window.innerWidth > 749;
         
         // Settings for 3D layout offsets (scaled up 20%)
-        const xOffsetBase = isMobile ? 100 : (isTablet ? 150 : 220);
+        const xOffsetBase = isMobile ? 110 : (isTablet ? 165 : 242);
         const zOffsetBase = isMobile ? -120 : (isTablet ? -170 : -240);
         const rotationAngle = isMobile ? 30 : (isTablet ? 40 : 45);
         
@@ -477,6 +515,11 @@
           "type": "image_picker",
           "id": "main_image",
           "label": "Main Product Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "third_image",
+          "label": "Detail/Zoom Image"
         },
         {
           "type": "image_picker",
