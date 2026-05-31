@@ -321,34 +321,8 @@
     display: block;
   }
 
-  .risaa-footer__directions-btn,
-  .risaa-footer__text-block a[href*='maps.app.goo.gl'],
-  .risaa-footer__text-block a[href*='maps.google'] {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 14px;
-    padding: 9px 20px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 2px;
-    color: white !important;
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.15rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    text-decoration: none !important;
-    background: transparent;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.35s ease;
-  }
-
-  .risaa-footer__text-block a[href*='maps.app.goo.gl']::after,
-  .risaa-footer__text-block a[href*='maps.google']::after {
-    content: '🧭';
-    margin-left: 6px;
-    font-size: 1.3rem;
+  .risaa-footer__directions-btn {
+    display: none;
   }
 
   /* WhatsApp button styling */
@@ -387,24 +361,12 @@
 
   .risaa-footer__text-block a[href*='maps.app.goo.gl']::before,
   .risaa-footer__text-block a[href*='maps.google']::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateX(-101%);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: none;
   }
 
-  .risaa-footer__directions-btn:hover,
   .risaa-footer__text-block a[href*='maps.app.goo.gl']:hover,
   .risaa-footer__text-block a[href*='maps.google']:hover {
-    border-color: white;
     color: white !important;
-  }
-
-  .risaa-footer__text-block a[href*='maps.app.goo.gl']:hover::before,
-  .risaa-footer__text-block a[href*='maps.google']:hover::before {
-    transform: translateX(0);
   }
 
   @media screen and (max-width: 989px) {
@@ -548,8 +510,6 @@
                 </svg>
                 Chat on WhatsApp
               </a>
-            {%- endif -%}
-            {%- if block.settings.heading == 'Contact Us' or block.settings.heading == 'Visit Our Store' -%}
               <div class="risaa-footer__social risaa-footer__social--inline">
                 {%- if settings.social_instagram_link != blank -%}
                   <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
