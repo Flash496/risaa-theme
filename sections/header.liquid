@@ -78,7 +78,8 @@
 
 {%- style -%}
   .header {
-    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+    padding: max({{ section.settings.padding_top | times: 0.5 | round: 0 | minus: 12.5 }}px, 0px) 3rem max({{ section.settings.padding_bottom | times: 0.5 | round: 0 | minus: 12.5 }}px, 0px) 3rem;
+    min-height: 64px;
   }
 
   .section-header {
@@ -96,8 +97,9 @@
 
   @media screen and (min-width: 990px) {
     .header {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-top: max({{ section.settings.padding_top | minus: 12.5 }}px, 0px);
+      padding-bottom: max({{ section.settings.padding_bottom | minus: 12.5 }}px, 0px);
+      min-height: 84px;
     }
   }
 
@@ -140,15 +142,24 @@
   /* Logo styling: remove brightness filter so the original logo colors render correctly */
   .header__heading-logo {
     filter: none;
-    transition: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
     transform: scale(1.25);
     transform-origin: left center;
     display: inline-block;
+    height: auto;
+    width: auto;
+    max-width: 161px !important;
   }
 
+  .header__heading-link {
+    display: inline-flex;
+    align-items: center;
+  }
 
   .header__heading-logo:hover {
     filter: none;
+    opacity: 0.85;
+    transform: scale(1.25) translateY(-1px);
   }
 {%- endstyle -%}
 
@@ -225,7 +236,7 @@
           </div>
         {%- else -%}
           <img
-            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20reprised%20without%20bg%20red.png"
+            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20reprised%20red.png"
             alt="Risaa Studio"
             class="header__heading-logo"
             style="max-width: 156px; height: auto;"
@@ -273,7 +284,7 @@
           </div>
         {%- else -%}
           <img
-            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20reprised%20without%20bg.png"
+            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20reprised%20red.png"
             alt="Risaa Studio"
             class="header__heading-logo"
             style="max-width: 156px; height: auto;"
