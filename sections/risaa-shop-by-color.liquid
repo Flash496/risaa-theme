@@ -39,6 +39,11 @@
     margin-bottom: 20px !important;
   }
 
+  .section-{{ section.id }}-padding .section-header h2 {
+    color: rgb(var(--risaa-active-glow)) !important;
+    transition: color 0.7s ease;
+  }
+
   .risaa-3d-carousel-wrapper {
     position: relative;
     width: 100%;
@@ -370,7 +375,11 @@
         saffron: '225, 140, 35',
         mocha: '126, 80, 55',
         indigo: '53, 68, 132',
-        matcha: '105, 139, 79'
+        matcha: '105, 139, 79',
+        emerald: '4, 121, 87',
+        gold: '216, 167, 100',
+        ivory: '245, 240, 230',
+        blush: '248, 183, 153'
       };
 
       function updateGlowColor() {
