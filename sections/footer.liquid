@@ -623,11 +623,11 @@
         <div class="risaa-footer__brand">
           <div class="risaa-footer__logo-wrap">
             <a href="{{ routes.root_url }}" class="risaa-footer__logo">
-              {%- if settings.brand_image != blank -%}
+              {%- if false -%}
                 {{ settings.brand_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: shop.name }}
               {%- else -%}
                 <img
-                  src="{{ 'risaa-logo-brand name with background removed.png' | asset_url }}"
+                  src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20reprised%20without%20bg.png"
                   alt="{{ shop.name }}"
                   width="160"
                   height="auto"

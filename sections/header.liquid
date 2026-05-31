@@ -137,14 +137,14 @@
     color: #f8b799 !important;
   }
 
-  /* Fix for White Logo on Light Background */
+  /* Logo styling: remove brightness filter so the original logo colors render correctly */
   .header__heading-logo {
-    filter: brightness(0);
-    transition: filter 0.3s ease;
+    filter: none;
+    transition: none;
   }
 
   .header__heading-logo:hover {
-    filter: brightness(0) opacity(0.7);
+    filter: none;
   }
 {%- endstyle -%}
 
@@ -200,7 +200,7 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if false -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -221,7 +221,7 @@
           </div>
         {%- else -%}
           <img
-            src="{{ 'risaa-logo-brand name with background removed.png' | asset_url }}"
+            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20reprised%20without%20bg%20red.png"
             alt="Risaa Studio"
             class="header__heading-logo"
             style="max-width: 156px; height: auto;"
@@ -248,7 +248,7 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if false -%}
           <div class="header__heading-logo-wrapper">
             {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
             {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
@@ -269,7 +269,7 @@
           </div>
         {%- else -%}
           <img
-            src="{{ 'risaa-logo-brand name with background removed.png' | asset_url }}"
+            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20reprised%20without%20bg.png"
             alt="Risaa Studio"
             class="header__heading-logo"
             style="max-width: 156px; height: auto;"
