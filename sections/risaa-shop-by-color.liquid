@@ -1,37 +1,57 @@
 {%- style -%}
-  .risaa-color-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 0 15px;
-    max-width: 81%;
-    margin: 0 auto;
+  .section-{{ section.id }}-padding .section-header {
+    margin-bottom: 20px !important;
   }
 
-  .risaa-color-item {
+  .risaa-3d-carousel-wrapper {
     position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+    overflow: hidden;
+  }
+
+  .risaa-3d-carousel-container {
+    position: relative;
+    width: 100%;
+    height: 504px;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .risaa-3d-carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .risaa-3d-carousel-item {
+    position: absolute;
+    width: 350px;
+    height: 470px;
+    background: transparent;
     text-decoration: none;
     color: inherit;
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.33, 1), opacity 0.7s cubic-bezier(0.25, 1, 0.33, 1), z-index 0.7s step-end;
+    transform-style: preserve-3d;
     text-align: center;
-    flex: 0 0 calc((100% - 60px) / 3);
-    max-width: calc((100% - 60px) / 3);
-  }
-
-  .risaa-color-parallax-inner {
-    will-change: transform;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
   }
 
   .risaa-collage {
     position: relative;
-    height: 282px;
+    height: 350px;
     margin-bottom: 20px;
-    transition: transform 0.5s ease;
-  }
-
-  .risaa-color-item:hover .risaa-collage {
-    transform: translateY(-10px);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1), box-shadow 0.5s ease;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   }
 
   .risaa-collage__main {
@@ -42,7 +62,8 @@
     left: 0;
     object-fit: cover;
     z-index: 1;
-    border-radius: 5px;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
   }
 
   .risaa-collage__sub {
@@ -54,39 +75,142 @@
     object-fit: cover;
     z-index: 2;
     border: 5px solid white;
-    border-radius: 5px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1);
   }
 
-  .risaa-color-item h3 {
+  /* Interaction effects on active card hover */
+  .risaa-3d-carousel-item.is-active:hover .risaa-collage {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+  }
+  
+  .risaa-3d-carousel-item.is-active:hover .risaa-collage__sub {
+    transform: translate(6px, 6px) scale(1.04);
+  }
+
+  .risaa-3d-carousel-item h3 {
     font-size: 1.8rem;
-    letter-spacing: 0.2em;
-    margin-bottom: 5px;
+    letter-spacing: 0.18em;
+    margin: 12px 0 4px;
+    text-transform: uppercase;
+    color: var(--brand-dark-text, #111);
+    font-weight: 500;
+    transition: color 0.3s ease;
   }
 
-  .risaa-color-item span {
-    font-size: 1.2rem;
+  .risaa-3d-carousel-item.is-active h3 {
+    color: #9a1c20;
+  }
+
+  .risaa-3d-carousel-item span {
+    font-size: 1.15rem;
     opacity: 0.7;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+  }
+
+  /* Navigation Buttons */
+  .risaa-3d-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 25;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  }
+
+  .risaa-3d-carousel-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .risaa-3d-carousel-btn:hover {
+    background: #9a1c20;
+    color: #ffffff;
+    border-color: #9a1c20;
+    box-shadow: 0 8px 24px rgba(154, 28, 32, 0.3);
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .risaa-3d-carousel-btn--prev {
+    left: 40px;
+  }
+
+  .risaa-3d-carousel-btn--next {
+    right: 40px;
+  }
+
+  /* Navigation Dots */
+  .risaa-3d-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 35px;
+  }
+
+  .risaa-3d-carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .risaa-3d-carousel-dot.is-active {
+    background: #9a1c20;
+    width: 26px;
+    border-radius: 5px;
   }
 
   @media screen and (max-width: 989px) {
-    .risaa-color-item {
-      flex: 0 0 calc((100% - 30px) / 2);
-      max-width: calc((100% - 30px) / 2);
+    .risaa-3d-carousel-btn--prev {
+      left: 15px;
+    }
+    .risaa-3d-carousel-btn--next {
+      right: 15px;
+    }
+    .risaa-3d-carousel-item {
+      width: 300px;
+      height: 420px;
+    }
+    .risaa-collage {
+      height: 300px;
     }
   }
 
   @media screen and (max-width: 749px) {
-    .risaa-color-grid {
-      max-width: 100%;
+    .risaa-3d-carousel-container {
+      height: 432px;
     }
-    .risaa-color-item {
-      flex: 0 0 100%;
-      max-width: 100%;
+    .risaa-3d-carousel-btn {
+      width: 40px;
+      height: 40px;
+    }
+    .risaa-3d-carousel-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    .risaa-3d-carousel-item {
+      width: 240px;
+      height: 360px;
     }
     .risaa-collage {
-      height: 313px;
+      height: 240px;
     }
   }
 {%- endstyle -%}
@@ -97,44 +221,56 @@
     <p>{{ section.settings.subtitle }}</p>
   </div>
 
-  <div class="risaa-color-grid" data-anim-stagger data-anim-delay="0.1" data-anim-step="0.15">
-    {% for block in section.blocks %}
-      {%- assign _col_main_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20primary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20main.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20main.jpg'
-        | split: ','
-      -%}
-      {%- assign _col_sub_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20secondary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20secondary.jpg'
-        | split: ','
-      -%}
-      {%- assign _col_main = _col_main_imgs[forloop.index0] | default: _col_main_imgs[0] -%}
-      {%- assign _col_sub = _col_sub_imgs[forloop.index0] | default: _col_sub_imgs[0] -%}
-      <a href="{{ block.settings.link }}" class="risaa-color-item" {{ block.shopify_attributes }}>
-        <div class="risaa-color-parallax-inner">
-          <div class="risaa-collage">
-            {% if block.settings.main_image != blank %}
-              {{
-                block.settings.main_image
-                | image_url: width: 600
-                | image_tag: class: 'risaa-collage__main', loading: 'lazy'
-              }}
-            {% else %}
-              <img src="{{ _col_main }}" alt="{{ block.settings.color_name }}" class="risaa-collage__main" loading="lazy">
-            {% endif %}
+  <div class="risaa-3d-carousel-wrapper">
+    <button class="risaa-3d-carousel-btn risaa-3d-carousel-btn--prev" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
+    
+    <div class="risaa-3d-carousel-container">
+      <div class="risaa-3d-carousel-track">
+        {% for block in section.blocks %}
+          {%- assign _col_main_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20primary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20main.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20main.jpg'
+            | split: ','
+          -%}
+          {%- assign _col_sub_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/kesar%20secondary.png,https://ik.imagekit.io/flashspdstr/risaa/mocha%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20secondary.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20secondary.jpg'
+            | split: ','
+          -%}
+          {%- assign _col_main = _col_main_imgs[forloop.index0] | default: _col_main_imgs[0] -%}
+          {%- assign _col_sub = _col_sub_imgs[forloop.index0] | default: _col_sub_imgs[0] -%}
+          
+          <a href="{{ block.settings.link }}" class="risaa-3d-carousel-item" {{ block.shopify_attributes }}>
+            <div class="risaa-collage">
+              {% if block.settings.main_image != blank %}
+                {{
+                  block.settings.main_image
+                  | image_url: width: 600
+                  | image_tag: class: 'risaa-collage__main', loading: 'lazy'
+                }}
+              {% else %}
+                <img src="{{ _col_main }}" alt="{{ block.settings.color_name }}" class="risaa-collage__main" loading="lazy">
+              {% endif %}
 
-            {% if block.settings.sub_image != blank %}
-              {{
-                block.settings.sub_image
-                | image_url: width: 400
-                | image_tag: class: 'risaa-collage__sub', loading: 'lazy'
-              }}
-            {% else %}
-              <img src="{{ _col_sub }}" alt="{{ block.settings.color_name }}" class="risaa-collage__sub" loading="lazy">
-            {% endif %}
-          </div>
-          <h3>{{ block.settings.color_name }}</h3>
-          <span>{{ block.settings.count_text }}</span>
-        </div>
-      </a>
-    {% endfor %}
+              {% if block.settings.sub_image != blank %}
+                {{
+                  block.settings.sub_image
+                  | image_url: width: 400
+                  | image_tag: class: 'risaa-collage__sub', loading: 'lazy'
+                }}
+              {% else %}
+                <img src="{{ _col_sub }}" alt="{{ block.settings.color_name }}" class="risaa-collage__sub" loading="lazy">
+              {% endif %}
+            </div>
+            <h3>{{ block.settings.color_name }}</h3>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <button class="risaa-3d-carousel-btn risaa-3d-carousel-btn--next" aria-label="Next slide">
+      <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
+
+    <div class="risaa-3d-carousel-dots"></div>
   </div>
 </div>
 
@@ -144,61 +280,158 @@
       const wrapper = document.querySelector('.section-{{ section.id }}-padding');
       if (!wrapper) return;
       
-      const grid = wrapper.querySelector('.risaa-color-grid');
-      if (!grid) return;
+      const track = wrapper.querySelector('.risaa-3d-carousel-track');
+      const items = wrapper.querySelectorAll('.risaa-3d-carousel-item');
+      const dotsContainer = wrapper.querySelector('.risaa-3d-carousel-dots');
+      const btnPrev = wrapper.querySelector('.risaa-3d-carousel-btn--prev');
+      const btnNext = wrapper.querySelector('.risaa-3d-carousel-btn--next');
       
-      const items = grid.querySelectorAll('.risaa-color-item');
+      if (!items.length) return;
       
-      // Different multiplier speeds for the 5 cards to create uneven scrolling
-      const speeds = [0.24, 0.22, 0.30, 0.16, 0.36];
+      let currentIndex = Math.floor(items.length / 2); // Start with middle item active
       
-      let ticking = false;
+      // Generate dots
+      items.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('risaa-3d-carousel-dot');
+        if (index === currentIndex) dot.classList.add('is-active');
+        dot.addEventListener('click', () => {
+          currentIndex = index;
+          updateCarousel();
+        });
+        dotsContainer.appendChild(dot);
+      });
       
-      function updateParallax() {
-        const rect = wrapper.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
+      const dots = dotsContainer.querySelectorAll('.risaa-3d-carousel-dot');
+      
+      function updateCarousel() {
+        const isMobile = window.innerWidth <= 749;
+        const isTablet = window.innerWidth <= 989 && window.innerWidth > 749;
         
-        // Calculate offset from center of viewport
-        const sectionCenter = rect.top + rect.height / 2;
-        const viewportCenter = windowHeight / 2;
-        const offset = sectionCenter - viewportCenter;
+        // Settings for 3D layout offsets (scaled up 20%)
+        const xOffsetBase = isMobile ? 100 : (isTablet ? 150 : 220);
+        const zOffsetBase = isMobile ? -120 : (isTablet ? -170 : -240);
+        const rotationAngle = isMobile ? 30 : (isTablet ? 40 : 45);
         
-        // Only animate if the section is in view
-        if (rect.top < windowHeight && rect.bottom > 0) {
-          // Disable parallax on mobile (single column layout)
-          if (window.innerWidth > 749) {
-            items.forEach((item, index) => {
-              const inner = item.querySelector('.risaa-color-parallax-inner');
-              if (!inner) return;
-              const speed = speeds[index % speeds.length];
-              const yPos = offset * speed;
-              inner.style.transform = `translate3d(0, ${yPos}px, 0)`;
-            });
-          } else {
-            items.forEach((item) => {
-              const inner = item.querySelector('.risaa-color-parallax-inner');
-              if (inner) inner.style.transform = 'none';
-            });
+        items.forEach((item, index) => {
+          let offset = index - currentIndex;
+          
+          // Wrap offset for circular/infinite loop
+          const half = Math.floor(items.length / 2);
+          if (offset > half) {
+            offset -= items.length;
+          } else if (offset < -half) {
+            offset += items.length;
           }
-        }
-        ticking = false;
+          
+          const absOffset = Math.abs(offset);
+          
+          // Check if the card has wrapped around the back
+          const prevOffset = parseInt(item.dataset.prevOffset);
+          const hasWrapped = !isNaN(prevOffset) && Math.abs(offset - prevOffset) > 1.5;
+          
+          if (hasWrapped) {
+            item.style.transition = 'none';
+          } else {
+            item.style.transition = '';
+          }
+          
+          let translateX = offset * xOffsetBase;
+          let translateZ = absOffset * zOffsetBase;
+          let rotateY = offset * -rotationAngle;
+          let scale = 1 - (absOffset * 0.12);
+          let opacity = 1 - (absOffset * 0.35);
+          let zIndex = 10 - absOffset;
+          
+          if (absOffset > 2) {
+            opacity = 0;
+            item.style.pointerEvents = 'none';
+          } else {
+            item.style.pointerEvents = offset === 0 ? 'auto' : 'auto';
+          }
+          
+          item.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+          item.style.opacity = opacity;
+          item.style.zIndex = zIndex;
+          
+          if (hasWrapped) {
+            // Force browser layout reflow before restoring transitions
+            item.offsetHeight;
+            setTimeout(() => {
+              item.style.transition = '';
+            }, 50);
+          }
+          
+          item.dataset.prevOffset = offset;
+          
+          if (offset === 0) {
+            item.classList.add('is-active');
+          } else {
+            item.classList.remove('is-active');
+          }
+        });
+        
+        // Update navigation dots
+        dots.forEach((dot, index) => {
+          if (index === currentIndex) {
+            dot.classList.add('is-active');
+          } else {
+            dot.classList.remove('is-active');
+          }
+        });
       }
       
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(updateParallax);
-          ticking = true;
+      // Control buttons action
+      btnPrev.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        updateCarousel();
+      });
+      
+      btnNext.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % items.length;
+        updateCarousel();
+      });
+      
+      // Click item to bring it to center
+      items.forEach((item, index) => {
+        item.addEventListener('click', (e) => {
+          if (index !== currentIndex) {
+            e.preventDefault(); // Don't navigate to collection link on initial click
+            currentIndex = index;
+            updateCarousel();
+          }
+        });
+      });
+      
+      // Swipe gestures for touch screens
+      let startX = 0;
+      let dragActive = false;
+      
+      track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        dragActive = true;
+      }, { passive: true });
+      
+      track.addEventListener('touchmove', (e) => {
+        if (!dragActive) return;
+        const diffX = e.touches[0].clientX - startX;
+        if (Math.abs(diffX) > 60) {
+          if (diffX > 0) {
+            currentIndex = (currentIndex - 1 + items.length) % items.length;
+          } else {
+            currentIndex = (currentIndex + 1) % items.length;
+          }
+          updateCarousel();
+          dragActive = false;
         }
       }, { passive: true });
       
-      window.addEventListener('resize', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(updateParallax);
-          ticking = true;
-        }
+      track.addEventListener('touchend', () => {
+        dragActive = false;
       });
       
-      updateParallax();
+      window.addEventListener('resize', updateCarousel);
+      updateCarousel();
     });
   })();
 </script>

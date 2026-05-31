@@ -580,3 +580,33 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500 !important;
   text-transform: uppercase !important;
 }
+
+/* Unify heading font sizes and styles to match Shop by Occasion heading */
+.section-header h2,
+.risaa-rts__title,
+.collection .title.h2,
+.collection .title.h1,
+.collection .title.hxl,
+.risaa-new-in__title,
+.risaa-summer-picks__title {
+  font-family: var(--font-heading-family) !important;
+  font-size: 3rem !important;
+  color: #9a1c20 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.1 !important;
+  font-weight: 400 !important;
+}
+
+@media screen and (max-width: 749px) {
+  .section-header h2,
+  .risaa-rts__title,
+  .collection .title.h2,
+  .collection .title.h1,
+  .collection .title.hxl,
+  .risaa-new-in__title,
+  .risaa-summer-picks__title {
+    font-size: 2.2rem !important;
+  }
+}
+
