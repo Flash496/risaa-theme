@@ -84,10 +84,29 @@
     flex-shrink: 0;
   }
 
-  /* ── Carousel ── */
+  /* ── Carousel slide-up animation ── */
+  @keyframes risaa-carousel-slide-up {
+    from { transform: translateY(80px); }
+    to   { transform: translateY(0); }
+  }
+
+  @keyframes risaa-carousel-slide-down {
+    from { transform: translateY(0); }
+    to   { transform: translateY(80px); }
+  }
+
   .risaa-reviews__carousel-outer {
     position: relative;
     overflow: hidden;
+    will-change: transform;
+  }
+
+  .risaa-reviews__carousel-outer.carousel-in {
+    animation: risaa-carousel-slide-up 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .risaa-reviews__carousel-outer.carousel-out {
+    animation: risaa-carousel-slide-down 0.85s cubic-bezier(0.55, 0, 0.78, 0) both;
   }
 
   .risaa-reviews__carousel-outer::before,
@@ -596,6 +615,30 @@
 
     window.addEventListener('resize', checkOverflow);
     checkOverflow();
+
+    /* ── Carousel slide-up on section enter ── */
+    const carouselOuter = document.querySelector('#risaa-reviews-' + id + ' .risaa-reviews__carousel-outer');
+
+    if (carouselOuter && 'IntersectionObserver' in window) {
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              carouselOuter.classList.remove('carousel-out');
+              carouselOuter.classList.add('carousel-in');
+            } else {
+              carouselOuter.classList.remove('carousel-in');
+              carouselOuter.classList.add('carousel-out');
+            }
+          });
+        },
+        {
+          threshold: 0.65
+        }
+      );
+
+      sectionObserver.observe(document.getElementById('risaa-reviews-' + id));
+    }
 
     startAuto();
   })();
