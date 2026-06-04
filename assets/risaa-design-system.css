@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Montserrat:wght@200;300;400;500;600&family=Great+Vibes&display=swap');
 
 :root {
-  --brand-main: #9a1c20;
-  --brand-text: #FAF8F5;
-  --brand-undertone-1: #b6827e;
-  --brand-undertone-2: #f1dcd2;
-  --brand-dark: #121212;
+  --brand-main: #6E1423;
+  --brand-text: #F4EADE;
+  --brand-gold: #D4AF37;
+  --brand-undertone-1: #C9A96E;
+  --brand-undertone-2: #EDE0D4;
+  --brand-dark: #2B2B2B;
 
   --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-quick: all 0.3s ease;
@@ -46,7 +47,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--brand-main);
   color: var(--brand-text);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.20em;
   font-size: 1.4rem;
   transition: var(--transition-quick);
   border: 1px solid var(--brand-main);
@@ -59,60 +60,53 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--brand-main);
 }
 
-/* Header Polish with Glassmorphism */
+/* Header */
 .header-wrapper {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
-  border-bottom: 1px solid rgba(154, 28, 32, 0.1) !important;
-  /* Solid background color */
-  background: #FAF8F5 !important;
+  border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
+  background: #F4EADE !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 8px 32px rgba(154, 28, 32, 0.08), 
+  box-shadow: 0 8px 32px rgba(110, 20, 35, 0.08),
               0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Enhanced glass effect on scroll */
 .header-wrapper::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, 
-    rgba(255, 255, 255, 0.4) 0%, 
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.4) 0%,
     rgba(255, 255, 255, 0.1) 100%);
   pointer-events: none;
   z-index: -1;
 }
 
-/* Logo styling */
 .header__heading-link {
   position: relative;
   display: inline-block;
 }
 
-/* Mobile header adjustments */
 @media screen and (max-width: 989px) {
   .header {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
     min-height: 90px;
   }
-
   .section-header,
   .header-wrapper {
     overflow: visible !important;
   }
-
   .header__heading-link {
     padding-bottom: 0;
   }
 }
 
 @media screen and (min-width: 990px) {
-  /* Force consistent centered layout on ALL pages */
   .header,
   .header--top-center,
   .header--middle-left,
@@ -125,8 +119,6 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center !important;
     justify-items: center !important;
   }
-  
-  /* Logo: always far left */
   .header__heading,
   .header > h1,
   .header > .header__heading {
@@ -136,23 +128,18 @@ h1, h2, h3, h4, h5, h6 {
     transform: none !important;
     left: auto !important;
   }
-  
-  /* Nav tabs: always centered */
   .header__inline-menu {
     grid-column: 2;
     display: flex !important;
     justify-content: center !important;
     margin: 0 1rem;
   }
-  
-  /* Icons: always far right */
   .header__icons {
     grid-column: 3;
     justify-self: end !important;
     display: flex !important;
     justify-content: flex-end !important;
   }
-  
   .list-menu--inline {
     display: flex;
     flex-wrap: nowrap !important;
@@ -173,7 +160,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--brand-dark) !important;
 }
 
-/* Single gold underline with a double loading sweep */
+/* Gold underline sweep on nav items */
 .header__menu-item::before,
 .header__menu-item::after {
   content: "";
@@ -186,7 +173,7 @@ h1, h2, h3, h4, h5, h6 {
   bottom: -0.28rem;
   width: 100%;
   height: 1px;
-  background: #D8A764;
+  background: var(--brand-gold);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
@@ -197,7 +184,7 @@ h1, h2, h3, h4, h5, h6 {
   bottom: -0.28rem;
   width: 38%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #D8A764, transparent) !important;
+  background: linear-gradient(90deg, transparent, var(--brand-gold), transparent) !important;
   opacity: 0;
   transform: translateX(-110%);
 }
@@ -223,23 +210,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes header-underline-loader {
-  0% {
-    opacity: 0;
-    transform: translateX(-110%);
-  }
-  18% {
-    opacity: 0.85;
-  }
-  72% {
-    opacity: 0.85;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(265%);
-  }
+  0% { opacity: 0; transform: translateX(-110%); }
+  18% { opacity: 0.85; }
+  72% { opacity: 0.85; }
+  100% { opacity: 0; transform: translateX(265%); }
 }
 
-/* Remove gap between header and first section */
 #MainContent {
   padding-top: 0 !important;
   margin-top: 0 !important;
@@ -258,7 +234,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--brand-undertone-2);
 }
 
-/* Footer Polish */
+/* Footer */
 .footer {
   background-color: var(--brand-dark);
   color: var(--brand-text);
@@ -278,11 +254,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer__list-social .list-social__link:hover {
-  color: var(--brand-undertone-1);
+  color: var(--brand-gold);
   transform: translateY(-3px);
 }
 
-/* Custom Scroll Animations */
+/* Scroll Animations */
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(40px);
@@ -294,7 +270,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(0);
 }
 
-/* Parallax Effect Utility */
 .parallax-bg {
   background-attachment: fixed;
   background-position: center;
@@ -308,7 +283,6 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 100;
 }
 
-/* Section Header Styles inspired by Seeaash */
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
@@ -329,10 +303,10 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(-50%);
   width: 50px;
   height: 1px;
-  background-color: var(--brand-main);
+  background-color: var(--brand-gold);
 }
 
-/* Image Accordion (Amakshi style) */
+/* Image Accordion */
 .risaa-accordion {
   display: flex;
   width: 100%;
@@ -349,9 +323,7 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
-.risaa-accordion__item:hover {
-  flex: 3;
-}
+.risaa-accordion__item:hover { flex: 3; }
 
 .risaa-accordion__item img {
   width: 100%;
@@ -372,37 +344,30 @@ h1, h2, h3, h4, h5, h6 {
   transition: var(--transition-quick);
 }
 
-.risaa-accordion__item:hover .risaa-accordion__content {
-  opacity: 1;
-}
+.risaa-accordion__item:hover .risaa-accordion__content { opacity: 1; }
 
 /* =============================================
-   BESTSELLERS / FEATURED COLLECTION OVERRIDES
-   Premium editorial look for product grids
+   BESTSELLERS / FEATURED COLLECTION
    ============================================= */
 
-/* Bestsellers section wrapper */
-#shopify-section-bestsellers {
-  position: relative;
-}
+#shopify-section-bestsellers { position: relative; }
 
 #shopify-section-bestsellers::before {
   content: '';
   display: block;
   width: 1px;
   height: 60px;
-  background: linear-gradient(to bottom, transparent, var(--brand-main), transparent);
+  background: linear-gradient(to bottom, transparent, var(--brand-gold), transparent);
   margin: 0 auto;
 }
 
-/* Better title styling for featured-collection used as bestsellers */
 .collection .title.h2,
 .collection .title.h1,
 .collection .title.hxl {
   font-family: var(--font-heading) !important;
   font-size: 2.8rem !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.1em !important;
+  letter-spacing: 0.18em !important;
   color: var(--brand-main) !important;
   font-weight: 400 !important;
   position: relative;
@@ -420,7 +385,7 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(-50%);
   width: 50px;
   height: 1px;
-  background: var(--brand-main);
+  background: var(--brand-gold);
 }
 
 .collection .title-wrapper {
@@ -428,7 +393,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 2rem !important;
 }
 
-/* Product cards: hover lift & image zoom */
+/* Product cards */
 .card--standard .card__inner,
 .card--card .card__inner {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
@@ -445,15 +410,12 @@ h1, h2, h3, h4, h5, h6 {
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.card-wrapper:hover .card__media img {
-  transform: scale(1.05);
-}
+.card-wrapper:hover .card__media img { transform: scale(1.05); }
 
-/* Card heading and price refinements */
 .card__heading a {
   font-family: var(--font-heading) !important;
   font-size: 1.8rem !important;
-  letter-spacing: 0.06em !important;
+  letter-spacing: 0.15em !important;
   text-transform: uppercase !important;
   color: var(--brand-dark) !important;
   text-decoration: none;
@@ -470,11 +432,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
-/* View All button for featured collection */
 .collection__view-all .button,
 .collection__view-all .button--secondary {
   font-family: var(--font-body) !important;
-  letter-spacing: 0.15em !important;
+  letter-spacing: 0.20em !important;
   text-transform: uppercase !important;
   border-radius: 0 !important;
   font-size: 1.6rem !important;
@@ -492,7 +453,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* =============================================
-   SECTION DIVIDERS — thin ornamental separators
+   SECTION DIVIDERS
    ============================================= */
 
 .risaa-divider {
@@ -508,16 +469,15 @@ h1, h2, h3, h4, h5, h6 {
   flex: 1;
   max-width: 200px;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(154,28,32,0.25), transparent);
+  background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.35), transparent);
 }
 
 .risaa-divider__icon {
-  color: var(--brand-undertone-1);
+  color: var(--brand-gold);
   font-size: 1.6rem;
   opacity: 0.6;
 }
 
-/* Homepage section rhythm — consistent spacing */
 .shopify-section .section {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
@@ -528,7 +488,6 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
   }
-
   .collection .title.h2,
   .collection .title.h1 {
     font-size: 2.2rem !important;
@@ -536,7 +495,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* =============================================
-   ELEGANT DECORATIVE CURSIVE SCRIPTS & SUBTITLES
+   DECORATIVE CURSIVE & EYEBROW TEXTS
    ============================================= */
 
 .creative-script,
@@ -556,14 +515,12 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
-/* Specific adjustments for smaller texts */
 .risaa-occasions__tile-sub,
 .risaa-color-item span {
   font-size: 1.8rem !important;
   opacity: 0.9;
 }
 
-/* Eyebrow texts: elegant spaced sans-serif */
 .risaa-new-in__eyebrow-text,
 .risaa-rts__eyebrow-text,
 .risaa-occasions__eyebrow,
@@ -573,15 +530,14 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.2rem !important;
   letter-spacing: 0.25em !important;
   text-transform: uppercase !important;
-  color: var(--brand-main) !important;
+  color: var(--brand-gold) !important;
   font-weight: 500 !important;
 }
 
 /* =============================================
-   SHARP FLAT-EDGED MINIMAL EDITORIAL CARDS & GRIDS
+   CARDS & GRIDS
    ============================================= */
 
-/* Remove rounded corners and shadows site-wide for Dawn card systems */
 .card,
 .card-wrapper,
 .card__inner,
@@ -598,19 +554,16 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: none !important;
 }
 
-/* Enforce thin premium border on product inner cards */
 .card__inner {
-  border: 1px solid rgba(154, 28, 32, 0.05) !important;
+  border: 1px solid rgba(110, 20, 35, 0.05) !important;
 }
 
-/* Premium card hover state */
 .card-wrapper:hover .card__inner {
-  border-color: rgba(154, 28, 32, 0.2) !important;
+  border-color: rgba(110, 20, 35, 0.2) !important;
   transform: translateY(-4px) !important;
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.02) !important;
 }
 
-/* Enforce absolute zero border radius on buttons */
 .button,
 .btn-premium,
 .collection__view-all .button,
@@ -623,7 +576,10 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase !important;
 }
 
-/* Unify heading font sizes and styles to match Shop by Occasion heading */
+/* =============================================
+   UNIFIED SECTION HEADING STYLES
+   ============================================= */
+
 .section-header h2,
 .risaa-rts__title,
 .collection .title.h2,
@@ -642,9 +598,9 @@ h1, h2, h3, h4, h5, h6 {
 .risaa-about-youtube h2 {
   font-family: 'Cinzel', Georgia, serif !important;
   font-size: 3rem !important;
-  color: #9a1c20 !important;
+  color: var(--brand-main) !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
+  letter-spacing: 0.18em !important;
   line-height: 1.1 !important;
   font-weight: 400 !important;
 }
@@ -670,7 +626,6 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Keep announcement bar copy readable instead of forcing all caps. */
 .announcement-bar-section .announcement-bar__message,
 .announcement-bar-section .announcement-bar__message span,
 .utility-bar .announcement-bar__message,
@@ -685,43 +640,8 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase !important;
 }
 
-/* ── Nimbus Sans Overrides for Tabs ── */
 .header__menu-item,
 .list-menu__item {
   font-family: 'Montserrat', sans-serif !important;
   font-weight: 300 !important;
-}
-
-
-
-/* Homepage product cards: quieter product copy and subtle pricing. */
-.product-card-wrapper--landing .card__content {
-  text-align: center;
-}
-
-.product-card-wrapper--landing .card__information {
-  padding-top: 1rem;
-}
-
-.product-card-wrapper--landing .card__heading {
-  font-size: 1.35rem !important;
-  line-height: 1.35 !important;
-  margin-bottom: 0.35rem !important;
-  color: #32411f !important;
-  font-weight: 400 !important;
-}
-
-.product-card-wrapper--landing .price--landing-subtle {
-  margin-top: 0.15rem;
-  color: rgba(50, 65, 31, 0.7);
-  font-size: 1.1rem !important;
-  line-height: 1.3;
-  letter-spacing: 0.01em;
-  font-weight: 400;
-}
-
-.product-card-wrapper--landing .price--landing-subtle .price-item {
-  color: inherit !important;
-  font-size: inherit !important;
-  font-weight: inherit !important;
 }
