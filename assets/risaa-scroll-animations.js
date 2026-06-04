@@ -14,18 +14,6 @@
 
   // ── Scroll-driven (Scrubbed) animations for reveal-behind ─────────
   const scrubElements = [];
-  const headingScrubTexts = new Set([
-    'summer favourites',
-    'new in',
-    "designer's choice",
-    'ready to ship',
-    'watch & shop',
-    'beauties of risaa',
-  ]);
-
-  function normalizeText(text) {
-    return (text || '').replace(/\s+/g, ' ').trim().toLowerCase();
-  }
 
   function addScrubElement(el) {
     if (!scrubElements.includes(el)) {
@@ -174,19 +162,6 @@
         addScrubElement(el);
       } else {
         singleObserver.observe(el);
-      }
-    });
-
-    root.querySelectorAll('h1, h2, .risaa-reviews__aggregate').forEach((el) => {
-      const text = normalizeText(el.textContent);
-      const isTargetHeading = headingScrubTexts.has(text);
-      const isReviewsAggregate =
-        el.classList.contains('risaa-reviews__aggregate') &&
-        text.includes('4.9') &&
-        text.includes('200+ happy clients');
-
-      if (isTargetHeading || isReviewsAggregate) {
-        addScrubElement(el);
       }
     });
 

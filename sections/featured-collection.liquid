@@ -55,7 +55,6 @@
   }
 {%- endstyle -%}
 
-
 {%- liquid
   assign products_to_display = section.settings.collection.all_products_count
 
@@ -99,7 +98,6 @@
   >
     <div
       class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}"
-      data-anim="fade-up"
     >
       {%- if section.settings.title != blank -%}
         <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">

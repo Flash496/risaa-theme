@@ -59,9 +59,9 @@
 
   /* Scoped transition override with high specificity to prevent global scroll animations from wiping out the flex transition */
   .risaa-accordion-container .risaa-accordion-item {
-    transition: 
-      flex 1.2s cubic-bezier(0.25, 1, 0.2, 1), 
-      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), 
+    transition:
+      flex 1.2s cubic-bezier(0.25, 1, 0.2, 1),
+      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
@@ -240,7 +240,7 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
-  <div class="section-header" data-anim="reveal-behind">
+  <div class="section-header">
     <h2>{{ section.settings.title }}</h2>
     {% if section.settings.subtitle != blank %}
       <p>{{ section.settings.subtitle }}</p>
@@ -258,27 +258,27 @@
         <div class="risaa-accordion-item" {{ block.shopify_attributes }}>
       {%- endif -%}
 
-        {% if block.settings.image != blank %}
-          {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
-        {% else %}
-          {%- assign _acc_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png'
-            | split: ','
-          -%}
-          {%- assign _acc_img = _acc_imgs[forloop.index0] | default: _acc_imgs[0] -%}
-          <img
-            src="{{ _acc_img }}"
-            alt="{{ block.settings.heading }}"
-            loading="lazy"
-          >
-        {% endif %}
+      {% if block.settings.image != blank %}
+        {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
+      {% else %}
+        {%- assign _acc_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png'
+          | split: ','
+        -%}
+        {%- assign _acc_img = _acc_imgs[forloop.index0] | default: _acc_imgs[0] -%}
+        <img
+          src="{{ _acc_img }}"
+          alt="{{ block.settings.heading }}"
+          loading="lazy"
+        >
+      {% endif %}
 
-        <div class="risaa-accordion-info">
-          <h3>{{ block.settings.heading }}</h3>
-          <p>{{ block.settings.subheading }}</p>
-          {% if block.settings.link != blank %}
-            <span class="btn-premium">Shop Now</span>
-          {% endif %}
-        </div>
+      <div class="risaa-accordion-info">
+        <h3>{{ block.settings.heading }}</h3>
+        <p>{{ block.settings.subheading }}</p>
+        {% if block.settings.link != blank %}
+          <span class="btn-premium">Shop Now</span>
+        {% endif %}
+      </div>
 
       {%- if block.settings.link != blank -%}
         </a>

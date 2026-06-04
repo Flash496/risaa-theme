@@ -143,7 +143,7 @@
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 18px 35px rgba(0, 0, 0, 0.25);
   }
-  
+
   .risaa-3d-carousel-item.is-active:hover .risaa-collage__main {
     transform: translate(-4px, -4px) scale(1.02);
   }
@@ -282,16 +282,18 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
-  <div class="section-header" data-anim="reveal-behind">
+  <div class="section-header">
     <h2>{{ section.settings.title }}</h2>
     <p>{{ section.settings.subtitle }}</p>
   </div>
 
   <div class="risaa-3d-carousel-wrapper">
     <button class="risaa-3d-carousel-btn risaa-3d-carousel-btn--prev" aria-label="Previous slide">
-      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
     </button>
-    
+
     <div class="risaa-3d-carousel-container">
       <div class="risaa-3d-carousel-track">
         {% for block in section.blocks %}
@@ -307,7 +309,7 @@
           {%- assign _col_main = _col_main_imgs[forloop.index0] | default: _col_main_imgs[0] -%}
           {%- assign _col_sub = _col_sub_imgs[forloop.index0] | default: _col_sub_imgs[0] -%}
           {%- assign _col_third = _col_third_imgs[forloop.index0] | default: _col_third_imgs[0] -%}
-          
+
           <a href="{{ block.settings.link }}" class="risaa-3d-carousel-item" {{ block.shopify_attributes }}>
             <div class="risaa-collage">
               {% if block.settings.main_image != blank %}
@@ -317,7 +319,12 @@
                   | image_tag: class: 'risaa-collage__main', loading: 'lazy'
                 }}
               {% else %}
-                <img src="{{ _col_main }}" alt="{{ block.settings.color_name }}" class="risaa-collage__main" loading="lazy">
+                <img
+                  src="{{ _col_main }}"
+                  alt="{{ block.settings.color_name }}"
+                  class="risaa-collage__main"
+                  loading="lazy"
+                >
               {% endif %}
 
               {% if block.settings.third_image != blank %}
@@ -327,7 +334,12 @@
                   | image_tag: class: 'risaa-collage__third', loading: 'lazy'
                 }}
               {% else %}
-                <img src="{{ _col_third }}" alt="{{ block.settings.color_name }}" class="risaa-collage__third" loading="lazy">
+                <img
+                  src="{{ _col_third }}"
+                  alt="{{ block.settings.color_name }}"
+                  class="risaa-collage__third"
+                  loading="lazy"
+                >
               {% endif %}
 
               {% if block.settings.sub_image != blank %}
@@ -337,7 +349,12 @@
                   | image_tag: class: 'risaa-collage__sub', loading: 'lazy'
                 }}
               {% else %}
-                <img src="{{ _col_sub }}" alt="{{ block.settings.color_name }}" class="risaa-collage__sub" loading="lazy">
+                <img
+                  src="{{ _col_sub }}"
+                  alt="{{ block.settings.color_name }}"
+                  class="risaa-collage__sub"
+                  loading="lazy"
+                >
               {% endif %}
             </div>
             <h3>{{ block.settings.color_name }}</h3>
@@ -347,7 +364,9 @@
     </div>
 
     <button class="risaa-3d-carousel-btn risaa-3d-carousel-btn--next" aria-label="Next slide">
-      <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
     </button>
 
     <div class="risaa-3d-carousel-dots"></div>
@@ -355,19 +374,19 @@
 </div>
 
 <script>
-  (function() {
+  (function () {
     document.addEventListener('DOMContentLoaded', () => {
       const wrapper = document.querySelector('.section-{{ section.id }}-padding');
       if (!wrapper) return;
-      
+
       const track = wrapper.querySelector('.risaa-3d-carousel-track');
       const items = wrapper.querySelectorAll('.risaa-3d-carousel-item');
       const dotsContainer = wrapper.querySelector('.risaa-3d-carousel-dots');
       const btnPrev = wrapper.querySelector('.risaa-3d-carousel-btn--prev');
       const btnNext = wrapper.querySelector('.risaa-3d-carousel-btn--next');
-      
+
       if (!items.length) return;
-      
+
       let currentIndex = Math.floor(items.length / 2); // Start with middle item active
       const glowColors = {
         ruby: '154, 28, 32',
@@ -379,7 +398,7 @@
         emerald: '4, 121, 87',
         gold: '216, 167, 100',
         ivory: '245, 240, 230',
-        blush: '248, 183, 153'
+        blush: '248, 183, 153',
       };
 
       function updateGlowColor() {
@@ -387,7 +406,7 @@
         const glowColor = glowColors[activeName] || '154, 28, 32';
         wrapper.style.setProperty('--risaa-active-glow', glowColor);
       }
-      
+
       // Generate dots
       items.forEach((_, index) => {
         const dot = document.createElement('div');
@@ -399,21 +418,21 @@
         });
         dotsContainer.appendChild(dot);
       });
-      
+
       const dots = dotsContainer.querySelectorAll('.risaa-3d-carousel-dot');
-      
+
       function updateCarousel() {
         const isMobile = window.innerWidth <= 749;
         const isTablet = window.innerWidth <= 989 && window.innerWidth > 749;
-        
+
         // Settings for 3D layout offsets (scaled up 20%)
-        const xOffsetBase = isMobile ? 110 : (isTablet ? 165 : 242);
-        const zOffsetBase = isMobile ? -120 : (isTablet ? -170 : -240);
-        const rotationAngle = isMobile ? 30 : (isTablet ? 40 : 45);
-        
+        const xOffsetBase = isMobile ? 110 : isTablet ? 165 : 242;
+        const zOffsetBase = isMobile ? -120 : isTablet ? -170 : -240;
+        const rotationAngle = isMobile ? 30 : isTablet ? 40 : 45;
+
         items.forEach((item, index) => {
           let offset = index - currentIndex;
-          
+
           // Wrap offset for circular/infinite loop
           const half = Math.floor(items.length / 2);
           if (offset > half) {
@@ -421,37 +440,37 @@
           } else if (offset < -half) {
             offset += items.length;
           }
-          
+
           const absOffset = Math.abs(offset);
-          
+
           // Check if the card has wrapped around the back
           const prevOffset = parseInt(item.dataset.prevOffset);
           const hasWrapped = !isNaN(prevOffset) && Math.abs(offset - prevOffset) > 1.5;
-          
+
           if (hasWrapped) {
             item.style.transition = 'none';
           } else {
             item.style.transition = '';
           }
-          
+
           let translateX = offset * xOffsetBase;
           let translateZ = absOffset * zOffsetBase;
           let rotateY = offset * -rotationAngle;
-          let scale = 1 - (absOffset * 0.12);
-          let opacity = 1 - (absOffset * 0.35);
+          let scale = 1 - absOffset * 0.12;
+          let opacity = 1 - absOffset * 0.35;
           let zIndex = 10 - absOffset;
-          
+
           if (absOffset > 2) {
             opacity = 0;
             item.style.pointerEvents = 'none';
           } else {
             item.style.pointerEvents = offset === 0 ? 'auto' : 'auto';
           }
-          
+
           item.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
           item.style.opacity = opacity;
           item.style.zIndex = zIndex;
-          
+
           if (hasWrapped) {
             // Force browser layout reflow before restoring transitions
             item.offsetHeight;
@@ -459,16 +478,16 @@
               item.style.transition = '';
             }, 50);
           }
-          
+
           item.dataset.prevOffset = offset;
-          
+
           if (offset === 0) {
             item.classList.add('is-active');
           } else {
             item.classList.remove('is-active');
           }
         });
-        
+
         // Update navigation dots
         dots.forEach((dot, index) => {
           if (index === currentIndex) {
@@ -480,18 +499,18 @@
 
         updateGlowColor();
       }
-      
+
       // Control buttons action
       btnPrev.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + items.length) % items.length;
         updateCarousel();
       });
-      
+
       btnNext.addEventListener('click', () => {
         currentIndex = (currentIndex + 1) % items.length;
         updateCarousel();
       });
-      
+
       // Click item to bring it to center
       items.forEach((item, index) => {
         item.addEventListener('click', (e) => {
@@ -502,34 +521,42 @@
           }
         });
       });
-      
+
       // Swipe gestures for touch screens
       let startX = 0;
       let dragActive = false;
-      
-      track.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        dragActive = true;
-      }, { passive: true });
-      
-      track.addEventListener('touchmove', (e) => {
-        if (!dragActive) return;
-        const diffX = e.touches[0].clientX - startX;
-        if (Math.abs(diffX) > 60) {
-          if (diffX > 0) {
-            currentIndex = (currentIndex - 1 + items.length) % items.length;
-          } else {
-            currentIndex = (currentIndex + 1) % items.length;
+
+      track.addEventListener(
+        'touchstart',
+        (e) => {
+          startX = e.touches[0].clientX;
+          dragActive = true;
+        },
+        { passive: true }
+      );
+
+      track.addEventListener(
+        'touchmove',
+        (e) => {
+          if (!dragActive) return;
+          const diffX = e.touches[0].clientX - startX;
+          if (Math.abs(diffX) > 60) {
+            if (diffX > 0) {
+              currentIndex = (currentIndex - 1 + items.length) % items.length;
+            } else {
+              currentIndex = (currentIndex + 1) % items.length;
+            }
+            updateCarousel();
+            dragActive = false;
           }
-          updateCarousel();
-          dragActive = false;
-        }
-      }, { passive: true });
-      
+        },
+        { passive: true }
+      );
+
       track.addEventListener('touchend', () => {
         dragActive = false;
       });
-      
+
       window.addEventListener('resize', updateCarousel);
       updateCarousel();
     });

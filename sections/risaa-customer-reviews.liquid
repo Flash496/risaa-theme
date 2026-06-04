@@ -1,7 +1,7 @@
 {%- style -%}
   .risaa-reviews {
     padding: 80px 0 70px;
-    background: #FAF8F5;
+    background: #faf8f5;
     overflow: hidden;
   }
 
@@ -44,7 +44,7 @@
     font-family: var(--font-heading-family);
     font-size: 1.8rem;
     font-weight: 400;
-    color: #D8A764;
+    color: #d8a764;
     line-height: 1;
   }
 
@@ -61,7 +61,7 @@
   }
 
   .risaa-reviews__agg-star {
-    color: #D8A764;
+    color: #d8a764;
     font-size: 1.1rem;
     line-height: 1;
   }
@@ -103,12 +103,12 @@
 
   .risaa-reviews__carousel-outer::before {
     left: 0;
-    background: linear-gradient(to right, #FAF8F5, transparent);
+    background: linear-gradient(to right, #faf8f5, transparent);
   }
 
   .risaa-reviews__carousel-outer::after {
     right: 0;
-    background: linear-gradient(to left, #FAF8F5, transparent);
+    background: linear-gradient(to left, #faf8f5, transparent);
   }
 
   .risaa-reviews__track {
@@ -233,7 +233,7 @@
   }
 
   .risaa-reviews__card-star {
-    color: #D8A764;
+    color: #d8a764;
     font-size: 1.15rem;
     line-height: 1;
   }
@@ -355,7 +355,7 @@
 -%}
 
 <section class="risaa-reviews reveal-on-scroll" id="risaa-reviews-{{ section.id }}">
-  <div class="risaa-reviews__header" data-anim="fade-up">
+  <div class="risaa-reviews__header">
     <h2 class="risaa-reviews__title">{{ section.settings.title }}</h2>
     <div class="risaa-reviews__aggregate">
       <span class="risaa-reviews__agg-score">{{ section.settings.aggregate_score }}</span>
