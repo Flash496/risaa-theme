@@ -61,11 +61,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Header */
-.header-wrapper {
+.header-wrapper,
+#shopify-section-group-header-group .header-wrapper,
+.shopify-section-group-header-group .header-wrapper {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
   border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
-  background: #F4EADE !important;
+  background: rgba(244, 234, 222, 0.4) !important;
+  background-color: rgba(244, 234, 222, 0.4) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   position: sticky;
