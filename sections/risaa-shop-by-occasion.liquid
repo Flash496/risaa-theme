@@ -109,8 +109,8 @@
     pointer-events: auto;
   }
   .risaa-occasions__arrow:hover {
-    background: #D8A764;
-    border-color: #D8A764;
+    background: #d8a764;
+    border-color: #d8a764;
   }
   .risaa-occasions__arrow:hover svg {
     stroke: #ffffff;
@@ -132,6 +132,7 @@
     color: inherit;
     display: block;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
   }
   .risaa-occasions__card:hover {
     transform: translateY(-8px);
@@ -140,11 +141,15 @@
   .risaa-occasions__img-wrap {
     width: 317px;
     height: 446px;
-    overflow: visible;
+    overflow: hidden;
     border-radius: 158px 158px 18px 18px;
     position: relative;
     background: #f1dcd2;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08), 0 32px 40px -8px rgba(150, 100, 10, 0.5);
+    transition: box-shadow 0.4s ease;
+  }
+  .risaa-occasions__card:hover .risaa-occasions__img-wrap {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1), 0 36px 48px -6px rgba(150, 100, 10, 0.72);
   }
   .risaa-occasions__img {
     width: 100%;
@@ -440,8 +445,6 @@
         if (hasDragged) e.preventDefault();
       });
     });
-
-
 
     /* ── Touch ── */
     var tStartX = 0,
