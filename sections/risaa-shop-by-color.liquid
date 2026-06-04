@@ -100,8 +100,8 @@
     width: 81%;
     height: 85%;
     position: absolute;
-    top: 5%;
-    left: 2%;
+    top: 1%;
+    left: -1%;
     object-fit: cover;
     z-index: 1;
     border-radius: 6px;
@@ -110,17 +110,32 @@
   }
 
   .risaa-collage__third {
-    width: 50%;
-    height: 65%;
+    width: 44%;
+    height: 55%;
     position: absolute;
-    top: 15%;
-    left: 32%;
+    top: 38%;
+    left: 4%;
     object-fit: cover;
     z-index: 3;
     border: 4px solid white;
     border-radius: 6px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-    transform: rotate(6deg);
+    transform: rotate(-5deg);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1);
+  }
+
+  .risaa-collage__fourth {
+    width: 44%;
+    height: 52%;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    object-fit: cover;
+    z-index: 4;
+    border: 4px solid white;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transform: rotate(4deg);
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1);
   }
 
@@ -149,7 +164,11 @@
   }
 
   .risaa-3d-carousel-item.is-active:hover .risaa-collage__third {
-    transform: translate(0px, 2px) scale(1.04) rotate(8deg);
+    transform: translate(-4px, 4px) scale(1.04) rotate(-7deg);
+  }
+
+  .risaa-3d-carousel-item.is-active:hover .risaa-collage__fourth {
+    transform: translate(4px, -4px) scale(1.04) rotate(6deg);
   }
 
   .risaa-3d-carousel-item.is-active:hover .risaa-collage__sub {
@@ -306,9 +325,13 @@
           {%- assign _col_third_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/ruby%20third.jpg,https://ik.imagekit.io/flashspdstr/risaa/saffron%20third.jpg,https://ik.imagekit.io/flashspdstr/risaa/mocha%20third.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%20third.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%20third.jpg'
             | split: ','
           -%}
+          {%- assign _col_fourth_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/ruby%204th.jpg,https://ik.imagekit.io/flashspdstr/risaa/saffron%204th.jpg,https://ik.imagekit.io/flashspdstr/risaa/mocha%204th.jpg,https://ik.imagekit.io/flashspdstr/risaa/indigo%204th.jpg,https://ik.imagekit.io/flashspdstr/risaa/matcha%204th.jpg'
+            | split: ','
+          -%}
           {%- assign _col_main = _col_main_imgs[forloop.index0] | default: _col_main_imgs[0] -%}
           {%- assign _col_sub = _col_sub_imgs[forloop.index0] | default: _col_sub_imgs[0] -%}
           {%- assign _col_third = _col_third_imgs[forloop.index0] | default: _col_third_imgs[0] -%}
+          {%- assign _col_fourth = _col_fourth_imgs[forloop.index0] | default: _col_fourth_imgs[0] -%}
 
           <a href="{{ block.settings.link }}" class="risaa-3d-carousel-item" {{ block.shopify_attributes }}>
             <div class="risaa-collage">
@@ -341,6 +364,13 @@
                   loading="lazy"
                 >
               {% endif %}
+
+              <img
+                src="{{ _col_fourth }}"
+                alt="{{ block.settings.color_name }}"
+                class="risaa-collage__fourth"
+                loading="lazy"
+              >
 
               {% if block.settings.sub_image != blank %}
                 {{
