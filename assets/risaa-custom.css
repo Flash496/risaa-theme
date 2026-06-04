@@ -123,9 +123,9 @@ h4,
 /* Logo Refinement */
 .header__heading-logo {
   transition: transform 0.3s ease;
-  max-width: 125px !important;
+  max-width: 105px !important;
   height: auto !important;
-  width: 125px !important;
+  width: 105px !important;
 }
 
 .header__heading-logo:hover {
