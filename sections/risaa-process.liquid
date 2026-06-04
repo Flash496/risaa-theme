@@ -153,16 +153,10 @@
     const cards = section.querySelectorAll('.risaa-process__step');
     const header = section.querySelector('.risaa-process__header');
     
-    // Define a set of distinctly different, low-range speeds to ensure clear separation
-    const distinctSpeeds = [0.05, 0.15, 0.3, 0.45];
-    // Shuffle them so the order is random
-    const shuffledSpeeds = distinctSpeeds.sort(() => Math.random() - 0.5);
-    
-    // Assign one distinct speed to each card
-    const cardSpeeds = Array.from(cards).map((_, index) => shuffledSpeeds[index % shuffledSpeeds.length]); 
-    
-    // Header gets a random speed from the same distinct set
-    const headerSpeed = distinctSpeeds[Math.floor(Math.random() * distinctSpeeds.length)];
+    // Fixed speeds — consistent every load, clearly different from each other
+    // Header is slowest, cards vary noticeably
+    const headerSpeed = 0.28;
+    const cardSpeeds = [0.22, 0.13, 0.35, 0.16]; // card 1, 2, 3, 4
     
     const handleScroll = () => {
       const rect = section.getBoundingClientRect();
