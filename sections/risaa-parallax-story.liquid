@@ -142,14 +142,14 @@
         style="color: var(--brand-main); margin-bottom: 10px; display: block; font-size: 16px;"
         >Since 2021</span
       >
-      <h2 style="font-family: 'Cinzel', serif; font-size: 3rem; line-height: 1.1; margin-bottom: 30px;">
+      <h2 style="font-family: 'Cinzel', serif; font-size: 3rem; line-height: 1.1; margin-bottom: 30px; letter-spacing: 0.18em; text-transform: uppercase;">
         {{ section.settings.heading }}
       </h2>
 
       <div class="story-content-wrap" style="margin-bottom: 40px;">
         <div
           class="rte"
-          style="font-family: 'Montserrat', sans-serif; font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 20px;"
+          style="font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 300; line-height: 1.8; color: #555; margin-bottom: 20px;"
         >
           <p>
             <strong>Risaa - Design Studio by Rima</strong> was born from a vision to bridge the gap between high-end
@@ -171,14 +171,14 @@
             {% when 'story_text' %}
               <div
                 class="rte"
-                style="font-family: 'Montserrat', sans-serif; font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 20px;"
+                style="font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 300; line-height: 1.8; color: #555; margin-bottom: 20px;"
                 {{ block.shopify_attributes }}
               >
                 {{ block.settings.text }}
               </div>
             {% when 'brand_quote' %}
               <blockquote
-                style="border-left: 3px solid var(--brand-main); padding-left: 20px; margin: 30px 0; font-family: 'Cinzel', serif; font-style: italic; font-size: 1.2rem; color: #1a1a1a;"
+                style="border-left: 3px solid var(--brand-main); padding-left: 20px; margin: 30px 0; font-family: 'Cinzel', serif; font-style: italic; font-size: 1.2rem; color: #1a1a1a; letter-spacing: 0.08em;"
                 {{ block.shopify_attributes }}
               >
                 "{{ block.settings.quote }}"

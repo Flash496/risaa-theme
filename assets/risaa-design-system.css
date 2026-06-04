@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Montserrat:wght@200;300;400;500;600&family=Great+Vibes&display=swap');
 
 :root {
   --brand-main: #9a1c20;
@@ -10,11 +10,11 @@
   --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-quick: all 0.3s ease;
 
-  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-heading: 'Cinzel', Georgia, serif;
   --font-body: 'Montserrat', sans-serif;
 
   /* Universal overrides for Shopify native settings */
-  --font-heading-family: 'Cormorant Garamond', Georgia, serif !important;
+  --font-heading-family: 'Cinzel', Georgia, serif !important;
   --font-body-family: 'Montserrat', sans-serif !important;
 }
 
@@ -24,6 +24,8 @@ body {
   color: var(--brand-dark);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 300 !important;
 }
 
 .risaa-scroll-slide-up {
@@ -31,8 +33,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading) !important;
-  letter-spacing: 0.12em !important;
+  font-family: 'Cinzel', Georgia, serif !important;
+  letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
   color: var(--brand-main) !important;
   font-weight: 400 !important;
@@ -160,7 +162,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .header__menu-item {
   font-family: var(--font-heading) !important;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   font-size: 1.8rem;
   font-weight: 500;
@@ -546,8 +548,6 @@ h1, h2, h3, h4, h5, h6 {
 .risaa-occasions__tile-sub,
 .risaa-color-item span {
   font-family: 'Great Vibes', cursive !important;
-  font-size: 2.2rem !important;
-  color: var(--brand-undertone-1) !important;
   text-transform: none !important;
   letter-spacing: 0.04em !important;
   font-weight: 400 !important;
@@ -617,7 +617,7 @@ h1, h2, h3, h4, h5, h6 {
 .collection__view-all .button--secondary,
 .shopify-payment-button__button {
   border-radius: 0px !important;
-  letter-spacing: 0.18em !important;
+  letter-spacing: 0.20em !important;
   font-family: var(--font-body) !important;
   font-weight: 500 !important;
   text-transform: uppercase !important;
@@ -640,7 +640,7 @@ h1, h2, h3, h4, h5, h6 {
 .risaa-about-maps h2,
 .risaa-youtube-shorts h2,
 .risaa-about-youtube h2 {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Cinzel', Georgia, serif !important;
   font-size: 3rem !important;
   color: #9a1c20 !important;
   text-transform: uppercase !important;
@@ -688,7 +688,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Nimbus Sans Overrides for Tabs ── */
 .header__menu-item,
 .list-menu__item {
-  font-family: 'Nimbus Sans Light', 'Nimbus Sans', sans-serif !important;
+  font-family: 'Montserrat', sans-serif !important;
   font-weight: 300 !important;
 }
 
