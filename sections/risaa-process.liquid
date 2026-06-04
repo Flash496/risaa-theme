@@ -9,6 +9,8 @@
   .risaa-process__header {
     text-align: center;
     margin-bottom: 5rem;
+    will-change: transform;
+    transform-style: preserve-3d;
   }
 
   .risaa-process__eyebrow {
@@ -58,6 +60,8 @@
     padding: 2rem 1.5rem;
     background: rgba(255, 255, 255, 0.3);
     border: 1px solid rgba(110, 20, 35, 0.04);
+    will-change: transform;
+    transform-style: preserve-3d;
   }
 
   .risaa-process__number {
@@ -142,6 +146,75 @@
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const section = document.getElementById('risaa-process-{{ section.id }}');
+    const cards = section.querySelectorAll('.risaa-process__step');
+    const header = section.querySelector('.risaa-process__header');
+    
+    // Define a set of distinctly different, low-range speeds to ensure clear separation
+    const distinctSpeeds = [0.05, 0.15, 0.3, 0.45];
+    // Shuffle them so the order is random
+    const shuffledSpeeds = distinctSpeeds.sort(() => Math.random() - 0.5);
+    
+    // Assign one distinct speed to each card
+    const cardSpeeds = Array.from(cards).map((_, index) => shuffledSpeeds[index % shuffledSpeeds.length]); 
+    
+    // Header gets a random speed from the same distinct set
+    const headerSpeed = distinctSpeeds[Math.floor(Math.random() * distinctSpeeds.length)];
+    
+    const handleScroll = () => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Settle the cards to 0 translation when the section top reaches 20% from the top of the viewport.
+      // This makes the slide up animation finish 20% sooner than before (when it was at 0).
+      const targetTop = windowHeight * 0.2;
+      const diff = rect.top - targetTop;
+      
+      // Animate Header
+      if (header) {
+        let headerYMove = diff * headerSpeed;
+        let headerRotation = diff * 0.05;
+        headerRotation = Math.max(0, Math.min(60, headerRotation));
+        
+        if (diff < 0) {
+          headerYMove = diff * (headerSpeed * 0.6);
+          headerRotation = 0;
+        }
+        
+        header.style.transform = `perspective(1000px) translateY(${headerYMove}px) rotateX(${headerRotation}deg)`;
+      }
+
+      // Animate Cards
+      cards.forEach((card, index) => {
+        const speed = cardSpeeds[index];
+        
+        let yMove = diff * speed;
+        
+        // Rolling rotation effect only applies when scrolling in (below target)
+        let rotation = diff * 0.05; // Slightly reduced rotation multiplier for lower speeds
+        rotation = Math.max(0, Math.min(60, rotation)); // Clamp rotation
+        
+        // If it scrolls past the target point, keep parallax but remove rotation
+        if (diff < 0) {
+          yMove = diff * (speed * 0.6); // reduce parallax speed when scrolling upwards
+          rotation = 0;
+        }
+        
+        card.style.transform = `perspective(1000px) translateY(${yMove}px) rotateX(${rotation}deg)`;
+      });
+    };
+    
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(handleScroll);
+    }, { passive: true });
+    
+    // Initial call to set positions
+    handleScroll();
+  });
+</script>
 
 {% schema %}
 {
