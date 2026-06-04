@@ -1,0 +1,236 @@
+{%- style -%}
+  .risaa-newsletter {
+    background-color: var(--brand-main);
+    color: var(--brand-text);
+    padding: 7rem 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .risaa-newsletter__container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .risaa-newsletter__eyebrow {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brand-gold);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .risaa-newsletter__title {
+    font-family: 'Cinzel', Georgia, serif !important;
+    font-size: 3.2rem !important;
+    color: var(--brand-text) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.18em !important;
+    line-height: 1.1 !important;
+    font-weight: 400 !important;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .risaa-newsletter__desc {
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    color: var(--brand-text);
+    line-height: 1.6;
+    margin-bottom: 3.5rem;
+    font-weight: 300;
+    opacity: 0.9;
+  }
+
+  .risaa-newsletter__form-wrapper {
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .risaa-newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .risaa-newsletter-form__field {
+    display: flex;
+    position: relative;
+    border-bottom: 1px solid rgba(244, 234, 222, 0.4);
+  }
+
+  .risaa-newsletter-form__input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 1.5rem 0.5rem;
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    color: var(--brand-text);
+    font-weight: 300;
+  }
+
+  .risaa-newsletter-form__input::placeholder {
+    color: rgba(244, 234, 222, 0.5);
+  }
+
+  .risaa-newsletter-form__button {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--brand-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+    padding: 0 1.5rem;
+    transition: var(--transition-quick);
+  }
+
+  .risaa-newsletter-form__button:hover {
+    color: var(--brand-text);
+  }
+
+  .risaa-newsletter__message {
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+  }
+
+  .risaa-newsletter__message--success {
+    color: var(--brand-gold);
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-newsletter {
+      padding: 5rem 0;
+    }
+    .risaa-newsletter__title {
+      font-size: 2.4rem !important;
+    }
+    .risaa-newsletter__desc {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+    .risaa-newsletter-form__field {
+      flex-direction: row;
+    }
+  }
+{%- endstyle -%}
+
+<section class="risaa-newsletter" id="risaa-newsletter-{{ section.id }}">
+  <div class="risaa-newsletter__container">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="risaa-newsletter__eyebrow">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+    <h2 class="risaa-newsletter__title">{{ section.settings.title }}</h2>
+    {%- if section.settings.desc != blank -%}
+      <p class="risaa-newsletter__desc">{{ section.settings.desc }}</p>
+    {%- endif -%}
+
+    <div class="risaa-newsletter__form-wrapper">
+      {% form 'customer', class: 'risaa-newsletter-form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        
+        <div class="risaa-newsletter-form__field">
+          <input
+            id="NewsletterForm--{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            class="risaa-newsletter-form__input"
+            value="{{ form.email }}"
+            aria-required="true"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            placeholder="{{ section.settings.placeholder_text }}"
+            required
+          >
+          <button
+            type="submit"
+            class="risaa-newsletter-form__button"
+            name="commit"
+            id="Subscribe--{{ section.id }}"
+            aria-label="Subscribe"
+          >
+            {{ section.settings.button_label }}
+          </button>
+        </div>
+
+        {%- if form.errors -%}
+          <div class="risaa-newsletter__message risaa-newsletter__message--error form__message" id="Newsletter-error--{{ section.id }}">
+            {{- form.errors.translated_fields.email | capitalize }}
+            {{ form.errors.messages.email -}}
+          </div>
+        {%- endif -%}
+
+        {%- if form.posted_successfully? -%}
+          <div
+            class="risaa-newsletter__message risaa-newsletter__message--success form__message"
+            id="Newsletter-success--{{ section.id }}"
+            tabindex="-1"
+            autofocus
+          >
+            {{ section.settings.success_message }}
+          </div>
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Risaa Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Join the Club"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Stay Inspired"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Description",
+      "default": "Subscribe to receive updates on our exclusive collections, seasonal edits, and custom tailoring privileges."
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Input Placeholder",
+      "default": "enter your email address..."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success Message",
+      "default": "Thank you for subscribing! Check your email for welcoming privileges."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Risaa Newsletter"
+    }
+  ]
+}
+{% endschema %}

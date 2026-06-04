@@ -1,0 +1,265 @@
+{%- style -%}
+  .risaa-faq {
+    background-color: var(--brand-text);
+    padding: 6rem 0;
+    position: relative;
+    border-bottom: 1px solid rgba(110, 20, 35, 0.08);
+  }
+
+  .risaa-faq__header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .risaa-faq__eyebrow {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brand-gold);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .risaa-faq__title {
+    font-family: 'Cinzel', Georgia, serif !important;
+    font-size: 3rem !important;
+    color: var(--brand-main) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.18em !important;
+    line-height: 1.1 !important;
+    font-weight: 400 !important;
+    margin: 0;
+  }
+
+  .risaa-faq__subtitle {
+    font-family: 'Great Vibes', cursive !important;
+    font-size: 2rem !important;
+    color: var(--brand-main);
+    text-transform: none !important;
+    letter-spacing: 0.04em !important;
+    font-weight: 400 !important;
+    margin-top: 8px !important;
+  }
+
+  .risaa-faq__container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .risaa-faq__item {
+    border-bottom: 1px solid rgba(110, 20, 35, 0.12);
+    margin-bottom: 0.5rem;
+  }
+
+  .risaa-faq__item:first-child {
+    border-top: 1px solid rgba(110, 20, 35, 0.12);
+  }
+
+  .risaa-faq__summary {
+    list-style: none;
+    outline: none;
+    cursor: pointer;
+    padding: 2.2rem 1rem;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: var(--brand-main);
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .risaa-faq__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .risaa-faq__icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .risaa-faq__icon::before,
+  .risaa-faq__icon::after {
+    content: '';
+    position: absolute;
+    background-color: var(--brand-gold);
+    transition: transform 0.3s ease;
+  }
+
+  /* Horizontal line */
+  .risaa-faq__icon::before {
+    width: 100%;
+    height: 1.5px;
+  }
+
+  /* Vertical line */
+  .risaa-faq__icon::after {
+    width: 1.5px;
+    height: 100%;
+  }
+
+  .risaa-faq__item[open] .risaa-faq__icon::after {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  .risaa-faq__item[open] .risaa-faq__icon::before {
+    transform: rotate(180deg);
+  }
+
+  .risaa-faq__content {
+    padding: 0 1rem 2.2rem;
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    color: var(--brand-dark);
+    line-height: 1.7;
+    font-weight: 300;
+    opacity: 0.9;
+  }
+
+  .risaa-faq__content p {
+    margin: 0 0 1rem;
+  }
+  .risaa-faq__content p:last-child {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-faq {
+      padding: 4.5rem 0;
+    }
+    .risaa-faq__header {
+      margin-bottom: 3.5rem;
+    }
+    .risaa-faq__title {
+      font-size: 2.2rem !important;
+    }
+    .risaa-faq__summary {
+      padding: 1.8rem 0.5rem;
+      font-size: 1.25rem;
+    }
+    .risaa-faq__content {
+      padding: 0 0.5rem 1.8rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="risaa-faq" id="risaa-faq-{{ section.id }}">
+  <div class="page-width">
+    <div class="risaa-faq__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="risaa-faq__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="risaa-faq__title">{{ section.settings.title }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <div class="risaa-faq__subtitle">{{ section.settings.subtitle }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="risaa-faq__container">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.question != blank and block.settings.answer != blank -%}
+          <details class="risaa-faq__item" {{ block.shopify_attributes }}>
+            <summary class="risaa-faq__summary">
+              <span>{{ block.settings.question }}</span>
+              <span class="risaa-faq__icon"></span>
+            </summary>
+            <div class="risaa-faq__content">
+              {{ block.settings.answer }}
+            </div>
+          </details>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Risaa FAQs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Queries Answered"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle (Cursive)",
+      "default": "Everything you need to know about our customization & ordering"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Can I request custom adjustments or colors?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Yes! We offer customization on fitting, colors, and specific design elements. Connect with us on WhatsApp after/during your purchase to coordinate details with our studio stylists.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Risaa FAQs",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the typical shipping timeline for custom orders?",
+            "answer": "<p>Since custom pieces are handcrafted individually, production takes 3 to 4 weeks, followed by express global transit (usually 4-7 business days). If you have an urgent occasion, check out our Ready to Ship category.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I share my custom measurements?",
+            "answer": "<p>After placing your order, you can submit measurements using our measurement form, or chat directly with our custom stitching team on WhatsApp who can assist you step-by-step.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you ship internationally?",
+            "answer": "<p>Yes, we ship to all major countries globally (including USA, UK, Canada, Australia, and UAE) via premium carriers like DHL/FedEx, ensuring fully tracked and insured shipping.</p>"
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy on couture wear?",
+            "answer": "<p>Since custom-fit and couture orders are designed exclusively to your specifications, they are final sale and non-refundable. However, we strive to guarantee a perfect fit, offering minor alterations if needed.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

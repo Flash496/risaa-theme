@@ -1,0 +1,226 @@
+{%- style -%}
+  .risaa-process {
+    background-color: var(--brand-text);
+    padding: 6rem 0;
+    position: relative;
+    border-bottom: 1px solid rgba(110, 20, 35, 0.08);
+  }
+
+  .risaa-process__header {
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+
+  .risaa-process__eyebrow {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--brand-gold);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .risaa-process__title {
+    font-family: 'Cinzel', Georgia, serif !important;
+    font-size: 3rem !important;
+    color: var(--brand-main) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.18em !important;
+    line-height: 1.1 !important;
+    font-weight: 400 !important;
+    margin: 0;
+  }
+
+  .risaa-process__subtitle {
+    font-family: 'Great Vibes', cursive !important;
+    font-size: 2rem !important;
+    color: var(--brand-main);
+    text-transform: none !important;
+    letter-spacing: 0.04em !important;
+    font-weight: 400 !important;
+    margin-top: 8px !important;
+  }
+
+  .risaa-process__grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2.5rem;
+    position: relative;
+  }
+
+  .risaa-process__step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    padding: 2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(110, 20, 35, 0.04);
+  }
+
+  .risaa-process__number {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 4rem;
+    color: rgba(110, 20, 35, 0.15);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+    line-height: 1;
+    display: inline-block;
+    border-bottom: 1px solid var(--brand-gold);
+    padding-bottom: 0.5rem;
+  }
+
+  .risaa-process__step-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--brand-main);
+    letter-spacing: 0.12em;
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+  }
+
+  .risaa-process__step-desc {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    color: var(--brand-dark);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 300;
+    opacity: 0.85;
+  }
+
+  @media screen and (max-width: 989px) {
+    .risaa-process__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-process {
+      padding: 4.5rem 0;
+    }
+    .risaa-process__header {
+      margin-bottom: 3.5rem;
+    }
+    .risaa-process__title {
+      font-size: 2.2rem !important;
+    }
+    .risaa-process__grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .risaa-process__step {
+      padding: 1.5rem 1rem;
+    }
+  }
+{%- endstyle -%}
+
+<section class="risaa-process" id="risaa-process-{{ section.id }}">
+  <div class="page-width">
+    <div class="risaa-process__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="risaa-process__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="risaa-process__title">{{ section.settings.title }}</h2>
+      {%- if section.settings.subtitle != blank -%}
+        <div class="risaa-process__subtitle">{{ section.settings.subtitle }}</div>
+      {%- endif -%}
+    </div>
+
+    <div class="risaa-process__grid">
+      {%- for block in section.blocks -%}
+        <div class="risaa-process__step" {{ block.shopify_attributes }}>
+          <div class="risaa-process__number">0{{ forloop.index }}</div>
+          <h3 class="risaa-process__step-title">{{ block.settings.step_title }}</h3>
+          <p class="risaa-process__step-desc">{{ block.settings.step_desc }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Risaa Couture Process",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Our Couture Process"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "How It Works"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle (Cursive)",
+      "default": "Your custom design, crafted with care"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_title",
+          "label": "Step Title",
+          "default": "Consult & Design"
+        },
+        {
+          "type": "textarea",
+          "id": "step_desc",
+          "label": "Step Description",
+          "default": "Connect with us on WhatsApp to discuss custom modifications, sizes, colors, or fabrics."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Risaa Couture Process",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "step_title": "Choose & Customise",
+            "step_desc": "Explore our designs online or start a conversation to share custom adjustments and fabric requests."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_title": "Share Measurements",
+            "step_desc": "Provide your size details via our simple measurement chart, or get assisted live by our stylist team."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_title": "Artisanal Stitching",
+            "step_desc": "Our master tailors and artisans hand-stitch and finish your garment to ensure a premium custom fit."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_title": "Global Hand-Delivery",
+            "step_desc": "Every order is inspected for quality, beautifully wrapped, and shipped with tracking worldwide."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

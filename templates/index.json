@@ -328,21 +328,168 @@
         "phone_number": "+919501032126",
         "custom_message": "Hello RiSaa! I'm reaching out from your website. I'd love to discuss a custom design for my upcoming occasion."
       }
+    },
+    "risaa_usps": {
+      "type": "risaa-usps",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "measure",
+            "title": "Perfect Tailored Fit",
+            "text": "Each ensemble is crafted to your unique measurements for a flawless drape."
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shipping",
+            "title": "Worldwide Shipping",
+            "text": "Delivering beautiful customized ethnic wear to your doorstep globally."
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "luxury",
+            "title": "Accessible Luxury",
+            "text": "Premium quality couture without the traditional luxury retail markups."
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "craft",
+            "title": "Artisanal Heritage",
+            "text": "Handcrafted details and exquisite embroideries from our master artisans."
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {}
+    },
+    "risaa_process": {
+      "type": "risaa-process",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "step_title": "Choose & Customise",
+            "step_desc": "Explore our designs online or start a conversation to share custom adjustments and fabric requests."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "step_title": "Share Measurements",
+            "step_desc": "Provide your size details via our simple measurement chart, or get assisted live by our stylist team."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "step_title": "Artisanal Stitching",
+            "step_desc": "Our master tailors and artisans hand-stitch and finish your garment to ensure a premium custom fit."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "step_title": "Global Hand-Delivery",
+            "step_desc": "Every order is inspected for quality, beautifully wrapped, and shipped with tracking worldwide."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "eyebrow": "Our Couture Process",
+        "title": "How It Works",
+        "subtitle": "Your custom design, crafted with care"
+      }
+    },
+    "risaa_faq": {
+      "type": "risaa-questions",
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the typical shipping timeline for custom orders?",
+            "answer": "<p>Since custom pieces are handcrafted individually, production takes 3 to 4 weeks, followed by express global transit (usually 4-7 business days). If you have an urgent occasion, check out our <strong>Ready to Ship</strong> category.<\/p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How do I share my custom measurements?",
+            "answer": "<p>After placing your order, you can submit measurements using our measurement form, or chat directly with our custom stitching team on WhatsApp who can assist you step-by-step.<\/p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you ship internationally?",
+            "answer": "<p>Yes, we ship to all major countries globally (including USA, UK, Canada, Australia, and UAE) via premium carriers like DHL/FedEx, ensuring fully tracked and insured shipping.<\/p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is your return policy on couture wear?",
+            "answer": "<p>Since custom-fit and couture orders are designed exclusively to your specifications, they are final sale and non-refundable. However, we strive to guarantee a perfect fit, offering minor alterations if needed.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "eyebrow": "Frequently Asked Questions",
+        "title": "Queries Answered",
+        "subtitle": "Everything you need to know about our customization & ordering"
+      }
+    },
+    "risaa_newsletter": {
+      "type": "risaa-newsletter",
+      "settings": {
+        "eyebrow": "Join the Club",
+        "title": "Stay Inspired",
+        "desc": "Subscribe to receive updates on our exclusive collections, seasonal edits, and custom tailoring privileges.",
+        "placeholder_text": "enter your email address...",
+        "button_label": "Subscribe",
+        "success_message": "Thank you for subscribing! Check your email for welcoming privileges."
+      }
     }
   },
   "order": [
     "hero_carousel",
     "risaa_hero_marquee",
+    "risaa_usps",
     "risaa_summer_picks",
     "risaa_new_in",
     "risaa_shop_by_occasion",
     "bestsellers",
     "risaa_ready_to_ship",
     "risaa_accordion",
+    "risaa_process",
     "risaa_shop_by_color",
     "risaa_watch_and_shop",
     "risaa_customer_reviews",
     "risaa_parallax_story",
+    "risaa_faq",
+    "risaa_newsletter",
     "risaa_whatsapp"
   ]
 }
