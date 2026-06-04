@@ -191,3 +191,10 @@
   will-change: transform, opacity;
   transition: transform 0.15s cubic-bezier(0.25, 1, 0.2, 1), opacity 0.1s linear;
 }
+
+/* ── Roll Up (Scroll Scrubbed) ── */
+[data-anim="roll-up"] {
+  will-change: clip-path;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.15s cubic-bezier(0.25, 1, 0.2, 1);
+}

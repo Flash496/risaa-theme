@@ -19,7 +19,7 @@
     'new in',
     "designer's choice",
     'ready to ship',
-    'in motion',
+    'watch & shop',
     'beauties of risaa',
   ]);
 
@@ -44,24 +44,47 @@
       }
 
       const rect = el.getBoundingClientRect();
-      
+      const animType = el.dataset.anim;
+
       // Calculate progress of entrance
-      // Starts when element top enters bottom of viewport (rect.top = vh)
-      // Ends when element top is at 55% of viewport height (rect.top = vh * 0.55)
       const start = vh;
-      const end = vh * 0.55; 
-      
+      const end = vh * 0.4; // Shifted completion threshold 15% later (from 0.55 to 0.40)
+
       let p = 0;
       if (rect.top < start) {
         p = (start - rect.top) / (start - end);
       }
       p = Math.max(0, Math.min(1, p)); // Clamp 0 to 1
 
-      // Apply opacity and translation
-      const distance = el.classList.contains('risaa-scroll-slide-up') ? 46 : 80;
-      const y = (1 - p) * distance;
-      el.style.opacity = p.toFixed(3);
-      el.style.transform = `translateY(${y.toFixed(2)}px)`;
+      if (animType === 'roll-up') {
+        const clipPercent = (1 - p) * 100;
+        el.style.clipPath = `inset(${clipPercent.toFixed(2)}% 0 0 0)`;
+
+        // Trigger bloom on children when background is fully rolled up
+        const layout = el.querySelector('.risaa-reels-layout');
+        if (layout) {
+          if (p >= 1) {
+            if (!layout._bloomTimer) {
+              layout._bloomTimer = setTimeout(() => {
+                layout.classList.add('is-bloomed');
+                layout._bloomTimer = null;
+              }, 500);
+            }
+          } else {
+            if (layout._bloomTimer) {
+              clearTimeout(layout._bloomTimer);
+              layout._bloomTimer = null;
+            }
+            layout.classList.remove('is-bloomed');
+          }
+        }
+      } else {
+        // Default reveal-behind or scrub text
+        const distance = el.classList.contains('risaa-scroll-slide-up') ? 46 : 80;
+        const y = (1 - p) * distance;
+        el.style.opacity = p.toFixed(3);
+        el.style.transform = `translateY(${y.toFixed(2)}px)`;
+      }
     });
   }
 
@@ -147,7 +170,7 @@
     root = root || document;
 
     root.querySelectorAll('[data-anim]').forEach((el) => {
-      if (el.dataset.anim === 'reveal-behind') {
+      if (el.dataset.anim === 'reveal-behind' || el.dataset.anim === 'roll-up') {
         addScrubElement(el);
       } else {
         singleObserver.observe(el);
