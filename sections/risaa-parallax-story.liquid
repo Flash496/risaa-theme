@@ -69,23 +69,113 @@
     z-index: 3;
   }
 
-  .risaa-parallax-text h2 {
-    font-size: 4rem;
-    margin-bottom: 2rem;
+  /* === BLOOM ANIMATION === */
+  .risaa-story-bloom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
   }
 
-  .risaa-parallax-text p {
-    font-size: 1.8rem;
-    line-height: 1.8;
-    margin-bottom: 2rem;
+  .rsb-line {
+    opacity: 0;
+    filter: blur(7px);
+    transform: translateY(8px);
+    transition: opacity 0.65s ease, filter 0.65s ease, transform 0.65s ease;
+  }
+
+  .rsb-line.rsb-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+
+  .rsb-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.0rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--brand-main);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .rsb-studio-name {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 2.4rem;
+    line-height: 1.15;
+    color: #1a1a1a;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+
+  .rsb-studio-name em {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    font-style: normal;
+    color: var(--brand-main);
+    display: block;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+  }
+
+  .rsb-body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: #555;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .rsb-body strong { color: #1a1a1a; font-weight: 500; }
+  .rsb-body em { font-style: italic; color: var(--brand-main); }
+
+  .rsb-indent {
+    padding-left: 1.2rem;
+    border-left: 2px solid rgba(110, 20, 35, 0.2);
+  }
+
+  .rsb-pullquote {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.85rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--brand-main);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    padding: 0.5rem 0 0.5rem 1.2rem;
+    border-left: 2px solid rgba(110, 20, 35, 0.3);
+    margin: 0.2rem 0;
+  }
+
+  .rsb-closing {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.65;
     color: #444;
+    font-weight: 300;
+    margin: 0;
   }
 
-  .risaa-parallax-text .btn-premium:hover {
-    background: #D4AF37 !important;
-    border-color: #D4AF37 !important;
-    color: #ffffff !important;
+  .rsb-closing strong { color: #1a1a1a; font-weight: 500; }
+
+  .rsb-cta {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.0rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brand-main);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(110, 20, 35, 0.35);
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease, opacity 0.2s ease;
+    width: fit-content;
   }
+
+  .rsb-cta:hover { opacity: 0.7; border-color: var(--brand-main); }
 
   @media screen and (max-width: 989px) {
     .risaa-parallax-container {
@@ -136,85 +226,45 @@
       </div>
     </div>
 
-    <div class="risaa-parallax-text reveal-on-scroll" data-anim="fade-up" data-anim-delay="0.2">
-      <span
-        class="active-product-tag"
-        style="color: var(--brand-main); margin-bottom: 10px; display: block; font-size: 16px;"
-        >Since 2021</span
-      >
-      <h2 style="font-family: 'Cinzel', serif; font-size: 3rem; line-height: 1.1; margin-bottom: 30px; letter-spacing: 0.18em; text-transform: uppercase;">
-        {{ section.settings.heading }}
-      </h2>
+    <div class="risaa-parallax-text">
+      <div class="risaa-story-bloom">
+        <span class="rsb-line rsb-eyebrow">Since 2021 &nbsp;·&nbsp; Ludhiana, Punjab</span>
 
-      <div class="story-content-wrap" style="margin-bottom: 40px;">
-        <div
-          class="rte"
-          style="font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 300; line-height: 1.8; color: #555; margin-bottom: 20px;"
-        >
-          <p>
-            <strong>Risaa - Design Studio by Rima</strong> was born from a vision to bridge the gap between high-end
-            couture and accessible elegance. What started as a passion for exquisite detailing has evolved into a
-            full-fledged studio in the heart of Ludhiana, dedicated to celebrating the individuality of the modern woman
-            through timeless silhouettes and contemporary fusion.
-          </p>
+        <p class="rsb-line rsb-studio-name">Risaa — Design Studio<em>by Rima</em></p>
 
-          <p>
-            Each piece in our collection is a labor of love, artfully custom-crafted by our master artisans. We believe
-            in the philosophy of <strong>slow fashion</strong>—a commitment to quality where time-honored techniques
-            like intricate Zardosi are given the space to shine. Experience the Risaa journey — where every stitch tells
-            a story of passion, tradition, and accessible luxury.
-          </p>
-        </div>
+        <p class="rsb-line rsb-body">
+          was born from a vision to bridge the gap between <strong>high-end couture</strong> and
+          <strong>accessible elegance.</strong>
+        </p>
 
-        {% for block in section.blocks %}
-          {% case block.type %}
-            {% when 'story_text' %}
-              <div
-                class="rte"
-                style="font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 300; line-height: 1.8; color: #555; margin-bottom: 20px;"
-                {{ block.shopify_attributes }}
-              >
-                {{ block.settings.text }}
-              </div>
-            {% when 'brand_quote' %}
-              <blockquote
-                style="border-left: 3px solid var(--brand-main); padding-left: 20px; margin: 30px 0; font-family: 'Cinzel', serif; font-style: italic; font-size: 1.2rem; color: #1a1a1a; letter-spacing: 0.08em;"
-                {{ block.shopify_attributes }}
-              >
-                "{{ block.settings.quote }}"
-                {% if block.settings.author != blank %}
-                  <cite style="display: block; font-size: 0.9rem; margin-top: 10px; font-style: normal; font-family: 'Montserrat', sans-serif;"
-                    >— {{ block.settings.author -}}
-                  </cite>
-                {% endif %}
-              </blockquote>
-          {% endcase %}
-        {% endfor %}
+        <p class="rsb-line rsb-body rsb-indent">
+          What started as a passion for exquisite detailing has evolved into a full-fledged studio in the heart of
+          <em>Ludhiana,</em> dedicated to celebrating the individuality of the modern woman through timeless silhouettes
+          and contemporary fusion.
+        </p>
+
+        <p class="rsb-line rsb-pullquote">
+          "Each piece is a labor of love,<br>
+          artfully custom-crafted<br>
+          by our master artisans."
+        </p>
+
+        <p class="rsb-line rsb-body">
+          We believe in the philosophy of <strong>slow fashion</strong> — a commitment to quality where time-honored
+          techniques like intricate <em>Zardosi</em> are given the space to shine.
+        </p>
+
+        <p class="rsb-line rsb-closing">
+          Experience the Risaa journey — where every stitch tells a story of <strong>passion, tradition,</strong> and
+          <strong>accessible luxury.</strong>
+        </p>
+
+        {% if section.settings.button_label != blank %}
+          <a href="{{ section.settings.button_link }}" class="rsb-line rsb-cta">
+            {{- section.settings.button_label }} →</a
+          >
+        {% endif %}
       </div>
-
-      {% if section.blocks.size > 0 %}
-        <div
-          class="story-highlights"
-          style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;"
-        >
-          {% for block in section.blocks %}
-            {% if block.type == 'highlight' %}
-              <div class="highlight-item" {{ block.shopify_attributes }}>
-                <h4 style="font-family: 'Cinzel', serif; font-size: 1.1rem; margin-bottom: 8px; color: #1a1a1a;">
-                  {{ block.settings.title }}
-                </h4>
-                <p style="font-family: 'Montserrat', sans-serif; font-size: 0.85rem; color: #777; margin: 0;">
-                  {{ block.settings.text }}
-                </p>
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
-
-      {% if section.settings.button_label != blank %}
-        <a href="{{ section.settings.button_link }}" class="btn-premium">{{ section.settings.button_label }}</a>
-      {% endif %}
     </div>
   </div>
 </section>
@@ -280,6 +330,33 @@
       });
 
       updateStoryParallax();
+    });
+  })();
+
+  // Bloom reveal — staggered line-by-line on scroll
+  (function () {
+    var lines = document.querySelectorAll('.risaa-parallax-section .rsb-line');
+    if (!lines.length) return;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var idx = parseInt(el.getAttribute('data-rsb-idx') || '0', 10);
+            setTimeout(function () {
+              el.classList.add('rsb-visible');
+            }, idx * 110);
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+    );
+
+    lines.forEach(function (el, i) {
+      el.setAttribute('data-rsb-idx', i);
+      observer.observe(el);
     });
   })();
 </script>

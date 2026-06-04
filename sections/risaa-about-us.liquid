@@ -150,7 +150,7 @@
   }
 
   .risaa-story-text {
-    padding: 6rem 5rem;
+    padding: 5rem 4.5rem;
     background: var(--brand-main);
     color: var(--brand-text);
     display: flex;
@@ -159,26 +159,131 @@
     border-top-left-radius: 30px;
   }
 
-  .risaa-story-text .eyebrow {
-    font-size: 1.1rem;
-    letter-spacing: 0.4em;
+  /* === BLOOM ANIMATION === */
+  .risaa-story-bloom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .rsb-line {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(10px);
+    transition: opacity 0.7s ease, filter 0.7s ease, transform 0.7s ease;
+  }
+
+  .rsb-line.rsb-visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+
+  /* Eyebrow */
+  .rsb-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.45em;
     text-transform: uppercase;
     color: var(--brand-undertone-2);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.4rem;
+    display: block;
   }
 
-  .risaa-story-text h2 {
-    font-size: 3.5rem;
-    color: var(--brand-text);
-    margin-bottom: 2rem;
-    line-height: 1.2;
+  /* Big studio name */
+  .rsb-studio-name {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 2.6rem;
+    line-height: 1.15;
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    margin: 0;
   }
 
-  .risaa-story-text p {
-    font-size: 1.4rem;
-    line-height: 1.9;
+  .rsb-studio-name em {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.2rem;
+    font-style: normal;
+    color: var(--brand-undertone-2);
+    display: block;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+  }
+
+  /* Body text */
+  .rsb-body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .rsb-body strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .rsb-body em {
+    font-style: italic;
+    color: var(--brand-undertone-2);
+  }
+
+  .rsb-indent {
+    padding-left: 1.2rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  /* Pull quote */
+  .rsb-pullquote {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 1.9rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--brand-undertone-2);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    padding: 0.6rem 0 0.6rem 1.4rem;
+    border-left: 2px solid rgba(201, 169, 110, 0.5);
+    margin: 0.4rem 0;
+  }
+
+  /* Closing line */
+  .rsb-closing {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.7;
     color: rgba(255, 255, 255, 0.88);
-    margin-bottom: 1.5rem;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .rsb-closing strong {
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* CTA */
+  .rsb-cta {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brand-undertone-2);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 169, 110, 0.4);
+    padding-bottom: 2px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    width: fit-content;
+  }
+
+  .rsb-cta:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
   }
 
   .risaa-story-image {
@@ -672,16 +777,45 @@
 
   <!-- OUR STORY -->
   <div class="risaa-about-story">
-    <div class="risaa-story-text reveal-on-scroll">
-      <span class="eyebrow">Our Story</span>
-      <h2>More Than Clothes. We Craft Experiences.</h2>
-      <p>Hello everyone! RiSaa is a design studio located in Ludhiana, Punjab — and we ship orders worldwide.</p>
-      <p>
-        Here at RiSaa, we are not just about clothes. We're about crafting experiences and catering to your individual
-        preferences. We believe in creating outfits that speak volumes about your unique style and fit your budget as
-        well.
-      </p>
-      <p>Every stitch is a testament to our commitment to your individuality.</p>
+    <div class="risaa-story-text">
+      <div class="risaa-story-bloom">
+        <span class="rsb-eyebrow rsb-line">Our Story</span>
+
+        <p class="rsb-line rsb-studio-name">
+          Risaa — Design Studio<br>
+          <em>by Rima</em>
+        </p>
+
+        <p class="rsb-line rsb-body">
+          was born from a vision to bridge the gap between<br>
+          <strong>high-end couture</strong> and <strong>accessible elegance.</strong>
+        </p>
+
+        <p class="rsb-line rsb-body rsb-indent">
+          What started as a passion for exquisite detailing has evolved into a full-fledged studio in the heart of
+          <em>Ludhiana,</em> dedicated to celebrating the individuality of the modern woman through timeless silhouettes
+          and contemporary fusion.
+        </p>
+
+        <p class="rsb-line rsb-pullquote">
+          "Each piece is a labor of love,<br>
+          artfully custom-crafted<br>
+          by our master artisans."
+        </p>
+
+        <p class="rsb-line rsb-body">
+          We believe in the philosophy of <strong>slow fashion</strong> — a commitment to quality where time-honored
+          techniques like intricate <em>Zardosi</em> are given the space to shine.
+        </p>
+
+        <p class="rsb-line rsb-closing">
+          Experience the Risaa journey —<br>
+          where every stitch tells a story of<br>
+          <strong>passion, tradition,</strong> and <strong>accessible luxury.</strong>
+        </p>
+
+        <a href="/pages/about-us" class="rsb-line rsb-cta">Read Our Journey →</a>
+      </div>
     </div>
     <div class="risaa-story-image">
       {% if section.settings.story_image != blank %}
@@ -986,6 +1120,33 @@
       const scrollAmount = 220;
       carousel.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
     }
+
+    // Bloom reveal — staggered line-by-line on scroll
+    (function () {
+      var lines = document.querySelectorAll('.rsb-line');
+      if (!lines.length) return;
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var el = entry.target;
+              var idx = parseInt(el.getAttribute('data-rsb-idx') || '0', 10);
+              setTimeout(function () {
+                el.classList.add('rsb-visible');
+              }, idx * 120);
+              observer.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      lines.forEach(function (el, i) {
+        el.setAttribute('data-rsb-idx', i);
+        observer.observe(el);
+      });
+    })();
   </script>
 </div>
 
