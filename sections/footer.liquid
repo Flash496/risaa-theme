@@ -5,7 +5,7 @@
 {%- style -%}
   /* ── RiSaa Footer — Seeaash-inspired layout ── */
   .risaa-footer {
-    background: #6E1423;
+    background: #6e1423;
     color: rgba(255, 255, 255, 0.9);
     font-family: var(--font-body-family);
     font-size: 1.3rem;
@@ -842,8 +842,6 @@
       main.style.backgroundColor = bodyBg === 'rgba(0, 0, 0, 0)' || bodyBg === 'transparent' ? '#ffffff' : bodyBg;
 
       function updateReveal() {
-        // Temporarily unset fixed to measure natural height if needed,
-        // but offsetHeight usually works fine on fixed elements.
         const height = footerWrapper.offsetHeight;
 
         // Only apply reveal effect if the footer fits within the viewport.
@@ -853,6 +851,7 @@
           footerWrapper.style.left = '0';
           footerWrapper.style.width = '100%';
           footerWrapper.style.zIndex = '0';
+          footerWrapper.style.transition = 'opacity 0.6s ease';
 
           // Make the scroll end 10% earlier so the peeling edge overlaps the footer
           main.style.marginBottom = height * 0.93 + 'px';
@@ -862,6 +861,26 @@
           main.style.marginBottom = '0px';
         }
       }
+
+      // Fade footer in after scrolling one full viewport height
+      function updateOpacity() {
+        const scrolled = window.scrollY;
+        const threshold = window.innerHeight;
+        if (scrolled >= threshold) {
+          footerWrapper.style.opacity = '1';
+          footerWrapper.style.pointerEvents = 'auto';
+        } else {
+          footerWrapper.style.opacity = '0';
+          footerWrapper.style.pointerEvents = 'none';
+        }
+      }
+
+      // Start invisible
+      footerWrapper.style.opacity = '0';
+      footerWrapper.style.pointerEvents = 'none';
+
+      window.addEventListener('scroll', updateOpacity, { passive: true });
+      updateOpacity();
 
       const resizeObserver = new ResizeObserver(() => {
         updateReveal();
