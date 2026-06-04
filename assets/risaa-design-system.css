@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Montserrat:wght@200;300;400;500;600&family=Great+Vibes&display=swap');
 
 :root {
-  --brand-main: #6E1423;
-  --brand-text: #F4EADE;
-  --brand-gold: #D4AF37;
-  --brand-undertone-1: #C9A96E;
-  --brand-undertone-2: #EDE0D4;
-  --brand-dark: #2B2B2B;
+  --brand-main: #6e1423;
+  --brand-text: #f4eade;
+  --brand-gold: #d4af37;
+  --brand-undertone-1: #c9a96e;
+  --brand-undertone-2: #ede0d4;
+  --brand-dark: #2b2b2b;
 
   --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   --transition-quick: all 0.3s ease;
@@ -33,7 +33,12 @@ body {
   will-change: transform, opacity;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Cinzel', Georgia, serif !important;
   letter-spacing: 0.18em !important;
   text-transform: uppercase !important;
@@ -47,7 +52,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--brand-main);
   color: var(--brand-text);
   text-transform: uppercase;
-  letter-spacing: 0.20em;
+  letter-spacing: 0.2em;
   font-size: 1.4rem;
   transition: var(--transition-quick);
   border: 1px solid var(--brand-main);
@@ -67,24 +72,23 @@ h1, h2, h3, h4, h5, h6 {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
   border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
-  background: rgba(244, 234, 222, 0.4) !important;
-  background-color: rgba(244, 234, 222, 0.4) !important;
+  background: rgba(250, 248, 245, 0.7) !important;
+  background-color: rgba(250, 248, 245, 0.7) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 8px 32px rgba(110, 20, 35, 0.08),
-              0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  box-shadow:
+    0 8px 32px rgba(110, 20, 35, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 .header-wrapper::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0.1) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
   pointer-events: none;
   z-index: -1;
 }
@@ -190,10 +194,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes header-underline-loader {
-  0% { opacity: 0; transform: translateX(-110%); }
-  18% { opacity: 0.85; }
-  72% { opacity: 0.85; }
-  100% { opacity: 0; transform: translateX(265%); }
+  0% {
+    opacity: 0;
+    transform: translateX(-110%);
+  }
+  18% {
+    opacity: 0.85;
+  }
+  72% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(265%);
+  }
 }
 
 #MainContent {
@@ -216,9 +230,10 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--brand-text);
 }
 
-.footer h2, .footer .footer-block__heading {
+.footer h2,
+.footer .footer-block__heading {
   color: var(--brand-text);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 1rem;
   margin-bottom: 2rem;
 }
@@ -253,7 +268,8 @@ h1, h2, h3, h4, h5, h6 {
   background-size: cover;
 }
 
-#shopify-section-header, .shopify-section-group-header-group {
+#shopify-section-header,
+.shopify-section-group-header-group {
   margin-bottom: 0 !important;
   position: relative;
   z-index: 100;
@@ -299,7 +315,9 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
-.risaa-accordion__item:hover { flex: 3; }
+.risaa-accordion__item:hover {
+  flex: 3;
+}
 
 .risaa-accordion__item img {
   width: 100%;
@@ -314,19 +332,23 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 100%;
   padding: 2rem;
-  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
   color: white;
   opacity: 0;
   transition: var(--transition-quick);
 }
 
-.risaa-accordion__item:hover .risaa-accordion__content { opacity: 1; }
+.risaa-accordion__item:hover .risaa-accordion__content {
+  opacity: 1;
+}
 
 /* =============================================
    BESTSELLERS / FEATURED COLLECTION
    ============================================= */
 
-#shopify-section-bestsellers { position: relative; }
+#shopify-section-bestsellers {
+  position: relative;
+}
 
 #shopify-section-bestsellers::before {
   content: '';
@@ -372,21 +394,25 @@ h1, h2, h3, h4, h5, h6 {
 /* Product cards */
 .card--standard .card__inner,
 .card--card .card__inner {
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transition:
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease;
   border-radius: 0 !important;
 }
 
 .card-wrapper:hover .card--standard .card__inner,
 .card-wrapper:hover .card--card .card__inner {
   transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
 }
 
 .card__media img {
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.card-wrapper:hover .card__media img { transform: scale(1.05); }
+.card-wrapper:hover .card__media img {
+  transform: scale(1.05);
+}
 
 .card__heading a {
   font-family: var(--font-heading) !important;
@@ -411,7 +437,7 @@ h1, h2, h3, h4, h5, h6 {
 .collection__view-all .button,
 .collection__view-all .button--secondary {
   font-family: var(--font-body) !important;
-  letter-spacing: 0.20em !important;
+  letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
   border-radius: 0 !important;
   font-size: 1.6rem !important;
@@ -546,7 +572,7 @@ h1, h2, h3, h4, h5, h6 {
 .collection__view-all .button--secondary,
 .shopify-payment-button__button {
   border-radius: 0px !important;
-  letter-spacing: 0.20em !important;
+  letter-spacing: 0.2em !important;
   font-family: var(--font-body) !important;
   font-weight: 500 !important;
   text-transform: uppercase !important;
