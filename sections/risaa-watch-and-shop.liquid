@@ -120,13 +120,16 @@
   .risaa-reels-info-side {
     opacity: 0;
     transform: scale(0.92);
-    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    filter: blur(12px);
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+      filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
   }
 
   .risaa-reels-layout.is-bloomed .risaa-reels-stack-side,
   .risaa-reels-layout.is-bloomed .risaa-reels-info-side {
     opacity: 1;
     transform: scale(1);
+    filter: blur(0);
   }
 
   @keyframes metal-glimmer {
@@ -275,8 +278,8 @@
   }
 
   .nav-arrow:hover {
-    background: #D4AF37;
-    border-color: #D4AF37;
+    background: #d4af37;
+    border-color: #d4af37;
     color: #fff;
     transform: scale(1.1);
     box-shadow: 0 15px 30px rgba(216, 167, 100, 0.32);
