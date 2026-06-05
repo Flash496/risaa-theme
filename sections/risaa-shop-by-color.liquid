@@ -58,7 +58,6 @@
     position: relative;
     width: 100%;
     height: 540px;
-    perspective: 1200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +67,6 @@
     position: relative;
     width: 100%;
     height: 100%;
-    transform-style: preserve-3d;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -81,8 +79,7 @@
     background: transparent;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.7s cubic-bezier(0.25, 1, 0.33, 1), opacity 0.7s cubic-bezier(0.25, 1, 0.33, 1), z-index 0.7s step-end;
-    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.33, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.33, 1);
     text-align: center;
     cursor: pointer;
   }
@@ -454,62 +451,28 @@
       function updateCarousel() {
         const isMobile = window.innerWidth <= 749;
         const isTablet = window.innerWidth <= 989 && window.innerWidth > 749;
-
-        // Settings for 3D layout offsets (scaled up 20%)
-        const xOffsetBase = isMobile ? 110 : isTablet ? 165 : 242;
-        const zOffsetBase = isMobile ? -120 : isTablet ? -170 : -240;
-        const rotationAngle = isMobile ? 30 : isTablet ? 40 : 45;
+        const cardWidth = isMobile ? 312 : isTablet ? 390 : 455;
+        const gap = isMobile ? 24 : 40;
+        const step = cardWidth + gap;
 
         items.forEach((item, index) => {
           let offset = index - currentIndex;
 
-          // Wrap offset for circular/infinite loop
+          // Wrap for circular loop
           const half = Math.floor(items.length / 2);
-          if (offset > half) {
-            offset -= items.length;
-          } else if (offset < -half) {
-            offset += items.length;
-          }
+          if (offset > half) offset -= items.length;
+          else if (offset < -half) offset += items.length;
 
           const absOffset = Math.abs(offset);
+          const translateX = offset * step;
+          const scale = offset === 0 ? 1 : 0.88;
+          const opacity = absOffset > 1 ? 0 : offset === 0 ? 1 : 0.85;
+          const zIndex = offset === 0 ? 10 : 5 - absOffset;
 
-          // Check if the card has wrapped around the back
-          const prevOffset = parseInt(item.dataset.prevOffset);
-          const hasWrapped = !isNaN(prevOffset) && Math.abs(offset - prevOffset) > 1.5;
-
-          if (hasWrapped) {
-            item.style.transition = 'none';
-          } else {
-            item.style.transition = '';
-          }
-
-          let translateX = offset * xOffsetBase;
-          let translateZ = absOffset * zOffsetBase;
-          let rotateY = offset * -rotationAngle;
-          let scale = 1 - absOffset * 0.12;
-          let opacity = 1 - absOffset * 0.35;
-          let zIndex = 10 - absOffset;
-
-          if (absOffset > 2) {
-            opacity = 0;
-            item.style.pointerEvents = 'none';
-          } else {
-            item.style.pointerEvents = offset === 0 ? 'auto' : 'auto';
-          }
-
-          item.style.transform = `translateX(${translateX}px) translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;
+          item.style.transform = `translateX(${translateX}px) scale(${scale})`;
           item.style.opacity = opacity;
           item.style.zIndex = zIndex;
-
-          if (hasWrapped) {
-            // Force browser layout reflow before restoring transitions
-            item.offsetHeight;
-            setTimeout(() => {
-              item.style.transition = '';
-            }, 50);
-          }
-
-          item.dataset.prevOffset = offset;
+          item.style.pointerEvents = absOffset > 1 ? 'none' : 'auto';
 
           if (offset === 0) {
             item.classList.add('is-active');
@@ -518,13 +481,8 @@
           }
         });
 
-        // Update navigation dots
         dots.forEach((dot, index) => {
-          if (index === currentIndex) {
-            dot.classList.add('is-active');
-          } else {
-            dot.classList.remove('is-active');
-          }
+          dot.classList.toggle('is-active', index === currentIndex);
         });
 
         updateGlowColor();

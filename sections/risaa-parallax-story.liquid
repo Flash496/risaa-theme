@@ -41,7 +41,7 @@
 
   .risaa-img-parallax {
     position: absolute;
-    border-radius: 180px 180px 0 0;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     will-change: transform;
@@ -101,8 +101,8 @@
 
   .rsb-studio-name {
     font-family: 'Cinzel', Georgia, serif;
-    font-size: 2.4rem;
-    line-height: 1.15;
+    font-size: 2.2rem;
+    line-height: 1.2;
     color: #1a1a1a;
     font-weight: 400;
     letter-spacing: 0.06em;
@@ -111,11 +111,10 @@
 
   .rsb-studio-name em {
     font-family: 'Great Vibes', cursive;
-    font-size: 3rem;
+    font-size: 2.6rem;
     font-style: normal;
     color: var(--brand-main);
-    display: block;
-    line-height: 1.1;
+    display: inline;
     letter-spacing: 0.02em;
   }
 
@@ -138,15 +137,16 @@
 
   .rsb-pullquote {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 1.85rem;
+    font-size: clamp(1.4rem, 2.8vw, 2.2rem);
     font-style: italic;
-    line-height: 1.4;
+    line-height: 1.35;
     color: var(--brand-main);
     font-weight: 400;
     letter-spacing: 0.01em;
     padding: 0.5rem 0 0.5rem 1.2rem;
     border-left: 2px solid rgba(110, 20, 35, 0.3);
     margin: 0.2rem 0;
+    width: 100%;
   }
 
   .rsb-closing {
@@ -230,32 +230,14 @@
       <div class="risaa-story-bloom">
         <span class="rsb-line rsb-eyebrow">Since 2021 &nbsp;·&nbsp; Ludhiana, Punjab</span>
 
-        <p class="rsb-line rsb-studio-name">Risaa — Design Studio<em>by Rima</em></p>
-
-        <p class="rsb-line rsb-body">
-          was born from a vision to bridge the gap between <strong>high-end couture</strong> and
-          <strong>accessible elegance.</strong>
-        </p>
-
-        <p class="rsb-line rsb-body rsb-indent">
-          What started as a passion for exquisite detailing has evolved into a full-fledged studio in the heart of
-          <em>Ludhiana,</em> dedicated to celebrating the individuality of the modern woman through timeless silhouettes
-          and contemporary fusion.
-        </p>
+        <p class="rsb-line rsb-studio-name">Risaa — Design Studio &nbsp;·&nbsp; <em>by Rima</em></p>
 
         <p class="rsb-line rsb-pullquote">
-          "Each piece is a labor of love,<br>
-          artfully custom-crafted<br>
-          by our master artisans."
-        </p>
-
-        <p class="rsb-line rsb-body">
-          We believe in the philosophy of <strong>slow fashion</strong> — a commitment to quality where time-honored
-          techniques like intricate <em>Zardosi</em> are given the space to shine.
+          "Each piece is a labor of love, artfully custom-crafted by our master artisans."
         </p>
 
         <p class="rsb-line rsb-closing">
-          Experience the Risaa journey — where every stitch tells a story of <strong>passion, tradition,</strong> and
+          Where every stitch tells a story of <strong>passion, tradition,</strong> and
           <strong>accessible luxury.</strong>
         </p>
 

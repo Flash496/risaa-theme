@@ -131,23 +131,6 @@
       {%- endfor -%}
     </div>
   </div>
-
-  <div class="risaa-hero-marquee__row risaa-hero-marquee__row--secondary" aria-label="Atelier highlights">
-    <div class="risaa-hero-marquee__track">
-      {%- for i in (1..2) -%}
-        {%- for item in secondary_items -%}
-          <span class="risaa-hero-marquee__item">
-            <span class="risaa-hero-marquee__text">{{ item }}</span>
-            <span class="risaa-hero-marquee__divider" aria-hidden="true">
-              <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 0 L12.5 7.5 L20 10 L12.5 12.5 L10 20 L7.5 12.5 L0 10 L7.5 7.5 Z"/>
-              </svg>
-            </span>
-          </span>
-        {%- endfor -%}
-      {%- endfor -%}
-    </div>
-  </div>
 </div>
 
 {% schema %}
