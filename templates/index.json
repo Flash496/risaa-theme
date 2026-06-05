@@ -329,50 +329,6 @@
         "custom_message": "Hello RiSaa! I'm reaching out from your website. I'd love to discuss a custom design for my upcoming occasion."
       }
     },
-    "risaa_usps": {
-      "type": "risaa-usps",
-      "blocks": {
-        "usp_1": {
-          "type": "usp",
-          "settings": {
-            "icon": "measure",
-            "title": "Perfect Tailored Fit",
-            "text": "Each ensemble is crafted to your unique measurements for a flawless drape."
-          }
-        },
-        "usp_2": {
-          "type": "usp",
-          "settings": {
-            "icon": "shipping",
-            "title": "Worldwide Shipping",
-            "text": "Delivering beautiful customized ethnic wear to your doorstep globally."
-          }
-        },
-        "usp_3": {
-          "type": "usp",
-          "settings": {
-            "icon": "luxury",
-            "title": "Accessible Luxury",
-            "text": "Premium quality couture without the traditional luxury retail markups."
-          }
-        },
-        "usp_4": {
-          "type": "usp",
-          "settings": {
-            "icon": "craft",
-            "title": "Artisanal Heritage",
-            "text": "Handcrafted details and exquisite embroideries from our master artisans."
-          }
-        }
-      },
-      "block_order": [
-        "usp_1",
-        "usp_2",
-        "usp_3",
-        "usp_4"
-      ],
-      "settings": {}
-    },
     "risaa_process": {
       "type": "risaa-process",
       "blocks": {
@@ -476,7 +432,6 @@
   "order": [
     "hero_carousel",
     "risaa_hero_marquee",
-    "risaa_usps",
     "risaa_summer_picks",
     "risaa_new_in",
     "risaa_shop_by_occasion",
