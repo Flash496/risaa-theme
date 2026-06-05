@@ -26,32 +26,25 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
-  /* Heading wrapper: 20px below heading, 0 above grid */
+  /* Heading wrapper */
   .section-{{ section.id }}-padding .collection__title.title-wrapper {
     padding-bottom: 0 !important;
     margin-bottom: 0 !important;
   }
 
-  /* The h2 itself gets 20px space below it */
+  /* The h2 itself */
   .section-{{ section.id }}-padding .collection__title .title {
-    margin-bottom: 20px !important;
+    margin-bottom: 0 !important;
     padding-bottom: 0 !important;
   }
 
   /* Remove the decorative underline */
   .section-{{ section.id }}-padding .collection__title .title::after {
     display: none !important;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
   }
 {%- endstyle -%}
 

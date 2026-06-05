@@ -172,3 +172,17 @@ h4,
   background: var(--color-risaa-pale);
   border: 1px solid rgba(var(--color-foreground), 0.05);
 }
+
+/* Zero inter-section spacing for palette and exclusives */
+[id*="risaa_shop_by_color"],
+[id*="risaa_accordion"] {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Remove top margin on header container inside palette and exclusives */
+[id*="risaa_shop_by_color"] .section-header,
+[id*="risaa_accordion"] .section-header {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
