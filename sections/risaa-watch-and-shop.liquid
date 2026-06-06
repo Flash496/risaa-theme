@@ -261,8 +261,8 @@
   }
 
   .nav-arrow {
-    width: 60px;
-    height: 60px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 1px solid rgba(0, 0, 0, 0.05);
     display: flex;
@@ -275,6 +275,15 @@
     color: #1a1a1a;
     pointer-events: auto; /* Re-enable for the buttons */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  }
+
+  .nav-arrow svg {
+    width: 18px;
+    height: 18px;
+    stroke: #6e1423;
+    stroke-width: 2.5;
+    fill: none;
+    display: block;
   }
 
   .nav-arrow:hover {
@@ -455,12 +464,14 @@
   <div class="risaa-reels-nav">
     <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'prev')">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M15 18l-6-6 6-6"/>
+        <line x1="20" y1="12" x2="4" y2="12"/>
+        <polyline points="10 6 4 12 10 18"/>
       </svg>
     </div>
     <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'next')">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 18l6-6-6-6"/>
+        <line x1="4" y1="12" x2="20" y2="12"/>
+        <polyline points="14 6 20 12 14 18"/>
       </svg>
     </div>
   </div>

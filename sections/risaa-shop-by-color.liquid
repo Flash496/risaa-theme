@@ -208,8 +208,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -224,9 +224,11 @@
   }
 
   .risaa-3d-carousel-btn svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+    width: 18px;
+    height: 18px;
+    stroke: #6e1423;
+    stroke-width: 2.5;
+    fill: none;
   }
 
   .risaa-3d-carousel-btn:hover {
@@ -314,8 +316,9 @@
 
   <div class="risaa-3d-carousel-wrapper">
     <button class="risaa-3d-carousel-btn risaa-3d-carousel-btn--prev" aria-label="Previous slide">
-      <svg viewBox="0 0 24 24">
-        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="20" y1="12" x2="4" y2="12"/>
+        <polyline points="10 6 4 12 10 18"/>
       </svg>
     </button>
 
@@ -400,8 +403,9 @@
     </div>
 
     <button class="risaa-3d-carousel-btn risaa-3d-carousel-btn--next" aria-label="Next slide">
-      <svg viewBox="0 0 24 24">
-        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="4" y1="12" x2="20" y2="12"/>
+        <polyline points="14 6 20 12 14 18"/>
       </svg>
     </button>
 
