@@ -316,50 +316,6 @@
         "custom_message": "Hello RiSaa! I'm reaching out from your website. I'd love to discuss a custom design for my upcoming occasion."
       }
     },
-    "risaa_faq": {
-      "type": "risaa-questions",
-      "blocks": {
-        "faq_1": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What is the typical shipping timeline for custom orders?",
-            "answer": "<p>Since custom pieces are handcrafted individually, production takes 3 to 4 weeks, followed by express global transit (usually 4-7 business days). If you have an urgent occasion, check out our <strong>Ready to Ship</strong> category.<\/p>"
-          }
-        },
-        "faq_2": {
-          "type": "faq_item",
-          "settings": {
-            "question": "How do I share my custom measurements?",
-            "answer": "<p>After placing your order, you can submit measurements using our measurement form, or chat directly with our custom stitching team on WhatsApp who can assist you step-by-step.<\/p>"
-          }
-        },
-        "faq_3": {
-          "type": "faq_item",
-          "settings": {
-            "question": "Do you ship internationally?",
-            "answer": "<p>Yes, we ship to all major countries globally (including USA, UK, Canada, Australia, and UAE) via premium carriers like DHL/FedEx, ensuring fully tracked and insured shipping.<\/p>"
-          }
-        },
-        "faq_4": {
-          "type": "faq_item",
-          "settings": {
-            "question": "What is your return policy on couture wear?",
-            "answer": "<p>Since custom-fit and couture orders are designed exclusively to your specifications, they are final sale and non-refundable. However, we strive to guarantee a perfect fit, offering minor alterations if needed.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "faq_1",
-        "faq_2",
-        "faq_3",
-        "faq_4"
-      ],
-      "settings": {
-        "eyebrow": "Frequently Asked Questions",
-        "title": "Queries Answered",
-        "subtitle": ""
-      }
-    },
     "risaa_newsletter": {
       "type": "risaa-newsletter",
       "settings": {
@@ -384,7 +340,6 @@
     "risaa_watch_and_shop",
     "risaa_customer_reviews",
     "risaa_parallax_story",
-    "risaa_faq",
     "risaa_newsletter",
     "risaa_whatsapp"
   ]
