@@ -234,7 +234,7 @@ h4,
 
 /* Product card image box: portrait ratio, 30px gap */
 .card-wrapper .card__inner.ratio {
-  --ratio-percent: 130% !important; /* 470/355 */
+  --ratio-percent: 133.33% !important; /* 470/355 */
 }
 
 .card-wrapper .card__inner .card__media img,

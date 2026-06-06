@@ -1,3 +1,4 @@
+
 {
   "sections": {
     "hero_carousel": {
@@ -94,16 +95,7 @@
         "padding_bottom": 40
       }
     },
-    "risaa_ready_to_ship": {
-      "type": "risaa-ready-to-ship",
-      "settings": {
-        "title": "Ready to Ship",
-        "subtitle": "",
-        "dispatch_days": "",
-        "dispatch_note": "",
-        "view_all_link": "shopify://collections/all"
-      }
-    },
+
     "risaa_accordion": {
       "type": "risaa-image-accordion",
       "blocks": {
@@ -389,13 +381,12 @@
   "order": [
     "hero_carousel",
     "risaa_hero_marquee",
-    "risaa_summer_picks",
     "risaa_new_in",
-    "risaa_shop_by_occasion",
-    "bestsellers",
-    "risaa_ready_to_ship",
-    "risaa_accordion",
+    "risaa_summer_picks",
     "risaa_shop_by_color",
+    "bestsellers",
+    "risaa_shop_by_occasion",
+    "risaa_accordion",
     "risaa_watch_and_shop",
     "risaa_customer_reviews",
     "risaa_parallax_story",
