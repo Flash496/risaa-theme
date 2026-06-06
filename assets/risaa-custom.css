@@ -186,3 +186,48 @@ h4,
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
+
+/* 20px padding above headings for specific sections */
+.shopify-section:has(.risaa-summer-picks) .section-header,
+.shopify-section:has(.risaa-new-in) .section-header,
+.shopify-section:has(.risaa-occasions) .section-header,
+.shopify-section:has(.risaa-rts) .section-header,
+.shopify-section:has(.risaa-accordion) .section-header,
+[id*="risaa_shop_by_color"] .section-header,
+[id*="bestsellers"] .collection__title,
+[id*="risaa_accordion"] .section-header {
+  padding-top: 20px !important;
+}
+
+/* Watch & Shop — 30px above heading, zero top on wrapper */
+[id*="risaa_watch_and_shop"] {
+  margin-top: 0 !important;
+}
+[id*="risaa_watch_and_shop"] .section-header {
+  padding-top: 30px !important;
+  margin-top: 0 !important;
+}
+
+/* Zero inner h2 bottom margin inside heading containers (keep container padding/margin untouched) */
+[id*="risaa_watch_and_shop"] .section-header h2,
+[id*="risaa_shop_by_color"] .section-header h2,
+[id*="risaa_accordion"] .section-header h2,
+[id*="bestsellers"] .collection__title .title,
+[id*="risaa_summer_picks"] .risaa-summer-picks__title,
+[id*="risaa_new_in"] .risaa-new-in__title,
+[id*="risaa_ready_to_ship"] .risaa-rts__title {
+  margin-bottom: 0 !important;
+}
+
+/* Remove h2 underline in Watch & Shop and Shop by Palette */
+[id*="risaa_watch_and_shop"] .section-header h2::after,
+[id*="risaa_shop_by_color"] .section-header h2::after {
+  display: none !important;
+}
+
+/* Remove the space the underline was occupying */
+[id*="risaa_watch_and_shop"] .section-header h2,
+[id*="risaa_shop_by_color"] .section-header h2 {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}

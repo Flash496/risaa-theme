@@ -36,12 +36,21 @@
   }
 
   .section-{{ section.id }}-padding .section-header {
-    margin-bottom: 0 !important;
+    margin-bottom: 10px !important;
+    padding-top: 20px !important;
+    padding-bottom: 0 !important;
   }
 
   .section-{{ section.id }}-padding .section-header h2 {
     color: rgb(var(--risaa-active-glow)) !important;
     transition: color 0.7s ease;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .section-{{ section.id }}-padding .section-header h2::after {
+    display: none !important;
+    content: none !important;
   }
 
   .risaa-3d-carousel-wrapper {
@@ -49,7 +58,7 @@
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px 0;
+    padding: 0 20px 30px;
     overflow-x: clip;
     overflow-y: visible;
   }
