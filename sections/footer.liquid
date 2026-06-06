@@ -5,7 +5,7 @@
 {%- style -%}
   /* ── RiSaa Footer — Seeaash-inspired layout ── */
   .risaa-footer {
-    background: #6e1423;
+    background: #4d0e18;
     color: rgba(255, 255, 255, 0.9);
     font-family: var(--font-body-family);
     font-size: 1.3rem;
@@ -27,7 +27,7 @@
   }
 
   .risaa-footer__top {
-    padding: 10px 0 0;
+    padding: 40px 0 0;
   }
 
   /* Map row — full width at top */
@@ -579,43 +579,6 @@
 <footer class="risaa-footer">
   <div class="page-width">
     <div class="risaa-footer__top">
-      <!-- MAP ROW: Visit Our Store — full width at top -->
-      <div class="risaa-footer__map-row">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'text' and block.settings.heading == 'Visit Our Store' -%}
-            <div class="risaa-footer__nav-col risaa-footer__nav-col--map-bg" {{ block.shopify_attributes }}>
-              <iframe
-                class="risaa-footer__map-bg-iframe"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3422.9876543210987!2d75.8321064!3d30.8904329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a838f0056f067%3A0xb9f05c5a3ffd943b!2sRisaa%20-%20The%20Design%20Studio!5e0!3m2!1sen!2sin!4v1716480000000!5m2!1sen!2sin"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="Risaa - The Design Studio location"
-                allowfullscreen
-              ></iframe>
-              <div class="risaa-footer__map-bg-content">
-                <h3 class="risaa-footer__nav-heading">RiSaa - The Design Studio</h3>
-                <div class="risaa-footer__map-rating">
-                  <span class="risaa-footer__map-rating-score">4.9</span>
-                  <span class="risaa-footer__map-stars">★★★★★</span>
-                  <span class="risaa-footer__map-place-type">Design studio</span>
-                </div>
-                <div class="risaa-footer__text-block">{{ block.settings.subtext }}</div>
-                <div class="risaa-footer__map-actions">
-                  <a
-                    href="https://maps.app.goo.gl/GijLheNTVLk7mghM9"
-                    target="_blank"
-                    rel="noopener"
-                    class="risaa-footer__get-directions-btn"
-                  >
-                    Get Directions
-                  </a>
-                  <a class="risaa-footer__map-action" href="tel:+919501032126">Call</a>
-                </div>
-              </div>
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
 
       <!-- COLUMNS ROW: Brand + Shop + Help + Contact Us -->
       <div class="risaa-footer__cols-row">
@@ -673,6 +636,7 @@
                     <li><a href="/collections/founders-pick">Founder's Pick</a></li>
                   {%- endif -%}
                   {%- if block.settings.heading == 'Help' -%}
+                    <li><a href="/pages/faq">FAQ</a></li>
                     <li>
                       <a href="{{ shop.url }}/policies/refund-policy">Returns, Exchange &amp; Cancellation Policy</a>
                     </li>
