@@ -3,7 +3,7 @@
 
 {%- style -%}
   .risaa-new-in {
-    padding: 0 0 30px 0;
+    padding: 25px 0 30px 0;
     background: #f4eade;
     position: relative;
     overflow: hidden;
@@ -221,10 +221,20 @@
         {% endif %}
       </ul>
       <div class="risaa-new-in__controls">
-        <button type="button" class="risaa-new-in__button risaa-new-in__button--prev" aria-label="{{ 'general.slider.previous_slide' | t }}" data-risaa-carousel-prev>
+        <button
+          type="button"
+          class="risaa-new-in__button risaa-new-in__button--prev"
+          aria-label="{{ 'general.slider.previous_slide' | t }}"
+          data-risaa-carousel-prev
+        >
           <span aria-hidden="true">&#8249;</span>
         </button>
-        <button type="button" class="risaa-new-in__button risaa-new-in__button--next" aria-label="{{ 'general.slider.next_slide' | t }}" data-risaa-carousel-next>
+        <button
+          type="button"
+          class="risaa-new-in__button risaa-new-in__button--next"
+          aria-label="{{ 'general.slider.next_slide' | t }}"
+          data-risaa-carousel-next
+        >
           <span aria-hidden="true">&#8250;</span>
         </button>
       </div>
