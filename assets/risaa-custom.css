@@ -231,3 +231,46 @@ h4,
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
+
+/* Product card image box: portrait ratio, 30px gap */
+.card-wrapper .card__inner.ratio {
+  --ratio-percent: 140i% !important; /* 470/355 */
+}
+
+.card-wrapper .card__inner .card__media img,
+.card-wrapper .card--standard .card__media img {
+  object-fit: cover !important;
+  object-position: center top !important;
+}
+
+/* 30px gap between product cards */
+.product-grid.grid {
+  --grid-desktop-horizontal-spacing: 30px !important;
+  --grid-desktop-vertical-spacing: 30px !important;
+  --grid-mobile-horizontal-spacing: 15px !important;
+  --grid-mobile-vertical-spacing: 15px !important;
+  gap: 30px !important;
+}
+
+/* Card width: base 25% minus 25px, centered */
+@media screen and (min-width: 990px) {
+  .product-grid.grid--4-col-desktop .grid__item {
+    width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4 - 25px) !important;
+    max-width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4 - 25px) !important;
+  }
+
+  .product-grid.grid--4-col-desktop {
+    justify-content: center !important;
+  }
+}
+
+/* Full-width product grids — remove page-width constraint */
+.risaa-summer-picks .page-width,
+.risaa-new-in .page-width,
+.risaa-rts .page-width,
+[id*="bestsellers"] .page-width,
+[id*="bestsellers"] .page-width-desktop {
+  max-width: 100% !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
