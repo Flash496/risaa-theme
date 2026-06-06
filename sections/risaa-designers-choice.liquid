@@ -166,81 +166,83 @@
       {%- endif -%}
     </div>
 
-    <div
-      class="page-width risaa-designers-choice__carousel"
-      data-risaa-carousel
-      data-anim-stagger
-      data-anim-delay="0.05"
-      data-anim-step="0.06"
-    >
-      <ul
-        class="product-grid contains-card contains-card--product risaa-designers-choice__track"
-        role="list"
-        aria-label="{{ 'general.slider.name' | t }}"
-        data-risaa-carousel-track
+    <div class="page-width">
+      <div
+        class="risaa-designers-choice__carousel"
+        data-risaa-carousel
+        data-anim-stagger
+        data-anim-delay="0.05"
+        data-anim-step="0.06"
       >
-        {%- assign skip_card_product_styles = false -%}
-        {%- if section.settings.collection.products.size > 0 -%}
-          {%- assign collection_product_count = section.settings.collection.products.size -%}
-          {%- for i in (0..7) -%}
-            {%- assign product_index = i | modulo: collection_product_count -%}
-            {%- assign product = section.settings.collection.products[product_index] -%}
-            {%- assign lazy_load = true -%}
-            {%- if i < 4 -%}
-              {%- assign lazy_load = false -%}
-            {%- endif -%}
-            <li class="risaa-designers-choice__item">
-              {% render 'card-product',
-                card_product: product,
-                media_aspect_ratio: section.settings.image_ratio,
-                image_shape: section.settings.image_shape,
-                lazy_load: lazy_load,
-                show_secondary_image: section.settings.show_secondary_image,
-                show_vendor: section.settings.show_vendor,
-                show_rating: section.settings.show_rating,
-                skip_styles: skip_card_product_styles,
-                section_id: section.id,
-                quick_add: section.settings.quick_add,
-                landing_card_price: landing_card_price,
-                custom_card_image_index: i
-              %}
-            </li>
-            {%- assign skip_card_product_styles = true -%}
-          {%- endfor -%}
-        {%- else -%}
-          {%- for i in (1..8) -%}
-            <li class="risaa-designers-choice__item">
-              {%- assign placeholder_image = 'product-apparel-' | append: i -%}
-              {% render 'card-product',
-                show_vendor: section.settings.show_vendor,
-                media_aspect_ratio: section.settings.image_ratio,
-                image_shape: section.settings.image_shape,
-                lazy_load: true,
-                placeholder_image: placeholder_image,
-                landing_card_price: landing_card_price
-              %}
-            </li>
-            {%- assign skip_card_product_styles = true -%}
-          {%- endfor -%}
-        {%- endif -%}
-      </ul>
-      <div class="risaa-designers-choice__controls">
-        <button
-          type="button"
-          class="risaa-designers-choice__button risaa-designers-choice__button--prev"
-          aria-label="{{ 'general.slider.previous_slide' | t }}"
-          data-risaa-carousel-prev
+        <ul
+          class="product-grid contains-card contains-card--product risaa-designers-choice__track"
+          role="list"
+          aria-label="{{ 'general.slider.name' | t }}"
+          data-risaa-carousel-track
         >
-          <span aria-hidden="true">&#8249;</span>
-        </button>
-        <button
-          type="button"
-          class="risaa-designers-choice__button risaa-designers-choice__button--next"
-          aria-label="{{ 'general.slider.next_slide' | t }}"
-          data-risaa-carousel-next
-        >
-          <span aria-hidden="true">&#8250;</span>
-        </button>
+          {%- assign skip_card_product_styles = false -%}
+          {%- if section.settings.collection.products.size > 0 -%}
+            {%- assign collection_product_count = section.settings.collection.products.size -%}
+            {%- for i in (0..7) -%}
+              {%- assign product_index = i | modulo: collection_product_count -%}
+              {%- assign product = section.settings.collection.products[product_index] -%}
+              {%- assign lazy_load = true -%}
+              {%- if i < 4 -%}
+                {%- assign lazy_load = false -%}
+              {%- endif -%}
+              <li class="risaa-designers-choice__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: section.settings.image_ratio,
+                  image_shape: section.settings.image_shape,
+                  lazy_load: lazy_load,
+                  show_secondary_image: section.settings.show_secondary_image,
+                  show_vendor: section.settings.show_vendor,
+                  show_rating: section.settings.show_rating,
+                  skip_styles: skip_card_product_styles,
+                  section_id: section.id,
+                  quick_add: section.settings.quick_add,
+                  landing_card_price: landing_card_price,
+                  custom_card_image_index: i
+                %}
+              </li>
+              {%- assign skip_card_product_styles = true -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..8) -%}
+              <li class="risaa-designers-choice__item">
+                {%- assign placeholder_image = 'product-apparel-' | append: i -%}
+                {% render 'card-product',
+                  show_vendor: section.settings.show_vendor,
+                  media_aspect_ratio: section.settings.image_ratio,
+                  image_shape: section.settings.image_shape,
+                  lazy_load: true,
+                  placeholder_image: placeholder_image,
+                  landing_card_price: landing_card_price
+                %}
+              </li>
+              {%- assign skip_card_product_styles = true -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </ul>
+        <div class="risaa-designers-choice__controls">
+          <button
+            type="button"
+            class="risaa-designers-choice__button risaa-designers-choice__button--prev"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+            data-risaa-carousel-prev
+          >
+            <span aria-hidden="true">&#8249;</span>
+          </button>
+          <button
+            type="button"
+            class="risaa-designers-choice__button risaa-designers-choice__button--next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+            data-risaa-carousel-next
+          >
+            <span aria-hidden="true">&#8250;</span>
+          </button>
+        </div>
       </div>
     </div>
 

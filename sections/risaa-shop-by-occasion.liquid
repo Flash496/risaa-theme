@@ -79,16 +79,16 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid rgba(110, 20, 35, 0.2);
+    background: transparent;
+    border: 1px solid rgba(110, 20, 35, 0.16);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease, background 0.2s ease;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    pointer-events: none;
+    opacity: 1;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: none;
+    pointer-events: auto;
     padding: 0;
   }
   .risaa-occasions__arrow svg {
@@ -110,12 +110,15 @@
     opacity: 1;
     pointer-events: auto;
   }
-  .risaa-occasions__arrow:hover {
-    background: #d4af37;
-    border-color: #d4af37;
+  .risaa-occasions__arrow:hover,
+  .risaa-occasions__arrow:focus-visible {
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(110, 20, 35, 0.18);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
   }
-  .risaa-occasions__arrow:hover svg {
-    stroke: #ffffff;
+  .risaa-occasions__arrow:hover svg,
+  .risaa-occasions__arrow:focus-visible svg {
+    stroke: #6e1423;
   }
 
   /* Belt — JS drives translateX, no CSS animation */
