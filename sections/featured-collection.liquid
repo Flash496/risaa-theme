@@ -48,10 +48,112 @@
   .section-{{ section.id }}-padding .collection__title .title::after {
     display: none !important;
   }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice slider-component {
+    display: none;
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__carousel {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-inline: 60px;
+    clip-path: inset(0 60px);
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__track {
+    --risaa-carousel-gap: max(0px, calc(var(--grid-desktop-horizontal-spacing) - 10px));
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--risaa-carousel-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: transform 0.35s ease;
+    will-change: transform;
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__item {
+    flex: 0 0 calc((100% - (var(--risaa-carousel-gap) * 3)) / 4);
+    width: calc((100% - (var(--risaa-carousel-gap) * 3)) / 4);
+    max-width: calc((100% - (var(--risaa-carousel-gap) * 3)) / 4);
+    min-width: 0;
+    list-style: none;
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__controls {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 0.8rem;
+    right: 0.8rem;
+    z-index: 2;
+    justify-content: space-between;
+    gap: 0;
+    margin: 0;
+    transform: translateY(calc(-50% - 20px));
+    pointer-events: none;
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 3.6rem;
+    height: 3.6rem;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    box-shadow: none;
+    pointer-events: auto;
+    font-size: 3.6rem;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__controls {
+    left: 60px;
+    right: 60px;
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__button:hover {
+    transform: scale(1.08);
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__button[disabled] {
+    opacity: 0.35;
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__button .icon {
+    display: none;
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__button--prev .icon {
+    transform: rotate(90deg);
+  }
+
+  .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__button--next .icon {
+    transform: rotate(-90deg);
+  }
+
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__track {
+      --risaa-carousel-gap: max(0px, calc(var(--grid-mobile-horizontal-spacing) - 10px));
+    }
+
+    .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__item {
+      flex-basis: calc((100% - var(--risaa-carousel-gap)) / 2);
+      width: calc((100% - var(--risaa-carousel-gap)) / 2);
+      max-width: calc((100% - var(--risaa-carousel-gap)) / 2);
+    }
+  }
 {%- endstyle -%}
 
 {%- liquid
-  assign products_to_display = section.settings.collection.all_products_count
+    assign products_to_display = section.settings.collection.all_products_count
 
   if section.settings.collection.all_products_count > section.settings.products_to_show
     assign products_to_display = section.settings.products_to_show
@@ -75,11 +177,19 @@
     assign show_desktop_slider = true
   endif
 
+  if section.settings.title contains "Designer's Choice"
+    assign products_to_display = 8
+    assign show_desktop_slider = true
+    assign more_in_collection = false
+  endif
+
   assign landing_card_price = 'false'
   assign use_curated_landing_images = false
+  assign is_designers_choice = false
   if section.settings.title contains "Designer's Choice"
     assign landing_card_price = 'true'
     assign use_curated_landing_images = true
+    assign is_designers_choice = true
   endif
 -%}
 
@@ -87,7 +197,7 @@
   class="color-{{ section.settings.color_scheme }} isolate gradient"
 >
   <div
-    class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
+    class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if is_designers_choice %} risaa-designers-choice{% endif %}{% if section.settings.full_width %} collection--full-width{% endif %}"
     id="collection-{{ section.id }}"
     data-id="{{ section.id }}"
   >
@@ -131,7 +241,42 @@
         {%- if section.settings.collection.products.size > 0 -%}
           {% assign lazy_load = false %}
           {% paginate section.settings.collection.products by section.settings.products_to_show %}
-            {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+            {%- if is_designers_choice -%}
+              {%- assign collection_product_count = section.settings.collection.products.size -%}
+              {%- for i in (0..7) -%}
+                {%- assign product_index = i | modulo: collection_product_count -%}
+                {%- assign product = section.settings.collection.products[product_index] -%}
+                {%- assign loop_index = i | plus: 1 -%}
+                {% if lazy_load == false and loop_index > max_columns_to_show %}
+                  {% assign lazy_load = true %}
+                {% endif %}
+                <li
+                  id="Slide-{{ section.id }}-{{ loop_index }}"
+                  class="grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                  {% if settings.animations_reveal_on_scroll %}
+                    data-cascade
+                    style="--animation-order: {{ loop_index }};"
+                  {% endif %}
+                >
+                  {% render 'card-product',
+                    card_product: product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    image_shape: section.settings.image_shape,
+                    lazy_load: lazy_load,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_rating: section.settings.show_rating,
+                    skip_styles: skip_card_product_styles,
+                    section_id: section.id,
+                    quick_add: section.settings.quick_add,
+                    landing_card_price: landing_card_price,
+                    custom_card_image_index: i
+                  %}
+                </li>
+                {%- assign skip_card_product_styles = true -%}
+              {%- endfor -%}
+            {%- else -%}
+            {%- for product in section.settings.collection.products limit: products_to_display -%}
               {% if lazy_load == false and forloop.index > max_columns_to_show %}
                 {% assign lazy_load = true %}
               {% endif %}
@@ -164,9 +309,15 @@
               </li>
               {%- assign skip_card_product_styles = true -%}
             {%- endfor -%}
+            {%- endif -%}
           {% endpaginate %}
         {%- else -%}
-          {%- for i in (1..section.settings.columns_desktop) -%}
+          {%- if is_designers_choice -%}
+            {%- assign placeholder_count = 8 -%}
+          {%- else -%}
+            {%- assign placeholder_count = section.settings.columns_desktop -%}
+          {%- endif -%}
+          {%- for i in (1..placeholder_count) -%}
             <li
               class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
               {% if settings.animations_reveal_on_scroll %}
@@ -230,6 +381,140 @@
       {%- endif -%}
     </slider-component>
 
+    {%- if is_designers_choice -%}
+      <div
+        class="page-width risaa-designers-choice__carousel"
+        data-risaa-carousel
+        data-anim-stagger
+        data-anim-delay="0.05"
+        data-anim-step="0.06"
+      >
+        <ul
+          class="product-grid contains-card contains-card--product risaa-designers-choice__track"
+          role="list"
+          aria-label="{{ 'general.slider.name' | t }}"
+          data-risaa-carousel-track
+        >
+          {%- assign skip_card_product_styles = false -%}
+          {%- if section.settings.collection.products.size > 0 -%}
+            {%- assign collection_product_count = section.settings.collection.products.size -%}
+            {%- for i in (0..7) -%}
+              {%- assign product_index = i | modulo: collection_product_count -%}
+              {%- assign product = section.settings.collection.products[product_index] -%}
+              {%- assign lazy_load = true -%}
+              {%- if i < 4 -%}
+                {%- assign lazy_load = false -%}
+              {%- endif -%}
+              <li class="risaa-designers-choice__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: section.settings.image_ratio,
+                  image_shape: section.settings.image_shape,
+                  lazy_load: lazy_load,
+                  show_secondary_image: section.settings.show_secondary_image,
+                  show_vendor: section.settings.show_vendor,
+                  show_rating: section.settings.show_rating,
+                  skip_styles: skip_card_product_styles,
+                  section_id: section.id,
+                  quick_add: section.settings.quick_add,
+                  landing_card_price: landing_card_price,
+                  custom_card_image_index: i
+                %}
+              </li>
+              {%- assign skip_card_product_styles = true -%}
+            {%- endfor -%}
+          {%- else -%}
+            {%- for i in (1..8) -%}
+              <li class="risaa-designers-choice__item">
+                {%- assign placeholder_image = 'product-apparel-' | append: i -%}
+                {% render 'card-product',
+                  show_vendor: section.settings.show_vendor,
+                  media_aspect_ratio: section.settings.image_ratio,
+                  image_shape: section.settings.image_shape,
+                  lazy_load: true,
+                  placeholder_image: placeholder_image,
+                  landing_card_price: landing_card_price
+                %}
+              </li>
+              {%- assign skip_card_product_styles = true -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </ul>
+        <div class="risaa-designers-choice__controls">
+          <button type="button" class="risaa-designers-choice__button risaa-designers-choice__button--prev" aria-label="{{ 'general.slider.previous_slide' | t }}" data-risaa-carousel-prev>
+            <span aria-hidden="true">&#8249;</span>
+          </button>
+          <button type="button" class="risaa-designers-choice__button risaa-designers-choice__button--next" aria-label="{{ 'general.slider.next_slide' | t }}" data-risaa-carousel-next>
+            <span aria-hidden="true">&#8250;</span>
+          </button>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const carousel = document.querySelector('#collection-{{ section.id }} [data-risaa-carousel]');
+          if (!carousel || carousel.dataset.risaaCarouselReady === 'true') return;
+
+          const track = carousel.querySelector('[data-risaa-carousel-track]');
+          const prev = carousel.querySelector('[data-risaa-carousel-prev]');
+          const next = carousel.querySelector('[data-risaa-carousel-next]');
+          if (track.children.length <= 4) return;
+
+          carousel.dataset.risaaCarouselReady = 'true';
+
+          const step = () => {
+            const styles = window.getComputedStyle(track);
+            const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+            return track.children[0] ? track.children[0].getBoundingClientRect().width + gap : 0;
+          };
+          let isAnimating = false;
+          let direction = null;
+
+          prev.addEventListener('click', () => {
+            if (isAnimating) return;
+            isAnimating = true;
+            direction = 'prev';
+            track.style.transition = 'none';
+            track.insertBefore(track.lastElementChild, track.firstElementChild);
+            track.style.transform = `translateX(${-step()}px)`;
+            track.offsetHeight;
+            requestAnimationFrame(() => {
+              track.style.transition = '';
+              track.style.transform = 'translateX(0)';
+            });
+          });
+          next.addEventListener('click', () => {
+            if (isAnimating) return;
+            isAnimating = true;
+            direction = 'next';
+            track.style.transform = `translateX(${-step()}px)`;
+          });
+          track.addEventListener('transitionend', () => {
+            if (direction === 'next') {
+              track.style.transition = 'none';
+              track.appendChild(track.firstElementChild);
+              track.style.transform = 'translateX(0)';
+              track.offsetHeight;
+              requestAnimationFrame(() => {
+                track.style.transition = '';
+                direction = null;
+                isAnimating = false;
+              });
+              return;
+            }
+            direction = null;
+            isAnimating = false;
+          });
+          window.addEventListener('resize', () => {
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(0)';
+            requestAnimationFrame(() => {
+              track.style.transition = '';
+            });
+          });
+        })();
+      </script>
+    {%- endif -%}
+
     {%- if section.settings.show_view_all and more_in_collection -%}
       <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <a
@@ -237,10 +522,10 @@
           class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
           aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
         >
-          {{ 'sections.featured_collection.view_all' | t }}
-        </a>
-      </div>
-    {%- endif -%}
+        {{ 'sections.featured_collection.view_all' | t }}
+      </a>
+    </div>
+  {%- endif -%}
     {% if section.settings.image_shape == 'arch' %}
       {{ 'mask-arch.svg' | inline_asset_content }}
     {%- endif -%}
