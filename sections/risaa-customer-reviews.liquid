@@ -1,7 +1,7 @@
 {%- style -%}
   .risaa-reviews {
     padding: 80px 0 70px;
-    background: #F4EADE;
+    background: #f4eade;
     overflow: hidden;
   }
 
@@ -26,7 +26,7 @@
   .risaa-reviews__title {
     font-family: var(--font-heading-family);
     font-size: 3rem;
-    color: #6E1423;
+    color: #6e1423;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin: 0 0 12px;
@@ -44,7 +44,7 @@
     font-family: var(--font-heading-family);
     font-size: 1.8rem;
     font-weight: 400;
-    color: #D4AF37;
+    color: #d4af37;
     line-height: 1;
   }
 
@@ -61,7 +61,7 @@
   }
 
   .risaa-reviews__agg-star {
-    color: #D4AF37;
+    color: #d4af37;
     font-size: 1.1rem;
     line-height: 1;
   }
@@ -86,13 +86,21 @@
 
   /* ── Carousel slide-up animation ── */
   @keyframes risaa-carousel-slide-up {
-    from { transform: translateY(80px); }
-    to   { transform: translateY(0); }
+    from {
+      transform: translateY(80px);
+    }
+    to {
+      transform: translateY(0);
+    }
   }
 
   @keyframes risaa-carousel-slide-down {
-    from { transform: translateY(0); }
-    to   { transform: translateY(80px); }
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(80px);
+    }
   }
 
   .risaa-reviews__carousel-outer {
@@ -122,12 +130,12 @@
 
   .risaa-reviews__carousel-outer::before {
     left: 0;
-    background: linear-gradient(to right, #F4EADE, transparent);
+    background: linear-gradient(to right, #f4eade, transparent);
   }
 
   .risaa-reviews__carousel-outer::after {
     right: 0;
-    background: linear-gradient(to left, #F4EADE, transparent);
+    background: linear-gradient(to left, #f4eade, transparent);
   }
 
   .risaa-reviews__track {
@@ -252,7 +260,7 @@
   }
 
   .risaa-reviews__card-star {
-    color: #D4AF37;
+    color: #d4af37;
     font-size: 1.15rem;
     line-height: 1;
   }
@@ -293,7 +301,7 @@
   .risaa-reviews__read-more {
     background: none;
     border: none;
-    color: #6E1423;
+    color: #6e1423;
     font-family: var(--font-body-family);
     font-size: 1rem;
     font-weight: 600;
@@ -341,7 +349,7 @@
   }
 
   .risaa-reviews__dot.active {
-    background: #6E1423;
+    background: #6e1423;
     width: 20px;
     border-radius: 3px;
   }
@@ -374,20 +382,7 @@
 -%}
 
 <section class="risaa-reviews reveal-on-scroll" id="risaa-reviews-{{ section.id }}">
-  <div class="risaa-reviews__header">
-    <h2 class="risaa-reviews__title">{{ section.settings.title }}</h2>
-    <div class="risaa-reviews__aggregate">
-      <span class="risaa-reviews__agg-score">{{ section.settings.aggregate_score }}</span>
-      <div class="risaa-reviews__agg-right">
-        <div class="risaa-reviews__agg-stars">
-          {%- for i in (1..5) -%}
-            <span class="risaa-reviews__agg-star">★</span>
-          {%- endfor -%}
-        </div>
-        <span class="risaa-reviews__agg-label">{{ section.settings.review_count }}</span>
-      </div>
-    </div>
-  </div>
+  <div class="risaa-reviews__header" style="display:none;"></div>
 
   <div class="risaa-reviews__carousel-outer">
     <div class="risaa-reviews__track" id="risaa-rev-track-{{ section.id }}">
@@ -633,7 +628,7 @@
           });
         },
         {
-          threshold: 0.65
+          threshold: 0.65,
         }
       );
 
@@ -651,7 +646,7 @@
   "class": "section",
   "max_blocks": 12,
   "settings": [
-    { "type": "text", "id": "title", "label": "Section Title", "default": "BEAUTIES OF RISAA" },
+    { "type": "text", "id": "title", "label": "Section Title", "default": "Customer Reviews" },
     { "type": "text", "id": "aggregate_score", "label": "Aggregate Score", "default": "4.9" },
     { "type": "text", "id": "review_count", "label": "Review Count Text", "default": "200+ Reviews" }
   ],
