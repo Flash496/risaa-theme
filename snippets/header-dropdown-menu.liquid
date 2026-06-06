@@ -105,7 +105,7 @@
       </li>
     {%- endfor -%}
 
-    {%- assign extra_tabs = 'About Us,Our Store,Summer Favourites,Founders Pick' | split: ',' -%}
+    {%- assign extra_tabs = 'About Us,Our Store,Summer Closet,Founders Pick' | split: ',' -%}
     {%- for tab in extra_tabs -%}
       <li>
         {%- assign is_about_active = false -%}
@@ -118,7 +118,7 @@
           {%- assign tab_url = '/pages/about' -%}
         {%- elsif tab == 'Our Store' -%}
           {%- assign tab_url = '/pages/our-store' -%}
-        {%- elsif tab == 'Summer Favourites' -%}
+        {%- elsif tab == 'Summer Closet' -%}
           {%- assign tab_url = '/collections/summer-favourites' -%}
         {%- elsif tab == 'Founders Pick' -%}
           {%- assign tab_url = '/collections/founders-pick' -%}
@@ -126,7 +126,7 @@
           {%- assign tab_url = '/collections/all' -%}
         {%- endif -%}
         {%- if tab == 'Founders Pick' -%}
-          {%- assign tab_label = "Founder's Pick" -%}
+          {%- assign tab_label = "Founder's Favourites" -%}
         {%- else -%}
           {%- assign tab_label = tab -%}
         {%- endif -%}

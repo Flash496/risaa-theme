@@ -63,7 +63,7 @@
     "risaa_summer_picks": {
       "type": "risaa-summer-picks",
       "settings": {
-        "title": "Summer Favourites"
+        "title": "Summer Closet"
       }
     },
     "risaa_new_in": {
@@ -77,7 +77,7 @@
     "bestsellers": {
       "type": "risaa-designers-choice",
       "settings": {
-        "title": "Designer's Choice",
+        "title": "Founder's Favourites",
         "heading_size": "h2",
         "collection": "all",
         "color_scheme": "scheme-1",
@@ -112,7 +112,7 @@
       },
       "block_order": ["panel_1", "panel_2", "panel_3", "panel_4"],
       "settings": {
-        "title": "Our Exclusive Collections",
+        "title": "Shop by Collection",
         "subtitle": "",
         "height_desktop": 650,
         "padding_top": 0,
@@ -151,7 +151,7 @@
       },
       "block_order": ["color_1", "color_2", "color_3", "color_4", "color_5"],
       "settings": {
-        "title": "Shop by Palette",
+        "title": "Shop by Color",
         "subtitle": ""
       }
     },
