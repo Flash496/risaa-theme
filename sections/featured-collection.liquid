@@ -84,14 +84,14 @@
   .section-{{ section.id }}-padding.risaa-designers-choice .risaa-designers-choice__controls {
     display: flex;
     position: absolute;
-    top: 50%;
+    top: calc(50% - 50px);
     left: 0.8rem;
     right: 0.8rem;
     z-index: 2;
     justify-content: space-between;
     gap: 0;
     margin: 0;
-    transform: translateY(calc(-50% - 20px));
+    transform: translateY(-50%);
     pointer-events: none;
   }
 
@@ -107,9 +107,10 @@
     color: #fff;
     box-shadow: none;
     pointer-events: auto;
-    font-size: 3.6rem;
-    font-weight: 700;
-    line-height: 1;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 4.6rem;
+    font-weight: 300;
+    line-height: 0.8;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
@@ -153,7 +154,7 @@
 {%- endstyle -%}
 
 {%- liquid
-    assign products_to_display = section.settings.collection.all_products_count
+  assign products_to_display = section.settings.collection.all_products_count
 
   if section.settings.collection.all_products_count > section.settings.products_to_show
     assign products_to_display = section.settings.products_to_show
@@ -276,39 +277,39 @@
                 {%- assign skip_card_product_styles = true -%}
               {%- endfor -%}
             {%- else -%}
-            {%- for product in section.settings.collection.products limit: products_to_display -%}
-              {% if lazy_load == false and forloop.index > max_columns_to_show %}
-                {% assign lazy_load = true %}
-              {% endif %}
-              {%- assign curated_card_image_index = blank -%}
-              {%- if use_curated_landing_images -%}
-                {%- assign curated_card_image_index = forloop.index0 -%}
-              {%- endif -%}
-              <li
-                id="Slide-{{ section.id }}-{{ forloop.index }}"
-                class="grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
+              {%- for product in section.settings.collection.products limit: products_to_display -%}
+                {% if lazy_load == false and forloop.index > max_columns_to_show %}
+                  {% assign lazy_load = true %}
                 {% endif %}
-              >
-                {% render 'card-product',
-                  card_product: product,
-                  media_aspect_ratio: section.settings.image_ratio,
-                  image_shape: section.settings.image_shape,
-                  lazy_load: lazy_load,
-                  show_secondary_image: section.settings.show_secondary_image,
-                  show_vendor: section.settings.show_vendor,
-                  show_rating: section.settings.show_rating,
-                  skip_styles: skip_card_product_styles,
-                  section_id: section.id,
-                  quick_add: section.settings.quick_add,
-                  landing_card_price: landing_card_price,
-                  custom_card_image_index: curated_card_image_index
-                %}
-              </li>
-              {%- assign skip_card_product_styles = true -%}
-            {%- endfor -%}
+                {%- assign curated_card_image_index = blank -%}
+                {%- if use_curated_landing_images -%}
+                  {%- assign curated_card_image_index = forloop.index0 -%}
+                {%- endif -%}
+                <li
+                  id="Slide-{{ section.id }}-{{ forloop.index }}"
+                  class="grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                  {% if settings.animations_reveal_on_scroll %}
+                    data-cascade
+                    style="--animation-order: {{ forloop.index }};"
+                  {% endif %}
+                >
+                  {% render 'card-product',
+                    card_product: product,
+                    media_aspect_ratio: section.settings.image_ratio,
+                    image_shape: section.settings.image_shape,
+                    lazy_load: lazy_load,
+                    show_secondary_image: section.settings.show_secondary_image,
+                    show_vendor: section.settings.show_vendor,
+                    show_rating: section.settings.show_rating,
+                    skip_styles: skip_card_product_styles,
+                    section_id: section.id,
+                    quick_add: section.settings.quick_add,
+                    landing_card_price: landing_card_price,
+                    custom_card_image_index: curated_card_image_index
+                  %}
+                </li>
+                {%- assign skip_card_product_styles = true -%}
+              {%- endfor -%}
             {%- endif -%}
           {% endpaginate %}
         {%- else -%}
@@ -441,10 +442,20 @@
           {%- endif -%}
         </ul>
         <div class="risaa-designers-choice__controls">
-          <button type="button" class="risaa-designers-choice__button risaa-designers-choice__button--prev" aria-label="{{ 'general.slider.previous_slide' | t }}" data-risaa-carousel-prev>
+          <button
+            type="button"
+            class="risaa-designers-choice__button risaa-designers-choice__button--prev"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+            data-risaa-carousel-prev
+          >
             <span aria-hidden="true">&#8249;</span>
           </button>
-          <button type="button" class="risaa-designers-choice__button risaa-designers-choice__button--next" aria-label="{{ 'general.slider.next_slide' | t }}" data-risaa-carousel-next>
+          <button
+            type="button"
+            class="risaa-designers-choice__button risaa-designers-choice__button--next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+            data-risaa-carousel-next
+          >
             <span aria-hidden="true">&#8250;</span>
           </button>
         </div>
@@ -522,10 +533,10 @@
           class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
           aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
         >
-        {{ 'sections.featured_collection.view_all' | t }}
-      </a>
-    </div>
-  {%- endif -%}
+          {{ 'sections.featured_collection.view_all' | t }}
+        </a>
+      </div>
+    {%- endif -%}
     {% if section.settings.image_shape == 'arch' %}
       {{ 'mask-arch.svg' | inline_asset_content }}
     {%- endif -%}

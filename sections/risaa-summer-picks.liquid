@@ -57,14 +57,14 @@
   .risaa-summer-picks__controls {
     display: flex;
     position: absolute;
-    top: 50%;
+    top: calc(50% - 50px);
     left: 0.8rem;
     right: 0.8rem;
     z-index: 2;
     justify-content: space-between;
     gap: 0;
     margin: 0;
-    transform: translateY(calc(-50% - 20px));
+    transform: translateY(-50%);
     pointer-events: none;
   }
 
@@ -80,9 +80,10 @@
     color: #fff;
     box-shadow: none;
     pointer-events: auto;
-    font-size: 3.6rem;
-    font-weight: 700;
-    line-height: 1;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 4.6rem;
+    font-weight: 300;
+    line-height: 0.8;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
@@ -184,10 +185,20 @@
         {% endif %}
       </ul>
       <div class="risaa-summer-picks__controls">
-        <button type="button" class="risaa-summer-picks__button risaa-summer-picks__button--prev" aria-label="{{ 'general.slider.previous_slide' | t }}" data-risaa-carousel-prev>
+        <button
+          type="button"
+          class="risaa-summer-picks__button risaa-summer-picks__button--prev"
+          aria-label="{{ 'general.slider.previous_slide' | t }}"
+          data-risaa-carousel-prev
+        >
           <span aria-hidden="true">&#8249;</span>
         </button>
-        <button type="button" class="risaa-summer-picks__button risaa-summer-picks__button--next" aria-label="{{ 'general.slider.next_slide' | t }}" data-risaa-carousel-next>
+        <button
+          type="button"
+          class="risaa-summer-picks__button risaa-summer-picks__button--next"
+          aria-label="{{ 'general.slider.next_slide' | t }}"
+          data-risaa-carousel-next
+        >
           <span aria-hidden="true">&#8250;</span>
         </button>
       </div>
