@@ -57,10 +57,10 @@
   .risaa-3d-carousel-wrapper {
     position: relative;
     width: 100%;
-    max-width: 1400px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 20px 30px;
-    overflow-x: clip;
+    padding: 0 0 30px;
+    overflow-x: hidden;
     overflow-y: visible;
   }
 
@@ -462,11 +462,15 @@
 
       const dots = dotsContainer.querySelectorAll('.risaa-3d-carousel-dot');
 
+      const styleBody = window.getComputedStyle(document.body);
+      const desktopSpacing = parseFloat(styleBody.getPropertyValue('--grid-desktop-horizontal-spacing')) || 30;
+      const mobileSpacing = parseFloat(styleBody.getPropertyValue('--grid-mobile-horizontal-spacing')) || 22;
+
       function updateCarousel() {
         const isMobile = window.innerWidth <= 749;
         const isTablet = window.innerWidth <= 989 && window.innerWidth > 749;
         const cardWidth = isMobile ? 406 : isTablet ? 507 : 400;
-        const gap = isMobile ? 12 : 20;
+        const gap = Math.max(0, (isMobile ? mobileSpacing : desktopSpacing) - 10);
         const step = cardWidth + gap;
 
         items.forEach((item, index) => {
@@ -480,13 +484,13 @@
           const absOffset = Math.abs(offset);
           const translateX = offset * step;
           const scale = 1;
-          const opacity = absOffset > 1 ? 0 : 1;
+          const opacity = absOffset > 2 ? 0 : 1;
           const zIndex = offset === 0 ? 10 : 5 - absOffset;
 
           item.style.transform = `translateX(${translateX}px) scale(${scale})`;
           item.style.opacity = opacity;
           item.style.zIndex = zIndex;
-          item.style.pointerEvents = absOffset > 1 ? 'none' : 'auto';
+          item.style.pointerEvents = absOffset > 2 ? 'none' : 'auto';
 
           if (offset === 0) {
             item.classList.add('is-active');
