@@ -1,244 +1,249 @@
 {%- style -%}
-  .section-{{ section.id }}-padding .section-header {
-    margin-bottom: 10px !important;
-    padding-top: 30px !important;
-    padding-bottom: 15px !important;
-  }
+    .section-{{ section.id }}-padding .section-header {
+      margin-bottom: 10px !important;
+      padding-top: 30px !important;
+      padding-bottom: 15px !important;
+    }
 
-  /* Remove the decorative underline */
-  .section-{{ section.id }}-padding .section-header h2::after {
-    display: none !important;
-  }
+    /* Remove the decorative underline */
+    .section-{{ section.id }}-padding .section-header h2::after {
+      display: none !important;
+    }
 
-  .section-{{ section.id }}-padding .section-header h2,
-  .section-{{ section.id }}-padding .section-header p {
-    transition: color 0.35s ease;
-  }
+    .section-{{ section.id }}-padding .section-header h2,
+    .section-{{ section.id }}-padding .section-header p {
+      transition: color 0.35s ease;
+    }
 
-  .section-{{ section.id }}-padding:hover .section-header h2,
-  .section-{{ section.id }}-padding:hover .section-header p {
-    color: #D4AF37 !important;
-  }
+    .section-{{ section.id }}-padding:hover .section-header h2,
+    .section-{{ section.id }}-padding:hover .section-header p {
+      color: #D4AF37 !important;
+    }
 
   .section-{{ section.id }}-padding {
-    padding-top: 15px;
-    padding-bottom: 45px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: 15px;
+      padding-top: 0px;
       padding-bottom: 45px;
     }
-  }
 
-  .risaa-accordion-container {
-    display: flex;
-    width: 92%;
-    margin: 0 auto;
-    height: {{ section.settings.height_desktop }}px;
-    overflow: hidden;
-    gap: 0;
-    padding: 0;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    position: relative;
-    z-index: 2;
-    background: #ffffff;
-  }
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: 0px;
+        padding-bottom: 45px;
+      }
+    }
 
-  .risaa-accordion-item {
-    flex: 1 1 0%;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    border-radius: 0;
-    will-change: flex;
-    text-decoration: none;
-    display: block;
-    height: 100%;
-  }
+    .section-{{ section.id }}-padding .section-header {
+      padding-bottom: 25px !important;
+    }
 
-  /* Scoped transition override with high specificity to prevent global scroll animations from wiping out the flex transition */
-  .risaa-accordion-container .risaa-accordion-item {
-    transition:
-      flex 1.2s cubic-bezier(0.25, 1, 0.2, 1),
-      opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
-  }
 
-  .risaa-accordion-item img {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50vw;
-    max-width: none;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    transition: none;
-    display: block;
-  }
-
-  .risaa-accordion-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 3rem 2.5rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
-    color: white;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 60%;
-    transition: background 0.8s cubic-bezier(0.25, 1, 0.2, 1);
-    z-index: 1;
-  }
-
-  .risaa-accordion-info h3 {
-    color: white;
-    margin: 0;
-    font-size: 2.6rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .risaa-accordion-info h3,
-  .risaa-accordion-info p,
-  .risaa-accordion-info .btn-premium {
-    transition:
-      color 0.35s ease,
-      border-color 0.35s ease,
-      background 0.35s ease,
-      opacity 0.8s cubic-bezier(0.25, 1, 0.2, 1),
-      max-height 0.8s cubic-bezier(0.25, 1, 0.2, 1),
-      margin-top 0.8s cubic-bezier(0.25, 1, 0.2, 1);
-  }
-
-  .risaa-accordion-info p {
-    margin: 0;
-    font-size: 1.4rem;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition:
-      opacity 0.8s cubic-bezier(0.25, 1, 0.2, 1),
-      max-height 0.8s cubic-bezier(0.25, 1, 0.2, 1),
-      margin-top 0.8s cubic-bezier(0.25, 1, 0.2, 1);
-  }
-
-  .risaa-accordion-info .btn-premium {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ffffff;
-    background: transparent;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    font-weight: 500;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    transition: all 0.8s cubic-bezier(0.25, 1, 0.2, 1);
-    opacity: 0;
-    max-height: 0;
-    margin-top: 0;
-    overflow: hidden;
-    padding: 0 20px;
-    height: 0;
-    align-self: flex-start;
-  }
-
-  .risaa-accordion-info .btn-premium:hover {
-    background: #ffffff;
-    color: #000000;
-  }
-
-  /* Clear stagger delays immediately when container is hovered to keep transitions in sync */
-  .risaa-accordion-container:hover .risaa-accordion-item {
-    flex: 0.6;
-    transition-delay: 0s !important;
-  }
-
-  .risaa-accordion-container .risaa-accordion-item:hover {
-    flex: 2.2;
-    transition-delay: 0s !important;
-  }
-
-  .risaa-accordion-item:hover .risaa-accordion-info {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
-  }
-
-  .risaa-accordion-item:hover .risaa-accordion-info p {
-    color: #D4AF37;
-    margin-top: 10px;
-    opacity: 0.9;
-    max-height: 60px;
-  }
-
-  .risaa-accordion-item:hover .risaa-accordion-info h3 {
-    color: #D4AF37 !important;
-  }
-
-  .risaa-accordion-item:hover .risaa-accordion-info .btn-premium {
-    border-color: #D4AF37;
-    color: #D4AF37;
-    margin-top: 15px;
-    opacity: 1;
-    max-height: 42px;
-    height: 42px;
-  }
-
-  @media screen and (max-width: 749px) {
     .risaa-accordion-container {
-      flex-direction: column;
-      height: auto;
-      gap: 12px;
-      padding: 0 15px;
-      border-radius: 0;
-      width: 100%;
-    }
-    .risaa-accordion-container:hover .risaa-accordion-item,
-    .risaa-accordion-container .risaa-accordion-item:hover {
-      flex-grow: 1 !important;
-      flex: none !important;
-    }
-    .risaa-accordion-item {
-      flex: none !important;
-      height: 280px;
-      border-radius: 12px;
-    }
-    .risaa-accordion-item img {
+      display: flex;
+      width: 92%;
+      margin: 0 auto;
+      height: {{ section.settings.height_desktop }}px;
+      overflow: hidden;
+      gap: 0;
+      padding: 0;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
       position: relative;
-      left: 0;
-      transform: none;
-      width: 100%;
+      z-index: 2;
+      background: #ffffff;
+    }
+
+    .risaa-accordion-item {
+      flex: 1 1 0%;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      border-radius: 0;
+      will-change: flex;
+      text-decoration: none;
+      display: block;
       height: 100%;
     }
-    .risaa-accordion-info {
-      height: 70%;
-      padding: 2rem 1.5rem;
+
+    /* Scoped transition override with high specificity to prevent global scroll animations from wiping out the flex transition */
+    .risaa-accordion-container .risaa-accordion-item {
+      transition:
+        flex 1.2s cubic-bezier(0.25, 1, 0.2, 1),
+        opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
+
+    .risaa-accordion-item img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50vw;
+      max-width: none;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: none;
+      display: block;
+    }
+
+    .risaa-accordion-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 3rem 2.5rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+      color: white;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 60%;
+      transition: background 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+      z-index: 1;
+    }
+
+    .risaa-accordion-info h3 {
+      color: white;
+      margin: 0;
+      font-size: 2.6rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .risaa-accordion-info h3,
+    .risaa-accordion-info p,
+    .risaa-accordion-info .btn-premium {
+      transition:
+        color 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease,
+        opacity 0.8s cubic-bezier(0.25, 1, 0.2, 1),
+        max-height 0.8s cubic-bezier(0.25, 1, 0.2, 1),
+        margin-top 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+    }
+
     .risaa-accordion-info p {
+      margin: 0;
+      font-size: 1.4rem;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition:
+        opacity 0.8s cubic-bezier(0.25, 1, 0.2, 1),
+        max-height 0.8s cubic-bezier(0.25, 1, 0.2, 1),
+        margin-top 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+    }
+
+    .risaa-accordion-info .btn-premium {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ffffff;
+      background: transparent;
+      color: #ffffff;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      transition: all 0.8s cubic-bezier(0.25, 1, 0.2, 1);
+      opacity: 0;
+      max-height: 0;
+      margin-top: 0;
+      overflow: hidden;
+      padding: 0 20px;
+      height: 0;
+      align-self: flex-start;
+    }
+
+    .risaa-accordion-info .btn-premium:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    /* Clear stagger delays immediately when container is hovered to keep transitions in sync */
+    .risaa-accordion-container:hover .risaa-accordion-item {
+      flex: 0.6;
+      transition-delay: 0s !important;
+    }
+
+    .risaa-accordion-container .risaa-accordion-item:hover {
+      flex: 2.2;
+      transition-delay: 0s !important;
+    }
+
+    .risaa-accordion-item:hover .risaa-accordion-info {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
+    }
+
+    .risaa-accordion-item:hover .risaa-accordion-info p {
+      color: #D4AF37;
       margin-top: 10px;
       opacity: 0.9;
       max-height: 60px;
     }
-    .risaa-accordion-info .btn-premium {
+
+    .risaa-accordion-item:hover .risaa-accordion-info h3 {
+      color: #D4AF37 !important;
+    }
+
+    .risaa-accordion-item:hover .risaa-accordion-info .btn-premium {
+      border-color: #D4AF37;
+      color: #D4AF37;
       margin-top: 15px;
       opacity: 1;
       max-height: 42px;
       height: 42px;
-      padding: 0 20px;
     }
-  }
+
+    @media screen and (max-width: 749px) {
+      .risaa-accordion-container {
+        flex-direction: column;
+        height: auto;
+        gap: 12px;
+        padding: 0 15px;
+        border-radius: 0;
+        width: 100%;
+      }
+      .risaa-accordion-container:hover .risaa-accordion-item,
+      .risaa-accordion-container .risaa-accordion-item:hover {
+        flex-grow: 1 !important;
+        flex: none !important;
+      }
+      .risaa-accordion-item {
+        flex: none !important;
+        height: 280px;
+        border-radius: 12px;
+      }
+      .risaa-accordion-item img {
+        position: relative;
+        left: 0;
+        transform: none;
+        width: 100%;
+        height: 100%;
+      }
+      .risaa-accordion-info {
+        height: 70%;
+        padding: 2rem 1.5rem;
+      }
+      .risaa-accordion-info p {
+        margin-top: 10px;
+        opacity: 0.9;
+        max-height: 60px;
+      }
+      .risaa-accordion-info .btn-premium {
+        margin-top: 15px;
+        opacity: 1;
+        max-height: 42px;
+        height: 42px;
+        padding: 0 20px;
+      }
+    }
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
