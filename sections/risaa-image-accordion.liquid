@@ -35,7 +35,7 @@
       display: flex;
       width: 92%;
       margin: 0 auto;
-      height: {{ section.settings.height_desktop }}px;
+      height: calc({{ section.settings.height_desktop }}px + 90px);
       overflow: hidden;
       gap: 0;
       padding: 0;
@@ -98,7 +98,7 @@
     }
 
     .risaa-accordion-info h3 {
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.75) !important;
       margin: 0;
       font-family: var(--font-body-family);
       font-size: 2.4rem;
@@ -138,9 +138,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.75) !important;
       background: transparent;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.75) !important;
       text-transform: uppercase;
       font-size: 1.1rem;
       font-weight: 500;
@@ -157,8 +157,8 @@
     }
 
     .risaa-accordion-info .btn-premium:hover {
-      background: #ffffff;
-      color: #000000;
+      background: #ffffff !important;
+      color: #000000 !important;
     }
 
     /* Clear stagger delays immediately when container is hovered to keep transitions in sync */
@@ -188,8 +188,8 @@
     }
 
     .risaa-accordion-item:hover .risaa-accordion-info .btn-premium {
-      border-color: #ffffff;
-      color: #ffffff;
+      border-color: #ffffff !important;
+      color: #ffffff !important;
       margin-top: 15px;
       opacity: 1;
       max-height: 42px;
@@ -212,7 +212,7 @@
       }
       .risaa-accordion-item {
         flex: none !important;
-        height: 280px;
+        height: 370px;
         border-radius: 12px;
       }
       .risaa-accordion-item img {
@@ -258,7 +258,7 @@
       {% if block.settings.image != blank %}
         {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
       {% else %}
-        {%- assign _acc_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png'
+        {%- assign _acc_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/collection%204.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%202.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%203.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%201.jpg'
           | split: ','
         -%}
         {%- assign _acc_img = _acc_imgs[forloop.index0] | default: _acc_imgs[0] -%}
