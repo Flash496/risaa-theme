@@ -1,4 +1,4 @@
-﻿/* 
+/* 
   Risaa Studio - Luxury Editorial Styles 
   Custom styles to provide a premium, clean aesthetic over the base Dawn theme.
 */
@@ -32,6 +32,8 @@ label,
 .risaa-reviews__card-quote,
 .risaa-reviews__reviewer-meta,
 .risaa-occasions__name,
+.risaa-collage__caption,
+.risaa-accordion-info h3,
 .risaa-hero-marquee__text,
 .risaa-parallax-text p,
 .active-product-tag,

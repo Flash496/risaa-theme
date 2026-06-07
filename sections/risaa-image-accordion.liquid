@@ -1,10 +1,4 @@
 {%- style -%}
-    .section-{{ section.id }}-padding .section-header {
-      margin-bottom: 10px !important;
-      padding-top: 30px !important;
-      padding-bottom: 15px !important;
-    }
-
     /* Remove the decorative underline */
     .section-{{ section.id }}-padding .section-header h2::after {
       display: none !important;
@@ -21,8 +15,8 @@
     }
 
   .section-{{ section.id }}-padding {
-      padding-top: 0px;
-      padding-bottom: 45px;
+      padding-top: 30px !important;
+      padding-bottom: 60px;
     }
 
     @media screen and (min-width: 750px) {
@@ -104,11 +98,12 @@
     }
 
     .risaa-accordion-info h3 {
-      color: white;
+      color: rgba(255, 255, 255, 0.75);
       margin: 0;
-      font-size: 2.6rem;
+      font-family: var(--font-body-family);
+      font-size: 2.4rem;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       white-space: nowrap;
       overflow: hidden;
@@ -143,9 +138,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.75);
       background: transparent;
-      color: #ffffff;
+      color: rgba(255, 255, 255, 0.75);
       text-transform: uppercase;
       font-size: 1.1rem;
       font-weight: 500;
@@ -189,12 +184,12 @@
     }
 
     .risaa-accordion-item:hover .risaa-accordion-info h3 {
-      color: #D4AF37 !important;
+      color: #ffffff !important;
     }
 
     .risaa-accordion-item:hover .risaa-accordion-info .btn-premium {
-      border-color: #D4AF37;
-      color: #D4AF37;
+      border-color: #ffffff;
+      color: #ffffff;
       margin-top: 15px;
       opacity: 1;
       max-height: 42px;

@@ -37,9 +37,9 @@
   }
 
   .section-{{ section.id }}-padding .section-header {
-    margin-bottom: 10px !important;
+    margin-bottom: 35px !important;
     padding-top: 20px !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 0px !important;
   }
 
   .section-{{ section.id }}-padding .section-header h2 {
@@ -67,7 +67,7 @@
   .risaa-3d-carousel-container {
     position: relative;
     width: 100%;
-    height: 480px;
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,14 +98,47 @@
     position: relative;
     height: 400px;
     margin-bottom: 20px;
+    z-index: 1;
     overflow: hidden;
     transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1), box-shadow 0.5s ease;
     border-radius: 8px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
+  .risaa-collage {
+    position: relative;
+    height: 400px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.33, 1), box-shadow 0.5s ease;
+    border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .risaa-collage__caption {
+    position: absolute;
+    left: 50%;
+    bottom: 14px;
+    transform: translateX(-50%);
+
+    width: calc(100% - 24px);
+    text-align: center;
+
+    font-family: var(--font-body-family);
+    font-size: 2.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #ffffff;
+    margin: 0;
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  .risaa-3d-carousel-item:hover .risaa-collage__caption {
+    color: #F4EADE;
+  }
+
   .risaa-collage__main {
-    width: 100%;
     height: 100%;
     position: absolute;
     inset: 0;
@@ -345,6 +378,8 @@
 
           <a href="{{ block.settings.link }}" class="risaa-3d-carousel-item" {{ block.shopify_attributes }}>
             <div class="risaa-collage">
+              <div class="risaa-collage__caption">{{ block.settings.color_name }}</div>
+              <div class="risaa-collage__heading-spacer"></div>
               {% if block.settings.main_image != blank %}
                 {{
                   block.settings.main_image
@@ -397,7 +432,7 @@
                 >
               {% endif %}
             </div>
-            <h3>{{ block.settings.color_name }}</h3>
+            <!-- caption moved into collage overlay -->
           </a>
         {% endfor %}
       </div>
@@ -443,7 +478,7 @@
       };
 
       function updateGlowColor() {
-        const activeName = items[currentIndex]?.querySelector('h3')?.textContent.trim().toLowerCase();
+        const activeName = items[currentIndex]?.querySelector('.risaa-collage__caption')?.textContent.trim().toLowerCase();
         const glowColor = glowColors[activeName] || '154, 28, 32';
         wrapper.style.setProperty('--risaa-active-glow', glowColor);
       }
