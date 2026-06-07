@@ -58,21 +58,23 @@
   .risaa-occasions__arrow {
     position: absolute;
     top: 45%;
-    transform: translateY(-50%);
+    transform: translateY(-50%) scale(0.9);
     z-index: 10;
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: transparent;
-    border: 1px solid rgba(110, 20, 35, 0.16);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 1;
-    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: none;
-    pointer-events: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08);
     padding: 0;
   }
   .risaa-occasions__arrow svg {
@@ -91,18 +93,29 @@
   }
 
   .risaa-occasions__carousel-outer:hover .risaa-occasions__arrow {
-    opacity: 1;
+    opacity: 0.7;
     pointer-events: auto;
+    transform: translateY(-50%) scale(1);
   }
   .risaa-occasions__arrow:hover,
   .risaa-occasions__arrow:focus-visible {
-    background: rgba(255, 255, 255, 0.55);
-    border-color: rgba(110, 20, 35, 0.18);
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.35);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.12);
+    transform: translateY(-50%) scale(1.05);
   }
   .risaa-occasions__arrow:hover svg,
   .risaa-occasions__arrow:focus-visible svg {
     stroke: #6e1423;
+  }
+
+  @media screen and (max-width: 749px) {
+    .risaa-occasions__arrow {
+      opacity: 0.7;
+      pointer-events: auto;
+      transform: translateY(-50%) scale(1);
+    }
   }
 
   .risaa-occasions__belt {
