@@ -35,8 +35,13 @@
       const animType = el.dataset.anim;
 
       // Calculate progress of entrance
-      const start = vh;
-      const end = vh * 0.4; // Shifted completion threshold 15% later (from 0.55 to 0.40)
+      let start = vh;
+      let end = vh * 0.4; // Shifted completion threshold 15% later (from 0.55 to 0.40)
+
+      if (animType === 'roll-down') {
+        start = vh * 0.75; // Delay start until element is further into viewport
+        end = vh * 0.15;   // Finish closer to the top of the screen
+      }
 
       let p = 0;
       if (rect.top < start) {
@@ -66,6 +71,9 @@
             layout.classList.remove('is-bloomed');
           }
         }
+      } else if (animType === 'roll-down') {
+        const clipPercent = (1 - p) * 100;
+        el.style.clipPath = `inset(0 0 ${clipPercent.toFixed(2)}% 0)`;
       } else {
         // Default reveal-behind or scrub text
         const distance = el.classList.contains('risaa-scroll-slide-up') ? 46 : 80;
@@ -158,7 +166,7 @@
     root = root || document;
 
     root.querySelectorAll('[data-anim]').forEach((el) => {
-      if (el.dataset.anim === 'reveal-behind' || el.dataset.anim === 'roll-up') {
+      if (el.dataset.anim === 'reveal-behind' || el.dataset.anim === 'roll-up' || el.dataset.anim === 'roll-down') {
         addScrubElement(el);
       } else {
         singleObserver.observe(el);

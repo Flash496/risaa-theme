@@ -45,20 +45,23 @@
     align-items: flex-start;
   }
 
+  .risaa-flagship-card-wrapper {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: -80px;
+    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08));
+  }
+
   .risaa-flagship-card {
     background-color: #ffffff;
     width: 100%;
-    max-width: 350px;
     padding: 4rem 2.5rem 6rem 2.5rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
     min-height: calc({{ section.settings.desktop_height }}px + 80px);
-    margin-bottom: -80px;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 30px), 0 100%);
-    /* Use drop-shadow instead of box-shadow so it follows the clip-path */
-    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08));
   }
 
   .flagship-eyebrow {
@@ -174,12 +177,15 @@
       justify-content: center;
     }
 
-    .risaa-flagship-card {
+    .risaa-flagship-card-wrapper {
       max-width: 100%;
+      margin-bottom: -60px;
+    }
+
+    .risaa-flagship-card {
       padding: 3rem 2.5rem 5rem 2.5rem;
       gap: 2rem;
       min-height: calc({{ section.settings.mobile_height }}px + 60px);
-      margin-bottom: -60px;
       clip-path: polygon(0 0, 100% 0, 100% 100%, 50% calc(100% - 25px), 0 100%);
     }
 
@@ -191,9 +197,10 @@
 
 <section class="risaa-flagship-store-section" id="RisaaFlagshipSection-{{ section.id }}">
   <div class="risaa-flagship-store-container">
-    <div class="risaa-flagship-card reveal-on-scroll">
-      <div>
-        {%- if section.settings.eyebrow != blank -%}
+    <div class="risaa-flagship-card-wrapper" data-anim="roll-down">
+      <div class="risaa-flagship-card">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}
           <span class="flagship-eyebrow">{{ section.settings.eyebrow }}</span>
         {%- endif -%}
         <h2 class="flagship-title">{{ section.settings.heading }}</h2>
@@ -256,7 +263,8 @@
             {{- section.settings.button_label -}}
           </a>
         </div>
-      {%- endif -%}
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </section>
