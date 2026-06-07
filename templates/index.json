@@ -309,6 +309,10 @@
         "button_label": "Read Our Journey"
       }
     },
+    "risaa_flagship_store": {
+      "type": "risaa-flagship-store",
+      "settings": {}
+    },
     "risaa_whatsapp": {
       "type": "risaa-whatsapp-button",
       "settings": {
@@ -340,7 +344,9 @@
     "risaa_watch_and_shop",
     "risaa_customer_reviews",
     "risaa_parallax_story",
+    "risaa_flagship_store",
     "risaa_newsletter",
     "risaa_whatsapp"
   ]
 }
+
