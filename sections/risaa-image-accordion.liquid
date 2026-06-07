@@ -258,7 +258,7 @@
       {% if block.settings.image != blank %}
         {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy' }}
       {% else %}
-        {%- assign _acc_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/collection%204.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%202.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%203.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%201.jpg'
+        {%- assign _acc_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/Screenshot%202026-05-09%20000603.png,https://ik.imagekit.io/flashspdstr/risaa/collection%202.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%203.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%201.jpg'
           | split: ','
         -%}
         {%- assign _acc_img = _acc_imgs[forloop.index0] | default: _acc_imgs[0] -%}

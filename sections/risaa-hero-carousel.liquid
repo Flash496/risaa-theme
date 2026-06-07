@@ -2,7 +2,7 @@
   .risaa-hero-carousel {
     position: relative;
     width: 100%;
-    height: calc(80vh + 45px);
+    height: calc(80vh + 150px);
     overflow: hidden;
   }
 
@@ -32,296 +32,157 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    transform: scale(1);
+    transition: transform 6.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .risaa-carousel-slide.active .risaa-carousel-image {
+    transform: scale(1.2);
   }
 
   .risaa-carousel-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 100%);
+    inset: 0;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    transition: all 0.5s ease;
+    z-index: 5;
+  }
+
+  /* Alignment Variants */
+  .risaa-carousel-overlay--center {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: var(--brand-text);
+    padding: 3rem;
+    background: rgba(0, 0, 0, 0.35);
   }
 
+  /* Default: no vertical shift */
+  .risaa-carousel-overlay-content {
+    transform: translateY(0);
+  }
+
+  /* Only lift specific slides by title */
+  .risaa-carousel-slide[data-slide-title='bridal couture'] .risaa-carousel-overlay-content,
+  .risaa-carousel-slide[data-slide-title='pret collection'] .risaa-carousel-overlay-content {
+    transform: translateY(-50px);
+  }
+
+  .risaa-carousel-overlay--left {
+    justify-content: flex-end;
+    align-items: flex-start;
+    text-align: left;
+    padding: 0 0 8rem 8rem;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 50%, transparent 100%);
+  }
+
+  .risaa-carousel-overlay--right {
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+    padding: 0 8rem 8rem 0;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 50%, transparent 100%);
+  }
+
+  /* Typography Styles (Unified & Minimalist) */
   .risaa-carousel-overlay h2 {
     color: #ffffff !important;
-    font-size: 5rem;
-    margin-bottom: 1.5rem;
-    text-transform: none;
-    letter-spacing: 0.1em;
+    font-family: var(--font-heading-family) !important;
+    font-size: 4.8rem;
+    font-weight: 400 !important;
+    line-height: 1.2;
+    margin: 0 0 1.6rem 0;
+    text-transform: uppercase !important;
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease 0.3s;
+    letter-spacing: 0.1em;
+    transform: translateY(15px);
+    transition: opacity 1s ease, transform 1s ease;
+    transition-delay: 0.3s;
+  }
+
+  .risaa-carousel-slide.active .risaa-carousel-overlay h2 {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .risaa-carousel-overlay p {
-    color: #ffb3ba !important;
-    font-size: 1.8rem;
+    color: #ffffff !important;
+    font-family: var(--font-body-family) !important;
+    font-size: 1.6rem;
+    font-weight: 300 !important;
     max-width: 600px;
-    margin-bottom: 2.5rem;
+    margin: 0 0 3.2rem 0;
+    text-transform: uppercase !important;
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease 0.5s;
+    letter-spacing: 0.15em;
+    transform: translateY(15px);
+    transition: opacity 1s ease, transform 1s ease;
+    transition-delay: 0.5s;
+  }
+
+  .risaa-carousel-slide.active .risaa-carousel-overlay p {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .risaa-carousel-overlay .btn-premium {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease 0.7s;
+    transform: translateY(15px);
+    transition: opacity 1s ease 0.7s, transform 1s ease 0.7s, background-color 0.3s ease, color 0.3s ease,
+      border-color 0.3s ease;
     background: transparent;
-    border-color: var(--brand-text);
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    color: #ffffff !important;
+    padding: 14px 36px !important;
+    letter-spacing: 0.15em !important;
+    font-size: 1.2rem !important;
+    text-transform: uppercase !important;
+    font-family: var(--font-body-family) !important;
+    border-radius: 0 !important;
+    text-decoration: none;
+    display: inline-block;
   }
 
-  .risaa-carousel-overlay .btn-premium:hover {
-    background: var(--brand-text);
-    color: var(--brand-main);
-  }
-
-  .risaa-carousel-slide.active .risaa-carousel-overlay h2,
-  .risaa-carousel-slide.active .risaa-carousel-overlay p,
   .risaa-carousel-slide.active .risaa-carousel-overlay .btn-premium {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .risaa-carousel-controls {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 15px;
-    z-index: 10;
-  }
-
-  .risaa-carousel-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .risaa-carousel-dot.active {
-    background-color: var(--brand-text);
-    transform: scale(1.3);
-  }
-
-  /* ── Per-slide text styles ── */
-
-  /* Slide 1 — Bridal Couture: dramatic italic serif, bottom-left */
-  .risaa-carousel-slide:nth-child(1) .risaa-carousel-overlay {
-    align-items: flex-start;
-    justify-content: flex-end;
-    text-align: left;
-    padding: 0 0 6rem 6rem;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.1) 60%, transparent 100%);
-  }
-  /* Slide 1 — Bridal Couture */
-  .risaa-carousel-slide:nth-child(1) .risaa-carousel-overlay h2 {
-    font-family: 'Cinzel', Georgia, serif !important;
-    font-style: normal;
-    font-size: 7.5rem;
-    letter-spacing: 0.18em;
-    line-height: 1.05;
-    text-transform: uppercase;
-    max-width: 700px;
-    color: #ffffff !important;
-  }
-  .risaa-carousel-slide:nth-child(1) .risaa-carousel-overlay p {
-    font-family: 'Montserrat', sans-serif !important;
-    font-weight: 300;
-    font-size: 1.6rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    max-width: 500px;
-    color: #ffb3ba !important;
-  }
-
-  /* Slide 2 — Accessible Luxury */
-  .risaa-carousel-slide:nth-child(2) .risaa-carousel-overlay h2 {
-    font-family: 'Cinzel', Georgia, serif !important;
-    font-weight: 400;
-    font-size: 5.5rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase !important;
-    line-height: 1.2;
-    color: #ffffff !important;
-  }
-  .risaa-carousel-slide:nth-child(2) .risaa-carousel-overlay p {
-    font-family: 'Great Vibes', cursive !important;
-    font-size: 2rem;
-    letter-spacing: 0.05em;
-    text-transform: none;
-    color: #ff9999 !important;
-  }
-
-  /* Slide 3 — Trousseau Dreams */
-  .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay h2 {
-    font-family: 'Cinzel', Georgia, serif !important;
-    font-style: normal;
-    font-size: 7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 400;
-    line-height: 1;
-    max-width: 600px;
-    color: #ffc0cb !important;
-    text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
-  }
-  .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay p {
-    font-family: 'Montserrat', sans-serif !important;
-    font-weight: 300;
-    font-style: normal;
-    font-size: 1.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    max-width: 420px;
-    border-right: 2px solid rgba(255, 192, 203, 0.6);
-    padding-right: 1.2rem;
-    color: #ffffff !important;
-  }
-  .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay .btn-premium {
-    align-self: flex-end;
-    border-color: #ffc0cb;
-    color: #ffc0cb;
-  }
-  .risaa-carousel-slide:nth-child(3) .risaa-carousel-overlay .btn-premium:hover {
-    background: #ffc0cb;
-    color: #3a1a10;
-  }
-
-  /* Slide 4 — Pret Collection: left-anchored with vertical accent + clean stacked layout */
-  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay {
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: row;
-    text-align: left;
-    padding: 0 0 0 5rem;
-    background: linear-gradient(100deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 75%);
-    gap: 2.5rem;
-  }
-  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay::before {
-    content: '';
-    display: block;
-    width: 2px;
-    height: 180px;
-    /* Light red accent bar */
-    background: linear-gradient(to bottom, transparent, #ff9999, transparent);
-    flex-shrink: 0;
-    align-self: center;
-  }
-  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay > * {
-    flex-shrink: 0;
-  }
-  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay h2 {
-    font-family: 'Great Vibes', cursive !important;
-    font-weight: 400;
-    font-size: 9rem;
-    letter-spacing: 0.05em;
-    text-transform: capitalize !important;
-    line-height: 1;
-    /* Pure white */
-    color: #ffffff !important;
-    align-self: center;
-  }
-
-  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay h2::first-letter {
-    text-transform: uppercase !important;
-  }
-  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay p {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 1.05rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    /* Light pink for vertical subtitle */
-    color: #ffb3ba !important;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    transform: rotate(180deg);
-    align-self: center;
-    border-bottom: 1px solid rgba(255, 179, 186, 0.4);
-    padding-bottom: 1rem;
-  }
-  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay .btn-premium {
-    align-self: center;
-    letter-spacing: 0.2em;
-    font-size: 1rem;
-    margin-left: -1rem;
-    border-color: #ff9999;
-    color: #ff9999;
-  }
-  .risaa-carousel-slide:nth-child(4) .risaa-carousel-overlay .btn-premium:hover {
-    background: #ff9999;
-    color: #1a1000;
-  }
-
-  /* Slide 5 — New Arrivals: outline text center with subtitle as flanked eyebrow above */
-  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay {
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.4) 100%);
-    gap: 0;
-  }
-  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay p {
-    font-family: 'Cinzel', Georgia, serif;
-    font-size: 1rem;
-    letter-spacing: 0.55em;
-    text-transform: uppercase;
-    color: #ffb3ba !important;
-    display: flex;
-    align-items: center;
-    gap: 1.4rem;
-    margin-bottom: 1.2rem;
-    order: -1;
-  }
-  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay p::before,
-  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay p::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 1px;
-    background: rgba(255, 179, 186, 0.6);
-    flex-shrink: 0;
-  }
-  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay h2 {
-    font-family: 'Cinzel', Georgia, serif;
-    font-weight: 400;
-    font-size: 6.5rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase !important;
-    line-height: 1;
-    -webkit-text-stroke: 1.5px #ffffff;
-    color: transparent !important;
-    text-shadow: 0 0 80px rgba(255, 255, 255, 0.12);
-  }
-  .risaa-carousel-slide:nth-child(5) .risaa-carousel-overlay .btn-premium {
-    margin-top: 2.5rem;
-    letter-spacing: 0.25em;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 1rem;
-  }
-
   @media screen and (max-width: 749px) {
     .risaa-hero-carousel {
-      height: 60vh;
+      height: calc(60vh + 30px);
     }
-    .risaa-arrow-left {
-      left: 10px;
+    .risaa-carousel-overlay--left,
+    .risaa-carousel-overlay--right {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2.5rem;
+      background: rgba(0, 0, 0, 0.45);
     }
-    .risaa-arrow-right {
-      right: 10px;
+    .risaa-carousel-overlay h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+    .risaa-carousel-overlay p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      letter-spacing: 0.18em;
+    }
+    .risaa-carousel-overlay .btn-premium {
+      padding: 11px 28px !important;
+      font-size: 0.95rem !important;
+    }
+    .risaa-carousel-dashboard {
+      bottom: 20px;
+      gap: 16px;
+      padding: 8px 16px;
+    }
+    .risaa-carousel-progress-wrap {
+      width: 50px;
     }
   }
 {%- endstyle -%}
@@ -329,7 +190,11 @@
 <div class="risaa-hero-carousel" id="risaa-carousel-{{ section.id }}" data-anim="fade" data-anim-delay="0">
   <div class="risaa-carousel-track" id="risaa-track-{{ section.id }}">
     {% for block in section.blocks %}
-      <div class="risaa-carousel-slide {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
+      <div
+        class="risaa-carousel-slide {% if forloop.first %}active{% endif %}"
+        data-slide-title="{{ block.settings.title | downcase }}"
+        {{ block.shopify_attributes }}
+      >
         {% if block.settings.image != blank %}
           {{
             block.settings.image
@@ -344,30 +209,23 @@
             loading="lazy"
           >
         {% else %}
-          {%- assign slide_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/beautiful-turkish-girl-long-red-dress-walks-summer-old-city%20(1).jpg,https://ik.imagekit.io/flashspdstr/risaa/alok-verma-jQ3UdoWiFis-unsplash.jpg,https://ik.imagekit.io/flashspdstr/risaa/naganath-chiluveru-Uzl-KYPAH44-unsplash.jpg,https://ik.imagekit.io/flashspdstr/risaa/akhil-pawar-Ys52rPvPbpU-unsplash.jpg,https://ik.imagekit.io/flashspdstr/risaa/beautiful-turkish-girl-long-red-dress-walks-summer-old-city.jpg'
+          {%- assign slide_imgs = 'https://ik.imagekit.io/flashspdstr/risaa/bridal%20couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/hero%20banner.jpg,https://ik.imagekit.io/flashspdstr/risaa/collection%201.jpg,https://ik.imagekit.io/flashspdstr/risaa/hero%20banner345.jpg,https://ik.imagekit.io/flashspdstr/risaa/desi%20flower%20field%20eid%20girl.jpg'
             | split: ','
           -%}
           {%- assign slide_img = slide_imgs[forloop.index0] | default: slide_imgs[0] -%}
           <img src="{{ slide_img }}" alt="{{ block.settings.title }}" class="risaa-carousel-image" loading="lazy">
         {% endif %}
 
-        <div class="risaa-carousel-overlay">
-          <h2>{{ block.settings.title }}</h2>
-          <p>{{ block.settings.subtitle }}</p>
-          {% if block.settings.btn_label != blank %}
-            <a href="{{ block.settings.btn_link }}" class="btn-premium">{{ block.settings.btn_label }}</a>
-          {% endif %}
+        <div class="risaa-carousel-overlay risaa-carousel-overlay--{{ block.settings.alignment | default: 'center' }}">
+          <div class="risaa-carousel-overlay-content">
+            <h2>{{ block.settings.title }}</h2>
+            <p>{{ block.settings.subtitle }}</p>
+            {% if block.settings.btn_label != blank %}
+              <a href="{{ block.settings.btn_link }}" class="btn-premium">{{ block.settings.btn_label }}</a>
+            {% endif %}
+          </div>
         </div>
       </div>
-    {% endfor %}
-  </div>
-
-  <div class="risaa-carousel-controls" id="risaa-controls-{{ section.id }}">
-    {% for block in section.blocks %}
-      <div
-        class="risaa-carousel-dot {% if forloop.first %}active{% endif %}"
-        onclick="setCarousel{{ section.id | replace: '-', '_' }}({{ forloop.index0 }})"
-      ></div>
     {% endfor %}
   </div>
 </div>
@@ -376,27 +234,18 @@
   let currentSlide{{ section.id | replace: '-', '_' }} = 0;
   const totalSlides{{ section.id | replace: '-', '_' }} = {{ section.blocks.size }};
   const track{{ section.id | replace: '-', '_' }} = document.getElementById('risaa-track-{{ section.id }}');
-  const dots{{ section.id | replace: '-', '_' }} = document.getElementById('risaa-controls-{{ section.id }}').children;
   const slides{{ section.id | replace: '-', '_' }} = track{{ section.id | replace: '-', '_' }}.children;
   let autoPlay{{ section.id | replace: '-', '_' }};
 
   function updateCarousel{{ section.id | replace: '-', '_' }}() {
     for (let i = 0; i < totalSlides{{ section.id | replace: '-', '_' }}; i++) {
-      dots{{ section.id | replace: '-', '_' }}[i].classList.remove('active');
       slides{{ section.id | replace: '-', '_' }}[i].classList.remove('active');
     }
-    dots{{ section.id | replace: '-', '_' }}[currentSlide{{ section.id | replace: '-', '_' }}].classList.add('active');
     slides{{ section.id | replace: '-', '_' }}[currentSlide{{ section.id | replace: '-', '_' }}].classList.add('active');
   }
 
   function moveCarousel{{ section.id | replace: '-', '_' }}(direction) {
     currentSlide{{ section.id | replace: '-', '_' }} = (currentSlide{{ section.id | replace: '-', '_' }} + direction + totalSlides{{ section.id | replace: '-', '_' }}) % totalSlides{{ section.id | replace: '-', '_' }};
-    updateCarousel{{ section.id | replace: '-', '_' }}();
-    resetAutoPlay{{ section.id | replace: '-', '_' }}();
-  }
-
-  function setCarousel{{ section.id | replace: '-', '_' }}(index) {
-    currentSlide{{ section.id | replace: '-', '_' }} = index;
     updateCarousel{{ section.id | replace: '-', '_' }}();
     resetAutoPlay{{ section.id | replace: '-', '_' }}();
   }
@@ -438,6 +287,17 @@
           "type": "image_picker",
           "id": "image",
           "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "alignment",
+          "label": "Text Alignment",
+          "options": [
+            { "value": "center", "label": "Center" },
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "center"
         },
         {
           "type": "text",

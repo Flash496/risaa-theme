@@ -7,6 +7,7 @@
         "slide_1": {
           "type": "slide",
           "settings": {
+            "alignment": "left",
             "title": "Bridal Couture",
             "subtitle": "Artfully custom-crafted for individuality",
             "btn_label": "Explore Bridal",
@@ -16,6 +17,7 @@
         "slide_2": {
           "type": "slide",
           "settings": {
+            "alignment": "center",
             "image_url": "https://ik.imagekit.io/flashspdstr/risaa/Screenshot%202026-05-11%20115450.png",
             "title": "Accessible Luxury",
             "subtitle": "Slow Fashion • Prêt • Fusion",
@@ -26,6 +28,7 @@
         "slide_3": {
           "type": "slide",
           "settings": {
+            "alignment": "center",
             "title": "Trousseau Dreams",
             "subtitle": "A complete bridal wardrobe, curated with love",
             "btn_label": "Explore Trousseau",
@@ -35,6 +38,7 @@
         "slide_4": {
           "type": "slide",
           "settings": {
+            "alignment": "left",
             "title": "Pret Collection",
             "subtitle": "Effortless elegance for every day",
             "btn_label": "Shop Pret",
@@ -44,6 +48,7 @@
         "slide_5": {
           "type": "slide",
           "settings": {
+            "alignment": "center",
             "title": "New Arrivals",
             "subtitle": "Fresh from the atelier — just in",
             "btn_label": "See What's New",
