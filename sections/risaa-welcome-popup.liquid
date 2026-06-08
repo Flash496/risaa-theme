@@ -29,12 +29,11 @@
     flex-direction: column;
     border-radius: 32px 0 32px 0;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     transform: translateY(30px);
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
   }
-
 
   .risaa-welcome-popup-overlay.active .risaa-welcome-popup {
     transform: translateY(0);
@@ -76,7 +75,7 @@
     .risaa-welcome-popup {
       flex-direction: row;
     }
-    
+
     .risaa-popup-image {
       height: 100%;
       min-height: 320px;
@@ -99,7 +98,6 @@
     }
   }
 
-
   .risaa-popup-eyebrow {
     font-family: var(--font-body);
     font-size: 0.9rem;
@@ -116,7 +114,7 @@
     margin-bottom: 0.75rem;
     line-height: 1.2;
     font-variant-numeric: lining-nums;
-    font-feature-settings: "lnum" 1;
+    font-feature-settings: 'lnum' 1;
   }
 
   .risaa-popup-text {
@@ -129,8 +127,8 @@
     display: inline-block;
     padding: 12px 24px;
     background: rgba(216, 167, 100, 0.1);
-    border: 1px dashed #D4AF37;
-    color: #D4AF37;
+    border: 1px dashed #d4af37;
+    color: #d4af37;
     font-family: var(--font-body);
     font-size: 1.3rem;
     font-weight: 600;
@@ -153,8 +151,8 @@
   }
 
   .risaa-popup-btn:hover {
-    background: #D4AF37;
-    border-color: #D4AF37;
+    background: #d4af37;
+    border-color: #d4af37;
     color: #ffffff;
   }
 {%- endstyle -%}
@@ -162,29 +160,33 @@
 <div id="RisaaWelcomePopup" class="risaa-welcome-popup-overlay">
   <div class="risaa-welcome-popup">
     <button class="risaa-popup-close" id="RisaaPopupClose" aria-label="Close">&times;</button>
-    
+
     {% if section.settings.image != blank %}
       <img class="risaa-popup-image" src="{{ section.settings.image | image_url: width: 600 }}" alt="Welcome Offer">
     {% else %}
-      <img class="risaa-popup-image" src="https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg" alt="Welcome Offer">
+      <img
+        class="risaa-popup-image"
+        src="https://ik.imagekit.io/flashspdstr/risaa/hero%20banner%203.jpg?updatedAt=1780859138837"
+        alt="Welcome Offer"
+      >
     {% endif %}
-    
+
     <div class="risaa-popup-content">
       <span class="risaa-popup-eyebrow">{{ section.settings.eyebrow }}</span>
       <h2 class="risaa-popup-title">{{ section.settings.title }}</h2>
       <p class="risaa-popup-text">{{ section.settings.text }}</p>
-      
+
       {% if section.settings.code != blank %}
         <div class="risaa-popup-code">{{ section.settings.code }}</div>
       {% endif %}
-      
+
       <button class="risaa-popup-btn" id="RisaaPopupContinue">{{ section.settings.btn_text }}</button>
     </div>
   </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const popup = document.getElementById('RisaaWelcomePopup');
     const closeBtn = document.getElementById('RisaaPopupClose');
     const continueBtn = document.getElementById('RisaaPopupContinue');
@@ -218,9 +220,9 @@
 
     closeBtn.addEventListener('click', closePopup);
     continueBtn.addEventListener('click', closePopup);
-    
+
     // Close on overlay click
-    popup.addEventListener('click', function(e) {
+    popup.addEventListener('click', function (e) {
       if (e.target === popup) {
         closePopup();
       }
