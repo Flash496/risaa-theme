@@ -28,7 +28,11 @@
 
     .section-{{ section.id }}-padding .section-header {
       padding-bottom: 25px !important;
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 10px !important;
     }
+
 
 
     .risaa-accordion-container {
@@ -242,7 +246,9 @@
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding reveal-on-scroll">
-  <!-- Section heading removed for Shop by Collection -->
+  <div class="section-header">
+    <h2>Shop by Collections</h2>
+  </div>
 
   <div
     class="risaa-accordion-container"
