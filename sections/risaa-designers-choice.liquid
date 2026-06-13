@@ -197,15 +197,15 @@
       <div
         class="risaa-designers-choice__carousel"
         data-risaa-carousel
-        data-anim-stagger
-        data-anim-delay="0.05"
-        data-anim-step="0.06"
       >
         <ul
           class="product-grid contains-card contains-card--product risaa-designers-choice__track"
           role="list"
           aria-label="{{ 'general.slider.name' | t }}"
           data-risaa-carousel-track
+          data-anim-stagger
+          data-anim-delay="0.05"
+          data-anim-step="0.06"
         >
           {%- assign skip_card_product_styles = false -%}
           {%- if section.settings.collection.products.size > 0 -%}

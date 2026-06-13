@@ -157,9 +157,6 @@
 
     <div
       class="risaa-summer-picks__carousel"
-      data-anim-stagger
-      data-anim-delay="0.05"
-      data-anim-step="0.06"
       data-risaa-carousel
     >
       <ul
@@ -167,6 +164,9 @@
         role="list"
         aria-label="{{ 'general.slider.name' | t }}"
         data-risaa-carousel-track
+        data-anim-stagger
+        data-anim-delay="0.05"
+        data-anim-step="0.06"
       >
         {% if section.settings.collection != blank and section.settings.collection.products.size > 0 %}
           {%- assign skip_card_product_styles = false -%}

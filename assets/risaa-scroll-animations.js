@@ -12,6 +12,20 @@
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Track global scroll direction
+  let lastScrollY = window.scrollY;
+  let scrollDirection = 'down';
+
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY) {
+      scrollDirection = 'down';
+    } else if (currentScrollY < lastScrollY) {
+      scrollDirection = 'up';
+    }
+    lastScrollY = currentScrollY;
+  }, { passive: true });
+
   // ── Scroll-driven (Scrubbed) animations for reveal-behind ─────────
   const scrubElements = [];
 
@@ -132,24 +146,45 @@
           return;
         }
 
-        if (entry.isIntersecting) {
-          // Animate in — stagger forward
-          children.forEach((child, i) => {
-            child.style.transitionDelay = `${baseDelay + i * step}s`;
-          });
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => parent.classList.add('is-visible'));
-          });
+        const rect = entry.boundingClientRect;
+        const ratio = entry.intersectionRatio;
+        const isIntersecting = entry.isIntersecting;
+        const isNearBottom = rect.top > window.innerHeight * 0.5;
+        const hasClass = parent.classList.contains('is-visible');
+
+        if (isIntersecting) {
+          if (hasClass) {
+            // Currently visible: check if we should exit (scroll up and leave through bottom)
+            if (scrollDirection === 'up' && isNearBottom && ratio < 0.06) {
+              parent.classList.remove('is-visible');
+            }
+          } else {
+            // Currently hidden: check if we should enter
+            if (scrollDirection === 'down') {
+              // Fresh entry from bottom (ratio < 0.15) OR scrolled back down significantly (ratio >= 0.55)
+              if ((rect.top > 0 && ratio < 0.15) || ratio >= 0.55) {
+                children.forEach((child, i) => {
+                  child.style.transitionDelay = `${baseDelay + i * step}s`;
+                });
+                parent.classList.add('is-visible');
+              }
+            } else if (ratio >= 0.55) {
+              // If scrolling up but element is well inside the viewport
+              children.forEach((child, i) => {
+                child.style.transitionDelay = `${baseDelay + i * step}s`;
+              });
+              parent.classList.add('is-visible');
+            }
+          }
         } else {
-          // Reverse — remove stagger delays so exit is clean and simultaneous
-          children.forEach((child) => {
-            child.style.transitionDelay = '0s';
-          });
-          parent.classList.remove('is-visible');
+          // Completely out of view
+          if (isNearBottom) {
+            parent.classList.remove('is-visible');
+          }
         }
       });
     },
-    { rootMargin: '0px 0px -40px 0px', threshold: 0.06 },
+    { rootMargin: '0px 0px -40px 0px', threshold: [0.06, 0.15, 0.3, 0.55, 0.8] },
   );
 
   // ── Init ─────────────────────────────────────────────────────────

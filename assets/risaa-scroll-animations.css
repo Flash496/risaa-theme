@@ -158,8 +158,8 @@
 [data-anim-stagger] > * {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.4s ease,
-              transform 0.4s ease;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 [data-anim-stagger].is-visible > * {
   opacity: 1;
@@ -172,8 +172,8 @@
 [data-anim-stagger="bloom"] > * {
   opacity: 0;
   transform: scale(0.9) translateY(20px);
-  transition: opacity 0.4s ease,
-              transform 0.4s ease;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 [data-anim-stagger="bloom"].is-visible > * {
   opacity: 1;
