@@ -151,7 +151,7 @@
     background: #fff;
     padding: 30px;
     border-radius: 0;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), 0 12px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
     border: 1px solid #f5f5f5;
     transition: opacity 0.25s ease, transform 0.25s ease;
   }
@@ -342,14 +342,109 @@
     }
   }
 
-  @media screen and (max-width: 990px) {
+  @media screen and (min-width: 750px) {
     .risaa-reels-layout {
-      flex-direction: column;
-      gap: 40px;
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 40px 0 !important;
+      gap: 0 !important;
+      position: relative !important;
+      overflow: hidden !important;
+      height: 520px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
     }
+
+    .risaa-reels-stack-side {
+      flex: 1 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    .risaa-reels-stack {
+      display: flex !important;
+      gap: 10px !important;
+      width: max-content !important;
+      height: 426px !important;
+      perspective: none !important;
+      position: relative !important;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+      will-change: transform;
+    }
+
+    .risaa-video-card {
+      position: relative !important;
+      flex: 0 0 240px !important;
+      width: 240px !important;
+      height: 426px !important;
+      top: auto !important;
+      left: auto !important;
+      transform: scale(0.9) !important;
+      opacity: 0.5 !important;
+      pointer-events: auto !important;
+      z-index: 1 !important;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease !important;
+    }
+
+    .risaa-video-card.is-active {
+      opacity: 1 !important;
+      transform: scale(1.05) !important;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28) !important;
+      z-index: 5 !important;
+    }
+
+    .risaa-video-card.card-1,
+    .risaa-video-card.card-2,
+    .risaa-video-card.card-3,
+    .risaa-video-card.card-hidden {
+      position: relative !important;
+      transform: scale(0.9) !important;
+      opacity: 0.5 !important;
+      pointer-events: auto !important;
+      z-index: 1 !important;
+    }
+
+    .risaa-video-card.card-1.is-active,
+    .risaa-video-card.card-2.is-active,
+    .risaa-video-card.card-3.is-active,
+    .risaa-video-card.card-hidden.is-active {
+      opacity: 1 !important;
+      transform: scale(1.05) !important;
+      z-index: 5 !important;
+    }
+
     .risaa-reels-info-side {
-      text-align: center;
-      align-items: center;
+      position: absolute !important;
+      left: calc(50% + 140px) !important;
+      right: auto !important;
+      top: 50% !important;
+      transform: translateY(-50%) scale(0.92) !important;
+      width: 300px !important;
+      max-width: 300px !important;
+      z-index: 15 !important;
+      pointer-events: auto !important;
+      opacity: 0 !important;
+      filter: blur(12px) !important;
+      transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), filter 1.2s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    }
+
+    .risaa-reels-layout.is-bloomed .risaa-reels-info-side {
+      opacity: 1 !important;
+      transform: translateY(-50%) scale(1) !important;
+      filter: blur(0) !important;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 990px) {
+    .risaa-reels-info-side {
+      left: calc(50% + 105px) !important;
+      width: 250px !important;
+      max-width: 250px !important;
     }
   }
 
@@ -641,10 +736,26 @@
 
 <script>
   function handleCardClick(card, blockId) {
-    if (card.classList.contains('card-1')) {
-      openRisaaModal(blockId);
+    if (window.innerWidth < 750) {
+      if (card.classList.contains('card-1')) {
+        openRisaaModal(blockId);
+      } else {
+        shuffleStack('{{ section.id }}', 'next');
+      }
     } else {
-      shuffleStack('{{ section.id }}', 'next');
+      if (card.classList.contains('is-active')) {
+        openRisaaModal(blockId);
+      } else {
+        const stack = card.closest('.risaa-reels-stack');
+        if (stack) {
+          const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
+          const index = cards.indexOf(card);
+          if (index !== -1) {
+            stack.dataset.activeIndex = index;
+            setActiveCarouselIndex('{{ section.id }}', index);
+          }
+        }
+      }
     }
   }
 
@@ -653,6 +764,7 @@
     if (!data) return;
 
     const container = document.getElementById(`activeProductInfo-${sectionId}`);
+    if (!container) return;
     const card = container.closest('.active-product-card') || container;
 
     // Exit animation
@@ -682,44 +794,200 @@
     }, 0);
   }
 
-  function shuffleStack(sectionId, direction) {
+  function setActiveCarouselIndex(sectionId, index, animate = true) {
     const stack = document.getElementById(`reelsStack-${sectionId}`);
-    const topCard = stack.querySelector('.card-1');
-    if (!topCard) return;
+    if (!stack) return;
+    const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
+    if (cards.length === 0) return;
 
-    topCard.classList.add('shuffling');
+    if (index < 0) index = cards.length - 1;
+    if (index >= cards.length) index = 0;
 
-    setTimeout(() => {
-      topCard.classList.remove('shuffling');
-      stack.appendChild(topCard);
-
-      const newCards = Array.from(stack.querySelectorAll('.risaa-video-card'));
-      newCards.forEach((card, i) => {
-        card.className = 'risaa-video-card';
-        const pos = i + 1;
-        if (pos <= 3) card.classList.add(`card-${pos}`);
-        else card.classList.add('card-hidden');
-
-        const video = card.querySelector('video');
+    cards.forEach((card, i) => {
+      const video = card.querySelector('video');
+      if (i === index) {
+        card.classList.add('is-active');
         if (video) {
-          if (pos === 1) video.play();
-          else video.pause();
+          video.play().catch(e => console.log('Auto-play blocked or failed:', e));
         }
-      });
+      } else {
+        card.classList.remove('is-active');
+        if (video) video.pause();
+      }
+    });
 
-      const activeBlockId = stack.querySelector('.card-1').getAttribute('data-block-id');
-      updateProductInfo(sectionId, activeBlockId);
-    }, 600);
+    // Translate stack to center the active card
+    const stackSide = stack.closest('.risaa-reels-stack-side');
+    if (stackSide) {
+      const containerWidth = stackSide.offsetWidth;
+      const cardWidth = 240; // Desktop card width
+      const gap = 10; // Gap between cards
+      const activeX = index * (cardWidth + gap) + cardWidth / 2;
+      const translation = containerWidth / 2 - activeX;
+
+      if (!animate) {
+        stack.style.setProperty('transition', 'none', 'important');
+      } else {
+        stack.style.removeProperty('transition');
+      }
+      stack.style.transform = `translateX(${translation}px)`;
+    }
+
+    // Update Shop the Look info
+    const activeCard = cards[index];
+    if (activeCard) {
+      const blockId = activeCard.getAttribute('data-block-id');
+      updateProductInfo(sectionId, blockId);
+    }
+  }
+
+  function shuffleStack(sectionId, direction) {
+    if (window.innerWidth < 750) {
+      const stack = document.getElementById(`reelsStack-${sectionId}`);
+      const topCard = stack.querySelector('.card-1');
+      if (!topCard) return;
+
+      topCard.classList.add('shuffling');
+
+      setTimeout(() => {
+        topCard.classList.remove('shuffling');
+        stack.appendChild(topCard);
+
+        const newCards = Array.from(stack.querySelectorAll('.risaa-video-card'));
+        newCards.forEach((card, i) => {
+          card.className = 'risaa-video-card';
+          const pos = i + 1;
+          if (pos <= 3) card.classList.add(`card-${pos}`);
+          else card.classList.add('card-hidden');
+
+          const video = card.querySelector('video');
+          if (video) {
+            if (pos === 1) video.play().catch(e => {});
+            else video.pause();
+          }
+        });
+
+        const activeBlockId = stack.querySelector('.card-1').getAttribute('data-block-id');
+        updateProductInfo(sectionId, activeBlockId);
+      }, 600);
+    } else {
+      const stack = document.getElementById(`reelsStack-${sectionId}`);
+      if (!stack) return;
+      const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
+      if (cards.length === 0) return;
+
+      let activeIndex = parseInt(stack.dataset.activeIndex);
+      if (isNaN(activeIndex)) {
+        activeIndex = cards.findIndex(card => card.classList.contains('is-active'));
+      }
+      if (activeIndex === -1) activeIndex = 0;
+
+      // Handle boundary limits check beforehand (pre-snap) to handle fast clicks smoothly
+      const N = cards.length / 3;
+      if (activeIndex < N) {
+        activeIndex = activeIndex + N;
+        stack.dataset.activeIndex = activeIndex;
+        setActiveCarouselIndex(sectionId, activeIndex, false);
+      } else if (activeIndex >= 2 * N) {
+        activeIndex = activeIndex - N;
+        stack.dataset.activeIndex = activeIndex;
+        setActiveCarouselIndex(sectionId, activeIndex, false);
+      }
+
+      if (direction === 'next') {
+        activeIndex = activeIndex + 1;
+      } else {
+        activeIndex = activeIndex - 1;
+      }
+
+      stack.dataset.activeIndex = activeIndex;
+      setActiveCarouselIndex(sectionId, activeIndex, true);
+    }
+  }
+
+  function handleTransitionEnd(e) {
+    if (e.propertyName !== 'transform') return;
+    if (e.target !== e.currentTarget) return; // Prevent bubbling from card animations
+
+    const stack = e.currentTarget;
+    const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
+    if (cards.length === 0) return;
+
+    const N = cards.length / 3;
+    let activeIndex = parseInt(stack.dataset.activeIndex);
+    if (isNaN(activeIndex)) return;
+
+    if (activeIndex < N) {
+      activeIndex = activeIndex + N;
+      stack.dataset.activeIndex = activeIndex;
+      setActiveCarouselIndex('{{ section.id }}', activeIndex, false);
+    } else if (activeIndex >= 2 * N) {
+      activeIndex = activeIndex - N;
+      stack.dataset.activeIndex = activeIndex;
+      setActiveCarouselIndex('{{ section.id }}', activeIndex, false);
+    }
+  }
+
+  function initDesktopCarousel(sectionId) {
+    const stack = document.getElementById(`reelsStack-${sectionId}`);
+    if (!stack) return;
+    if (stack.dataset.clonedInitialized === 'true') return;
+
+    const originalCards = Array.from(stack.querySelectorAll('.risaa-video-card:not(.is-clone)'));
+    const N = originalCards.length;
+    if (N === 0) return;
+
+    // Clone and prepend
+    const prependContainer = document.createDocumentFragment();
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.classList.add('is-clone');
+      prependContainer.appendChild(clone);
+    });
+
+    // Clone and append
+    const appendContainer = document.createDocumentFragment();
+    originalCards.forEach(card => {
+      const clone = card.cloneNode(true);
+      clone.classList.add('is-clone');
+      appendContainer.appendChild(clone);
+    });
+
+    stack.insertBefore(prependContainer, stack.firstChild);
+    stack.appendChild(appendContainer);
+
+    stack.addEventListener('transitionend', handleTransitionEnd);
+    stack.dataset.clonedInitialized = 'true';
+  }
+
+  function destroyDesktopCarousel(sectionId) {
+    const stack = document.getElementById(`reelsStack-${sectionId}`);
+    if (!stack) return;
+    if (stack.dataset.clonedInitialized !== 'true') return;
+
+    const clones = stack.querySelectorAll('.is-clone');
+    clones.forEach(clone => clone.remove());
+
+    stack.removeEventListener('transitionend', handleTransitionEnd);
+    stack.dataset.clonedInitialized = 'false';
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     const stack = document.getElementById('reelsStack-{{ section.id }}');
     if (stack) {
-      const topCard = stack.querySelector('.card-1');
-      if (topCard) {
-        const video = topCard.querySelector('video');
-        if (video) video.play();
-        updateProductInfo('{{ section.id }}', topCard.getAttribute('data-block-id'));
+      if (window.innerWidth >= 750) {
+        initDesktopCarousel('{{ section.id }}');
+        const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
+        const N = cards.length / 3;
+        stack.dataset.activeIndex = N;
+        setActiveCarouselIndex('{{ section.id }}', N, false);
+      } else {
+        const topCard = stack.querySelector('.card-1');
+        if (topCard) {
+          const video = topCard.querySelector('video');
+          if (video) video.play().catch(e => {});
+          updateProductInfo('{{ section.id }}', topCard.getAttribute('data-block-id'));
+        }
       }
     }
 
@@ -738,6 +1006,56 @@
         }, 4000);
       });
     }
+
+    // Resize listener for desktop carousel translation alignment / mobile recovery
+    window.addEventListener('resize', () => {
+      const rStack = document.getElementById('reelsStack-{{ section.id }}');
+      if (!rStack) return;
+
+      if (window.innerWidth >= 750) {
+        if (rStack.dataset.clonedInitialized !== 'true') {
+          initDesktopCarousel('{{ section.id }}');
+          const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
+          const N = cards.length / 3;
+          rStack.dataset.activeIndex = N;
+          setActiveCarouselIndex('{{ section.id }}', N, false);
+        } else {
+          let activeIndex = parseInt(rStack.dataset.activeIndex);
+          if (isNaN(activeIndex)) {
+            const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
+            activeIndex = cards.findIndex(card => card.classList.contains('is-active'));
+            if (activeIndex === -1) {
+              const N = cards.length / 3;
+              activeIndex = N;
+            }
+          }
+          setActiveCarouselIndex('{{ section.id }}', activeIndex, false);
+        }
+      } else {
+        if (rStack.dataset.clonedInitialized === 'true') {
+          destroyDesktopCarousel('{{ section.id }}');
+          rStack.style.transform = '';
+          const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
+          cards.forEach((card, i) => {
+            card.classList.remove('is-active');
+            card.className = 'risaa-video-card';
+            const pos = i + 1;
+            if (pos <= 3) card.classList.add(`card-${pos}`);
+            else card.classList.add('card-hidden');
+
+            const video = card.querySelector('video');
+            if (video) {
+              if (pos === 1) video.play().catch(e => {});
+              else video.pause();
+            }
+          });
+          const topCard = rStack.querySelector('.card-1');
+          if (topCard) {
+            updateProductInfo('{{ section.id }}', topCard.getAttribute('data-block-id'));
+          }
+        }
+      }
+    });
   });
 </script>
 
