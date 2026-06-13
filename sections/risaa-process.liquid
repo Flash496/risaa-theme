@@ -150,6 +150,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.getElementById('risaa-process-{{ section.id }}');
+    if (!section) return;
     const cards = section.querySelectorAll('.risaa-process__step');
     const header = section.querySelector('.risaa-process__header');
     
@@ -158,23 +159,54 @@
     const headerSpeed = 0.28;
     const cardSpeeds = [0.22, 0.13, 0.35, 0.16]; // card 1, 2, 3, 4
     
+    let cardStaticOffsets = [];
+    let headerStaticOffset = 0;
+    
+    const calculateOffsets = () => {
+      // Save current transforms
+      const savedHeaderTransform = header ? header.style.transform : '';
+      const savedCardTransforms = Array.from(cards).map(card => card.style.transform);
+      
+      // Temporarily clear transforms to get static layout positions
+      if (header) header.style.transform = '';
+      cards.forEach(card => card.style.transform = '');
+      
+      const sectionRect = section.getBoundingClientRect();
+      const sectionTop = sectionRect.top + window.scrollY;
+      
+      if (header) {
+        headerStaticOffset = (header.getBoundingClientRect().top + window.scrollY) - sectionTop;
+      }
+      
+      cardStaticOffsets = Array.from(cards).map(card => {
+        return (card.getBoundingClientRect().top + window.scrollY) - sectionTop;
+      });
+      
+      // Restore transforms
+      if (header) header.style.transform = savedHeaderTransform;
+      cards.forEach((card, idx) => {
+        card.style.transform = savedCardTransforms[idx] || '';
+      });
+    };
+    
     const handleScroll = () => {
       const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top;
       const windowHeight = window.innerHeight;
       
-      // Settle the cards to 0 translation when the section top reaches 20% from the top of the viewport.
-      // This makes the slide up animation finish 20% sooner than before (when it was at 0).
-      const targetTop = windowHeight * 0.2;
-      const diff = rect.top - targetTop;
+      // Header target viewport position
+      const headerTargetTop = windowHeight * 0.2;
+      const headerStaticTop = sectionTop + headerStaticOffset;
+      const headerDiff = headerStaticTop - headerTargetTop;
       
       // Animate Header
       if (header) {
-        let headerYMove = diff * headerSpeed;
-        let headerRotation = diff * 0.05;
+        let headerYMove = headerDiff * headerSpeed;
+        let headerRotation = headerDiff * 0.05;
         headerRotation = Math.max(0, Math.min(60, headerRotation));
         
-        if (diff < 0) {
-          headerYMove = diff * (headerSpeed * 0.6);
+        if (headerDiff < 0) {
+          headerYMove = headerDiff * (headerSpeed * 0.6);
           headerRotation = 0;
         }
         
@@ -184,16 +216,22 @@
       // Animate Cards
       cards.forEach((card, index) => {
         const speed = cardSpeeds[index];
+        const cardStaticOffset = cardStaticOffsets[index] || 0;
+        const cardStaticTop = sectionTop + cardStaticOffset;
         
-        let yMove = diff * speed;
+        // Target viewport position for the card to settle
+        const cardTargetTop = windowHeight * 0.35;
+        const cardDiff = cardStaticTop - cardTargetTop;
+        
+        let yMove = cardDiff * speed;
         
         // Rolling rotation effect only applies when scrolling in (below target)
-        let rotation = diff * 0.05; // Slightly reduced rotation multiplier for lower speeds
+        let rotation = cardDiff * 0.05;
         rotation = Math.max(0, Math.min(60, rotation)); // Clamp rotation
         
         // If it scrolls past the target point, keep parallax but remove rotation
-        if (diff < 0) {
-          yMove = diff * (speed * 0.6); // reduce parallax speed when scrolling upwards
+        if (cardDiff < 0) {
+          yMove = cardDiff * (speed * 0.6); // reduce parallax speed when scrolling upwards
           rotation = 0;
         }
         
@@ -201,12 +239,23 @@
       });
     };
     
+    // Initial calculate and layout
+    calculateOffsets();
+    handleScroll();
+    
     window.addEventListener('scroll', () => {
       requestAnimationFrame(handleScroll);
     }, { passive: true });
     
-    // Initial call to set positions
-    handleScroll();
+    window.addEventListener('resize', () => {
+      calculateOffsets();
+      requestAnimationFrame(handleScroll);
+    });
+    
+    window.addEventListener('load', () => {
+      calculateOffsets();
+      requestAnimationFrame(handleScroll);
+    });
   });
 </script>
 

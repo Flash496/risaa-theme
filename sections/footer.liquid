@@ -527,15 +527,42 @@
 
   @media screen and (max-width: 749px) {
     .risaa-footer__top {
-      padding: 0;
+      padding: 30px 0 0;
     }
     .risaa-footer__cols-row {
-      grid-template-columns: 1fr;
-      gap: 28px;
-      padding-bottom: 32px;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding-bottom: 24px;
     }
     .risaa-footer__brand {
+      order: 1;
+      grid-column: span 2;
+      margin-bottom: 12px;
+    }
+    .risaa-footer__brand-desc {
+      margin-bottom: 12px;
+    }
+    /* Shop column (2nd child) */
+    .risaa-footer__cols-row > div:nth-child(2) {
+      order: 2;
       grid-column: span 1;
+    }
+    /* About column (4th child) */
+    .risaa-footer__cols-row > div:nth-child(4) {
+      order: 3;
+      grid-column: span 1;
+    }
+    /* Policies column (3rd child) */
+    .risaa-footer__cols-row > div:nth-child(3) {
+      order: 4;
+      grid-column: span 2;
+      margin-top: 10px;
+    }
+    /* Split Policies links into 2 columns */
+    .risaa-footer__cols-row > div:nth-child(3) .risaa-footer__nav-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
     }
     .risaa-footer__bottom {
       flex-direction: column;
@@ -549,7 +576,6 @@
     }
     .risaa-footer__newsletter-form {
       width: 100%;
-      max-width: 100%;
     }
   }
 {%- endstyle -%}
@@ -839,8 +865,8 @@
       function updateReveal() {
         const height = footerWrapper.offsetHeight;
 
-        // Only apply reveal effect if the footer fits within the viewport.
-        if (height < window.innerHeight) {
+        // Only apply reveal effect if the footer fits within the viewport with tolerance.
+        if (height < window.innerHeight + 100) {
           footerWrapper.style.position = 'fixed';
           footerWrapper.style.bottom = '0';
           footerWrapper.style.left = '0';
@@ -848,7 +874,7 @@
           footerWrapper.style.zIndex = '0';
           footerWrapper.style.transition = 'opacity 0.6s ease';
 
-          // Make the scroll end 10% earlier so the peeling edge overlaps the footer
+          // Make the scroll end 7% earlier so the peeling edge overlaps the footer
           main.style.marginBottom = height * 0.93 + 'px';
         } else {
           // Revert to normal flow
@@ -857,10 +883,17 @@
         }
       }
 
-      // Fade footer in after scrolling one full viewport height
+      // Fade footer in as we scroll near the actual bottom reveal trigger point
       function updateOpacity() {
         const scrolled = window.scrollY;
-        const threshold = window.innerHeight;
+        const height = footerWrapper.offsetHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const windowHeight = window.innerHeight;
+        
+        // Calculate the scroll position where the footer reveal starts
+        const revealStart = documentHeight - height - windowHeight;
+        const threshold = Math.max(0, revealStart - 200);
+        
         if (scrolled >= threshold) {
           footerWrapper.style.opacity = '1';
           footerWrapper.style.pointerEvents = 'auto';

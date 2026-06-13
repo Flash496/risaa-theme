@@ -49,7 +49,8 @@
 
   .announcement-bar__carousel {
     position: relative;
-    height: 20px; /* Adjust based on font size */
+    height: auto;
+    min-height: 20px; /* Adjust based on font size */
     width: 100%;
     display: flex;
     align-items: center;
@@ -74,6 +75,24 @@
     opacity: 1;
     pointer-events: auto;
     position: relative;
+  }
+
+  @media screen and (max-width: 749px) {
+    .announcement-bar {
+      padding: 8px 0;
+    }
+    .announcement-bar__carousel {
+      height: auto;
+      min-height: 28px;
+    }
+    .announcement-bar__item {
+      font-size: 1.1rem;
+      line-height: 1.3;
+      padding: 0 10px;
+    }
+    .announcement-bar__btn {
+      padding: 0 5px;
+    }
   }
 {%- endstyle -%}
 

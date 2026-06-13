@@ -90,8 +90,8 @@
   }
 
   .risaa-summer-picks__controls {
-    left: 60px;
-    right: 60px;
+    left: 15px;
+    right: 15px;
   }
 
   .risaa-summer-picks__button:hover {
@@ -135,6 +135,10 @@
     .risaa-summer-picks {
       padding: 0;
     }
+    .risaa-summer-picks__carousel {
+      padding-inline: 0;
+      clip-path: none;
+    }
     .risaa-summer-picks__title {
       font-size: 2rem;
     }
@@ -145,6 +149,10 @@
       flex-basis: calc((100% - var(--risaa-carousel-gap)) / 2);
       width: calc((100% - var(--risaa-carousel-gap)) / 2);
       max-width: calc((100% - var(--risaa-carousel-gap)) / 2);
+    }
+    .risaa-summer-picks__controls {
+      left: 10px;
+      right: 10px;
     }
   }
 {%- endstyle -%}
