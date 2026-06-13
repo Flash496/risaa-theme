@@ -57,17 +57,8 @@
         const layout = el.querySelector('.risaa-reels-layout');
         if (layout) {
           if (p >= 1) {
-            if (!layout._bloomTimer) {
-              layout._bloomTimer = setTimeout(() => {
-                layout.classList.add('is-bloomed');
-                layout._bloomTimer = null;
-              }, 500);
-            }
+            layout.classList.add('is-bloomed');
           } else {
-            if (layout._bloomTimer) {
-              clearTimeout(layout._bloomTimer);
-              layout._bloomTimer = null;
-            }
             layout.classList.remove('is-bloomed');
           }
         }

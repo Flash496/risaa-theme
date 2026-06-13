@@ -8,6 +8,43 @@
     z-index: 1000;
     text-align: center;
     border-bottom: 1px solid rgba(110, 20, 35, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .announcement-bar__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .announcement-bar__btn {
+    background: none;
+    border: none;
+    color: var(--brand-main);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 15px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  
+  .announcement-bar__btn:hover {
+    opacity: 1;
+  }
+
+  .announcement-bar__btn svg {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
   }
 
   .announcement-bar__carousel {
@@ -41,12 +78,30 @@
 {%- endstyle -%}
 
 <div class="announcement-bar" role="region" aria-label="Announcement">
-  <div class="announcement-bar__carousel" id="AnnouncementCarousel-{{ section.id }}">
-    {%- for block in section.blocks -%}
-      <div class="announcement-bar__item {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
-        {{ block.settings.text }}
-      </div>
-    {%- endfor -%}
+  <div class="announcement-bar__wrapper">
+    {%- if section.blocks.size > 1 -%}
+      <button class="announcement-bar__btn announcement-bar__btn--prev" aria-label="Previous announcement">
+        <span class="svg-wrapper" style="transform: rotate(90deg); display: flex;">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+      </button>
+    {%- endif -%}
+
+    <div class="announcement-bar__carousel" id="AnnouncementCarousel-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        <div class="announcement-bar__item {% if forloop.first %}active{% endif %}" {{ block.shopify_attributes }}>
+          {{ block.settings.text }}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.blocks.size > 1 -%}
+      <button class="announcement-bar__btn announcement-bar__btn--next" aria-label="Next announcement">
+        <span class="svg-wrapper" style="transform: rotate(-90deg); display: flex;">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+      </button>
+    {%- endif -%}
   </div>
 </div>
 
@@ -60,19 +115,58 @@
 
     let currentIndex = 0;
     const totalItems = items.length;
+    let autoPlayInterval;
 
-    setInterval(() => {
-      // Remove active class from current
+    function showSlide(index) {
       items[currentIndex].classList.remove('active');
       items[currentIndex].style.position = 'absolute';
       
-      // Move to next
-      currentIndex = (currentIndex + 1) % totalItems;
+      currentIndex = (index + totalItems) % totalItems;
       
-      // Add active class to new
       items[currentIndex].classList.add('active');
       items[currentIndex].style.position = 'relative';
-    }, 4000); // Change slide every 4 seconds
+    }
+
+    function nextSlide() {
+      showSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentIndex - 1);
+    }
+
+    function startAutoPlay() {
+      stopAutoPlay();
+      autoPlayInterval = setInterval(nextSlide, 4000);
+    }
+
+    function stopAutoPlay() {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+      }
+    }
+
+    // Event listeners for buttons
+    // Since we have multiple elements inside the section, we scope the query to this section
+    const prevBtn = carousel.parentElement.querySelector('.announcement-bar__btn--prev');
+    const nextBtn = carousel.parentElement.querySelector('.announcement-bar__btn--next');
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        startAutoPlay(); // Reset timer on manual click
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        startAutoPlay(); // Reset timer on manual click
+      });
+    }
+
+    // Start auto-play initially
+    startAutoPlay();
   });
 </script>
 

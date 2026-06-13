@@ -58,23 +58,23 @@
   .risaa-occasions__arrow {
     position: absolute;
     top: 45%;
-    transform: translateY(-50%) scale(0.9);
+    transform: translateY(-50%) scale(1);
     z-index: 10;
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0.8;
+    pointer-events: auto;
     transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.4);
     padding: 0;
   }
   .risaa-occasions__arrow svg {
@@ -93,16 +93,16 @@
   }
 
   .risaa-occasions__carousel-outer:hover .risaa-occasions__arrow {
-    opacity: 0.7;
-    pointer-events: auto;
-    transform: translateY(-50%) scale(1);
+    opacity: 1;
   }
   .risaa-occasions__arrow:hover,
   .risaa-occasions__arrow:focus-visible {
     opacity: 1;
-    background: rgba(255, 255, 255, 0.35);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.12);
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     transform: translateY(-50%) scale(1.05);
   }
   .risaa-occasions__arrow:hover svg,
@@ -219,7 +219,7 @@
 {%- endstyle -%}
 
 {%- liquid
-  assign occ_images = 'https://ik.imagekit.io/flashspdstr/risaa/bridal.jpg,https://ik.imagekit.io/flashspdstr/risaa/sangeet.jpg,https://ik.imagekit.io/flashspdstr/risaa/mehendi.png,https://ik.imagekit.io/flashspdstr/risaa/reception.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png,https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg,https://ik.imagekit.io/flashspdstr/risaa/Elevate%20your%20ethnic%20wardrobe%20with%20this%20gorgeous_.jpg' | split: ','
+  assign occ_images = 'https://ik.imagekit.io/flashspdstr/risaa/Screenshot%202026-05-09%20000603.png?updatedAt=1778480717365,https://ik.imagekit.io/flashspdstr/risaa/sangeet.jpg,https://ik.imagekit.io/flashspdstr/risaa/mehendi.png,https://ik.imagekit.io/flashspdstr/risaa/reception.jpg,https://ik.imagekit.io/flashspdstr/risaa/couture.jpg,https://ik.imagekit.io/flashspdstr/risaa/pret.jpg,https://ik.imagekit.io/flashspdstr/risaa/trousseau.png,https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg,https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg,https://ik.imagekit.io/flashspdstr/risaa/Elevate%20your%20ethnic%20wardrobe%20with%20this%20gorgeous_.jpg' | split: ','
   assign occ_names = 'Bridal,Sangeet,Mehendi,Reception,Couture,Pret,Trousseau,Festive,Cocktail,Casual Chic' | split: ','
   assign occ_links = '/collections/bridal,/collections/sangeet,/collections/mehendi,/collections/reception,/collections/couture,/collections/pret,/collections/trousseau,/collections/festive,/collections/cocktail,/collections/all' | split: ','
 -%}

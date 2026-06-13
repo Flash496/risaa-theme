@@ -5,147 +5,323 @@
   {% render 'header-dropdown-menu' %}
 {% endcomment %}
 
+<style>
+  /* Mega menu overrides and premium minimal aesthetics */
+  @media screen and (min-width: 990px) {
+    /* Break relative positioning chain so the dropdown aligns to .header-wrapper */
+    .header__inline-menu,
+    .header__inline-menu > ul,
+    .header__inline-menu > ul > li,
+    header-menu,
+    #Details-HeaderMenu-Shop {
+      position: static !important;
+    }
+
+    .header__inline-menu details:hover > summary {
+      color: #121212 !important;
+    }
+  }
+
+  /* Force solid white header when sticky is hovered or active */
+  .shopify-section-header-sticky .header-wrapper:hover,
+  .shopify-section-header-sticky .header-wrapper.navbar-active {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+  }
+  
+  .shopify-section-header-sticky .header-wrapper:hover .header__menu-item,
+  .shopify-section-header-sticky .header-wrapper:hover .header__icon,
+  .shopify-section-header-sticky .header-wrapper:hover .header__heading-link,
+  .shopify-section-header-sticky .header-wrapper:hover .header__menu-item span,
+  .shopify-section-header-sticky .header-wrapper:hover .header__icon span,
+  .shopify-section-header-sticky .header-wrapper:hover .header__icon svg,
+  .shopify-section-header-sticky .header-wrapper.navbar-active .header__menu-item,
+  .shopify-section-header-sticky .header-wrapper.navbar-active .header__icon,
+  .shopify-section-header-sticky .header-wrapper.navbar-active .header__heading-link,
+  .shopify-section-header-sticky .header-wrapper.navbar-active .header__menu-item span,
+  .shopify-section-header-sticky .header-wrapper.navbar-active .header__icon span,
+  .shopify-section-header-sticky .header-wrapper.navbar-active .header__icon svg {
+    color: #1a1a1a !important;
+    fill: #1a1a1a !important;
+  }
+  
+  .shopify-section-header-sticky .header-wrapper:hover .header__heading-link .logo-white,
+  .shopify-section-header-sticky .header-wrapper.navbar-active .header__heading-link .logo-white {
+    display: none !important;
+  }
+  
+  .shopify-section-header-sticky .header-wrapper:hover .header__heading-link .logo-black,
+  .shopify-section-header-sticky .header-wrapper.navbar-active .header__heading-link .logo-black {
+    display: block !important;
+  }
+
+  /* Page-wide Minimal Dropdown Panel aligned to the page width without horizontal overflow */
+  .risaa-mega-menu {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    transform: none !important;
+    background: #ffffff !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-left: none !important;
+    border-right: none !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;
+    padding: 3rem 0 !important;
+    box-sizing: border-box !important;
+    z-index: 99 !important;
+    top: 100% !important;
+    margin-top: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  /* Invisible bridge to prevent mouseleave trigger during cursor transit between summary and panel */
+  .risaa-mega-menu::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -30px !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 30px !important;
+    background: transparent !important;
+    z-index: 1 !important;
+  }
+
+  .risaa-mega-menu__container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 4rem !important;
+  }
+
+  .risaa-mega-menu__grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 40px !important;
+  }
+
+  .risaa-mega-menu__col {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .risaa-mega-menu__title {
+    font-family: var(--font-body-family), sans-serif !important;
+    font-size: 1.15rem !important;
+    color: #121212 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.12em !important;
+    margin: 0 0 16px 0 !important;
+    font-weight: 500 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+
+  .risaa-mega-menu__list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .risaa-mega-menu__list a {
+    font-family: var(--font-body-family), sans-serif !important;
+    font-size: 1.3rem !important;
+    color: #666666 !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    font-weight: 300 !important;
+    line-height: 1.4 !important;
+  }
+
+  .risaa-mega-menu__list a:hover {
+    color: #121212 !important;
+  }
+</style>
+
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
-    {%- for link in section.settings.menu.links -%}
-      {%- assign display_title = link.title | escape -%}
-      {%- assign link_title_lower = link.title | downcase | strip -%}
-      {%- if link_title_lower == 'catalogue' or link_title_lower == 'catalog' -%}
-        {%- assign display_title = 'Shop' -%}
+    {%- assign menu_sequence = "Summer closet,Founder's favourites,Shop,About us,Ur store" | split: ',' -%}
+    {%- for tab in menu_sequence -%}
+      {%- assign is_active = false -%}
+      {%- if tab == 'Summer closet' -%}
+        {%- assign tab_url = '/collections/summer-favourites' -%}
+      {%- elsif tab == "Founder's favourites" -%}
+        {%- assign tab_url = '/collections/founders-pick' -%}
+      {%- elsif tab == 'About us' -%}
+        {%- assign tab_url = '/pages/about' -%}
+        {%- if request.page_type == 'page' and page.handle == 'about' -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
+      {%- elsif tab == 'Ur store' -%}
+        {%- assign tab_url = '/pages/our-store' -%}
+        {%- if request.page_type == 'page' and page.handle == 'our-store' -%}
+          {%- assign is_active = true -%}
+        {%- endif -%}
+      {%- elsif tab == 'Shop' -%}
+        {%- assign tab_url = '/collections/all' -%}
       {%- endif -%}
+
       <li>
-        {%- if link.links != blank -%}
+        {%- if tab == 'Shop' -%}
           <header-menu>
-            <details id="Details-HeaderMenu-{{ forloop.index }}">
+            <details id="Details-HeaderMenu-Shop">
               <summary
-                id="HeaderMenu-{{ link.handle }}"
+                id="HeaderMenu-shop"
                 class="header__menu-item list-menu__item link focus-inset"
               >
-                <span
-                  {%- if link.child_active %}
-                    class="header__active-menu-item"
-                  {% endif %}
-                >
-                  {{- display_title -}}
-                </span>
-                {{- 'icon-caret.svg' | inline_asset_content -}}
+                <span>Shop</span>
               </summary>
-              <ul
-                id="HeaderMenu-MenuList-{{ forloop.index }}"
-                class="header__submenu list-menu list-menu--disclosure color-{{ section.settings.menu_color_scheme }} gradient caption-large motion-reduce global-settings-popup"
-                role="list"
+              <div
+                id="HeaderMenu-MenuList-Shop"
+                class="header__submenu risaa-mega-menu color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                {%- for childlink in link.links -%}
-                  <li>
-                    {%- if childlink.links == blank -%}
-                      <a
-                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                        href="{{ childlink.url }}"
-                        class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if childlink.current %} list-menu__item--active{% endif %}"
-                        {% if childlink.current %}
-                          aria-current="page"
-                        {% endif %}
-                      >
-                        {{ childlink.title | escape }}
-                      </a>
-                    {%- else -%}
-                      <details id="Details-HeaderSubMenu-{{ link.handle }}-{{ childlink.handle }}">
-                        <summary
-                          id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                          class="header__menu-item link link--text list-menu__item focus-inset caption-large"
-                        >
-                          <span>{{ childlink.title | escape }}</span>
-                          {{- 'icon-caret.svg' | inline_asset_content -}}
-                        </summary>
-                        <ul
-                          id="HeaderMenu-SubMenuList-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                          class="header__submenu list-menu motion-reduce"
-                        >
-                          {%- for grandchildlink in childlink.links -%}
-                            <li>
-                              <a
-                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                href="{{ grandchildlink.url }}"
-                                class="header__menu-item list-menu__item link link--text focus-inset caption-large{% if grandchildlink.current %} list-menu__item--active{% endif %}"
-                                {% if grandchildlink.current %}
-                                  aria-current="page"
-                                {% endif %}
-                              >
-                                {{ grandchildlink.title | escape }}
-                              </a>
-                            </li>
-                          {%- endfor -%}
-                        </ul>
-                      </details>
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-              </ul>
+                <div class="risaa-mega-menu__container">
+                  <div class="risaa-mega-menu__grid">
+                    <!-- Column 1: Shop by Occasion -->
+                    <div class="risaa-mega-menu__col">
+                      <h3 class="risaa-mega-menu__title">Shop by Occasion</h3>
+                      <ul class="risaa-mega-menu__list">
+                        <li><a href="/collections/bridal">Bridal</a></li>
+                        <li><a href="/collections/sangeet">Sangeet</a></li>
+                        <li><a href="/collections/mehendi">Mehendi</a></li>
+                        <li><a href="/collections/reception">Reception</a></li>
+                        <li><a href="/collections/couture">Couture</a></li>
+                        <li><a href="/collections/pret">Pret</a></li>
+                        <li><a href="/collections/trousseau">Trousseau</a></li>
+                        <li><a href="/collections/festive">Festive</a></li>
+                        <li><a href="/collections/cocktail">Cocktail</a></li>
+                        <li><a href="/collections/all">Casual Chic</a></li>
+                      </ul>
+                    </div>
+
+                    <!-- Column 2: Shop by Collection -->
+                    <div class="risaa-mega-menu__col">
+                      <h3 class="risaa-mega-menu__title">Shop by Collection</h3>
+                      <ul class="risaa-mega-menu__list">
+                        <li><a href="/collections/bridal">Bridal Couture</a></li>
+                        <li><a href="/collections/trousseau">Trousseau Dreams</a></li>
+                        <li><a href="/collections/pret">Pret Collection</a></li>
+                        <li><a href="/collections/summer-favourites">Summer Closet</a></li>
+                        <li><a href="/collections/new-arrivals">New Arrivals</a></li>
+                        <li><a href="/collections/founders-pick">Founder's Favourites</a></li>
+                      </ul>
+                    </div>
+
+                    <!-- Column 3: Shop by Color -->
+                    <div class="risaa-mega-menu__col">
+                      <h3 class="risaa-mega-menu__title">Shop by Color</h3>
+                      <ul class="risaa-mega-menu__list">
+                        <li><a href="/collections/ruby">Ruby</a></li>
+                        <li><a href="/collections/saffron">Saffron</a></li>
+                        <li><a href="/collections/mocha">Mocha</a></li>
+                        <li><a href="/collections/indigo">Indigo</a></li>
+                        <li><a href="/collections/matcha">Matcha</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </details>
           </header-menu>
         {%- else -%}
           <a
-            id="HeaderMenu-{{ link.handle }}"
-            href="{{ link.url }}"
+            href="{{ tab_url }}"
             class="header__menu-item list-menu__item link link--text focus-inset"
-            {% if link.current %}
+            {% if is_active %}
               aria-current="page"
             {% endif %}
           >
             <span
-              {%- if link.current %}
+              {% if is_active %}
                 class="header__active-menu-item"
               {% endif %}
             >
-              {{- display_title -}}
+              {{- tab -}}
             </span>
           </a>
         {%- endif -%}
       </li>
     {%- endfor -%}
-
-    {%- assign extra_tabs = 'About Us,Our Store,Summer Closet,Founders Pick' | split: ',' -%}
-    {%- for tab in extra_tabs -%}
-      <li>
-        {%- assign is_about_active = false -%}
-        {%- if tab == 'About Us' and request.page_type == 'page' -%}
-          {%- if page.handle == 'about' -%}
-            {%- assign is_about_active = true -%}
-          {%- endif -%}
-        {%- endif -%}
-        {%- if tab == 'About Us' -%}
-          {%- assign tab_url = '/pages/about' -%}
-        {%- elsif tab == 'Our Store' -%}
-          {%- assign tab_url = '/pages/our-store' -%}
-        {%- elsif tab == 'Summer Closet' -%}
-          {%- assign tab_url = '/collections/summer-favourites' -%}
-        {%- elsif tab == 'Founders Pick' -%}
-          {%- assign tab_url = '/collections/founders-pick' -%}
-        {%- else -%}
-          {%- assign tab_url = '/collections/all' -%}
-        {%- endif -%}
-        {%- if tab == 'Founders Pick' -%}
-          {%- assign tab_label = "Founder's Favourites" -%}
-        {%- else -%}
-          {%- assign tab_label = tab -%}
-        {%- endif -%}
-        <a
-          href="{{ tab_url }}"
-          class="header__menu-item list-menu__item link link--text focus-inset"
-          {% if is_about_active %}
-            aria-current="page"
-          {% endif %}
-        >
-          <span
-            {% if is_about_active %}
-              class="header__active-menu-item"
-            {% endif %}
-          >
-            {{- tab_label -}}
-          </span>
-        </a>
-      </li>
-    {%- endfor -%}
   </ul>
 </nav>
+
+<script>
+  (function() {
+    function initShopHover() {
+      const shopDetails = document.getElementById('Details-HeaderMenu-Shop');
+      if (!shopDetails) return;
+
+      let hoverTimer;
+
+      // Enable open-on-hover logic on desktop (viewport >= 990px)
+      shopDetails.addEventListener('mouseenter', () => {
+        if (window.innerWidth >= 990) {
+          clearTimeout(hoverTimer);
+          shopDetails.setAttribute('open', '');
+          shopDetails.querySelector('summary').setAttribute('aria-expanded', 'true');
+          
+          // Add navbar-active to header wrapper to sync white state
+          const headerWrapper = shopDetails.closest('.header-wrapper');
+          if (headerWrapper) {
+            headerWrapper.classList.add('navbar-active');
+          }
+        }
+      });
+
+      shopDetails.addEventListener('mouseleave', () => {
+        if (window.innerWidth >= 990) {
+          hoverTimer = setTimeout(() => {
+            shopDetails.removeAttribute('open');
+            shopDetails.querySelector('summary').setAttribute('aria-expanded', 'false');
+            
+            // Remove navbar-active from header wrapper
+            const headerWrapper = shopDetails.closest('.header-wrapper');
+            if (headerWrapper) {
+              headerWrapper.classList.remove('navbar-active');
+            }
+          }, 150);
+        }
+      });
+
+      // Close Shop dropdown immediately if hovering other menu items (prevents delay hang)
+      const siblingLinks = document.querySelectorAll('.header__inline-menu a.header__menu-item');
+      siblingLinks.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+          if (window.innerWidth >= 990 && !link.closest('#Details-HeaderMenu-Shop')) {
+            clearTimeout(hoverTimer);
+            shopDetails.removeAttribute('open');
+            shopDetails.querySelector('summary').setAttribute('aria-expanded', 'false');
+            const headerWrapper = shopDetails.closest('.header-wrapper');
+            if (headerWrapper) {
+              headerWrapper.classList.remove('navbar-active');
+            }
+          }
+        });
+      });
+
+      // Prevent native click-toggle on summary on desktop viewport to avoid glitching
+      const summary = shopDetails.querySelector('summary');
+      if (summary) {
+        summary.addEventListener('click', (e) => {
+          if (window.innerWidth >= 990) {
+            e.preventDefault();
+          }
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initShopHover);
+    } else {
+      initShopHover();
+    }
+  })();
+</script>

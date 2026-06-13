@@ -61,6 +61,7 @@
   }
 
   .risaa-footer__logo-wrap {
+    padding-bottom: 20px;
   }
 
   .risaa-footer__logo {
@@ -71,7 +72,7 @@
   }
 
   .risaa-footer__logo img {
-    max-width: 160px;
+    max-width: 192px;
     height: auto;
     filter: none;
     opacity: 1;
@@ -591,7 +592,7 @@
                 <img
                   src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20new%20white%20and%20red-Photoroom.png?updatedAt=1780806177877"
                   alt="{{ shop.name }}"
-                  width="160"
+                  width="192"
                   height="auto"
                   loading="lazy"
                 >
@@ -625,14 +626,23 @@
                 <ul class="risaa-footer__nav-list">
                   {%- unless block.settings.heading == 'Help' -%}
                     {%- for link in block.settings.menu.links -%}
+                      {%- assign display_title = link.title | escape -%}
+                      {%- assign link_title_lower = link.title | downcase | strip -%}
+                      {%- if link_title_lower == 'catalogue' or link_title_lower == 'catalog' -%}
+                        {%- assign display_title = 'Shop All' -%}
+                      {%- endif -%}
+                      {%- if link_title_lower contains 'contact' -%}
+                        {%- if block.settings.heading == 'Shop' or block.settings.heading == 'Quick Links' -%}
+                          {%- continue -%}
+                        {%- endif -%}
+                      {%- endif -%}
                       <li>
-                        <a href="{{ link.url }}">{{ link.title | escape }}</a>
+                        <a href="{{ link.url }}">{{ display_title }}</a>
                       </li>
                     {%- endfor -%}
                   {%- endunless -%}
                   {%- if block.settings.heading == 'Shop' or block.settings.heading == 'Quick Links' -%}
-                    <li><a href="/collections/summer-favourites">Summer Favourites</a></li>
-                    <li><a href="/collections/founders-pick">Founder's Pick</a></li>
+                    <li><a href="/collections/bestsellers">Bestsellers</a></li>
                   {%- endif -%}
                   {%- if block.settings.heading == 'Help' -%}
                     <li><a href="/pages/about-us">FAQ</a></li>
