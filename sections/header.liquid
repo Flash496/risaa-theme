@@ -103,27 +103,19 @@
     }
   }
 
-  /* Glassmorphism Implementation */
-  .header-wrapper {
-    background: rgba(250, 248, 245, 0.7) !important;
-    background-color: rgba(250, 248, 245, 0.7) !important;
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid rgba(110, 20, 35, 0.1);
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-  }
-
-  /* Force dark text and icons for visibility */
+  /* Transparent navbar - only on homepage */
+  {%- if request.page_type == 'index' -%}
+  /* Force white text and icons for visibility (default state on homepage) */
   .header__menu-item,
   .header__icon,
   .header__heading-link,
   .header__menu-item span,
   .header__icon span,
   .header__icon svg {
-    color: #1a1a1a !important;
-    fill: #1a1a1a !important;
+    color: #ffffff !important;
+    fill: #ffffff !important;
   }
+  {%- endif -%}
 
   .header-wrapper.gradient {
     background-image: none !important;
@@ -131,9 +123,9 @@
 
   /* Ensure visibility when scrolled */
   .shopify-section-header-sticky .header-wrapper {
-    background: rgba(250, 248, 245, 0.7) !important;
-    background-color: rgba(250, 248, 245, 0.7) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
   }
 
   .header__menu-item:hover, .header__icon:hover {
@@ -194,7 +186,7 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}{% if request.page_type != 'index' %} navbar-white{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -245,11 +237,19 @@
           </div>
         {%- else -%}
           <img
+            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20new%20white%20and%20red-Photoroom.png?updatedAt=1780806177877"
+            alt="Risaa Studio"
+            width="151"
+            height="auto"
+            class="header__heading-logo logo-white"
+            style="max-width: 151px; height: auto;"
+          >
+          <img
             src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20new%20black%20and%20red-Photoroom.png?updatedAt=1780806178046"
             alt="Risaa Studio"
             width="151"
             height="auto"
-            class="header__heading-logo"
+            class="header__heading-logo logo-black"
             style="max-width: 151px; height: auto;"
           >
         {%- endif -%}
@@ -295,9 +295,19 @@
           </div>
         {%- else -%}
           <img
-            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20new%20black%20and%20red-Photoroom.png"
+            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20new%20white%20and%20red-Photoroom.png?updatedAt=1780806177877"
             alt="Risaa Studio"
-            class="header__heading-logo"
+            width="151"
+            height="auto"
+            class="header__heading-logo logo-white"
+            style="max-width: 151px; height: auto;"
+          >
+          <img
+            src="https://ik.imagekit.io/flashspdstr/risaa/risaa%20Logo%20new%20black%20and%20red-Photoroom.png?updatedAt=1780806178046"
+            alt="Risaa Studio"
+            width="151"
+            height="auto"
+            class="header__heading-logo logo-black"
             style="max-width: 151px; height: auto;"
           >
         {%- endif -%}
@@ -394,6 +404,60 @@
     color_scheme: section.settings.color_scheme,
     desktop_menu_type: section.settings.menu_type_desktop
   -%}
+{%- endif -%}
+
+{%- if request.page_type == 'index' -%}
+  <script>
+    // Navbar scroll detection - homepage only
+    (function () {
+      console.log('Scroll detection script loaded');
+
+      function initScrollDetection() {
+        const headerWrapper = document.querySelector('.header-wrapper');
+        const scrollThreshold = 700;
+
+        console.log('Navbar scroll detection initialized');
+        console.log('Header wrapper:', headerWrapper);
+        console.log('Scroll threshold:', scrollThreshold);
+
+        if (headerWrapper) {
+          function handleScroll() {
+            const scrollY = window.scrollY || window.pageYOffset;
+            console.log('Scroll position:', scrollY, 'Threshold:', scrollThreshold);
+
+            if (scrollY > scrollThreshold) {
+              if (!headerWrapper.classList.contains('navbar-active')) {
+                headerWrapper.classList.add('navbar-active');
+                console.log('Added navbar-active class');
+              }
+            } else {
+              if (headerWrapper.classList.contains('navbar-active')) {
+                headerWrapper.classList.remove('navbar-active');
+                console.log('Removed navbar-active class');
+              }
+            }
+          }
+
+          window.addEventListener('scroll', handleScroll);
+
+          // Trigger scroll check on load and after a short delay
+          handleScroll();
+          setTimeout(handleScroll, 500);
+          setTimeout(handleScroll, 1000);
+        } else {
+          console.log('Header wrapper not found, retrying...');
+          setTimeout(initScrollDetection, 500);
+        }
+      }
+
+      // Initialize on DOMContentLoaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initScrollDetection);
+      } else {
+        initScrollDetection();
+      }
+    })();
+  </script>
 {%- endif -%}
 
 {% javascript %}

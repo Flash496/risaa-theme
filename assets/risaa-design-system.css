@@ -66,36 +66,106 @@ h6 {
 }
 
 /* Header */
-.header-wrapper,
-#shopify-section-group-header-group .header-wrapper,
-.shopify-section-group-header-group .header-wrapper {
+.header-wrapper:not(.navbar-white),
+#shopify-section-group-header-group .header-wrapper:not(.navbar-white),
+.shopify-section-group-header-group .header-wrapper:not(.navbar-white) {
   transition: var(--transition-smooth);
   margin-bottom: 0 !important;
-  border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
-  background: rgba(250, 248, 245, 0.7) !important;
-  background-color: rgba(250, 248, 245, 0.7) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  position: sticky;
+  border-bottom: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  box-shadow:
-    0 8px 32px rgba(110, 20, 35, 0.08),
-    0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  box-shadow: none !important;
+}
+
+/* Header - white on non-homepage pages (controlled by Liquid) */
+.header-wrapper.navbar-white,
+#shopify-section-group-header-group .header-wrapper.navbar-white,
+.shopify-section-group-header-group .header-wrapper.navbar-white {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
+  position: sticky !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Black text and icons on white navbar pages */
+.header-wrapper.navbar-white .header__menu-item,
+.header-wrapper.navbar-white .header__icon,
+.header-wrapper.navbar-white .header__heading-link,
+.header-wrapper.navbar-white .header__menu-item span,
+.header-wrapper.navbar-white .header__icon span,
+.header-wrapper.navbar-white .header__icon svg {
+  color: #1a1a1a !important;
+  fill: #1a1a1a !important;
+}
+
+/* Navbar hover/active state - solid white background with black text */
+.header-wrapper:not(.navbar-white):hover,
+.header-wrapper:not(.navbar-white).navbar-active {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+}
+
+.header-wrapper:not(.navbar-white):hover .header__menu-item,
+.header-wrapper:not(.navbar-white):hover .header__icon,
+.header-wrapper:not(.navbar-white):hover .header__heading-link,
+.header-wrapper:not(.navbar-white):hover .header__menu-item span,
+.header-wrapper:not(.navbar-white):hover .header__icon span,
+.header-wrapper:not(.navbar-white):hover .header__icon svg,
+.header-wrapper:not(.navbar-white).navbar-active .header__menu-item,
+.header-wrapper:not(.navbar-white).navbar-active .header__icon,
+.header-wrapper:not(.navbar-white).navbar-active .header__heading-link,
+.header-wrapper:not(.navbar-white).navbar-active .header__menu-item span,
+.header-wrapper:not(.navbar-white).navbar-active .header__icon span,
+.header-wrapper:not(.navbar-white).navbar-active .header__icon svg {
+  color: #1a1a1a !important;
+  fill: #1a1a1a !important;
 }
 
 .header-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
-  pointer-events: none;
-  z-index: -1;
+  display: none;
 }
 
 .header__heading-link {
   position: relative;
   display: inline-block;
+}
+
+/* Logo switching */
+.header-wrapper:not(.navbar-white) .header__heading-link .logo-white {
+  display: block;
+}
+
+.header-wrapper:not(.navbar-white) .header__heading-link .logo-black {
+  display: none;
+}
+
+.header-wrapper:not(.navbar-white):hover .header__heading-link .logo-white,
+.header-wrapper:not(.navbar-white).navbar-active .header__heading-link .logo-white {
+  display: none;
+}
+
+.header-wrapper:not(.navbar-white):hover .header__heading-link .logo-black,
+.header-wrapper:not(.navbar-white).navbar-active .header__heading-link .logo-black {
+  display: block;
+}
+
+/* On white navbar pages, always show black logo */
+.header-wrapper.navbar-white .header__heading-link .logo-white {
+  display: none;
+}
+
+.header-wrapper.navbar-white .header__heading-link .logo-black {
+  display: block;
 }
 
 @media screen and (max-width: 989px) {
@@ -164,7 +234,7 @@ h6 {
   transition: var(--transition-quick);
   padding: 0.5rem !important;
   position: relative;
-  color: var(--brand-dark) !important;
+  color: #ffffff !important;
   text-decoration: none !important;
 }
 
@@ -178,13 +248,34 @@ h6 {
   content: none;
 }
 
-/* Active page: highlight in brand red */
-.header__menu-item[aria-current='page'],
-.header__menu-item[aria-current='page'] span,
-.header__active-menu-item,
-.header__active-menu-item span {
+/* Active page: highlight in gold when transparent, brand red when white */
+.header-wrapper:not(.navbar-white) .header__menu-item[aria-current='page'],
+.header-wrapper:not(.navbar-white) .header__menu-item[aria-current='page'] span,
+.header-wrapper:not(.navbar-white) .header__active-menu-item,
+.header-wrapper:not(.navbar-white) .header__active-menu-item span {
+  color: #ffe599 !important;
+  text-decoration: none !important;
+}
+
+/* Active page: brand red on white navbar pages */
+.header-wrapper.navbar-white .header__menu-item[aria-current='page'],
+.header-wrapper.navbar-white .header__menu-item[aria-current='page'] span,
+.header-wrapper.navbar-white .header__active-menu-item,
+.header-wrapper.navbar-white .header__active-menu-item span {
   color: var(--brand-main) !important;
   text-decoration: none !important;
+}
+
+/* Active page: brand red when navbar is white (hover/scroll) */
+.header-wrapper:not(.navbar-white):hover .header__menu-item[aria-current='page'],
+.header-wrapper:not(.navbar-white):hover .header__menu-item[aria-current='page'] span,
+.header-wrapper:not(.navbar-white):hover .header__active-menu-item,
+.header-wrapper:not(.navbar-white):hover .header__active-menu-item span,
+.header-wrapper:not(.navbar-white).navbar-active .header__menu-item[aria-current='page'],
+.header-wrapper:not(.navbar-white).navbar-active .header__menu-item[aria-current='page'] span,
+.header-wrapper:not(.navbar-white).navbar-active .header__active-menu-item,
+.header-wrapper:not(.navbar-white).navbar-active .header__active-menu-item span {
+  color: var(--brand-main) !important;
 }
 
 .header__menu-item:hover,
@@ -225,6 +316,7 @@ h6 {
   margin-bottom: 0 !important;
   margin-top: 0 !important;
   padding: 0 !important;
+  position: relative;
 }
 
 /* Footer */
