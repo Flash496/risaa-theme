@@ -98,7 +98,7 @@
     .section-{{ section.id }}-padding .risaa-designers-choice__controls {
       display: flex;
       position: absolute;
-      top: calc(50% - 30px);
+      top: calc(50% - 50px);
       left: 15px;
       right: 15px;
       z-index: 2;
@@ -152,6 +152,10 @@
     }
 
     @media screen and (max-width: 749px) {
+      .section-{{ section.id }}-padding .collection__title.title-wrapper {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+      }
       .section-{{ section.id }}-padding .risaa-designers-choice__carousel {
         padding-inline: 0;
         clip-path: none;
@@ -159,12 +163,22 @@
 
       .section-{{ section.id }}-padding .risaa-designers-choice__track {
         --risaa-carousel-gap: max(0px, calc(var(--grid-mobile-horizontal-spacing) - 10px));
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: none;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        scroll-behavior: smooth;
+      }
+      .section-{{ section.id }}-padding .risaa-designers-choice__track::-webkit-scrollbar {
+        display: none;
       }
 
       .section-{{ section.id }}-padding .risaa-designers-choice__item {
-        flex-basis: calc((100% - var(--risaa-carousel-gap)) / 2);
-        width: calc((100% - var(--risaa-carousel-gap)) / 2);
-        max-width: calc((100% - var(--risaa-carousel-gap)) / 2);
+        flex-basis: calc((100% - var(--risaa-carousel-gap)) * 0.75);
+        width: calc((100% - var(--risaa-carousel-gap)) * 0.75);
+        max-width: calc((100% - var(--risaa-carousel-gap)) * 0.75);
       }
 
       .section-{{ section.id }}-padding .risaa-designers-choice__controls {
@@ -300,6 +314,10 @@
     let direction = null;
 
     prev.addEventListener('click', () => {
+      if (window.innerWidth < 750) {
+        track.scrollBy({ left: -step(), behavior: 'smooth' });
+        return;
+      }
       if (isAnimating) return;
       isAnimating = true;
       direction = 'prev';
@@ -313,12 +331,17 @@
       });
     });
     next.addEventListener('click', () => {
+      if (window.innerWidth < 750) {
+        track.scrollBy({ left: step(), behavior: 'smooth' });
+        return;
+      }
       if (isAnimating) return;
       isAnimating = true;
       direction = 'next';
       track.style.transform = `translateX(${-step()}px)`;
     });
     track.addEventListener('transitionend', () => {
+      if (window.innerWidth < 750) return;
       if (direction === 'next') {
         track.style.transition = 'none';
         track.appendChild(track.firstElementChild);
@@ -335,6 +358,7 @@
       isAnimating = false;
     });
     window.addEventListener('resize', () => {
+      if (window.innerWidth < 750) return;
       track.style.transition = 'none';
       track.style.transform = 'translateX(0)';
       requestAnimationFrame(() => {

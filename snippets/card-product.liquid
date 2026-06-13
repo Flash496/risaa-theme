@@ -93,6 +93,17 @@
       opacity: 1 !important;
       transform: scale(1.015) !important;
     }
+
+    @media screen and (max-width: 749px) {
+      .product-card-wrapper--landing .card__heading,
+      .product-card-wrapper--landing .card__heading a {
+        font-size: 13px !important;
+      }
+      .product-card-wrapper--landing .price--landing-subtle,
+      .product-card-wrapper--landing .price--landing-subtle .price-item {
+        font-size: 11px !important;
+      }
+    }
   </style>
 {%- endif -%}
 {%- if card_product and card_product != empty -%}

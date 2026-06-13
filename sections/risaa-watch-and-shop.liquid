@@ -22,11 +22,11 @@
 
   .risaa-reels-layout {
     display: flex;
-    max-width: 1100px;
-    margin: 40px auto;
+    max-width: 820px;
+    margin: 24px auto;
     align-items: center;
     justify-content: center;
-    gap: 60px;
+    gap: 40px;
     position: relative;
     z-index: 2;
   }
@@ -34,13 +34,13 @@
   /* Reel Stack Side */
   .risaa-reels-stack-side {
     position: relative;
-    flex: 0 0 320px;
+    flex: 0 0 240px;
   }
 
   .risaa-reels-stack {
     position: relative;
-    width: 320px;
-    height: 568px;
+    width: 240px;
+    height: 426px;
     perspective: 1000px;
   }
 
@@ -109,11 +109,11 @@
   /* Product Info Side */
   .risaa-reels-info-side {
     flex: 1;
-    max-width: 400px;
+    max-width: 300px;
     text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 16px;
   }
 
   /* Bloom Animation States */
@@ -150,10 +150,28 @@
     overflow: hidden;
     background: #fff;
     padding: 30px;
-    border-radius: 24px;
+    border-radius: 0;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
     border: 1px solid #f5f5f5;
     transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .active-product-image-wrap {
+    margin-bottom: 20px;
+    border-radius: 0;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+  }
+
+  .active-product-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .active-product-details-wrap {
+    display: flex;
+    flex-direction: column;
   }
 
   .active-product-card::after {
@@ -339,10 +357,132 @@
     .risaa-watch-and-shop {
       border-radius: 16px !important;
     }
-    .risaa-reels-stack,
+
+    /* Stack side fills the whole row; info-side overlays it */
+    .risaa-reels-layout {
+      flex-direction: row !important;
+      gap: 0 !important;
+      margin: 20px auto !important;
+      position: relative !important;
+      align-items: flex-start !important;
+    }
+
     .risaa-reels-stack-side {
-      width: 280px;
-      height: 497px;
+      flex: none !important;
+      min-width: 0 !important;
+      width: 85% !important;
+      height: auto !important;
+    }
+
+    .risaa-reels-stack {
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 9/16 !important;
+    }
+
+    .risaa-video-card {
+      border-radius: 16px !important;
+    }
+    .risaa-video-card.card-2 {
+      transform: rotate(3deg) translateZ(-20px) translateX(10px) !important;
+    }
+    .risaa-video-card.card-3 {
+      transform: rotate(-2deg) translateZ(-40px) translateX(-10px) !important;
+    }
+    .risaa-video-card.shuffling {
+      animation: shuffle-animation-mobile 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1) !important;
+    }
+
+    /* Shop the Look card: absolute overlay at bottom-right of the reel */
+    .risaa-reels-info-side {
+      position: absolute !important;
+      bottom: 16px !important;
+      right: 12px !important;
+      width: 50% !important;
+      max-width: 192px !important;
+      flex: none !important;
+      gap: 0 !important;
+      z-index: 20 !important;
+    }
+
+    .active-product-card {
+      padding: 10px !important;
+      border-radius: 0 !important;
+      background: rgba(255, 255, 255, 0.88) !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+      border: 1px solid rgba(255,255,255,0.6) !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      box-sizing: border-box !important;
+      /* 3:4 aspect ratio */
+      aspect-ratio: 3/4 !important;
+      overflow: hidden !important;
+    }
+
+    .active-product-image-wrap {
+      flex: 1 !important;
+      margin-bottom: 6px !important;
+      border-radius: 0 !important;
+      overflow: hidden !important;
+      min-height: 0 !important;
+      aspect-ratio: unset !important;
+    }
+
+    .active-product-image-wrap img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+
+    .active-product-details-wrap {
+      display: flex !important;
+      flex-direction: column !important;
+      flex-shrink: 0 !important;
+    }
+
+    .active-product-tag {
+      font-size: 6pt !important;
+      letter-spacing: 1px !important;
+      margin-bottom: 2px !important;
+    }
+    .active-product-title {
+      font-size: 0.72rem !important;
+      margin: 0 0 3px 0 !important;
+      line-height: 1.2 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+    }
+    .active-product-price {
+      font-size: 0.72rem !important;
+      margin-bottom: 5px !important;
+    }
+    .active-product-link {
+      padding: 7px 6px !important;
+      font-size: 6.5pt !important;
+      width: 100% !important;
+      text-align: center !important;
+      box-sizing: border-box !important;
+      border-radius: 30px !important;
+    }
+  }
+
+  @keyframes shuffle-animation-mobile {
+    0% {
+      transform: scale(1) translateX(0);
+      z-index: 100;
+    }
+    40% {
+      transform: scale(0.9) translateX(-120%) rotate(-10deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: scale(0.8) translateX(0) translateZ(-60px);
+      z-index: 1;
+      opacity: 0;
     }
   }
 
@@ -521,15 +661,18 @@
 
     setTimeout(() => {
       container.innerHTML = `
-        <div class="active-product-image-wrap" style="margin-bottom: 20px; border-radius: 15px; overflow: hidden; aspect-ratio: 4/5;">
-          <img src="https://ik.imagekit.io/flashspdstr/risaa/pink%20sharara%20with%20light%20golden%20embroidery%20with_.jpg" 
-               style="width: 100%; height: 100%; object-fit: cover;" 
-               alt="Showcased Design">
+        <div class="active-product-image-wrap">
+          <img src="${data.image || 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg'}" 
+               alt="${data.title || 'Showcased Design'}">
         </div>
-        <span class="active-product-tag">The Look</span>
-        <h3 class="active-product-title">${data.title}</h3>
-        <p class="active-product-price">${data.price}</p>
-        <a href="${data.url}" class="active-product-link">Shop the Design</a>
+        <div class="active-product-details-wrap">
+          <div class="active-product-meta">
+            <span class="active-product-tag">The Look</span>
+            <h3 class="active-product-title">${data.title}</h3>
+            <p class="active-product-price">${data.price}</p>
+          </div>
+          <a href="${data.url}" class="active-product-link">Shop the Design</a>
+        </div>
       `;
 
       // Enter animation
@@ -621,7 +764,7 @@
         "title": "{{ block.settings.product.title | escape }}",
         "price": "{{ block.settings.product.price | money | escape }}",
         "url": "{{ block.settings.product.url }}",
-        "image": "{{ block.settings.product.featured_image | image_url: width: 300 }}"
+        "image": "{% if block.settings.product.featured_image %}{{ block.settings.product.featured_image | image_url: width: 300 }}{% else %}https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg{% endif %}"
       }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   };

@@ -61,7 +61,7 @@
   }
 
   .risaa-footer__logo-wrap {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
   }
 
   .risaa-footer__logo {
@@ -159,8 +159,8 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: white !important;
-    margin: 0 0 18px;
-    padding-bottom: 12px;
+    margin: 0 0 10px;
+    padding-bottom: 6px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   }
 
@@ -265,7 +265,7 @@
   }
 
   .risaa-footer__bottom {
-    padding: 20px 0;
+    padding: 10px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -527,20 +527,20 @@
 
   @media screen and (max-width: 749px) {
     .risaa-footer__top {
-      padding: 30px 0 0;
+      padding: 75px 0 0;
     }
     .risaa-footer__cols-row {
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      padding-bottom: 24px;
+      gap: 16px;
+      padding-bottom: 12px;
     }
     .risaa-footer__brand {
       order: 1;
       grid-column: span 2;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
     .risaa-footer__brand-desc {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
     /* Shop column (2nd child) */
     .risaa-footer__cols-row > div:nth-child(2) {
@@ -556,13 +556,13 @@
     .risaa-footer__cols-row > div:nth-child(3) {
       order: 4;
       grid-column: span 2;
-      margin-top: 10px;
+      margin-top: 0px;
     }
     /* Split Policies links into 2 columns */
     .risaa-footer__cols-row > div:nth-child(3) .risaa-footer__nav-list {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px 16px;
+      gap: 6px 16px;
     }
     .risaa-footer__bottom {
       flex-direction: column;
@@ -889,11 +889,11 @@
         const height = footerWrapper.offsetHeight;
         const documentHeight = document.documentElement.scrollHeight;
         const windowHeight = window.innerHeight;
-        
+
         // Calculate the scroll position where the footer reveal starts
         const revealStart = documentHeight - height - windowHeight;
         const threshold = Math.max(0, revealStart - 200);
-        
+
         if (scrolled >= threshold) {
           footerWrapper.style.opacity = '1';
           footerWrapper.style.pointerEvents = 'auto';

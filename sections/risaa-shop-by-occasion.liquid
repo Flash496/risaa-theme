@@ -203,6 +203,13 @@
     }
     .risaa-occasions__card {
       flex: 0 0 245px;
+      transform: scale(0.9);
+      opacity: 0.6;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+    .risaa-occasions__card.is-active {
+      transform: scale(1.02);
+      opacity: 1;
     }
     .risaa-occasions__img-wrap {
       width: 245px;
@@ -310,8 +317,8 @@
     // Automatic traversal: move exactly one card every 4.5 seconds
     // Card width is 317px and gap is 24px (see CSS)
     var SPEED = 0; // disabled (we use a timed discrete step instead)
-    var STEP = 341; // 317 + 24
-    var GAP = 24;
+    var GAP = window.innerWidth > 749 ? 24 : 16;
+    var STEP = window.innerWidth > 749 ? 341 : 261; // 245 + 16
 
     var AUTO_INTERVAL = 4500; // ms
 
@@ -329,6 +336,34 @@
     var raf = null;
     var oneSetW = 0; // width of one set of cards
 
+    function updateActiveOccasion() {
+      if (window.innerWidth > 749) {
+        belt.querySelectorAll('.risaa-occasions__card').forEach(function (c) {
+          c.classList.remove('is-active');
+        });
+        return;
+      }
+      var outerRect = outer.getBoundingClientRect();
+      var centerX = outerRect.left + outerRect.width / 2;
+      var cards = belt.querySelectorAll('.risaa-occasions__card');
+      var closestCard = null;
+      var minDistance = Infinity;
+
+      cards.forEach(function (card) {
+        var cardRect = card.getBoundingClientRect();
+        var cardCenterX = cardRect.left + cardRect.width / 2;
+        var distance = Math.abs(cardCenterX - centerX);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestCard = card;
+        }
+      });
+
+      cards.forEach(function (card) {
+        card.classList.toggle('is-active', card === closestCard);
+      });
+    }
+
     /* ── Measure one set width after layout ── */
     function measure() {
       var cards = belt.querySelectorAll('.risaa-occasions__card');
@@ -339,21 +374,30 @@
       oneSetW = w;
       // Start in the middle copy so we can scroll both ways
       pos = -oneSetW;
+
+      if (window.innerWidth <= 749) {
+        var cardW = cards[0].offsetWidth;
+        var offset = (outer.offsetWidth - cardW) / 2;
+        pos = -oneSetW + offset;
+      }
       apply();
     }
 
     /* ── Apply transform ── */
     function apply() {
       belt.style.transform = 'translateX(' + pos + 'px)';
+      updateActiveOccasion();
     }
 
     /* ── Wrap pos to stay in middle copy ── */
     function wrap() {
       if (!oneSetW) return;
+      var cardW = belt.querySelector('.risaa-occasions__card').offsetWidth;
+      var offset = window.innerWidth <= 749 ? (outer.offsetWidth - cardW) / 2 : 0;
       // If we've scrolled past the end of the middle copy, jump back one set
-      if (pos <= -oneSetW * 2) pos += oneSetW;
+      if (pos <= -oneSetW * 2 + offset) pos += oneSetW;
       // If we've scrolled before the start of the middle copy, jump forward one set
-      if (pos > 0) pos -= oneSetW;
+      if (pos > offset) pos -= oneSetW;
     }
 
     /* ── RAF loop ── */

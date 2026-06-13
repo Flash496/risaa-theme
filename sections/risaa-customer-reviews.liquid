@@ -362,13 +362,22 @@
 
   @media screen and (max-width: 749px) {
     .risaa-reviews {
-      padding: 50px 0 44px;
+      padding: 50px 0 20px;
     }
     .risaa-reviews__title {
       font-size: 2.2rem;
     }
     .risaa-reviews__card {
       flex: 0 0 calc(100vw - 48px);
+      scroll-snap-align: center;
+      transform: scale(0.92);
+      opacity: 0.6;
+      transition: transform 0.4s ease, opacity 0.4s ease, border-color 0.25s ease;
+    }
+    .risaa-reviews__card.is-active {
+      transform: scale(1.02);
+      opacity: 1;
+      border-color: rgba(216, 167, 100, 0.7);
     }
     .risaa-reviews__track {
       padding: 8px 24px 16px;
@@ -490,6 +499,16 @@
       });
     }
 
+    function syncActiveCard() {
+      const cards = Array.from(track.querySelectorAll('.risaa-reviews__card'));
+      const n = total();
+      if (!n) return;
+      const targetIdx = activeIdx % n;
+      cards.forEach((c, i) => {
+        c.classList.toggle('is-active', (i % n) === targetIdx);
+      });
+    }
+
     function goTo(idx) {
       const n = total();
       if (!n) return;
@@ -510,15 +529,18 @@
       activeIdx = idx;
       track.scrollTo({ left: idx * cardWidth(), behavior: 'smooth' });
       dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+      syncActiveCard();
 
       if (idx >= n) {
         activeIdx = 0;
         dots.forEach((d, i) => d.classList.toggle('active', i === 0));
+        syncActiveCard();
         resetTimer = setTimeout(() => {
           isResetting = true;
           track.scrollLeft = 0;
           requestAnimationFrame(() => {
             isResetting = false;
+            syncActiveCard();
           });
         }, 520);
       }
@@ -585,12 +607,14 @@
         const rawIdx = Math.round(track.scrollLeft / cardWidth());
         activeIdx = rawIdx % n;
         dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+        syncActiveCard();
 
         if (rawIdx >= n) {
           isResetting = true;
           track.scrollLeft = (rawIdx - n) * cardWidth();
           requestAnimationFrame(() => {
             isResetting = false;
+            syncActiveCard();
           });
         }
       }, 80);
@@ -636,6 +660,7 @@
     }
 
     startAuto();
+    syncActiveCard();
   })();
 </script>
 

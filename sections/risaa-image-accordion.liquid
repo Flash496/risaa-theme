@@ -216,8 +216,8 @@
       }
       .risaa-accordion-item {
         flex: none !important;
-        height: 140px;
-        border-radius: 12px;
+        height: 280px;
+        border-radius: 0;
         transition: height 0.6s cubic-bezier(0.25, 1, 0.2, 1), opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) !important;
       }
       .risaa-accordion-item:nth-child(1) {
@@ -232,11 +232,6 @@
       .risaa-accordion-item:nth-child(4) {
         grid-column: span 2;
       }
-      /* Expanding height on hover or active class */
-      .risaa-accordion-item:hover,
-      .risaa-accordion-item.is-active {
-        height: 280px;
-      }
       .risaa-accordion-item img {
         position: absolute;
         top: 0;
@@ -247,8 +242,7 @@
         object-fit: cover;
         transition: transform 0.8s cubic-bezier(0.25, 1, 0.2, 1);
       }
-      .risaa-accordion-item:hover img,
-      .risaa-accordion-item.is-active img {
+      .risaa-accordion-item:hover img {
         transform: scale(1.05);
       }
       .risaa-accordion-info {
@@ -256,26 +250,22 @@
         padding: 1.5rem 1.5rem;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 70%, transparent 100%);
       }
+      .risaa-accordion-info h3 {
+        font-size: 1.5rem;
+      }
       .risaa-accordion-info p {
         margin-top: 10px;
         opacity: 0.9;
         max-height: 60px;
       }
       .risaa-accordion-info .btn-premium {
-        margin-top: 0;
-        opacity: 0;
-        max-height: 0;
-        height: 0;
-        padding: 0 20px;
-        overflow: hidden;
-        transition: all 0.5s cubic-bezier(0.25, 1, 0.2, 1);
-      }
-      .risaa-accordion-item:hover .risaa-accordion-info .btn-premium,
-      .risaa-accordion-item.is-active .risaa-accordion-info .btn-premium {
         margin-top: 15px;
         opacity: 1;
         max-height: 42px;
         height: 42px;
+        padding: 0 20px;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.2, 1);
       }
     }
 {%- endstyle -%}
@@ -328,33 +318,7 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const accordion = document.getElementById('risaa-accordion-{{ section.id }}');
-    if (!accordion) return;
-    
-    // Add click/touch handling for mobile devices to toggle active state before navigating
-    accordion.addEventListener('click', (e) => {
-      if (window.innerWidth >= 750) return;
-      
-      const item = e.target.closest('.risaa-accordion-item');
-      if (!item) return;
-      
-      const isActive = item.classList.contains('is-active');
-      
-      if (!isActive) {
-        // Prevent navigation on first tap to show the expand animation
-        e.preventDefault();
-        
-        // Remove active class from all other items
-        accordion.querySelectorAll('.risaa-accordion-item').forEach(el => {
-          el.classList.remove('is-active');
-        });
-        
-        // Add active class to this item
-        item.classList.add('is-active');
-      }
-    });
-  });
+  // Mobile accordion script removed as cards are fully expanded by default
 </script>
 
 {% schema %}

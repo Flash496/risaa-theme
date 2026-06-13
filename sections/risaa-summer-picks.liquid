@@ -144,11 +144,21 @@
     }
     .risaa-summer-picks__track {
       --risaa-carousel-gap: max(0px, calc(var(--grid-mobile-horizontal-spacing) - 10px));
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: none;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      scroll-behavior: smooth;
+    }
+    .risaa-summer-picks__track::-webkit-scrollbar {
+      display: none;
     }
     .risaa-summer-picks__item {
-      flex-basis: calc((100% - var(--risaa-carousel-gap)) / 2);
-      width: calc((100% - var(--risaa-carousel-gap)) / 2);
-      max-width: calc((100% - var(--risaa-carousel-gap)) / 2);
+      flex-basis: calc((100% - var(--risaa-carousel-gap)) * 0.75);
+      width: calc((100% - var(--risaa-carousel-gap)) * 0.75);
+      max-width: calc((100% - var(--risaa-carousel-gap)) * 0.75);
     }
     .risaa-summer-picks__controls {
       left: 10px;
@@ -253,6 +263,10 @@
     let direction = null;
 
     prev.addEventListener('click', () => {
+      if (window.innerWidth < 750) {
+        track.scrollBy({ left: -step(), behavior: 'smooth' });
+        return;
+      }
       if (isAnimating) return;
       isAnimating = true;
       direction = 'prev';
@@ -266,12 +280,17 @@
       });
     });
     next.addEventListener('click', () => {
+      if (window.innerWidth < 750) {
+        track.scrollBy({ left: step(), behavior: 'smooth' });
+        return;
+      }
       if (isAnimating) return;
       isAnimating = true;
       direction = 'next';
       track.style.transform = `translateX(${-step()}px)`;
     });
     track.addEventListener('transitionend', () => {
+      if (window.innerWidth < 750) return;
       if (direction === 'next') {
         track.style.transition = 'none';
         track.appendChild(track.firstElementChild);
@@ -288,6 +307,7 @@
       isAnimating = false;
     });
     window.addEventListener('resize', () => {
+      if (window.innerWidth < 750) return;
       track.style.transition = 'none';
       track.style.transform = 'translateX(0)';
       requestAnimationFrame(() => {
