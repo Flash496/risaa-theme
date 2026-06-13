@@ -15,15 +15,15 @@
         "footer-help": {
           "type": "link_list",
           "settings": {
-            "heading": "Help",
+            "heading": "Policies",
             "menu": "main-menu"
           }
         },
         "footer-contact": {
           "type": "text",
           "settings": {
-            "heading": "Contact Us",
-            "subtext": "<p>+91 9501032126</p><p>hello@risaa.com</p>"
+            "heading": "About",
+            "subtext": ""
           }
         },
         "footer-useful": {

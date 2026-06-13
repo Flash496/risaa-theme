@@ -619,12 +619,19 @@
         {%- for block in section.blocks -%}
           {%- if block.type == 'link_list' -%}
             <div class="risaa-footer__nav-col" {{ block.shopify_attributes }}>
+              {%- assign heading_down = block.settings.heading | downcase | strip -%}
               {%- if block.settings.heading != blank -%}
-                <h3 class="risaa-footer__nav-heading">{{ block.settings.heading }}</h3>
+                <h3 class="risaa-footer__nav-heading">
+                  {%- if heading_down == 'help' or heading_down == 'policies' -%}
+                    Policies
+                  {%- else -%}
+                    {{ block.settings.heading }}
+                  {%- endif -%}
+                </h3>
               {%- endif -%}
               {%- if block.settings.menu != blank -%}
                 <ul class="risaa-footer__nav-list">
-                  {%- unless block.settings.heading == 'Help' -%}
+                  {%- unless heading_down == 'help' or heading_down == 'policies' -%}
                     {%- for link in block.settings.menu.links -%}
                       {%- assign display_title = link.title | escape -%}
                       {%- assign link_title_lower = link.title | downcase | strip -%}
@@ -632,7 +639,7 @@
                         {%- assign display_title = 'Shop All' -%}
                       {%- endif -%}
                       {%- if link_title_lower contains 'contact' -%}
-                        {%- if block.settings.heading == 'Shop' or block.settings.heading == 'Quick Links' -%}
+                        {%- if heading_down == 'shop' or heading_down == 'quick links' -%}
                           {%- continue -%}
                         {%- endif -%}
                       {%- endif -%}
@@ -641,10 +648,10 @@
                       </li>
                     {%- endfor -%}
                   {%- endunless -%}
-                  {%- if block.settings.heading == 'Shop' or block.settings.heading == 'Quick Links' -%}
+                  {%- if heading_down == 'shop' or heading_down == 'quick links' -%}
                     <li><a href="/collections/bestsellers">Bestsellers</a></li>
                   {%- endif -%}
-                  {%- if block.settings.heading == 'Help' -%}
+                  {%- if heading_down == 'help' or heading_down == 'policies' -%}
                     <li><a href="/pages/about-us">FAQ</a></li>
                     <li>
                       <a href="{{ shop.url }}/policies/refund-policy">Returns, Exchange &amp; Cancellation Policy</a>
@@ -658,16 +665,31 @@
               {%- endif -%}
             </div>
           {%- elsif block.type == 'text' -%}
-            {%- unless block.settings.heading == 'Visit Our Store' -%}
+            {%- assign heading_down = block.settings.heading | downcase | strip -%}
+            {%- unless heading_down == 'visit our store' -%}
               <div class="risaa-footer__nav-col" {{ block.shopify_attributes }}>
-                {%- if block.settings.heading != blank -%}
-                  <h3 class="risaa-footer__nav-heading">{{ block.settings.heading }}</h3>
+                {%- assign is_about_col = false -%}
+                {%- if heading_down == 'contact us' or heading_down == 'about' -%}
+                  {%- assign is_about_col = true -%}
                 {%- endif -%}
-                <div class="risaa-footer__text-block">{{ block.settings.subtext }}</div>
-                {%- if block.settings.heading == 'Contact Us' -%}
+                {%- if block.settings.heading != blank -%}
+                  <h3 class="risaa-footer__nav-heading">
+                    {%- if is_about_col -%}
+                      About
+                    {%- else -%}
+                      {{ block.settings.heading }}
+                    {%- endif -%}
+                  </h3>
+                {%- endif -%}
+                {%- unless is_about_col -%}
+                  <div class="risaa-footer__text-block">{{ block.settings.subtext }}</div>
+                {%- endunless -%}
+                {%- if is_about_col -%}
                   <ul class="risaa-footer__nav-list risaa-footer__contact-links">
                     <li><a href="/pages/our-store">Our Store</a></li>
-                    <li><a href="/pages/about-us">About Us</a></li>
+                    <li><a href="/pages/about">About Us</a></li>
+                    <li><a href="/pages/contact">Contact Us</a></li>
+                    <li><a href="/pages/book-an-appointment">Book an Appointment</a></li>
                   </ul>
                   <div class="risaa-footer__social risaa-footer__social--inline">
                     <a
@@ -973,15 +995,15 @@
       {
         "type": "link_list",
         "settings": {
-          "heading": "Help",
+          "heading": "Policies",
           "menu": "main-menu"
         }
       },
       {
         "type": "text",
         "settings": {
-          "heading": "Contact Us",
-          "subtext": "<p>117-B, Jyoti Colony, Part B<br>Model Town Extension<br>Ludhiana, Punjab 141002</p><p>+91 9501032126</p><p>hello@risaa.com</p>"
+          "heading": "About",
+          "subtext": ""
         }
       }
     ],

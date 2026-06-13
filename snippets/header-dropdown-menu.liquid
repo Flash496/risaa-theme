@@ -30,7 +30,7 @@
     border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
   }
-  
+
   .shopify-section-header-sticky .header-wrapper:hover .header__menu-item,
   .shopify-section-header-sticky .header-wrapper:hover .header__icon,
   .shopify-section-header-sticky .header-wrapper:hover .header__heading-link,
@@ -46,12 +46,12 @@
     color: #1a1a1a !important;
     fill: #1a1a1a !important;
   }
-  
+
   .shopify-section-header-sticky .header-wrapper:hover .header__heading-link .logo-white,
   .shopify-section-header-sticky .header-wrapper.navbar-active .header__heading-link .logo-white {
     display: none !important;
   }
-  
+
   .shopify-section-header-sticky .header-wrapper:hover .header__heading-link .logo-black,
   .shopify-section-header-sticky .header-wrapper.navbar-active .header__heading-link .logo-black {
     display: block !important;
@@ -63,18 +63,15 @@
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
-    transform: none !important;
+    transform: none;
     background: #ffffff !important;
-    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-    border-left: none !important;
-    border-right: none !important;
+    border: none !important;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03) !important;
-    padding: 3rem 0 !important;
+    padding: 1.5rem 0 3rem 0 !important;
     box-sizing: border-box !important;
     z-index: 99 !important;
     top: 100% !important;
-    margin-top: 0 !important;
+    margin-top: 0;
     border-radius: 0 !important;
   }
 
@@ -96,27 +93,66 @@
     padding: 0 4rem !important;
   }
 
+  .risaa-mega-menu__top {
+    display: flex !important;
+    justify-content: center !important;
+    margin-bottom: 2.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .risaa-mega-menu__shop-all {
+    font-family: var(--font-body-family), sans-serif !important;
+    font-size: 1.1rem !important;
+    color: #121212 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.15em !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    transition: color 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  .risaa-mega-menu__shop-all:hover {
+    color: #6e1423 !important;
+  }
+
   .risaa-mega-menu__grid {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
     gap: 40px !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
   }
 
   .risaa-mega-menu__col {
     display: flex !important;
     flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .risaa-mega-menu__col:not(:last-child) {
+    padding-right: 20px !important;
+  }
+
+  .risaa-mega-menu__col-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
   }
 
   .risaa-mega-menu__title {
     font-family: var(--font-body-family), sans-serif !important;
-    font-size: 1.15rem !important;
+    font-size: 1.1rem !important;
     color: #121212 !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.12em !important;
-    margin: 0 0 16px 0 !important;
-    font-weight: 500 !important;
-    padding: 0 !important;
-    border: none !important;
+    letter-spacing: 0.15em !important;
+    margin: 0 0 20px 0 !important;
+    font-weight: 600 !important;
+    padding-bottom: 8px !important;
+    display: inline-block !important;
+    text-align: left !important;
   }
 
   .risaa-mega-menu__list {
@@ -126,28 +162,77 @@
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+  }
+
+  .risaa-mega-menu__list li {
+    text-align: left !important;
+    width: 100% !important;
+    display: block !important;
   }
 
   .risaa-mega-menu__list a {
     font-family: var(--font-body-family), sans-serif !important;
-    font-size: 1.3rem !important;
-    color: #666666 !important;
+    font-size: 1.25rem !important;
+    color: #555555 !important;
     text-decoration: none !important;
-    transition: color 0.2s ease !important;
+    transition: color 0.2s ease, transform 0.2s ease !important;
     display: inline-flex !important;
     align-items: center !important;
-    font-weight: 300 !important;
+    justify-content: flex-start !important;
+    font-weight: 450 !important;
     line-height: 1.4 !important;
+    text-align: left !important;
+    width: 100% !important;
   }
 
   .risaa-mega-menu__list a:hover {
-    color: #121212 !important;
+    color: #6e1423 !important;
+    transform: translateX(4px) !important;
+  }
+
+  /* Smooth entry animation for the dropdown panel */
+  details[open] > .risaa-mega-menu {
+    animation: risaa-fade-in-slide 0.48s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  }
+
+  /* Smooth exit animation for the dropdown panel when closing class is added */
+  details[open] > .risaa-mega-menu.risaa-mega-menu--closing {
+    animation: risaa-fade-out-slide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  }
+
+  @keyframes risaa-fade-in-slide {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes risaa-fade-out-slide {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+  }
+
+  .header-menu-custom > details {
+    position: relative !important;
   }
 </style>
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
-    {%- assign menu_sequence = "Summer closet,Founder's favourites,Shop,About us,Ur store" | split: ',' -%}
+    {%- assign menu_sequence = "Summer closet,Founder's favourites,Shop,About us,Our store" | split: ',' -%}
     {%- for tab in menu_sequence -%}
       {%- assign is_active = false -%}
       {%- if tab == 'Summer closet' -%}
@@ -159,7 +244,7 @@
         {%- if request.page_type == 'page' and page.handle == 'about' -%}
           {%- assign is_active = true -%}
         {%- endif -%}
-      {%- elsif tab == 'Ur store' -%}
+      {%- elsif tab == 'Our store' -%}
         {%- assign tab_url = '/pages/our-store' -%}
         {%- if request.page_type == 'page' and page.handle == 'our-store' -%}
           {%- assign is_active = true -%}
@@ -170,7 +255,7 @@
 
       <li>
         {%- if tab == 'Shop' -%}
-          <header-menu>
+          <div class="header-menu-custom">
             <details id="Details-HeaderMenu-Shop">
               <summary
                 id="HeaderMenu-shop"
@@ -184,53 +269,64 @@
                 tabindex="-1"
               >
                 <div class="risaa-mega-menu__container">
+                  <div class="risaa-mega-menu__top">
+                    <a href="/collections/all" class="risaa-mega-menu__shop-all">SHOP ALL</a>
+                  </div>
                   <div class="risaa-mega-menu__grid">
-                    <!-- Column 1: Shop by Occasion -->
+                    <!-- Column 1: Shop by Category -->
                     <div class="risaa-mega-menu__col">
-                      <h3 class="risaa-mega-menu__title">Shop by Occasion</h3>
-                      <ul class="risaa-mega-menu__list">
-                        <li><a href="/collections/bridal">Bridal</a></li>
-                        <li><a href="/collections/sangeet">Sangeet</a></li>
-                        <li><a href="/collections/mehendi">Mehendi</a></li>
-                        <li><a href="/collections/reception">Reception</a></li>
-                        <li><a href="/collections/couture">Couture</a></li>
-                        <li><a href="/collections/pret">Pret</a></li>
-                        <li><a href="/collections/trousseau">Trousseau</a></li>
-                        <li><a href="/collections/festive">Festive</a></li>
-                        <li><a href="/collections/cocktail">Cocktail</a></li>
-                        <li><a href="/collections/all">Casual Chic</a></li>
-                      </ul>
+                      <div class="risaa-mega-menu__col-inner">
+                        <h3 class="risaa-mega-menu__title">Shop by Category</h3>
+                        <ul class="risaa-mega-menu__list">
+                          <li><a href="/collections/lehengas">Lehengas</a></li>
+                          <li><a href="/collections/sarees">Sarees</a></li>
+                          <li><a href="/collections/anarkalis">Anarkalis</a></li>
+                          <li><a href="/collections/kurtas-sets">Kurtas & Sets</a></li>
+                          <li><a href="/collections/sharara-gharara">Shararas & Ghararas</a></li>
+                          <li><a href="/collections/gowns-fusion">Gowns & Fusion</a></li>
+                          <li><a href="/collections/co-ord-sets">Co-ord Sets</a></li>
+                        </ul>
+                      </div>
                     </div>
 
-                    <!-- Column 2: Shop by Collection -->
+                    <!-- Column 2: Shop by Occasion -->
                     <div class="risaa-mega-menu__col">
-                      <h3 class="risaa-mega-menu__title">Shop by Collection</h3>
-                      <ul class="risaa-mega-menu__list">
-                        <li><a href="/collections/bridal">Bridal Couture</a></li>
-                        <li><a href="/collections/trousseau">Trousseau Dreams</a></li>
-                        <li><a href="/collections/pret">Pret Collection</a></li>
-                        <li><a href="/collections/summer-favourites">Summer Closet</a></li>
-                        <li><a href="/collections/new-arrivals">New Arrivals</a></li>
-                        <li><a href="/collections/founders-pick">Founder's Favourites</a></li>
-                      </ul>
+                      <div class="risaa-mega-menu__col-inner">
+                        <h3 class="risaa-mega-menu__title">Shop by Occasion</h3>
+                        <ul class="risaa-mega-menu__list">
+                          <li><a href="/collections/bridal">Bridal</a></li>
+                          <li><a href="/collections/sangeet">Sangeet</a></li>
+                          <li><a href="/collections/mehendi">Mehendi</a></li>
+                          <li><a href="/collections/reception">Reception</a></li>
+                          <li><a href="/collections/couture">Couture</a></li>
+                          <li><a href="/collections/pret">Pret</a></li>
+                          <li><a href="/collections/trousseau">Trousseau</a></li>
+                          <li><a href="/collections/festive">Festive</a></li>
+                          <li><a href="/collections/cocktail">Cocktail</a></li>
+                          <li><a href="/collections/all">Casual Chic</a></li>
+                        </ul>
+                      </div>
                     </div>
 
-                    <!-- Column 3: Shop by Color -->
+                    <!-- Column 3: Shop by Collection -->
                     <div class="risaa-mega-menu__col">
-                      <h3 class="risaa-mega-menu__title">Shop by Color</h3>
-                      <ul class="risaa-mega-menu__list">
-                        <li><a href="/collections/ruby">Ruby</a></li>
-                        <li><a href="/collections/saffron">Saffron</a></li>
-                        <li><a href="/collections/mocha">Mocha</a></li>
-                        <li><a href="/collections/indigo">Indigo</a></li>
-                        <li><a href="/collections/matcha">Matcha</a></li>
-                      </ul>
+                      <div class="risaa-mega-menu__col-inner">
+                        <h3 class="risaa-mega-menu__title">Shop by Collection</h3>
+                        <ul class="risaa-mega-menu__list">
+                          <li><a href="/collections/bridal">Bridal Couture</a></li>
+                          <li><a href="/collections/trousseau">Trousseau Dreams</a></li>
+                          <li><a href="/collections/pret">Pret Collection</a></li>
+                          <li><a href="/collections/summer-favourites">Summer Closet</a></li>
+                          <li><a href="/collections/new-arrivals">New Arrivals</a></li>
+                          <li><a href="/collections/founders-pick">Founder's Favourites</a></li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </details>
-          </header-menu>
+          </div>
         {%- else -%}
           <a
             href="{{ tab_url }}"
@@ -254,7 +350,7 @@
 </nav>
 
 <script>
-  (function() {
+  (function () {
     function initShopHover() {
       const shopDetails = document.getElementById('Details-HeaderMenu-Shop');
       if (!shopDetails) return;
@@ -265,9 +361,13 @@
       shopDetails.addEventListener('mouseenter', () => {
         if (window.innerWidth >= 990) {
           clearTimeout(hoverTimer);
+          const submenu = shopDetails.querySelector('.risaa-mega-menu');
+          if (submenu) {
+            submenu.classList.remove('risaa-mega-menu--closing'); // Cancel closing animation
+          }
           shopDetails.setAttribute('open', '');
           shopDetails.querySelector('summary').setAttribute('aria-expanded', 'true');
-          
+
           // Add navbar-active to header wrapper to sync white state
           const headerWrapper = shopDetails.closest('.header-wrapper');
           if (headerWrapper) {
@@ -279,9 +379,18 @@
       shopDetails.addEventListener('mouseleave', () => {
         if (window.innerWidth >= 990) {
           hoverTimer = setTimeout(() => {
-            shopDetails.removeAttribute('open');
+            const submenu = shopDetails.querySelector('.risaa-mega-menu');
+            if (submenu) {
+              submenu.classList.add('risaa-mega-menu--closing');
+              setTimeout(() => {
+                shopDetails.removeAttribute('open');
+                submenu.classList.remove('risaa-mega-menu--closing');
+              }, 410);
+            } else {
+              shopDetails.removeAttribute('open');
+            }
             shopDetails.querySelector('summary').setAttribute('aria-expanded', 'false');
-            
+
             // Remove navbar-active from header wrapper
             const headerWrapper = shopDetails.closest('.header-wrapper');
             if (headerWrapper) {
@@ -293,10 +402,14 @@
 
       // Close Shop dropdown immediately if hovering other menu items (prevents delay hang)
       const siblingLinks = document.querySelectorAll('.header__inline-menu a.header__menu-item');
-      siblingLinks.forEach(link => {
+      siblingLinks.forEach((link) => {
         link.addEventListener('mouseenter', () => {
           if (window.innerWidth >= 990 && !link.closest('#Details-HeaderMenu-Shop')) {
             clearTimeout(hoverTimer);
+            const submenu = shopDetails.querySelector('.risaa-mega-menu');
+            if (submenu) {
+              submenu.classList.remove('risaa-mega-menu--closing');
+            }
             shopDetails.removeAttribute('open');
             shopDetails.querySelector('summary').setAttribute('aria-expanded', 'false');
             const headerWrapper = shopDetails.closest('.header-wrapper');

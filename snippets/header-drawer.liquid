@@ -21,7 +21,7 @@
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-              {%- assign menu_sequence = "Summer closet,Founder's favourites,Shop,About us,Ur store" | split: ',' -%}
+              {%- assign menu_sequence = "Summer closet,Founder's favourites,Shop,About us,Our store" | split: ',' -%}
               {%- for tab in menu_sequence -%}
                 {%- assign is_active = false -%}
                 {%- if tab == 'Summer closet' -%}
@@ -33,7 +33,7 @@
                   {%- if request.page_type == 'page' and page.handle == 'about' -%}
                     {%- assign is_active = true -%}
                   {%- endif -%}
-                {%- elsif tab == 'Ur store' -%}
+                {%- elsif tab == 'Our store' -%}
                   {%- assign tab_url = '/pages/our-store' -%}
                   {%- if request.page_type == 'page' and page.handle == 'our-store' -%}
                     {%- assign is_active = true -%}
