@@ -164,16 +164,34 @@
 
   @media screen and (max-width: 749px) {
     .risaa-flagship-store-section {
-      min-height: {{ section.settings.mobile_height }}px;
-      padding-top: 4rem;
-      padding-bottom: 20px;
-      justify-content: center;
-      align-items: flex-end;
+      background-image: none !important;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      min-height: auto;
+      padding-top: 0;
+      padding-bottom: 40px;
+      background-color: #f4eade;
+    }
+
+    .risaa-flagship-store-section::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 250px;
+      background-image: url('{{ bg_image_url }}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .risaa-flagship-store-container {
       padding: 0 2rem;
       justify-content: center;
+      margin-top: -30px;
+      position: relative;
+      z-index: 3;
     }
 
     .risaa-flagship-card-wrapper {
@@ -182,9 +200,11 @@
     }
 
     .risaa-flagship-card {
-      padding: 3rem 2.5rem;
+      padding: 3rem 2rem;
       gap: 2rem;
-      min-height: calc({{ section.settings.mobile_height }}px - 4rem - 20px);
+      min-height: auto;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
 
     .flagship-title {

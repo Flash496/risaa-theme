@@ -53,8 +53,9 @@
       let end = vh * 0.4; // Shifted completion threshold 15% later (from 0.55 to 0.40)
 
       if (animType === 'roll-down') {
-        start = vh * 0.75; // Delay start until element is further into viewport
-        end = vh * 0.15;   // Finish closer to the top of the screen
+        const isMobile = window.innerWidth < 750;
+        start = isMobile ? vh * 0.95 : vh * 0.75; // Starts sooner on mobile (at 95% of viewport height)
+        end = isMobile ? vh * 0.3 : vh * 0.15;   // Finishes sooner on mobile (at 30% of viewport height)
       }
 
       let p = 0;
