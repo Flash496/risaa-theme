@@ -44,123 +44,167 @@
 
                 <li>
                   {%- if tab == 'Shop' -%}
-                    {%- assign shop_link = blank -%}
-                    {%- for link in section.settings.menu.links -%}
-                      {%- assign link_title_lower = link.title | downcase | strip -%}
-                      {%- if link_title_lower == 'shop' or link_title_lower == 'catalogue' or link_title_lower == 'catalog' -%}
-                        {%- assign shop_link = link -%}
-                        {%- break -%}
-                      {%- endif -%}
-                    {%- endfor -%}
-
-                    {%- if shop_link != blank and shop_link.links != blank -%}
-                      <details id="Details-menu-drawer-menu-item-Shop">
-                        <summary
-                          id="HeaderDrawer-shop"
-                          class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if shop_link.child_active %} menu-drawer__menu-item--active{% endif %}"
-                        >
-                          Shop
-                          <span class="svg-wrapper">
-                            {{- 'icon-arrow.svg' | inline_asset_content -}}
-                          </span>
-                          <span class="svg-wrapper">
-                            {{- 'icon-caret.svg' | inline_asset_content -}}
-                          </span>
-                        </summary>
-                        <div
-                          id="link-shop"
-                          class="menu-drawer__submenu has-submenu gradient motion-reduce"
-                          tabindex="-1"
-                        >
-                          <div class="menu-drawer__inner-submenu">
-                            <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
-                              <span class="svg-wrapper">
-                                {{- 'icon-arrow.svg' | inline_asset_content -}}
-                              </span>
-                              Shop
-                            </button>
-                            <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
-                              {%- for childlink in shop_link.links -%}
-                                <li>
-                                  {%- if childlink.links == blank -%}
-                                    <a
-                                      id="HeaderDrawer-shop-{{ childlink.handle }}"
-                                      href="{{ childlink.url }}"
-                                      class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                      {% if childlink.current %}
-                                        aria-current="page"
-                                      {% endif %}
-                                    >
-                                      {{ childlink.title | escape }}
-                                    </a>
-                                  {%- else -%}
-                                    <details id="Details-menu-drawer-shop-{{ childlink.handle }}">
-                                      <summary
-                                        id="HeaderDrawer-shop-{{ childlink.handle }}"
-                                        class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
-                                      >
-                                        {{ childlink.title | escape }}
-                                        <span class="svg-wrapper">
-                                          {{- 'icon-arrow.svg' | inline_asset_content -}}
-                                        </span>
-                                        <span class="svg-wrapper">
-                                          {{- 'icon-caret.svg' | inline_asset_content -}}
-                                        </span>
-                                      </summary>
-                                      <div
-                                        id="childlink-{{ childlink.handle | escape }}"
-                                        class="menu-drawer__submenu has-submenu gradient motion-reduce"
-                                      >
-                                        <button
-                                          class="menu-drawer__close-button link link--text focus-inset"
-                                          aria-expanded="true"
-                                        >
-                                          <span class="svg-wrapper">
-                                            {{- 'icon-arrow.svg' | inline_asset_content -}}
-                                          </span>
-                                          {{ childlink.title | escape }}
-                                        </button>
-                                        <ul
-                                          class="menu-drawer__menu list-menu"
-                                          role="list"
-                                          tabindex="-1"
-                                        >
-                                          {%- for grandchildlink in childlink.links -%}
-                                            <li>
-                                              <a
-                                                id="HeaderDrawer-shop-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                                href="{{ grandchildlink.url }}"
-                                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                                {% if grandchildlink.current %}
-                                                  aria-current="page"
-                                                {% endif %}
-                                              >
-                                                {{ grandchildlink.title | escape }}
-                                              </a>
-                                            </li>
-                                          {%- endfor -%}
-                                        </ul>
-                                      </div>
-                                    </details>
-                                  {%- endif -%}
-                                </li>
-                              {%- endfor -%}
-                            </ul>
-                          </div>
-                        </div>
-                      </details>
-                    {%- else -%}
-                      <a
+                    <details id="Details-menu-drawer-menu-item-Shop">
+                      <summary
                         id="HeaderDrawer-shop"
-                        href="{{ tab_url }}"
-                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset{% if is_active %} menu-drawer__menu-item--active{% endif %}"
-                        {% if is_active %}
-                          aria-current="page"
-                        {% endif %}
+                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset"
                       >
                         Shop
-                      </a>
-                    {%- endif -%}
+                        <span class="svg-wrapper">
+                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="svg-wrapper">
+                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        </span>
+                      </summary>
+                      <div
+                        id="link-shop"
+                        class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                        tabindex="-1"
+                      >
+                        <div class="menu-drawer__inner-submenu">
+                          <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
+                            <span class="svg-wrapper">
+                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            </span>
+                            Shop
+                          </button>
+                          <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                            <!-- Shop All Link -->
+                            <li>
+                              <a href="/collections/all" class="menu-drawer__menu-item link link--text list-menu__item focus-inset" style="font-weight: 600;">
+                                Shop All
+                              </a>
+                            </li>
+
+                            <!-- Shop by Category -->
+                            <li>
+                              <details id="Details-menu-drawer-shop-category">
+                                <summary
+                                  id="HeaderDrawer-shop-category"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  Shop by Category
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                  </span>
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                                  </span>
+                                </summary>
+                                <div
+                                  id="childlink-category"
+                                  class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                                >
+                                  <button
+                                    class="menu-drawer__close-button link link--text focus-inset"
+                                    aria-expanded="true"
+                                  >
+                                    <span class="svg-wrapper">
+                                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                    </span>
+                                    Shop by Category
+                                  </button>
+                                  <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                                    <li><a href="/collections/lehengas" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Lehengas</a></li>
+                                    <li><a href="/collections/sarees" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Sarees</a></li>
+                                    <li><a href="/collections/anarkalis" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Anarkalis</a></li>
+                                    <li><a href="/collections/kurtas-sets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Kurtas & Sets</a></li>
+                                    <li><a href="/collections/sharara-gharara" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Shararas & Ghararas</a></li>
+                                    <li><a href="/collections/gowns-fusion" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Gowns & Fusion</a></li>
+                                    <li><a href="/collections/co-ord-sets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Co-ord Sets</a></li>
+                                  </ul>
+                                </div>
+                              </details>
+                            </li>
+
+                            <!-- Shop by Occasion -->
+                            <li>
+                              <details id="Details-menu-drawer-shop-occasion">
+                                <summary
+                                  id="HeaderDrawer-shop-occasion"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  Shop by Occasion
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                  </span>
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                                  </span>
+                                </summary>
+                                <div
+                                  id="childlink-occasion"
+                                  class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                                >
+                                  <button
+                                    class="menu-drawer__close-button link link--text focus-inset"
+                                    aria-expanded="true"
+                                  >
+                                    <span class="svg-wrapper">
+                                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                    </span>
+                                    Shop by Occasion
+                                  </button>
+                                  <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                                    <li><a href="/collections/bridal" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Bridal</a></li>
+                                    <li><a href="/collections/sangeet" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Sangeet</a></li>
+                                    <li><a href="/collections/mehendi" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Mehendi</a></li>
+                                    <li><a href="/collections/reception" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Reception</a></li>
+                                    <li><a href="/collections/couture" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Couture</a></li>
+                                    <li><a href="/collections/pret" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Pret</a></li>
+                                    <li><a href="/collections/trousseau" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Trousseau</a></li>
+                                    <li><a href="/collections/festive" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Festive</a></li>
+                                    <li><a href="/collections/cocktail" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Cocktail</a></li>
+                                    <li><a href="/collections/all" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Casual Chic</a></li>
+                                  </ul>
+                                </div>
+                              </details>
+                            </li>
+
+                            <!-- Shop by Collection -->
+                            <li>
+                              <details id="Details-menu-drawer-shop-collection">
+                                <summary
+                                  id="HeaderDrawer-shop-collection"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  Shop by Collection
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                  </span>
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                                  </span>
+                                </summary>
+                                <div
+                                  id="childlink-collection"
+                                  class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                                >
+                                  <button
+                                    class="menu-drawer__close-button link link--text focus-inset"
+                                    aria-expanded="true"
+                                  >
+                                    <span class="svg-wrapper">
+                                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                    </span>
+                                    Shop by Collection
+                                  </button>
+                                  <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                                    <li><a href="/collections/bridal" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Bridal Couture</a></li>
+                                    <li><a href="/collections/trousseau" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Trousseau Dreams</a></li>
+                                    <li><a href="/collections/pret" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Pret Collection</a></li>
+                                    <li><a href="/collections/summer-favourites" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Summer Closet</a></li>
+                                    <li><a href="/collections/new-arrivals" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">New Arrivals</a></li>
+                                    <li><a href="/collections/founders-pick" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Founder's Favourites</a></li>
+                                  </ul>
+                                </div>
+                              </details>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </details>
                   {%- else -%}
                     <a
                       href="{{ tab_url }}"
@@ -174,40 +218,87 @@
                   {%- endif -%}
                 </li>
               {%- endfor -%}
-            </ul>
-          </nav>
-          <div class="menu-drawer__utility-links">
-            {%- if shop.customer_accounts_enabled -%}
-              <a
-                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-                class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
-                rel="nofollow"
-              >
-                {%- if section.settings.enable_customer_avatar -%}
-                  <account-icon>
-                    {%- if customer and customer.has_avatar? -%}
-                      {{ customer | avatar }}
+
+              <!-- Separator and Account/Login Link -->
+              <li class="menu-drawer__utility-separator"></li>
+
+              {%- if shop.customer_accounts_enabled -%}
+                <li class="menu-drawer__account-item">
+                  <a
+                    href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                    class="menu-drawer__account link focus-inset h5"
+                    style="padding: 1.2rem 3rem !important; width: 100%;"
+                    rel="nofollow"
+                  >
+                    {%- if section.settings.enable_customer_avatar -%}
+                      <account-icon>
+                        {%- if customer and customer.has_avatar? -%}
+                          {{ customer | avatar }}
+                        {%- else -%}
+                          <span class="svg-wrapper">
+                            {{- 'icon-account.svg' | inline_asset_content -}}
+                          </span>
+                        {%- endif -%}
+                      </account-icon>
                     {%- else -%}
                       <span class="svg-wrapper">
                         {{- 'icon-account.svg' | inline_asset_content -}}
                       </span>
                     {%- endif -%}
-                  </account-icon>
-                {%- else -%}
-                  <span class="svg-wrapper">
-                    {{- 'icon-account.svg' | inline_asset_content -}}
-                  </span>
-                {%- endif -%}
-                {%- liquid
-                  if customer
-                    echo 'customer.account_fallback' | t
-                  else
-                    echo 'customer.log_in' | t
-                  endif
-                -%}
-              </a>
-            {%- endif -%}
-            {%- if localization.available_countries or localization.available_languages -%}
+                    {%- liquid
+                      if customer
+                        echo 'customer.account_fallback' | t
+                      else
+                        echo 'customer.log_in' | t
+                      endif
+                    -%}
+                  </a>
+                </li>
+              {%- endif -%}
+
+              <!-- Social Links inside list -->
+              <li class="menu-drawer__social-item">
+                <div class="menu-drawer__social risaa-footer__social" style="margin-top: 0 !important; padding: 0 !important;">
+                  <a
+                    href="https://wa.me/919501032126?text=Hello%20RiSaa!%20I'm%20reaching%20out%20from%20your%20website."
+                    class="social-btn--whatsapp"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="WhatsApp"
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/risaadesignstudio"
+                    class="social-btn--instagram"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Instagram"
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://www.youtube.com/@Risaastudio"
+                    class="social-btn--youtube"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="YouTube"
+                  >
+                    <svg viewBox="0 0 24 24">
+                      <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+                    </svg>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </nav>
+
+          {%- if localization.available_countries or localization.available_languages -%}
+            <div class="menu-drawer__utility-links">
               <div class="menu-drawer__localization header-localization">
                 {%- if localization.available_countries and localization.available_countries.size > 1 -%}
                   <localization-form>
@@ -235,102 +326,99 @@
                   </localization-form>
                 {%- endif -%}
               </div>
-            {%- endif -%}
-            <ul class="list list-social list-unstyled" role="list">
-              {%- if settings.social_twitter_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_twitter_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-twitter.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-              {%- if settings.social_facebook_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_facebook_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-facebook.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-              {%- if settings.social_pinterest_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_pinterest_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-pinterest.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.pinterest' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-              {%- if settings.social_instagram_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_instagram_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-instagram.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-              {%- if settings.social_tiktok_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_tiktok_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-tiktok.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.tiktok' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-              {%- if settings.social_tumblr_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_tumblr_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-tumblr.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.tumblr' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-              {%- if settings.social_snapchat_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_snapchat_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-snapchat.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.snapchat' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-              {%- if settings.social_youtube_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_youtube_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-youtube.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-              {%- if settings.social_vimeo_link != blank -%}
-                <li class="list-social__item">
-                  <a href="{{ settings.social_vimeo_link }}" class="list-social__link link">
-                    <span class="svg-wrapper">
-                      {{- 'icon-vimeo.svg' | inline_asset_content -}}
-                    </span>
-                    <span class="visually-hidden">{{ 'general.social.links.vimeo' | t }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-            </ul>
-          </div>
+            </div>
+          {%- endif -%}
         </div>
       </div>
     </div>
   </details>
 </header-drawer>
+
+<style>
+  .menu-drawer__utility-separator {
+    margin: 2.5rem 3rem 1.5rem !important;
+    border-top: 1px solid rgba(var(--color-foreground), 0.08) !important;
+    list-style: none !important;
+  }
+  
+  .menu-drawer__account-item {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .menu-drawer__account-item svg,
+  .menu-drawer__account-item svg path {
+    fill: #000000 !important;
+    color: #000000 !important;
+  }
+
+  .menu-drawer__social-item {
+    list-style: none !important;
+    padding: 1rem 3rem 3.5rem !important;
+    margin: 0 !important;
+  }
+
+  .menu-drawer__utility-links {
+    padding: 2.5rem 3rem !important;
+    background-color: rgba(var(--color-foreground), 0.03) !important;
+    position: relative !important;
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  .menu-drawer__social {
+    display: flex !important;
+    gap: 14px !important;
+    align-items: center !important;
+    margin-top: 1.5rem !important;
+    padding: 1rem 0 !important;
+    visibility: visible !important;
+  }
+
+  .menu-drawer__social a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    text-decoration: none !important;
+    transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease !important;
+    visibility: visible !important;
+  }
+
+  .menu-drawer__social a.social-btn--whatsapp {
+    background-color: #25d366 !important;
+    border: 1px solid #25d366 !important;
+  }
+  .menu-drawer__social a.social-btn--instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+    border: 1px solid transparent !important;
+  }
+  .menu-drawer__social a.social-btn--facebook {
+    background-color: #1877f2 !important;
+    border: 1px solid #1877f2 !important;
+  }
+  .menu-drawer__social a.social-btn--youtube {
+    background-color: #ff0000 !important;
+    border: 1px solid #ff0000 !important;
+  }
+  .menu-drawer__social a.social-btn--tiktok {
+    background-color: #000000 !important;
+    border: 1px solid #000000 !important;
+  }
+
+  .menu-drawer__social a:hover {
+    transform: translateY(-2px) scale(1.1) !important;
+    filter: brightness(1.15) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .menu-drawer__social svg {
+    width: 17px !important;
+    height: 17px !important;
+    fill: #ffffff !important;
+    display: block !important;
+  }
+</style>

@@ -102,6 +102,11 @@ details[open].menu-opening > .menu-drawer__submenu {
   padding: 1.1rem 3rem;
   text-decoration: none;
   font-size: 1.8rem;
+  font-family: 'Montserrat', sans-serif !important;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 300 !important;
+  font-style: normal;
 }
 
 .menu-drawer summary.menu-drawer__menu-item {
@@ -170,24 +175,25 @@ details[open].menu-opening > .menu-drawer__submenu {
 }
 
 .menu-drawer__utility-links {
-  padding: 0;
+  padding: 2rem 3rem !important;
   background-color: rgba(var(--color-foreground), 0.03);
   position: relative;
+  display: block !important;
 }
 
 .header--has-social .menu-drawer__utility-links {
-  padding: 2rem 3rem;
+  padding: 2rem 3rem !important;
 }
 
 @media screen and (max-width: 749px) {
   .header--has-account:where(:not(.header--has-social):not(.header--has-localizations)) .menu-drawer__utility-links {
-    padding: 2rem 3rem;
+    padding: 2rem 3rem !important;
   }
 }
 
 @media screen and (max-width: 989px) {
   .header--has-localizations:where(:not(.header--has-social)) .menu-drawer__utility-links {
-    padding: 2rem 3rem;
+    padding: 2rem 3rem !important;
   }
 }
 
@@ -195,20 +201,27 @@ details[open].menu-opening > .menu-drawer__submenu {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  padding: 1rem 0;
-  font-size: 1.4rem;
+  padding: 1.2rem 0;
+  font-size: 1.5rem;
   color: rgb(var(--color-foreground));
   margin-bottom: 0;
+  font-family: 'Montserrat', sans-serif !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  font-weight: 300 !important;
 }
 
 .menu-drawer__utility-links:has(.menu-drawer__localization) .menu-drawer__account {
   margin: 0;
 }
 
-.menu-drawer__account account-icon > .svg-wrapper {
-  height: 2rem;
-  width: 2rem;
-  margin-right: 1rem;
+.menu-drawer__account account-icon > .svg-wrapper,
+.menu-drawer__account > .svg-wrapper {
+  height: 2.2rem;
+  width: 2.2rem;
+  margin-right: 1.2rem;
+  display: block;
+  transition: transform 0.2s ease;
 }
 
 .menu-drawer__account shop-user-avatar {
@@ -217,21 +230,64 @@ details[open].menu-opening > .menu-drawer__submenu {
   margin-left: -0.45rem;
 }
 
-.menu-drawer__account:hover account-icon > .svg-wrapper {
-  transform: scale(1.07);
+.menu-drawer__account:hover account-icon > .svg-wrapper,
+.menu-drawer__account:hover > .svg-wrapper {
+  transform: scale(1.08);
 }
 
-.menu-drawer .list-social {
-  justify-content: flex-start;
-  margin-left: -1.25rem;
+.menu-drawer__social {
+  display: flex !important;
+  gap: 14px;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding: 1rem 0;
+  visibility: visible !important;
 }
 
-.menu-drawer .list-social:empty {
-  display: none;
+.menu-drawer__social a {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+  visibility: visible !important;
 }
 
-.menu-drawer .list-social__link {
-  padding: 1.1rem 1.1rem;
+.menu-drawer__social a.social-btn--whatsapp {
+  background-color: #25d366 !important;
+  border: 1px solid #25d366 !important;
+}
+.menu-drawer__social a.social-btn--instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important;
+  border: 1px solid transparent !important;
+}
+.menu-drawer__social a.social-btn--facebook {
+  background-color: #1877f2 !important;
+  border: 1px solid #1877f2 !important;
+}
+.menu-drawer__social a.social-btn--youtube {
+  background-color: #ff0000 !important;
+  border: 1px solid #ff0000 !important;
+}
+.menu-drawer__social a.social-btn--tiktok {
+  background-color: #000000 !important;
+  border: 1px solid #000000 !important;
+}
+
+.menu-drawer__social a:hover {
+  transform: translateY(-2px) scale(1.1) !important;
+  filter: brightness(1.15) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+.menu-drawer__social svg {
+  width: 17px !important;
+  height: 17px !important;
+  fill: #ffffff !important;
+  display: block !important;
 }
 
 @media screen and (max-width: 749px) {
