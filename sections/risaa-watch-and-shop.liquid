@@ -491,6 +491,9 @@
     .risaa-video-card.shuffling {
       animation: shuffle-animation-mobile 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1) !important;
     }
+    .risaa-video-card.shuffling-prev {
+      animation: shuffle-animation-prev-mobile 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1) !important;
+    }
 
     /* Shop the Look card: absolute overlay at bottom-right of the reel */
     .risaa-reels-info-side {
@@ -582,6 +585,24 @@
       transform: scale(0.8) translateX(0) translateZ(-60px);
       z-index: 1;
       opacity: 0;
+    }
+  }
+
+  @keyframes shuffle-animation-prev-mobile {
+    0% {
+      transform: scale(0.8) translateX(0) translateZ(-60px);
+      z-index: 1;
+      opacity: 0;
+    }
+    40% {
+      transform: scale(0.9) translateX(-120%) rotate(-10deg);
+      opacity: 0.8;
+      z-index: 100;
+    }
+    100% {
+      transform: scale(1) translateX(0) rotate(0) translateZ(0);
+      z-index: 100;
+      opacity: 1;
     }
   }
 
@@ -848,21 +869,27 @@
   function shuffleStack(sectionId, direction) {
     if (window.innerWidth < 750) {
       const stack = document.getElementById(`reelsStack-${sectionId}`);
-      const topCard = stack.querySelector('.card-1');
-      if (!topCard) return;
+      if (!stack) return;
+      if (stack.dataset.isAnimatingMobile === 'true') return;
 
-      topCard.classList.add('shuffling');
+      if (direction === 'prev') {
+        const lastCard = stack.lastElementChild;
+        if (!lastCard) return;
 
-      setTimeout(() => {
-        topCard.classList.remove('shuffling');
-        stack.appendChild(topCard);
+        stack.dataset.isAnimatingMobile = 'true';
+        stack.insertBefore(lastCard, stack.firstElementChild);
 
         const newCards = Array.from(stack.querySelectorAll('.risaa-video-card'));
         newCards.forEach((card, i) => {
           card.className = 'risaa-video-card';
           const pos = i + 1;
-          if (pos <= 3) card.classList.add(`card-${pos}`);
-          else card.classList.add('card-hidden');
+          if (pos === 1) {
+            card.classList.add('shuffling-prev');
+          } else if (pos <= 3) {
+            card.classList.add(`card-${pos}`);
+          } else {
+            card.classList.add('card-hidden');
+          }
 
           const video = card.querySelector('video');
           if (video) {
@@ -871,9 +898,47 @@
           }
         });
 
-        const activeBlockId = stack.querySelector('.card-1').getAttribute('data-block-id');
+        const activeBlockId = stack.querySelector('.shuffling-prev').getAttribute('data-block-id');
         updateProductInfo(sectionId, activeBlockId);
-      }, 600);
+
+        setTimeout(() => {
+          const topCard = stack.querySelector('.shuffling-prev');
+          if (topCard) {
+            topCard.classList.remove('shuffling-prev');
+            topCard.classList.add('card-1');
+          }
+          stack.dataset.isAnimatingMobile = 'false';
+        }, 800);
+      } else {
+        const topCard = stack.querySelector('.card-1');
+        if (!topCard) return;
+
+        stack.dataset.isAnimatingMobile = 'true';
+        topCard.classList.add('shuffling');
+
+        setTimeout(() => {
+          topCard.classList.remove('shuffling');
+          stack.appendChild(topCard);
+
+          const newCards = Array.from(stack.querySelectorAll('.risaa-video-card'));
+          newCards.forEach((card, i) => {
+            card.className = 'risaa-video-card';
+            const pos = i + 1;
+            if (pos <= 3) card.classList.add(`card-${pos}`);
+            else card.classList.add('card-hidden');
+
+            const video = card.querySelector('video');
+            if (video) {
+              if (pos === 1) video.play().catch(e => {});
+              else video.pause();
+            }
+          });
+
+          const activeBlockId = stack.querySelector('.card-1').getAttribute('data-block-id');
+          updateProductInfo(sectionId, activeBlockId);
+          stack.dataset.isAnimatingMobile = 'false';
+        }, 600);
+      }
     } else {
       const stack = document.getElementById(`reelsStack-${sectionId}`);
       if (!stack) return;
@@ -992,6 +1057,54 @@
           if (video) video.play().catch(e => {});
           updateProductInfo('{{ section.id }}', topCard.getAttribute('data-block-id'));
         }
+      }
+
+      // Touch swipe gestures for mobile
+      let reelTouchStartX = 0;
+      let reelTouchStartY = 0;
+      let reelTouchDeltaX = 0;
+      let reelIsSwiping = false;
+
+      const layout = stack.closest('.risaa-reels-layout');
+      if (layout) {
+        layout.addEventListener('touchstart', (e) => {
+          if (window.innerWidth >= 750) return;
+          reelTouchStartX = e.touches[0].clientX;
+          reelTouchStartY = e.touches[0].clientY;
+          reelTouchDeltaX = 0;
+          reelIsSwiping = false;
+        }, { passive: true });
+
+        layout.addEventListener('touchmove', (e) => {
+          if (window.innerWidth >= 750) return;
+          const clientX = e.touches[0].clientX;
+          const clientY = e.touches[0].clientY;
+          reelTouchDeltaX = clientX - reelTouchStartX;
+          const deltaY = clientY - reelTouchStartY;
+
+          if (!reelIsSwiping) {
+            if (Math.abs(reelTouchDeltaX) > Math.abs(deltaY) && Math.abs(reelTouchDeltaX) > 10) {
+              reelIsSwiping = true;
+            }
+          }
+
+          if (reelIsSwiping) {
+            if (e.cancelable) e.preventDefault();
+          }
+        }, { passive: false });
+
+        layout.addEventListener('touchend', () => {
+          if (window.innerWidth >= 750) return;
+          if (!reelIsSwiping) return;
+          reelIsSwiping = false;
+
+          const threshold = 50;
+          if (reelTouchDeltaX < -threshold) {
+            shuffleStack('{{ section.id }}', 'next');
+          } else if (reelTouchDeltaX > threshold) {
+            shuffleStack('{{ section.id }}', 'prev');
+          }
+        });
       }
     }
 
