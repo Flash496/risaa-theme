@@ -222,6 +222,11 @@
     .risaa-occasions__belt {
       gap: 16px;
     }
+    .risaa-occasions__arrow {
+      opacity: 0.7;
+      pointer-events: auto;
+      transform: translateY(-50%) scale(1);
+    }
   }
 {%- endstyle -%}
 
@@ -335,23 +340,25 @@
     var resumeTimer = null;
     var raf = null;
     var oneSetW = 0; // width of one set of cards
+    var cardW = 0;
+    var outerW = 0;
 
     function updateActiveOccasion() {
+      var cards = belt.querySelectorAll('.risaa-occasions__card');
       if (window.innerWidth > 749) {
-        belt.querySelectorAll('.risaa-occasions__card').forEach(function (c) {
+        cards.forEach(function (c) {
           c.classList.remove('is-active');
         });
         return;
       }
-      var outerRect = outer.getBoundingClientRect();
-      var centerX = outerRect.left + outerRect.width / 2;
-      var cards = belt.querySelectorAll('.risaa-occasions__card');
+      
+      var centerX = outerW / 2;
       var closestCard = null;
       var minDistance = Infinity;
+      var stepWidth = cardW + GAP;
 
-      cards.forEach(function (card) {
-        var cardRect = card.getBoundingClientRect();
-        var cardCenterX = cardRect.left + cardRect.width / 2;
+      cards.forEach(function (card, i) {
+        var cardCenterX = pos + i * stepWidth + cardW / 2;
         var distance = Math.abs(cardCenterX - centerX);
         if (distance < minDistance) {
           minDistance = distance;
@@ -369,15 +376,21 @@
       var cards = belt.querySelectorAll('.risaa-occasions__card');
       var n = cards.length / 3; // 3 copies rendered
       if (n < 1) return;
+      
+      GAP = window.innerWidth > 749 ? 24 : 16;
+      STEP = window.innerWidth > 749 ? 341 : 261;
+      cardW = cards[0].offsetWidth || (window.innerWidth > 749 ? 317 : 245);
+      outerW = outer.offsetWidth || window.innerWidth;
+      
       var w = 0;
-      for (var i = 0; i < n; i++) w += cards[i].offsetWidth + GAP;
+      for (var i = 0; i < n; i++) w += (cards[i].offsetWidth || (window.innerWidth > 749 ? 317 : 245)) + GAP;
       oneSetW = w;
+      
       // Start in the middle copy so we can scroll both ways
       pos = -oneSetW;
 
       if (window.innerWidth <= 749) {
-        var cardW = cards[0].offsetWidth;
-        var offset = (outer.offsetWidth - cardW) / 2;
+        var offset = (outerW - cardW) / 2;
         pos = -oneSetW + offset;
       }
       apply();
@@ -392,12 +405,64 @@
     /* ── Wrap pos to stay in middle copy ── */
     function wrap() {
       if (!oneSetW) return;
-      var cardW = belt.querySelector('.risaa-occasions__card').offsetWidth;
-      var offset = window.innerWidth <= 749 ? (outer.offsetWidth - cardW) / 2 : 0;
+      var offset = window.innerWidth <= 749 ? (outerW - cardW) / 2 : 0;
       // If we've scrolled past the end of the middle copy, jump back one set
       if (pos <= -oneSetW * 2 + offset) pos += oneSetW;
       // If we've scrolled before the start of the middle copy, jump forward one set
       if (pos > offset) pos -= oneSetW;
+    }
+
+    var isDraggingOccasion = false;
+    var isSnapping = false;
+    var dragHistory = [];
+
+    function snapToNearest() {
+      if (isDown || isDraggingOccasion || isSnapping) return;
+      isSnapping = true;
+      var cards = belt.querySelectorAll('.risaa-occasions__card');
+      var centerX = outerW / 2;
+      var closestIndex = 0;
+      var minDistance = Infinity;
+      var stepWidth = cardW + GAP;
+
+      cards.forEach(function (card, i) {
+        var cardCenterX = pos + i * stepWidth + cardW / 2;
+        var distance = Math.abs(cardCenterX - centerX);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = i;
+        }
+      });
+
+      var targetPos = centerX - (closestIndex * stepWidth + cardW / 2);
+      
+      // Animate pos to targetPos
+      var start = pos;
+      var t0 = null;
+      var dur = 320;
+      function ease(t) {
+        return t * (2 - t); // easeOutQuad
+      }
+      function animSnap(ts) {
+        if (isDown || isDraggingOccasion) {
+          isSnapping = false;
+          return; // cancel if user interacts again
+        }
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        pos = start + (targetPos - start) * ease(p);
+        wrap();
+        apply();
+        if (p < 1) {
+          requestAnimationFrame(animSnap);
+        } else {
+          pos = targetPos;
+          wrap();
+          apply();
+          isSnapping = false;
+        }
+      }
+      requestAnimationFrame(animSnap);
     }
 
     /* ── RAF loop ── */
@@ -409,9 +474,13 @@
       // Apply momentum from drag
       if (Math.abs(velocity) > 0.1) {
         pos += velocity;
-        velocity *= 0.92; // friction
-      } else {
-        velocity = 0;
+        velocity *= 0.95; // friction
+        if (Math.abs(velocity) <= 0.1) {
+          velocity = 0;
+          if (window.innerWidth <= 749) {
+            snapToNearest();
+          }
+        }
       }
       wrap();
       apply();
@@ -434,6 +503,7 @@
     /* ── Arrow nudge (smooth) ── */
     function nudge(dir) {
       pause();
+      velocity = 0; // Clear any swipe momentum
       var target = pos + dir * -STEP;
       var start = pos;
       var t0 = null;
@@ -479,11 +549,12 @@
       if (e.target.closest('.risaa-occasions__arrow')) return;
       pause();
       isDown = true;
+      isDraggingOccasion = true;
+      isSnapping = false;
       hasDragged = false;
       dragStartX = e.pageX;
       dragStartPos = pos;
-      lastDragX = e.pageX;
-      lastDragT = Date.now();
+      dragHistory = [{ x: e.pageX, t: Date.now() }];
       velocity = 0;
       outer.classList.add('is-dragging');
     });
@@ -491,7 +562,27 @@
     window.addEventListener('mouseup', function () {
       if (!isDown) return;
       isDown = false;
+      isDraggingOccasion = false;
       outer.classList.remove('is-dragging');
+
+      var now = Date.now();
+      while (dragHistory.length > 1 && now - dragHistory[0].t > 100) {
+        dragHistory.shift();
+      }
+
+      if (dragHistory.length > 1) {
+        var first = dragHistory[0];
+        var last = dragHistory[dragHistory.length - 1];
+        var dt = last.t - first.t || 1;
+        var speed = (last.x - first.x) / dt;
+        velocity = speed * 16;
+      } else {
+        velocity = 0;
+      }
+
+      if (Math.abs(velocity) <= 0.1 && window.innerWidth <= 749) {
+        snapToNearest();
+      }
       scheduleResume(hasDragged ? 1800 : 500);
     });
 
@@ -499,12 +590,13 @@
       if (!isDown) return;
       var diff = e.pageX - dragStartX;
       if (Math.abs(diff) > 3) hasDragged = true;
-      // Track velocity for momentum
+      
       var now = Date.now();
-      var dt = now - lastDragT || 1;
-      velocity = ((e.pageX - lastDragX) / dt) * 16; // scale to ~px/frame
-      lastDragX = e.pageX;
-      lastDragT = now;
+      dragHistory.push({ x: e.pageX, t: now });
+      while (dragHistory.length > 1 && now - dragHistory[0].t > 100) {
+        dragHistory.shift();
+      }
+
       pos = dragStartPos + diff;
       wrap();
       apply();
@@ -521,18 +613,18 @@
     var tStartX = 0,
       tStartPos = 0,
       tDragged = false,
-      tLastX = 0,
-      tLastT = 0;
+      touchHistory = [];
 
     outer.addEventListener(
       'touchstart',
       function (e) {
         pause();
+        isDraggingOccasion = true;
+        isSnapping = false;
         tStartX = e.touches[0].clientX;
         tStartPos = pos;
         tDragged = false;
-        tLastX = tStartX;
-        tLastT = Date.now();
+        touchHistory = [{ x: tStartX, t: Date.now() }];
         velocity = 0;
         outer.classList.add('is-dragging');
       },
@@ -544,10 +636,13 @@
       function (e) {
         var diff = e.touches[0].clientX - tStartX;
         if (Math.abs(diff) > 5) tDragged = true;
+        
         var now = Date.now();
-        velocity = ((e.touches[0].clientX - tLastX) / (now - tLastT || 1)) * 16;
-        tLastX = e.touches[0].clientX;
-        tLastT = now;
+        touchHistory.push({ x: e.touches[0].clientX, t: now });
+        while (touchHistory.length > 1 && now - touchHistory[0].t > 100) {
+          touchHistory.shift();
+        }
+
         pos = tStartPos + diff;
         wrap();
         apply();
@@ -556,7 +651,27 @@
     );
 
     outer.addEventListener('touchend', function () {
+      isDraggingOccasion = false;
       outer.classList.remove('is-dragging');
+
+      var now = Date.now();
+      while (touchHistory.length > 1 && now - touchHistory[0].t > 100) {
+        touchHistory.shift();
+      }
+
+      if (touchHistory.length > 1) {
+        var first = touchHistory[0];
+        var last = touchHistory[touchHistory.length - 1];
+        var dt = last.t - first.t || 1;
+        var speed = (last.x - first.x) / dt;
+        velocity = speed * 16;
+      } else {
+        velocity = 0;
+      }
+
+      if (Math.abs(velocity) <= 0.1 && window.innerWidth <= 749) {
+        snapToNearest();
+      }
       scheduleResume(tDragged ? 1800 : 400);
     });
 
@@ -579,7 +694,7 @@
     // Remove continuous tick motion by keeping SPEED disabled
     requestAnimationFrame(function () {
       measure();
-      // tick(); // disabled
+      tick();
 
       window.setInterval(function () {
         if (!outer.matches(':hover')) {
@@ -587,6 +702,8 @@
         }
       }, AUTO_INTERVAL);
     });
+
+    window.addEventListener('resize', measure);
   })();
 </script>
 

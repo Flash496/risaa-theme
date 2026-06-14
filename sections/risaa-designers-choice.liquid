@@ -161,12 +161,13 @@
         padding-right: 15px !important;
       }
       .section-{{ section.id }}-padding .risaa-carousel-wrapper {
-        margin-left: -1.5rem;
-        margin-right: -1.5rem;
+        margin-left: -2rem;
+        margin-right: -2rem;
       }
       .section-{{ section.id }}-padding .risaa-designers-choice__carousel {
         padding-inline: 0;
         clip-path: none;
+        overflow: hidden;
       }
 
       .section-{{ section.id }}-padding .risaa-designers-choice__track {
@@ -175,7 +176,7 @@
         display: flex;
         flex-wrap: nowrap;
         transition: transform 0.35s ease;
-        padding-left: 1.5rem;
+        padding-left: 0;
       }
 
       .section-{{ section.id }}-padding .risaa-designers-choice__item {
@@ -319,11 +320,13 @@
     };
     let isAnimating = false;
     let direction = null;
+    let scrollCount = 1;
 
     prev.addEventListener('click', () => {
       if (isAnimating) return;
       isAnimating = true;
       direction = 'prev';
+      scrollCount = 1;
       track.style.transition = 'none';
       track.insertBefore(track.lastElementChild, track.firstElementChild);
       track.style.transform = `translateX(${currentTranslate - step()}px)`;
@@ -338,6 +341,7 @@
       if (isAnimating) return;
       isAnimating = true;
       direction = 'next';
+      scrollCount = 1;
       track.style.transition = 'transform 0.35s ease';
       track.style.transform = `translateX(${currentTranslate - step()}px)`;
     });
@@ -345,7 +349,9 @@
     track.addEventListener('transitionend', () => {
       if (direction === 'next') {
         track.style.transition = 'none';
-        track.appendChild(track.firstElementChild);
+        for (let i = 0; i < scrollCount; i++) {
+          track.appendChild(track.firstElementChild);
+        }
         track.style.transform = `translateX(${currentTranslate}px)`;
         track.offsetHeight;
         requestAnimationFrame(() => {
@@ -361,28 +367,79 @@
         isAnimating = false;
         return;
       }
+      // Clean up for bounce/snap back
+      track.style.transition = '';
+      direction = null;
+      isAnimating = false;
     });
 
-    // Touch Swipe Gestures for Mobile
+    // Touch Swipe Dragging for Mobile (Free dragging with infinite loop)
     let touchStartX = 0;
     let touchStartY = 0;
     let touchDeltaX = 0;
+    let touchHistory = [];
     let isSwiping = false;
+
+    // Inertia variables for mobile
+    let lastTouchX = 0;
+    let lastTouchTime = 0;
+    let velocity = 0;
+    let inertiaFrame = null;
+
+    const getCardWidth = () => {
+      const styles = window.getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      return track.children[0] ? track.children[0].getBoundingClientRect().width + gap : 0;
+    };
+
+    const updateLoop = (translate) => {
+      const cardWidth = getCardWidth();
+      if (cardWidth <= 0) return translate;
+
+      let newTranslate = translate;
+      while (newTranslate < -cardWidth) {
+        track.appendChild(track.firstElementChild);
+        newTranslate += cardWidth;
+      }
+      while (newTranslate > 0) {
+        track.insertBefore(track.lastElementChild, track.firstElementChild);
+        newTranslate -= cardWidth;
+      }
+      return newTranslate;
+    };
+
+    const applyTranslate = (translate) => {
+      track.style.transform = `translateX(${translate}px)`;
+    };
 
     track.addEventListener('touchstart', (e) => {
       if (isAnimating) return;
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      touchDeltaX = 0;
-      isSwiping = false;
+
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+
+      if (window.innerWidth < 750) {
+        cancelAnimationFrame(inertiaFrame);
+        lastTouchX = touch.clientX;
+        lastTouchTime = Date.now();
+        touchDeltaX = 0;
+        velocity = 0;
+        isSwiping = false;
+        track.style.transition = 'none';
+      } else {
+        touchHistory = [{ x: touchStartX, t: Date.now() }];
+        touchDeltaX = 0;
+        isSwiping = false;
+      }
     }, { passive: true });
 
     track.addEventListener('touchmove', (e) => {
       if (isAnimating) return;
-      const clientX = e.touches[0].clientX;
-      const clientY = e.touches[0].clientY;
-      touchDeltaX = clientX - touchStartX;
-      const deltaY = clientY - touchStartY;
+
+      const touch = e.touches[0];
+      touchDeltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
 
       if (!isSwiping) {
         if (Math.abs(touchDeltaX) > Math.abs(deltaY) && Math.abs(touchDeltaX) > 10) {
@@ -392,42 +449,111 @@
 
       if (isSwiping) {
         if (e.cancelable) e.preventDefault();
-        track.style.transition = 'none';
-        track.style.transform = `translateX(${touchDeltaX}px)`;
+
+        if (window.innerWidth < 750) {
+          const now = Date.now();
+          const dt = now - lastTouchTime || 1;
+          const deltaTouch = touch.clientX - lastTouchX;
+          velocity = deltaTouch / dt;
+          lastTouchX = touch.clientX;
+          lastTouchTime = now;
+
+          currentTranslate = updateLoop(currentTranslate + deltaTouch);
+          applyTranslate(currentTranslate);
+        } else {
+          const now = Date.now();
+          touchHistory.push({ x: touch.clientX, t: now });
+          while (touchHistory.length > 1 && now - touchHistory[0].t > 100) {
+            touchHistory.shift();
+          }
+          track.style.transition = 'none';
+          track.style.transform = `translateX(${currentTranslate + touchDeltaX}px)`;
+        }
       }
-    });
+    }, { passive: false });
 
     track.addEventListener('touchend', (e) => {
       if (isAnimating) return;
       if (!isSwiping) return;
       isSwiping = false;
 
-      const threshold = 50;
-      if (touchDeltaX < -threshold) {
-        isAnimating = true;
-        direction = 'next';
-        track.style.transition = 'transform 0.35s ease';
-        track.style.transform = `translateX(${-step()}px)`;
-      } else if (touchDeltaX > threshold) {
-        isAnimating = true;
-        direction = 'prev';
-        track.style.transition = 'none';
-        track.insertBefore(track.lastElementChild, track.firstElementChild);
-        track.style.transform = `translateX(${touchDeltaX - step()}px)`;
-        track.offsetHeight;
-        requestAnimationFrame(() => {
-          track.style.transition = 'transform 0.35s ease';
-          track.style.transform = 'translateX(0)';
-        });
+      if (window.innerWidth < 750) {
+        velocity = Math.max(-15, Math.min(15, velocity));
+
+        const animateInertia = () => {
+          if (Math.abs(velocity) < 0.1) {
+            cancelAnimationFrame(inertiaFrame);
+            return;
+          }
+
+          velocity *= 0.95;
+          currentTranslate = updateLoop(currentTranslate + velocity * 16);
+          applyTranslate(currentTranslate);
+
+          inertiaFrame = requestAnimationFrame(animateInertia);
+        };
+
+        if (Math.abs(velocity) > 0.1) {
+          inertiaFrame = requestAnimationFrame(animateInertia);
+        }
       } else {
-        isAnimating = true;
-        direction = 'bounce';
-        track.style.transition = 'transform 0.2s ease';
-        track.style.transform = 'translateX(0)';
+        const now = Date.now();
+        while (touchHistory.length > 1 && now - touchHistory[0].t > 100) {
+          touchHistory.shift();
+        }
+
+        let speed = 0;
+        if (touchHistory.length > 1) {
+          const first = touchHistory[0];
+          const last = touchHistory[touchHistory.length - 1];
+          const dt = last.t - first.t || 1;
+          speed = Math.abs(last.x - first.x) / dt;
+        }
+
+        const threshold = 50;
+        const cardStep = step();
+
+        let count = Math.round(Math.abs(touchDeltaX) / cardStep);
+        if (speed > 2.2) {
+          count = Math.max(count, 4);
+        } else if (speed > 1.4) {
+          count = Math.max(count, 3);
+        } else if (speed > 0.5) {
+          count = Math.max(count, 2);
+        } else {
+          count = Math.max(count, 1);
+        }
+        scrollCount = Math.max(1, Math.min(4, count));
+
+        if (touchDeltaX < -threshold) {
+          isAnimating = true;
+          direction = 'next';
+          track.style.transition = 'transform 0.35s ease';
+          track.style.transform = `translateX(${currentTranslate - (cardStep * scrollCount)}px)`;
+        } else if (touchDeltaX > threshold) {
+          isAnimating = true;
+          direction = 'prev';
+          track.style.transition = 'none';
+          for (let i = 0; i < scrollCount; i++) {
+            track.insertBefore(track.lastElementChild, track.firstElementChild);
+          }
+          track.style.transform = `translateX(${currentTranslate - (cardStep * scrollCount) + touchDeltaX}px)`;
+          track.offsetHeight;
+          requestAnimationFrame(() => {
+            track.style.transition = 'transform 0.35s ease';
+            track.style.transform = `translateX(${currentTranslate}px)`;
+          });
+        } else {
+          isAnimating = true;
+          direction = 'bounce';
+          track.style.transition = 'transform 0.2s ease';
+          track.style.transform = `translateX(${currentTranslate}px)`;
+        }
       }
     });
 
     window.addEventListener('resize', () => {
+      currentTranslate = 0;
       track.style.transition = 'none';
       track.style.transform = 'translateX(0)';
       requestAnimationFrame(() => {
