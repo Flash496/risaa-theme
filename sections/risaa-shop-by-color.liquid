@@ -331,7 +331,7 @@
 
     @media screen and (max-width: 749px) {
       .risaa-3d-carousel-container {
-        height: 350px;
+        height: 420px;
       }
       .risaa-3d-carousel-btn {
         width: 40px;
@@ -342,11 +342,11 @@
         height: 16px;
       }
       .risaa-3d-carousel-item {
-        width: 245px;
+        width: 294px;
         height: auto;
       }
       .risaa-collage {
-        height: 327px;
+        height: 392px;
       }
     }
 {%- endstyle -%}
@@ -516,7 +516,7 @@
       function updateCarousel() {
         const isMobile = window.innerWidth <= 749;
         const isTablet = window.innerWidth <= 989 && window.innerWidth > 749;
-        const cardWidth = isMobile ? 245 : isTablet ? 317 : 317;
+        const cardWidth = isMobile ? 294 : isTablet ? 317 : 317;
         const gap = Math.max(0, (isMobile ? mobileSpacing : desktopSpacing) - 10);
         const step = cardWidth + gap;
 
