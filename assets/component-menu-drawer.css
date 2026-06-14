@@ -101,12 +101,19 @@ details[open].menu-opening > .menu-drawer__submenu {
 .menu-drawer__menu-item {
   padding: 1.1rem 3rem;
   text-decoration: none;
-  font-size: 1.8rem;
-  font-family: 'Montserrat', sans-serif !important;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  font-weight: 300 !important;
   font-style: normal;
+}
+
+.menu-drawer__menu-item,
+.menu-drawer__menu-item span,
+.menu-drawer__menu-item *,
+.menu-drawer summary.menu-drawer__menu-item,
+.menu-drawer a.menu-drawer__menu-item {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
 }
 
 .menu-drawer summary.menu-drawer__menu-item {
