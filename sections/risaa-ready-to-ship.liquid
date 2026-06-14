@@ -456,13 +456,11 @@
           while (activeTranslate < -cardStep) {
             track.appendChild(track.firstElementChild);
             currentTranslate += cardStep;
-            touchStartX += cardStep;
             activeTranslate = currentTranslate + (clientX - touchStartX);
           }
           while (activeTranslate > 0) {
             track.insertBefore(track.lastElementChild, track.firstElementChild);
             currentTranslate -= cardStep;
-            touchStartX -= cardStep;
             activeTranslate = currentTranslate + (clientX - touchStartX);
           }
         }
