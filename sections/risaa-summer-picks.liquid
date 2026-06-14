@@ -73,33 +73,28 @@
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    width: 3.6rem;
-    height: 3.6rem;
-    border: 0;
-    background: transparent;
-    color: #fff;
-    box-shadow: none;
+    width: 4.4rem;
+    height: 4.4rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--brand-main, #6e1423);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     pointer-events: auto;
     font-family: Georgia, 'Times New Roman', serif;
     font-size: 4.6rem;
     font-weight: 300;
     line-height: 0.8;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
     border-radius: 50%;
-    transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
-  }
-
-  .risaa-summer-picks__controls {
-    left: 15px;
-    right: 15px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .risaa-summer-picks__button:hover {
-    transform: scale(1.08);
-    background-color: rgba(255, 255, 255, 0.45);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(110, 20, 35, 0.4);
+    box-shadow: 0 6px 16px rgba(110, 20, 35, 0.12);
   }
 
   .risaa-summer-picks__button[disabled] {
@@ -130,10 +125,13 @@
   .risaa-summer-picks__button--next .icon {
     transform: rotate(-90deg);
   }
-
   @media screen and (max-width: 749px) {
     .risaa-summer-picks {
       padding: 0;
+    }
+    .risaa-carousel-wrapper {
+      margin-left: -2rem;
+      margin-right: -2rem;
     }
     .risaa-summer-picks__carousel {
       padding-inline: 0;
@@ -144,16 +142,11 @@
     }
     .risaa-summer-picks__track {
       --risaa-carousel-gap: max(0px, calc(var(--grid-mobile-horizontal-spacing) - 10px));
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-snap-type: none;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      scroll-behavior: smooth;
-    }
-    .risaa-summer-picks__track::-webkit-scrollbar {
-      display: none;
+      overflow: visible;
+      display: flex;
+      flex-wrap: nowrap;
+      transition: transform 0.35s ease;
+      padding-left: 2rem;
     }
     .risaa-summer-picks__item {
       flex-basis: calc((100% - var(--risaa-carousel-gap)) * 0.75);
@@ -161,8 +154,8 @@
       max-width: calc((100% - var(--risaa-carousel-gap)) * 0.75);
     }
     .risaa-summer-picks__controls {
-      left: 10px;
-      right: 10px;
+      left: 5px;
+      right: 5px;
     }
   }
 {%- endstyle -%}
@@ -173,53 +166,55 @@
       <h2 class="risaa-summer-picks__title">{{ section.settings.title }}</h2>
     </div>
 
-    <div
-      class="risaa-summer-picks__carousel"
-      data-risaa-carousel
-    >
-      <ul
-        class="product-grid contains-card contains-card--product risaa-summer-picks__track"
-        role="list"
-        aria-label="{{ 'general.slider.name' | t }}"
-        data-risaa-carousel-track
-        data-anim-stagger
-        data-anim-delay="0.05"
-        data-anim-step="0.06"
+    <div class="risaa-carousel-wrapper" style="position: relative;" data-risaa-carousel-wrapper>
+      <div
+        class="risaa-summer-picks__carousel"
+        data-risaa-carousel
       >
-        {% if section.settings.collection != blank and section.settings.collection.products.size > 0 %}
-          {%- assign skip_card_product_styles = false -%}
-          {% for product in section.settings.collection.products limit: 8 %}
-            {%- assign curated_card_image_index = forloop.index0 -%}
-            <li class="risaa-summer-picks__item">
-              {% render 'card-product',
-                card_product: product,
-                media_aspect_ratio: 'portrait',
-                show_secondary_image: true,
-                show_vendor: false,
-                show_rating: false,
-                lazy_load: true,
-                skip_styles: skip_card_product_styles,
-                section_id: section.id,
-                landing_card_price: 'true',
-                custom_card_image_index: curated_card_image_index
-              %}
-              {%- assign skip_card_product_styles = true -%}
-            </li>
-          {% endfor %}
-        {% else %}
-          {% for i in (1..8) %}
-            <li class="risaa-summer-picks__item">
-              {%- assign placeholder_image = 'product-apparel-' | append: i -%}
-              {% render 'card-product',
-                media_aspect_ratio: 'portrait',
-                placeholder_image: placeholder_image,
-                placeholder_image_offset: 0,
-                landing_card_price: 'true'
-              %}
-            </li>
-          {% endfor %}
-        {% endif %}
-      </ul>
+        <ul
+          class="product-grid contains-card contains-card--product risaa-summer-picks__track"
+          role="list"
+          aria-label="{{ 'general.slider.name' | t }}"
+          data-risaa-carousel-track
+          data-anim-stagger
+          data-anim-delay="0.05"
+          data-anim-step="0.06"
+        >
+          {% if section.settings.collection != blank and section.settings.collection.products.size > 0 %}
+            {%- assign skip_card_product_styles = false -%}
+            {% for product in section.settings.collection.products limit: 8 %}
+              {%- assign curated_card_image_index = forloop.index0 -%}
+              <li class="risaa-summer-picks__item">
+                {% render 'card-product',
+                  card_product: product,
+                  media_aspect_ratio: 'portrait',
+                  show_secondary_image: true,
+                  show_vendor: false,
+                  show_rating: false,
+                  lazy_load: true,
+                  skip_styles: skip_card_product_styles,
+                  section_id: section.id,
+                  landing_card_price: 'true',
+                  custom_card_image_index: curated_card_image_index
+                %}
+                {%- assign skip_card_product_styles = true -%}
+              </li>
+            {% endfor %}
+          {% else %}
+            {% for i in (1..8) %}
+              <li class="risaa-summer-picks__item">
+                {%- assign placeholder_image = 'product-apparel-' | append: i -%}
+                {% render 'card-product',
+                  media_aspect_ratio: 'portrait',
+                  placeholder_image: placeholder_image,
+                  placeholder_image_offset: 0,
+                  landing_card_price: 'true'
+                %}
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
       <div class="risaa-summer-picks__controls">
         <button
           type="button"
@@ -244,15 +239,18 @@
 
 <script>
   (() => {
-    const carousel = document.querySelector('#risaa-summer-picks-{{ section.id }} [data-risaa-carousel]');
-    if (!carousel || carousel.dataset.risaaCarouselReady === 'true') return;
+    const wrapper = document.querySelector('#risaa-summer-picks-{{ section.id }} [data-risaa-carousel-wrapper]');
+    if (!wrapper || wrapper.dataset.risaaCarouselReady === 'true') return;
 
-    const track = carousel.querySelector('[data-risaa-carousel-track]');
-    const prev = carousel.querySelector('[data-risaa-carousel-prev]');
-    const next = carousel.querySelector('[data-risaa-carousel-next]');
-    if (track.children.length <= 4) return;
+    const carousel = wrapper.querySelector('[data-risaa-carousel]');
+    const track = wrapper.querySelector('[data-risaa-carousel-track]');
+    const prev = wrapper.querySelector('[data-risaa-carousel-prev]');
+    const next = wrapper.querySelector('[data-risaa-carousel-next]');
+    if (!track || !prev || !next || track.children.length <= 4) return;
 
-    carousel.dataset.risaaCarouselReady = 'true';
+    wrapper.dataset.risaaCarouselReady = 'true';
+
+    let currentTranslate = 0;
 
     const step = () => {
       const styles = window.getComputedStyle(track);
@@ -263,38 +261,32 @@
     let direction = null;
 
     prev.addEventListener('click', () => {
-      if (window.innerWidth < 750) {
-        track.scrollBy({ left: -step(), behavior: 'smooth' });
-        return;
-      }
       if (isAnimating) return;
       isAnimating = true;
       direction = 'prev';
       track.style.transition = 'none';
       track.insertBefore(track.lastElementChild, track.firstElementChild);
-      track.style.transform = `translateX(${-step()}px)`;
+      track.style.transform = `translateX(${currentTranslate - step()}px)`;
       track.offsetHeight;
       requestAnimationFrame(() => {
-        track.style.transition = '';
-        track.style.transform = 'translateX(0)';
+        track.style.transition = 'transform 0.35s ease';
+        track.style.transform = `translateX(${currentTranslate}px)`;
       });
     });
+
     next.addEventListener('click', () => {
-      if (window.innerWidth < 750) {
-        track.scrollBy({ left: step(), behavior: 'smooth' });
-        return;
-      }
       if (isAnimating) return;
       isAnimating = true;
       direction = 'next';
-      track.style.transform = `translateX(${-step()}px)`;
+      track.style.transition = 'transform 0.35s ease';
+      track.style.transform = `translateX(${currentTranslate - step()}px)`;
     });
+
     track.addEventListener('transitionend', () => {
-      if (window.innerWidth < 750) return;
       if (direction === 'next') {
         track.style.transition = 'none';
         track.appendChild(track.firstElementChild);
-        track.style.transform = 'translateX(0)';
+        track.style.transform = `translateX(${currentTranslate}px)`;
         track.offsetHeight;
         requestAnimationFrame(() => {
           track.style.transition = '';
@@ -303,11 +295,76 @@
         });
         return;
       }
-      direction = null;
-      isAnimating = false;
+      if (direction === 'prev') {
+        track.style.transition = '';
+        direction = null;
+        isAnimating = false;
+        return;
+      }
     });
+
+    // Touch Swipe Dragging for Mobile (Free dragging with infinite loop)
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchDeltaX = 0;
+    let isSwiping = false;
+
+    track.addEventListener('touchstart', (e) => {
+      if (isAnimating) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchDeltaX = 0;
+      isSwiping = false;
+    }, { passive: true });
+
+    track.addEventListener('touchmove', (e) => {
+      if (isAnimating) return;
+      const clientX = e.touches[0].clientX;
+      const clientY = e.touches[0].clientY;
+      touchDeltaX = clientX - touchStartX;
+      const deltaY = clientY - touchStartY;
+
+      if (!isSwiping) {
+        if (Math.abs(touchDeltaX) > Math.abs(deltaY) && Math.abs(touchDeltaX) > 10) {
+          isSwiping = true;
+        }
+      }
+
+      if (isSwiping) {
+        if (e.cancelable) e.preventDefault();
+        
+        let activeTranslate = currentTranslate + touchDeltaX;
+        const cardStep = step();
+        if (cardStep > 0) {
+          while (activeTranslate < -cardStep) {
+            track.appendChild(track.firstElementChild);
+            currentTranslate += cardStep;
+            touchStartX += cardStep;
+            activeTranslate = currentTranslate + (clientX - touchStartX);
+          }
+          while (activeTranslate > 0) {
+            track.insertBefore(track.lastElementChild, track.firstElementChild);
+            currentTranslate -= cardStep;
+            touchStartX -= cardStep;
+            activeTranslate = currentTranslate + (clientX - touchStartX);
+          }
+        }
+        
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${activeTranslate}px)`;
+      }
+    });
+
+    track.addEventListener('touchend', (e) => {
+      if (isAnimating) return;
+      if (!isSwiping) return;
+      isSwiping = false;
+      
+      currentTranslate = currentTranslate + touchDeltaX;
+    });
+
     window.addEventListener('resize', () => {
-      if (window.innerWidth < 750) return;
+      currentTranslate = 0;
       track.style.transition = 'none';
       track.style.transform = 'translateX(0)';
       requestAnimationFrame(() => {
