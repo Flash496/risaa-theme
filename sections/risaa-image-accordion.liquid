@@ -115,24 +115,11 @@
     }
 
     .risaa-accordion-info h3,
-    .risaa-accordion-info p,
     .risaa-accordion-info .btn-premium {
       transition:
         color 0.35s ease,
         border-color 0.35s ease,
         background 0.35s ease,
-        opacity 0.8s cubic-bezier(0.25, 1, 0.2, 1),
-        max-height 0.8s cubic-bezier(0.25, 1, 0.2, 1),
-        margin-top 0.8s cubic-bezier(0.25, 1, 0.2, 1);
-    }
-
-    .risaa-accordion-info p {
-      margin: 0;
-      font-size: 1.4rem;
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition:
         opacity 0.8s cubic-bezier(0.25, 1, 0.2, 1),
         max-height 0.8s cubic-bezier(0.25, 1, 0.2, 1),
         margin-top 0.8s cubic-bezier(0.25, 1, 0.2, 1);
@@ -178,13 +165,6 @@
 
     .risaa-accordion-item:hover .risaa-accordion-info {
       background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 70%, transparent 100%);
-    }
-
-    .risaa-accordion-item:hover .risaa-accordion-info p {
-      color: #D4AF37;
-      margin-top: 10px;
-      opacity: 0.9;
-      max-height: 60px;
     }
 
     .risaa-accordion-item:hover .risaa-accordion-info h3 {
@@ -253,11 +233,6 @@
       .risaa-accordion-info h3 {
         font-size: 1.5rem;
       }
-      .risaa-accordion-info p {
-        margin-top: 10px;
-        opacity: 0.9;
-        max-height: 60px;
-      }
       .risaa-accordion-info .btn-premium {
         margin-top: 15px;
         opacity: 1;
@@ -302,7 +277,6 @@
 
       <div class="risaa-accordion-info">
         <h3>{{ block.settings.heading }}</h3>
-        <!-- <p>{{ block.settings.subheading }}</p> -->
         {% if block.settings.link != blank %}
           <span class="btn-premium">Shop Now</span>
         {% endif %}
@@ -390,12 +364,6 @@
           "id": "heading",
           "label": "Heading",
           "default": "Couture"
-        },
-        {
-          "type": "text",
-          "id": "subheading",
-          "label": "Subheading",
-          "default": "Elegant designs for special occasions"
         },
         {
           "type": "url",

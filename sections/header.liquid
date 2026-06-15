@@ -410,30 +410,21 @@
   <script>
     // Navbar scroll detection - homepage only
     (function () {
-      console.log('Scroll detection script loaded');
-
       function initScrollDetection() {
         const headerWrapper = document.querySelector('.header-wrapper');
         const scrollThreshold = 700;
 
-        console.log('Navbar scroll detection initialized');
-        console.log('Header wrapper:', headerWrapper);
-        console.log('Scroll threshold:', scrollThreshold);
-
         if (headerWrapper) {
           function handleScroll() {
             const scrollY = window.scrollY || window.pageYOffset;
-            console.log('Scroll position:', scrollY, 'Threshold:', scrollThreshold);
 
             if (scrollY > scrollThreshold) {
               if (!headerWrapper.classList.contains('navbar-active')) {
                 headerWrapper.classList.add('navbar-active');
-                console.log('Added navbar-active class');
               }
             } else {
               if (headerWrapper.classList.contains('navbar-active')) {
                 headerWrapper.classList.remove('navbar-active');
-                console.log('Removed navbar-active class');
               }
             }
           }
@@ -445,7 +436,6 @@
           setTimeout(handleScroll, 500);
           setTimeout(handleScroll, 1000);
         } else {
-          console.log('Header wrapper not found, retrying...');
           setTimeout(initScrollDetection, 500);
         }
       }

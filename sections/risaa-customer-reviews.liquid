@@ -5,75 +5,6 @@
     overflow: hidden;
   }
 
-  /* ── Header ── */
-  .risaa-reviews__header {
-    text-align: center;
-    margin-bottom: 36px;
-    padding: 0 20px;
-  }
-
-  .risaa-reviews__eyebrow {
-    display: none;
-    font-family: 'Jost', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: #f8b799;
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  .risaa-reviews__title {
-    font-family: var(--font-heading-family);
-    font-size: 3rem;
-    color: #6e1423;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin: 0 0 12px;
-    line-height: 1.1;
-    font-weight: 400;
-  }
-
-  .risaa-reviews__aggregate {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .risaa-reviews__agg-score {
-    font-family: var(--font-heading-family);
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: #d4af37;
-    line-height: 1;
-  }
-
-  .risaa-reviews__agg-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-
-  .risaa-reviews__agg-stars {
-    display: flex;
-    gap: 2px;
-  }
-
-  .risaa-reviews__agg-star {
-    color: #d4af37;
-    font-size: 1.1rem;
-    line-height: 1;
-  }
-
-  .risaa-reviews__agg-label {
-    font-family: var(--font-body-family);
-    font-size: 1rem;
-    color: rgba(110, 20, 35, 0.6);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
   /* ── Review image — full-bleed top of card ── */
   .risaa-reviews__card-image {
     display: block;
@@ -391,7 +322,6 @@
 -%}
 
 <section class="risaa-reviews reveal-on-scroll" id="risaa-reviews-{{ section.id }}">
-  <div class="risaa-reviews__header" style="display:none;"></div>
 
   <div class="risaa-reviews__carousel-outer">
     <div class="risaa-reviews__track" id="risaa-rev-track-{{ section.id }}">

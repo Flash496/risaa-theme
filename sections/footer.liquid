@@ -852,52 +852,55 @@
       function updateReveal() {
         if (window.innerWidth < 750) {
           // Revert to normal flow for mobile
-          footerWrapper.style.position = 'static';
-          footerWrapper.style.opacity = '1';
-          footerWrapper.style.pointerEvents = 'auto';
-          main.style.marginBottom = '0px';
-          main.style.borderBottomLeftRadius = '0px';
-          main.style.borderBottomRightRadius = '0px';
-          main.style.boxShadow = 'none';
+          if (footerWrapper.style.position !== 'static') footerWrapper.style.position = 'static';
+          if (footerWrapper.style.opacity !== '1') footerWrapper.style.opacity = '1';
+          if (footerWrapper.style.pointerEvents !== 'auto') footerWrapper.style.pointerEvents = 'auto';
+          if (main.style.marginBottom !== '0px') main.style.marginBottom = '0px';
+          if (main.style.borderBottomLeftRadius !== '0px') main.style.borderBottomLeftRadius = '0px';
+          if (main.style.borderBottomRightRadius !== '0px') main.style.borderBottomRightRadius = '0px';
+          if (main.style.boxShadow !== 'none') main.style.boxShadow = 'none';
           return;
         }
 
         // Apply rounded bottom edge so it looks like it's peeling off (desktop only)
-        main.style.position = 'relative';
-        main.style.zIndex = '2';
-        main.style.borderBottomLeftRadius = '36px';
-        main.style.borderBottomRightRadius = '36px';
-        main.style.boxShadow = '0 15px 30px rgba(0,0,0,0.15)'; // Subtle drop shadow over the footer
+        if (main.style.position !== 'relative') main.style.position = 'relative';
+        if (main.style.zIndex !== '2') main.style.zIndex = '2';
+        if (main.style.borderBottomLeftRadius !== '36px') main.style.borderBottomLeftRadius = '36px';
+        if (main.style.borderBottomRightRadius !== '36px') main.style.borderBottomRightRadius = '36px';
+        const expectedShadow = '0 15px 30px rgba(0,0,0,0.15)';
+        if (main.style.boxShadow !== expectedShadow) main.style.boxShadow = expectedShadow;
 
         // Ensure main has a solid background to hide the footer during scroll
         const bodyBg = window.getComputedStyle(document.body).backgroundColor;
-        main.style.backgroundColor = bodyBg === 'rgba(0, 0, 0, 0)' || bodyBg === 'transparent' ? '#ffffff' : bodyBg;
+        const expectedBg = bodyBg === 'rgba(0, 0, 0, 0)' || bodyBg === 'transparent' ? '#ffffff' : bodyBg;
+        if (main.style.backgroundColor !== expectedBg) main.style.backgroundColor = expectedBg;
 
         const height = footerWrapper.offsetHeight;
 
         // Only apply reveal effect if the footer fits within the viewport with tolerance.
         if (height < window.innerHeight + 100) {
-          footerWrapper.style.position = 'fixed';
-          footerWrapper.style.bottom = '0';
-          footerWrapper.style.left = '0';
-          footerWrapper.style.width = '100%';
-          footerWrapper.style.zIndex = '0';
-          footerWrapper.style.transition = 'opacity 0.6s ease';
+          if (footerWrapper.style.position !== 'fixed') footerWrapper.style.position = 'fixed';
+          if (footerWrapper.style.bottom !== '0') footerWrapper.style.bottom = '0';
+          if (footerWrapper.style.left !== '0') footerWrapper.style.left = '0';
+          if (footerWrapper.style.width !== '100%') footerWrapper.style.width = '100%';
+          if (footerWrapper.style.zIndex !== '0') footerWrapper.style.zIndex = '0';
+          if (footerWrapper.style.transition !== 'opacity 0.6s ease') footerWrapper.style.transition = 'opacity 0.6s ease';
 
           // Make the scroll end 7% earlier so the peeling edge overlaps the footer
-          main.style.marginBottom = height * 0.93 + 'px';
+          const expectedMargin = (height * 0.93) + 'px';
+          if (main.style.marginBottom !== expectedMargin) main.style.marginBottom = expectedMargin;
         } else {
           // Revert to normal flow
-          footerWrapper.style.position = 'static';
-          main.style.marginBottom = '0px';
+          if (footerWrapper.style.position !== 'static') footerWrapper.style.position = 'static';
+          if (main.style.marginBottom !== '0px') main.style.marginBottom = '0px';
         }
       }
 
       // Fade footer in as we scroll near the actual bottom reveal trigger point
       function updateOpacity() {
         if (window.innerWidth < 750) {
-          footerWrapper.style.opacity = '1';
-          footerWrapper.style.pointerEvents = 'auto';
+          if (footerWrapper.style.opacity !== '1') footerWrapper.style.opacity = '1';
+          if (footerWrapper.style.pointerEvents !== 'auto') footerWrapper.style.pointerEvents = 'auto';
           return;
         }
 
@@ -910,13 +913,11 @@
         const revealStart = documentHeight - height - windowHeight;
         const threshold = Math.max(0, revealStart - 200);
 
-        if (scrolled >= threshold) {
-          footerWrapper.style.opacity = '1';
-          footerWrapper.style.pointerEvents = 'auto';
-        } else {
-          footerWrapper.style.opacity = '0';
-          footerWrapper.style.pointerEvents = 'none';
-        }
+        const targetOpacity = scrolled >= threshold ? '1' : '0';
+        const targetPointer = scrolled >= threshold ? 'auto' : 'none';
+
+        if (footerWrapper.style.opacity !== targetOpacity) footerWrapper.style.opacity = targetOpacity;
+        if (footerWrapper.style.pointerEvents !== targetPointer) footerWrapper.style.pointerEvents = targetPointer;
       }
 
       window.addEventListener('scroll', updateOpacity, { passive: true });
