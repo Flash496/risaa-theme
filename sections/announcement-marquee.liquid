@@ -155,13 +155,14 @@
     }
 
     function startAutoPlay() {
-      stopAutoPlay();
+      if (autoPlayInterval) return;
       autoPlayInterval = setInterval(nextSlide, 4000);
     }
 
     function stopAutoPlay() {
       if (autoPlayInterval) {
         clearInterval(autoPlayInterval);
+        autoPlayInterval = null;
       }
     }
 
@@ -173,19 +174,38 @@
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
         prevSlide();
-        startAutoPlay(); // Reset timer on manual click
+        if (autoPlayInterval) {
+          stopAutoPlay();
+          startAutoPlay(); // Reset timer on manual click
+        }
       });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
         nextSlide();
-        startAutoPlay(); // Reset timer on manual click
+        if (autoPlayInterval) {
+          stopAutoPlay();
+          startAutoPlay(); // Reset timer on manual click
+        }
       });
     }
 
-    // Start auto-play initially
-    startAutoPlay();
+    // Start auto-play with IntersectionObserver
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startAutoPlay();
+          } else {
+            stopAutoPlay();
+          }
+        });
+      }, { threshold: 0.05 });
+      observer.observe(carousel);
+    } else {
+      startAutoPlay();
+    }
   });
 </script>
 

@@ -329,6 +329,7 @@
 
     /* ── State ── */
     var pos = 0; // current translateX (negative = scrolled right)
+    var lastPos = null; // last applied translateX
     var velocity = 0; // extra velocity from drag momentum
     var paused = false;
     var isDown = false;
@@ -342,6 +343,7 @@
     var oneSetW = 0; // width of one set of cards
     var cardW = 0;
     var outerW = 0;
+    var isIntersecting = false;
 
     function updateActiveOccasion() {
       var cards = belt.querySelectorAll('.risaa-occasions__card');
@@ -468,6 +470,7 @@
     /* ── RAF loop ── */
     function tick() {
       raf = requestAnimationFrame(tick);
+      if (!isIntersecting) return;
       if (!paused) {
         pos -= SPEED;
       }
@@ -483,7 +486,10 @@
         }
       }
       wrap();
-      apply();
+      if (pos !== lastPos) {
+        apply();
+        lastPos = pos;
+      }
     }
 
     /* ── Pause / resume ── */
@@ -691,19 +697,49 @@
       autoIndex = (autoIndex + 1) % 10;
     }
 
+    var autoPlayTimer = null;
+    function startAuto() {
+      if (autoPlayTimer) return;
+      autoPlayTimer = setInterval(function () {
+        if (!outer.matches(':hover')) {
+          goNextCard();
+        }
+      }, AUTO_INTERVAL);
+    }
+    function stopAuto() {
+      clearInterval(autoPlayTimer);
+      autoPlayTimer = null;
+    }
+
     // Remove continuous tick motion by keeping SPEED disabled
     requestAnimationFrame(function () {
       measure();
       tick();
 
-      window.setInterval(function () {
-        if (!outer.matches(':hover')) {
-          goNextCard();
-        }
-      }, AUTO_INTERVAL);
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            isIntersecting = entry.isIntersecting;
+            if (isIntersecting) {
+              startAuto();
+            } else {
+              stopAuto();
+            }
+          });
+        }, { threshold: 0.05 });
+        observer.observe(outer);
+      } else {
+        isIntersecting = true;
+        startAuto();
+      }
     });
 
-    window.addEventListener('resize', measure);
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      measure();
+    });
   })();
 </script>
 

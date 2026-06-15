@@ -481,10 +481,15 @@
     }
 
     function startAuto() {
-      clearInterval(autoTimer);
+      if (autoTimer) return;
       autoTimer = setInterval(() => {
         if (!isPaused) next();
       }, 2000);
+    }
+
+    function stopAuto() {
+      clearInterval(autoTimer);
+      autoTimer = null;
     }
 
     /* dot clicks */
@@ -562,22 +567,31 @@
       }
     });
 
-    window.addEventListener('resize', checkOverflow);
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      checkOverflow();
+    });
     checkOverflow();
 
     /* ── Carousel slide-up on section enter ── */
     const carouselOuter = document.querySelector('#risaa-reviews-' + id + ' .risaa-reviews__carousel-outer');
+    let hasObserver = false;
 
     if (carouselOuter && 'IntersectionObserver' in window) {
+      hasObserver = true;
       const sectionObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               carouselOuter.classList.remove('carousel-out');
               carouselOuter.classList.add('carousel-in');
+              startAuto();
             } else {
               carouselOuter.classList.remove('carousel-in');
               carouselOuter.classList.add('carousel-out');
+              stopAuto();
             }
           });
         },
@@ -589,7 +603,9 @@
       sectionObserver.observe(document.getElementById('risaa-reviews-' + id));
     }
 
-    startAuto();
+    if (!hasObserver) {
+      startAuto();
+    }
     syncActiveCard();
   })();
 </script>

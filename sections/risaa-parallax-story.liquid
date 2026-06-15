@@ -287,8 +287,13 @@
       const img2 = section.querySelector('.risaa-img-2');
 
       let ticking = false;
+      let isIntersecting = false;
 
       function updateStoryParallax() {
+        if (!isIntersecting) {
+          ticking = false;
+          return;
+        }
         const rect = section.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const isDesktop = window.innerWidth > 989;
@@ -316,9 +321,25 @@
         ticking = false;
       }
 
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            isIntersecting = entry.isIntersecting;
+            if (isIntersecting && !ticking) {
+              window.requestAnimationFrame(updateStoryParallax);
+              ticking = true;
+            }
+          });
+        }, { threshold: 0 });
+        observer.observe(section);
+      } else {
+        isIntersecting = true;
+      }
+
       window.addEventListener(
         'scroll',
         () => {
+          if (!isIntersecting) return;
           if (!ticking) {
             window.requestAnimationFrame(updateStoryParallax);
             ticking = true;
@@ -327,7 +348,10 @@
         { passive: true }
       );
 
+      let lastWidth = window.innerWidth;
       window.addEventListener('resize', () => {
+        if (window.innerWidth === lastWidth) return;
+        lastWidth = window.innerWidth;
         if (!ticking) {
           window.requestAnimationFrame(updateStoryParallax);
           ticking = true;

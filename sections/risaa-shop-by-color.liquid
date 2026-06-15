@@ -205,28 +205,6 @@
       transform: none;
     }
 
-    .risaa-3d-carousel-item h3 {
-      font-size: 1.8rem;
-      letter-spacing: 0.18em;
-      margin: 12px 0 4px;
-      text-transform: uppercase;
-      color: var(--brand-dark-text, #111);
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .risaa-3d-carousel-item.is-active h3 {
-      color: #6E1423;
-    }
-
-    .risaa-3d-carousel-item span {
-      font-size: 1.15rem;
-      opacity: 0.7;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      display: block;
-    }
-
     /* Navigation Buttons */
     .risaa-3d-carousel-btn {
       position: absolute;
@@ -589,7 +567,21 @@
         window.clearInterval(autoTimer);
         autoTimer = null;
       };
-      startAuto();
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startAuto();
+            } else {
+              stopAuto();
+            }
+          });
+        }, { threshold: 0.05 });
+        observer.observe(wrapper);
+      } else {
+        startAuto();
+      }
 
       // Swipe gestures for touch screens
       let startX = 0;
@@ -626,7 +618,12 @@
         dragActive = false;
       });
 
-      window.addEventListener('resize', updateCarousel);
+      let lastWidth = window.innerWidth;
+      window.addEventListener('resize', () => {
+        if (window.innerWidth === lastWidth) return;
+        lastWidth = window.innerWidth;
+        updateCarousel();
+      });
       updateCarousel();
     });
   })();
@@ -662,12 +659,6 @@
           "id": "color_name",
           "label": "Color Name",
           "default": "RUBY"
-        },
-        {
-          "type": "text",
-          "id": "count_text",
-          "label": "Count Text",
-          "default": "Explore 24+ styles"
         },
         {
           "type": "image_picker",

@@ -247,7 +247,11 @@
       requestAnimationFrame(handleScroll);
     }, { passive: true });
     
+    let lastWidth = window.innerWidth;
     window.addEventListener('resize', () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+
       calculateOffsets();
       requestAnimationFrame(handleScroll);
     });

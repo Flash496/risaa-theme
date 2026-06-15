@@ -879,9 +879,27 @@ class SlideshowComponent extends SliderComponent {
       this.sliderAutoplayButton = this.querySelector('.slideshow__autoplay');
       this.sliderAutoplayButton.addEventListener('click', this.autoPlayToggle.bind(this));
       this.autoplayButtonIsSetToPlay = true;
-      this.play();
+    }
+
+    if ('IntersectionObserver' in window) {
+      this.autoplayObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (this.autoplayButtonIsSetToPlay !== false) {
+              this.reducedMotion.matches || this.announcementBarArrowButtonWasClicked ? this.pause() : this.play();
+            }
+          } else {
+            this.pause();
+          }
+        });
+      }, { threshold: 0.05 });
+      this.autoplayObserver.observe(this);
     } else {
-      this.reducedMotion.matches || this.announcementBarArrowButtonWasClicked ? this.pause() : this.play();
+      if (this.sliderAutoplayButton) {
+        this.play();
+      } else {
+        this.reducedMotion.matches || this.announcementBarArrowButtonWasClicked ? this.pause() : this.play();
+      }
     }
   }
 

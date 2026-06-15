@@ -227,7 +227,7 @@
   const totalSlides{{ section.id | replace: '-', '_' }} = {{ section.blocks.size }};
   const track{{ section.id | replace: '-', '_' }} = document.getElementById('risaa-track-{{ section.id }}');
   const slides{{ section.id | replace: '-', '_' }} = track{{ section.id | replace: '-', '_' }}.children;
-  let autoPlay{{ section.id | replace: '-', '_' }};
+  let autoPlay{{ section.id | replace: '-', '_' }} = null;
 
   function updateCarousel{{ section.id | replace: '-', '_' }}() {
     for (let i = 0; i < totalSlides{{ section.id | replace: '-', '_' }}; i++) {
@@ -243,19 +243,41 @@
   }
 
   function startAutoPlay{{ section.id | replace: '-', '_' }}() {
+    if (autoPlay{{ section.id | replace: '-', '_' }}) return;
     autoPlay{{ section.id | replace: '-', '_' }} = setInterval(() => {
       moveCarousel{{ section.id | replace: '-', '_' }}(1);
     }, 6000);
   }
 
-  function resetAutoPlay{{ section.id | replace: '-', '_' }}() {
+  function stopAutoPlay{{ section.id | replace: '-', '_' }}() {
     clearInterval(autoPlay{{ section.id | replace: '-', '_' }});
+    autoPlay{{ section.id | replace: '-', '_' }} = null;
+  }
+
+  function resetAutoPlay{{ section.id | replace: '-', '_' }}() {
+    stopAutoPlay{{ section.id | replace: '-', '_' }}();
     startAutoPlay{{ section.id | replace: '-', '_' }}();
   }
 
   // Initialize — first slide visible immediately
   slides{{ section.id | replace: '-', '_' }}[0].classList.add('active');
-  startAutoPlay{{ section.id | replace: '-', '_' }}();
+
+  // IntersectionObserver to pause when offscreen
+  if ('IntersectionObserver' in window) {
+    const observer{{ section.id | replace: '-', '_' }} = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          startAutoPlay{{ section.id | replace: '-', '_' }}();
+        } else {
+          stopAutoPlay{{ section.id | replace: '-', '_' }}();
+        }
+      });
+    }, { threshold: 0.05 });
+    const sectionEl{{ section.id | replace: '-', '_' }} = document.getElementById('risaa-carousel-{{ section.id }}');
+    if (sectionEl{{ section.id | replace: '-', '_' }}) observer{{ section.id | replace: '-', '_' }}.observe(sectionEl{{ section.id | replace: '-', '_' }});
+  } else {
+    startAutoPlay{{ section.id | replace: '-', '_' }}();
+  }
 </script>
 
 {% schema %}

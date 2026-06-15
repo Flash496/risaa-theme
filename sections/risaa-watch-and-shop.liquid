@@ -1110,22 +1110,47 @@
 
     // Auto-advance every 4 seconds
     const stackSide = document.querySelector('.risaa-reels-stack-side');
-    let autoTimer = setInterval(() => {
-      shuffleStack('{{ section.id }}', 'next');
-    }, 4000);
+    let autoTimer = null;
+    function startAuto() {
+      if (autoTimer) return;
+      autoTimer = setInterval(() => {
+        shuffleStack('{{ section.id }}', 'next');
+      }, 4000);
+    }
+    function stopAuto() {
+      clearInterval(autoTimer);
+      autoTimer = null;
+    }
 
     // Pause on hover, resume on leave
     if (stackSide) {
-      stackSide.addEventListener('mouseenter', () => clearInterval(autoTimer));
-      stackSide.addEventListener('mouseleave', () => {
-        autoTimer = setInterval(() => {
-          shuffleStack('{{ section.id }}', 'next');
-        }, 4000);
-      });
+      stackSide.addEventListener('mouseenter', stopAuto);
+      stackSide.addEventListener('mouseleave', startAuto);
+    }
+
+    // IntersectionObserver to pause when offscreen
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            startAuto();
+          } else {
+            stopAuto();
+          }
+        });
+      }, { threshold: 0.05 });
+      const sectionEl = document.querySelector('.section-{{ section.id }}-padding');
+      if (sectionEl) observer.observe(sectionEl);
+    } else {
+      startAuto();
     }
 
     // Resize listener for desktop carousel translation alignment / mobile recovery
+    let lastWidth = window.innerWidth;
     window.addEventListener('resize', () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+
       const rStack = document.getElementById('reelsStack-{{ section.id }}');
       if (!rStack) return;
 

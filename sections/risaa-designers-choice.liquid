@@ -552,7 +552,10 @@
       }
     });
 
+    let lastWidth = window.innerWidth;
     window.addEventListener('resize', () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
       currentTranslate = 0;
       track.style.transition = 'none';
       track.style.transform = 'translateX(0)';

@@ -28,17 +28,29 @@
 
   // ── Scroll-driven (Scrubbed) animations for reveal-behind ─────────
   const scrubElements = [];
+  const activeScrubElements = new Set();
+
+  const scrubObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        activeScrubElements.add(entry.target);
+      } else {
+        activeScrubElements.delete(entry.target);
+      }
+    });
+  }, { rootMargin: '120px 0px 120px 0px' });
 
   function addScrubElement(el) {
     if (!scrubElements.includes(el)) {
       el.classList.add('risaa-scroll-slide-up');
       scrubElements.push(el);
+      scrubObserver.observe(el);
     }
   }
 
   function updateScrub() {
     const vh = window.innerHeight;
-    scrubElements.forEach((el) => {
+    activeScrubElements.forEach((el) => {
       if (prefersReduced) {
         el.style.opacity = '1';
         el.style.transform = 'translateY(0)';
