@@ -849,6 +849,8 @@
       const main = document.getElementById('MainContent');
       if (!main) return;
 
+      let cachedThreshold = 0;
+
       function updateReveal() {
         if (window.innerWidth < 750) {
           // Revert to normal flow for mobile
@@ -876,9 +878,10 @@
         if (main.style.backgroundColor !== expectedBg) main.style.backgroundColor = expectedBg;
 
         const height = footerWrapper.offsetHeight;
+        const windowHeight = window.innerHeight;
 
         // Only apply reveal effect if the footer fits within the viewport with tolerance.
-        if (height < window.innerHeight + 100) {
+        if (height < windowHeight + 100) {
           if (footerWrapper.style.position !== 'fixed') footerWrapper.style.position = 'fixed';
           if (footerWrapper.style.bottom !== '0') footerWrapper.style.bottom = '0';
           if (footerWrapper.style.left !== '0') footerWrapper.style.left = '0';
@@ -889,6 +892,11 @@
           // Make the scroll end 7% earlier so the peeling edge overlaps the footer
           const expectedMargin = (height * 0.93) + 'px';
           if (main.style.marginBottom !== expectedMargin) main.style.marginBottom = expectedMargin;
+
+          // Calculate and cache threshold
+          const documentHeight = document.documentElement.scrollHeight;
+          const revealStart = documentHeight - height - windowHeight;
+          cachedThreshold = Math.max(0, revealStart - 200);
         } else {
           // Revert to normal flow
           if (footerWrapper.style.position !== 'static') footerWrapper.style.position = 'static';
@@ -896,7 +904,8 @@
         }
       }
 
-      // Fade footer in as we scroll near the actual bottom reveal trigger point
+      // Fade footer in as we scroll near the actual bottom reveal trigger point (lightweight & throttled)
+      let ticking = false;
       function updateOpacity() {
         if (window.innerWidth < 750) {
           if (footerWrapper.style.opacity !== '1') footerWrapper.style.opacity = '1';
@@ -904,20 +913,18 @@
           return;
         }
 
-        const scrolled = window.scrollY;
-        const height = footerWrapper.offsetHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        const windowHeight = window.innerHeight;
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const scrolled = window.scrollY;
+            const targetOpacity = scrolled >= cachedThreshold ? '1' : '0';
+            const targetPointer = scrolled >= cachedThreshold ? 'auto' : 'none';
 
-        // Calculate the scroll position where the footer reveal starts
-        const revealStart = documentHeight - height - windowHeight;
-        const threshold = Math.max(0, revealStart - 200);
-
-        const targetOpacity = scrolled >= threshold ? '1' : '0';
-        const targetPointer = scrolled >= threshold ? 'auto' : 'none';
-
-        if (footerWrapper.style.opacity !== targetOpacity) footerWrapper.style.opacity = targetOpacity;
-        if (footerWrapper.style.pointerEvents !== targetPointer) footerWrapper.style.pointerEvents = targetPointer;
+            if (footerWrapper.style.opacity !== targetOpacity) footerWrapper.style.opacity = targetOpacity;
+            if (footerWrapper.style.pointerEvents !== targetPointer) footerWrapper.style.pointerEvents = targetPointer;
+            ticking = false;
+          });
+          ticking = true;
+        }
       }
 
       window.addEventListener('scroll', updateOpacity, { passive: true });
@@ -925,9 +932,17 @@
 
       const resizeObserver = new ResizeObserver(() => {
         updateReveal();
+        updateOpacity();
       });
       resizeObserver.observe(footerWrapper);
-      window.addEventListener('resize', updateReveal);
+
+      let lastWidth = window.innerWidth;
+      window.addEventListener('resize', () => {
+        if (window.innerWidth === lastWidth) return;
+        lastWidth = window.innerWidth;
+        updateReveal();
+        updateOpacity();
+      });
 
       updateReveal();
     }

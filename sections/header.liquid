@@ -415,21 +415,28 @@
         const scrollThreshold = 700;
 
         if (headerWrapper) {
+          let ticking = false;
           function handleScroll() {
-            const scrollY = window.scrollY || window.pageYOffset;
+            if (!ticking) {
+              window.requestAnimationFrame(() => {
+                const scrollY = window.scrollY || window.pageYOffset;
 
-            if (scrollY > scrollThreshold) {
-              if (!headerWrapper.classList.contains('navbar-active')) {
-                headerWrapper.classList.add('navbar-active');
-              }
-            } else {
-              if (headerWrapper.classList.contains('navbar-active')) {
-                headerWrapper.classList.remove('navbar-active');
-              }
+                if (scrollY > scrollThreshold) {
+                  if (!headerWrapper.classList.contains('navbar-active')) {
+                    headerWrapper.classList.add('navbar-active');
+                  }
+                } else {
+                  if (headerWrapper.classList.contains('navbar-active')) {
+                    headerWrapper.classList.remove('navbar-active');
+                  }
+                }
+                ticking = false;
+              });
+              ticking = true;
             }
           }
 
-          window.addEventListener('scroll', handleScroll);
+          window.addEventListener('scroll', handleScroll, { passive: true });
 
           // Trigger scroll check on load and after a short delay
           handleScroll();
@@ -479,7 +486,7 @@
       this.hideHeaderOnScrollUp = () => (this.preventReveal = true);
 
       this.addEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
-      window.addEventListener('scroll', this.onScrollHandler, false);
+      window.addEventListener('scroll', this.onScrollHandler, { passive: true });
 
       this.createObserver();
     }

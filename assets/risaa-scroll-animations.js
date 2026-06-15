@@ -114,7 +114,13 @@
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
+
+  let lastWidth = window.innerWidth;
+  window.addEventListener('resize', () => {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
+    onScroll();
+  }, { passive: true });
 
   // ── Single element observer ──────────────────────────────────────
   const singleObserver = new IntersectionObserver(

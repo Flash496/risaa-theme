@@ -38,7 +38,7 @@ function initializeScrollAnimationTrigger(rootEl = document, isDesignModeEvent =
   animationTriggerElements.forEach((element) => observer.observe(element));
 }
 
-// Zoom in animation logic
+// Zoom in animation logic (layout cached & optimized)
 function initializeScrollZoomAnimationTrigger() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -50,45 +50,60 @@ function initializeScrollZoomAnimationTrigger() {
 
   animationTriggerElements.forEach((element) => {
     let elementIsVisible = false;
+    let cachedPositionY = 0;
+    let cachedHeight = 0;
+
+    function updateCachedLayout() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      cachedPositionY = element.getBoundingClientRect().top + scrollY;
+      cachedHeight = element.offsetHeight;
+    }
+
     const observer = new IntersectionObserver((elements) => {
       elements.forEach((entry) => {
         elementIsVisible = entry.isIntersecting;
+        if (elementIsVisible) {
+          updateCachedLayout();
+          element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeenCached());
+        }
       });
     });
     observer.observe(element);
 
-    element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeen(element));
+    function percentageSeenCached() {
+      const viewportHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+
+      if (cachedPositionY > scrollY + viewportHeight) {
+        return 0;
+      } else if (cachedPositionY + cachedHeight < scrollY) {
+        return 100;
+      }
+
+      const distance = scrollY + viewportHeight - cachedPositionY;
+      let percentage = distance / ((viewportHeight + cachedHeight) / 100);
+      return Math.round(percentage);
+    }
+
+    updateCachedLayout();
+    element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeenCached());
 
     window.addEventListener(
       'scroll',
       throttle(() => {
         if (!elementIsVisible) return;
-
-        element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeen(element));
+        element.style.setProperty('--zoom-in-ratio', 1 + scaleAmount * percentageSeenCached());
       }, 16),
       { passive: true }
     );
+
+    let lastWidth = window.innerWidth;
+    window.addEventListener('resize', () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      updateCachedLayout();
+    });
   });
-}
-
-function percentageSeen(element) {
-  const viewportHeight = window.innerHeight;
-  const scrollY = window.scrollY;
-  const elementPositionY = element.getBoundingClientRect().top + scrollY;
-  const elementHeight = element.offsetHeight;
-
-  if (elementPositionY > scrollY + viewportHeight) {
-    // If we haven't reached the image yet
-    return 0;
-  } else if (elementPositionY + elementHeight < scrollY) {
-    // If we've completely scrolled past the image
-    return 100;
-  }
-
-  // When the image is in the viewport
-  const distance = scrollY + viewportHeight - elementPositionY;
-  let percentage = distance / ((viewportHeight + elementHeight) / 100);
-  return Math.round(percentage);
 }
 
 window.addEventListener('DOMContentLoaded', () => {

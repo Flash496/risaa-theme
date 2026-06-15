@@ -1228,15 +1228,18 @@ class BulkAdd extends HTMLElement {
   startQueue(id, quantity) {
     this.queue.push({ id, quantity });
 
-    const interval = setInterval(() => {
-      if (this.queue.length > 0) {
-        if (!this.requestStarted) {
-          this.sendRequest(this.queue);
+    if (!this.queueInterval) {
+      this.queueInterval = setInterval(() => {
+        if (this.queue.length > 0) {
+          if (!this.requestStarted) {
+            this.sendRequest(this.queue);
+          }
+        } else {
+          clearInterval(this.queueInterval);
+          this.queueInterval = null;
         }
-      } else {
-        clearInterval(interval);
-      }
-    }, BulkAdd.ASYNC_REQUEST_DELAY);
+      }, BulkAdd.ASYNC_REQUEST_DELAY);
+    }
   }
 
   sendRequest(queue) {

@@ -386,15 +386,16 @@
     <script src="{{ 'risaa-scroll-animations.js' | asset_url }}" defer="defer"></script>
 
     <script>
-      // Reveal on Scroll logic
+      // Reveal on Scroll logic - unobserves once visible
       const observerOptions = {
         threshold: 0.1,
       };
 
-      const observer = new IntersectionObserver((entries) => {
+      const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('active');
+            obs.unobserve(entry.target);
           }
         });
       }, observerOptions);
