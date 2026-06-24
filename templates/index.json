@@ -1,4 +1,3 @@
-
 {
   "sections": {
     "hero_carousel": {
@@ -8,9 +7,9 @@
           "type": "slide",
           "settings": {
             "alignment": "left",
-            "title": "Bridal Couture",
-            "subtitle": "Artfully custom-crafted for individuality",
-            "btn_label": "Explore Bridal",
+            "title": "Everyday Prêt",
+            "subtitle": "Elevated essentials for every moment",
+            "btn_label": "SHOP NOW",
             "btn_link": "shopify://collections/bridal"
           }
         },
@@ -19,9 +18,9 @@
           "settings": {
             "alignment": "center",
             "image_url": "https://ik.imagekit.io/flashspdstr/risaa/Screenshot%202026-05-11%20115450.png",
-            "title": "Accessible Luxury",
-            "subtitle": "Slow Fashion • Prêt • Fusion",
-            "btn_label": "Shop All",
+            "title": "Trousseau Dreams",
+            "subtitle": "A complete bridal wardrobe, curated with love",
+            "btn_label": "EXPLORE TROUSSEAU",
             "btn_link": "shopify://collections/all"
           }
         },
@@ -29,9 +28,9 @@
           "type": "slide",
           "settings": {
             "alignment": "center",
-            "title": "Trousseau Dreams",
-            "subtitle": "A complete bridal wardrobe, curated with love",
-            "btn_label": "Explore Trousseau",
+            "title": "The Soirée Edit",
+            "subtitle": "For Nights That Call for Statement Ensembles",
+            "btn_label": "SHOP THE EDIT",
             "btn_link": "shopify://collections/trousseau"
           }
         },
@@ -39,24 +38,19 @@
           "type": "slide",
           "settings": {
             "alignment": "left",
-            "title": "Pret Collection",
-            "subtitle": "Effortless elegance for every day",
-            "btn_label": "Shop Pret",
-            "btn_link": "shopify://collections/pret"
-          }
-        },
-        "slide_5": {
-          "type": "slide",
-          "settings": {
-            "alignment": "center",
             "title": "New Arrivals",
-            "subtitle": "Fresh from the atelier — just in",
-            "btn_label": "See What's New",
-            "btn_link": "shopify://collections/new-arrivals"
+            "subtitle": "Fresh from the atelier",
+            "btn_label": "DISCOVER NEW",
+            "btn_link": "shopify://collections/pret"
           }
         }
       },
-      "block_order": ["slide_1", "slide_2", "slide_3", "slide_4", "slide_5"],
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3",
+        "slide_4"
+      ],
       "settings": {}
     },
     "risaa_hero_marquee": {
@@ -94,28 +88,40 @@
         "padding_bottom": 40
       }
     },
-
     "risaa_accordion": {
       "type": "risaa-image-accordion",
       "blocks": {
         "panel_1": {
           "type": "panel",
-          "settings": { "heading": "Bridal" }
+          "settings": {
+            "heading": "Summer Bloom"
+          }
         },
         "panel_2": {
           "type": "panel",
-          "settings": { "heading": "Couture" }
+          "settings": {
+            "heading": "Naqsh"
+          }
         },
         "panel_3": {
           "type": "panel",
-          "settings": { "heading": "Pret" }
+          "settings": {
+            "heading": "Pret"
+          }
         },
         "panel_4": {
           "type": "panel",
-          "settings": { "heading": "Trousseau" }
+          "settings": {
+            "heading": "Trousseau"
+          }
         }
       },
-      "block_order": ["panel_1", "panel_2", "panel_3", "panel_4"],
+      "block_order": [
+        "panel_1",
+        "panel_2",
+        "panel_3",
+        "panel_4"
+      ],
       "settings": {
         "title": "Shop by Collection",
         "subtitle": "",
@@ -127,18 +133,65 @@
     "risaa_shop_by_occasion": {
       "type": "risaa-shop-by-occasion",
       "blocks": {
-        "occ_1": { "type": "occasion", "settings": { "occasion_name": "Bridal" } },
-        "occ_2": { "type": "occasion", "settings": { "occasion_name": "Sangeet" } },
-        "occ_3": { "type": "occasion", "settings": { "occasion_name": "Mehendi" } },
-        "occ_4": { "type": "occasion", "settings": { "occasion_name": "Reception" } },
-        "occ_5": { "type": "occasion", "settings": { "occasion_name": "Couture" } },
-        "occ_6": { "type": "occasion", "settings": { "occasion_name": "Pret" } },
-        "occ_7": { "type": "occasion", "settings": { "occasion_name": "Trousseau" } },
-        "occ_8": { "type": "occasion", "settings": { "occasion_name": "Festive" } },
-        "occ_9": { "type": "occasion", "settings": { "occasion_name": "Cocktail" } },
-        "occ_10": { "type": "occasion", "settings": { "occasion_name": "Casual Chic" } }
+        "occ_1": {
+          "type": "occasion",
+          "settings": {
+            "occasion_name": "Everyday Prêt"
+          }
+        },
+        "occ_2": {
+          "type": "occasion",
+          "settings": {
+            "occasion_name": "Soirées"
+          }
+        },
+        "occ_3": {
+          "type": "occasion",
+          "settings": {
+            "occasion_name": "Vacay Chic"
+          }
+        },
+        "occ_4": {
+          "type": "occasion",
+          "settings": {
+            "occasion_name": "Bridesmaid"
+          }
+        },
+        "occ_5": {
+          "type": "occasion",
+          "settings": {
+            "occasion_name": "Trousseau"
+          }
+        },
+        "occ_6": {
+          "type": "occasion",
+          "settings": {
+            "occasion_name": "Haldi"
+          }
+        },
+        "occ_7": {
+          "type": "occasion",
+          "settings": {
+            "occasion_name": "Mehendi"
+          }
+        },
+        "occ_8": {
+          "type": "occasion",
+          "settings": {
+            "occasion_name": "Cocktail"
+          }
+        }
       },
-      "block_order": ["occ_1", "occ_2", "occ_3", "occ_4", "occ_5", "occ_6", "occ_7", "occ_8", "occ_9", "occ_10"],
+      "block_order": [
+        "occ_1",
+        "occ_2",
+        "occ_3",
+        "occ_4",
+        "occ_5",
+        "occ_6",
+        "occ_7",
+        "occ_8"
+      ],
       "settings": {
         "eyebrow": "",
         "title": "Shop by Occasion",
@@ -148,13 +201,79 @@
     "risaa_shop_by_color": {
       "type": "risaa-shop-by-color",
       "blocks": {
-        "color_1": { "type": "color_block", "settings": { "color_name": "RUBY" } },
-        "color_2": { "type": "color_block", "settings": { "color_name": "SAFFRON" } },
-        "color_3": { "type": "color_block", "settings": { "color_name": "MOCHA" } },
-        "color_4": { "type": "color_block", "settings": { "color_name": "INDIGO" } },
-        "color_5": { "type": "color_block", "settings": { "color_name": "MATCHA" } }
+        "color_1": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Azure Sky"
+          }
+        },
+        "color_2": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Crimson Bloom"
+          }
+        },
+        "color_3": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Golden Hour"
+          }
+        },
+        "color_4": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Matcha Sage"
+          }
+        },
+        "color_5": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Midnight Noir"
+          }
+        },
+        "color_6": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Ivory Mist"
+          }
+        },
+        "color_7": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Blush Rose"
+          }
+        },
+        "color_8": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Amethyst Dusk"
+          }
+        },
+        "color_9": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Mocha Earth"
+          }
+        },
+        "color_10": {
+          "type": "color_block",
+          "settings": {
+            "color_name": "Saffron Glow"
+          }
+        }
       },
-      "block_order": ["color_1", "color_2", "color_3", "color_4", "color_5"],
+      "block_order": [
+        "color_1",
+        "color_2",
+        "color_3",
+        "color_4",
+        "color_5",
+        "color_6",
+        "color_7",
+        "color_8",
+        "color_9",
+        "color_10"
+      ],
       "settings": {
         "title": "Shop by Color",
         "subtitle": ""
@@ -167,9 +286,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "RiSaa made my dream lehenga a reality. The craftsmanship, the fit, the detailing — absolutely beyond what I imagined. I felt like royalty on my wedding day!",
-            "reviewer_name": "Priya S.",
-            "reviewer_meta": "Bridal customer · Ludhiana",
+            "review_text": "Risaa Design Studio is my go-to place whenever I need an outfit for any occasion! Ms. Rima and her design team created beautiful ensembles for both my roka and CA convocation ceremony. She always brings my vision to life in an even more elegant way, ensuring that every outfit fits me perfectly and complements me beautifully. I have never received any of my outfits later than the timeline initially promised, and every piece has fit like a glove from the very first trial itself.",
+            "reviewer_name": "Pallavi Oberoi",
+            "reviewer_meta": "New Delhi",
             "show_verified": true
           }
         },
@@ -177,9 +296,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "Ordered a Sangeet outfit and it was delivered faster than expected. The colors were vibrant and the embroidery was exquisite. Everyone was asking where I got it from!",
-            "reviewer_name": "Anika R.",
-            "reviewer_meta": "Sangeet look · Delhi",
+            "review_text": "Had the best experience at Risaa during my two trips. RiSaa was introduced to me by my dear friend Aman, who is a regular visitor to RiSaa. I had lehengas designed for both my daughter and daughter-in-law, and both were stunning. I also had a long gown made for my son's wedding reception, which Rima and her team created to perfection. Thanks, Risaa, for getting everything ready on time, and best wishes for your venture to grow and expand even more!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -187,9 +306,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "My entire trousseau was handled by Rima and her team. They understood my vision better than I did. Truly accessible luxury — worth every rupee.",
-            "reviewer_name": "Meera K.",
-            "reviewer_meta": "Trousseau client · Mumbai",
+            "review_text": "I loved the complete makeover of my saree into a beautiful customised lehenga, loved the patchwork, choli, dupatta and the whole outfit! Thanks to Rima and the whole team of Risaa for their efforts and for designing my outfit gracefully!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -197,9 +316,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "The customization process was so smooth. They were patient with all my requests. The reception lehenga turned out to be a masterpiece!",
-            "reviewer_name": "Simran D.",
-            "reviewer_meta": "Reception outfit · Chandigarh",
+            "review_text": "Thank you so much for making my amazing wedding lehenga and engagement lehenga. Everyone just loved it!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -207,9 +326,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "I ordered a Mehendi outfit and it was even more beautiful in person. The colours were so vibrant and the fabric was incredibly soft. Will definitely order again!",
-            "reviewer_name": "Naina V.",
-            "reviewer_meta": "Mehendi look · Jaipur",
+            "review_text": "My customised bridal outfit was so beautiful that, to this day, everyone asks me where I got it designed and made. All the compliments I received and my amazing look were courtesy of Risaa. Thank you so much for the lovely design and the incredible support throughout the process!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -217,9 +336,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "RiSaa's pret collection is exactly what I was looking for — elegant yet wearable every day. The quality is unmatched at this price point.",
-            "reviewer_name": "Divya M.",
-            "reviewer_meta": "Pret collection · Bangalore",
+            "review_text": "I just wanted to say thank you so much for getting all of my suits ready in the short time frame I had. I really, really appreciate it. The parrot green suit is done so very beautifully. Literally everyone I show it to is in love with the work done on the salwar. And the potli matching the other suit is so cute! Can't wait to order from you again! Thank you once again!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -227,9 +346,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "Got my entire trousseau done here. Rima didi understood my vision perfectly. Every single piece was crafted with so much love and attention to detail.",
-            "reviewer_name": "Riya S.",
-            "reviewer_meta": "Trousseau client · Delhi",
+            "review_text": "Thanks for the beautiful dress! Everyone praised it a lot. In fact, everyone praised all the pre-wedding outfits I got custom-made from you, my pre-wedding shoot outfit, Haldi outfit, and bachelorette dress! You truly made my day. Thanks!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -237,9 +356,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "The Sangeet lehenga was a showstopper. I got so many compliments and everyone wanted to know where it was from. Thank you RiSaa for making me feel so special!",
-            "reviewer_name": "Pooja K.",
-            "reviewer_meta": "Sangeet outfit · Mumbai",
+            "review_text": "Thanks for the beautiful kaftan dress, I just loved it. Love the co-ord set I got from you too. It looked beautiful. Thank you so much!",
+            "reviewer_name": "Shagun Jindal",
+            "reviewer_meta": "Ludhiana",
             "show_verified": true
           }
         },
@@ -247,9 +366,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "Absolutely stunning craftsmanship! The attention to detail on my bridal lehenga was impeccable. Rima and her team brought my Pinterest board to life!",
-            "reviewer_name": "Kavya P.",
-            "reviewer_meta": "Bridal couture · Pune",
+            "review_text": "Absolutely loved the custom suit - elegant and perfect! Thank you so much for such great work!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -257,9 +376,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "I was skeptical about ordering online but RiSaa exceeded all expectations. The fabric quality is luxurious and the fit was perfect. Highly recommend!",
-            "reviewer_name": "Ishita B.",
-            "reviewer_meta": "Festive wear · Ahmedabad",
+            "review_text": "My kaftan is mind-blowing, and so was my suit! Both outfits were beautiful, and the embroidery was too good. The fitting of both was perfect too. Thanks a lot!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -267,9 +386,9 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "My cocktail outfit was the talk of the evening! The modern silhouette with traditional embroidery was exactly what I wanted. Thank you for making me shine!",
-            "reviewer_name": "Tanvi G.",
-            "reviewer_meta": "Cocktail look · Hyderabad",
+            "review_text": "Perfect fit! I was amazed at how perfectly the dress fit me despite ordering it from Dubai. I was sceptical about how we would manage without trials due to the distance, but the dress fit me perfectly in one go!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         },
@@ -277,14 +396,27 @@
           "type": "review",
           "settings": {
             "rating": 5,
-            "review_text": "RiSaa's customer service is as beautiful as their outfits. They were patient with all my changes and the final result was worth the wait. Pure elegance!",
-            "reviewer_name": "Ananya T.",
-            "reviewer_meta": "Reception ensemble · Kolkata",
+            "review_text": "I got my parcel today, and the dress is amazing! The fitting and everything else are amazing. It's just wow! Thanks to Risaa!",
+            "reviewer_name": "",
+            "reviewer_meta": "",
             "show_verified": true
           }
         }
       },
-      "block_order": ["rev_1", "rev_2", "rev_3", "rev_4", "rev_5", "rev_6", "rev_7", "rev_8", "rev_9", "rev_10", "rev_11", "rev_12"],
+      "block_order": [
+        "rev_1",
+        "rev_2",
+        "rev_3",
+        "rev_4",
+        "rev_5",
+        "rev_6",
+        "rev_7",
+        "rev_8",
+        "rev_9",
+        "rev_10",
+        "rev_11",
+        "rev_12"
+      ],
       "settings": {
         "title": "BEAUTIES OF RISAA",
         "subtitle": "Real stories from real women",
@@ -295,14 +427,59 @@
     "risaa_watch_and_shop": {
       "type": "risaa-watch-and-shop",
       "blocks": {
-        "v1": { "type": "video_block" },
-        "v2": { "type": "video_block" },
-        "v3": { "type": "video_block" },
-        "v4": { "type": "video_block" }
+        "v1": {
+          "type": "video_block"
+        },
+        "v2": {
+          "type": "video_block"
+        },
+        "v3": {
+          "type": "video_block"
+        },
+        "v4": {
+          "type": "video_block"
+        },
+        "v5": {
+          "type": "video_block"
+        },
+        "v6": {
+          "type": "video_block"
+        },
+        "v7": {
+          "type": "video_block"
+        },
+        "v8": {
+          "type": "video_block"
+        },
+        "v9": {
+          "type": "video_block"
+        },
+        "v10": {
+          "type": "video_block"
+        },
+        "v11": {
+          "type": "video_block"
+        },
+        "v12": {
+          "type": "video_block"
+        }
       },
-      "block_order": ["v1", "v2", "v3", "v4"],
+      "block_order": [
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "v5",
+        "v6",
+        "v7",
+        "v8",
+        "v9",
+        "v10",
+        "v11",
+        "v12"
+      ],
       "settings": {
-        "title": "Watch & Shop",
+        "title": "Watch and Shop",
         "subtitle": ""
       }
     },
@@ -310,19 +487,31 @@
       "type": "risaa-parallax-story",
       "settings": {
         "heading": "Our Story",
-        "text": "<p>Risaa - Design Studio by Rima. We believe in creating outfits that speak volumes about your unique style and fit your budget as well! Accessible Luxury | Slow Fashion.<\/p>",
+        "text": "<p>Risaa - Design Studio by Rima. We believe in creating outfits that speak volumes about your unique style and fit your budget as well! Accessible Luxury | Slow Fashion.</p>",
         "button_label": "Read Our Journey"
       }
     },
     "risaa_flagship_store": {
       "type": "risaa-flagship-store",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Visit Our Store",
+        "heading": "Risaa - Design Studio by Rima",
+        "timings_eyebrow": "Mon – Sat",
+        "timings": "09:00 AM – 7 PM",
+        "phone": "+91 9501032126",
+        "email": "contact@risaadesignstudio.com",
+        "address_eyebrow": "Reach Us",
+        "address_line_1": "117-A, Shastri Nagar, Behind Guru Teg Bahadur Hospital Road",
+        "address_line_2": "Model Town, Ludhiana, Punjab - 141002",
+        "address_line_3": "",
+        "button_label": "Get directions"
+      }
     },
     "risaa_whatsapp": {
       "type": "risaa-whatsapp-button",
       "settings": {
         "phone_number": "+919501032126",
-        "custom_message": "Hello RiSaa! I'm reaching out from your website. I'd love to discuss a custom design for my upcoming occasion."
+        "custom_message": "Hello RiSaa! I came across your website and would love to know more about your collections. Could you please assist me?"
       }
     },
     "risaa_newsletter": {
@@ -354,4 +543,3 @@
     "risaa_whatsapp"
   ]
 }
-

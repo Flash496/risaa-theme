@@ -5,10 +5,10 @@
     "announcement-marquee": {
       "type": "announcement-marquee",
       "blocks": {
-        "welcome": { "type": "announcement", "settings": { "text": "Welcome offer: 10% off your first order" } },
-        "a1": { "type": "announcement", "settings": { "text": "Sale alerts & discounts" } },
-        "a2": { "type": "announcement", "settings": { "text": "Free pan-India shipping" } },
-        "a3": { "type": "announcement", "settings": { "text": "24 hr dispatch on selected items" } }
+        "welcome": { "type": "announcement", "settings": { "text": "Welcome Offer: 10% Off on Your First Order" } },
+        "a1": { "type": "announcement", "settings": { "text": "Free Shipping Pan-India" } },
+        "a2": { "type": "announcement", "settings": { "text": "Shipping Worldwide" } },
+        "a3": { "type": "announcement", "settings": { "text": "48-Hour Dispatch on Select Styles" } }
       },
       "block_order": ["welcome", "a1", "a2", "a3"]
     },

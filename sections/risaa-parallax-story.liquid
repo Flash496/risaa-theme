@@ -37,6 +37,9 @@
     flex: 1;
     position: relative;
     height: 650px;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .risaa-img-parallax {
@@ -50,18 +53,18 @@
 
   .risaa-img-1 {
     width: 350px;
-    height: 550px;
+    height: 525px;
     top: 35px;
-    left: 30px;
-    z-index: 2;
+    left: 40px;
+    z-index: 1;
   }
 
   .risaa-img-2 {
     width: 300px;
     height: 450px;
     bottom: 70px;
-    right: 30px;
-    z-index: 1;
+    right: 40px;
+    z-index: 2;
   }
 
   .risaa-parallax-text {
@@ -189,21 +192,22 @@
     }
     .risaa-parallax-images {
       width: 100%;
-      height: 450px;
-      margin-bottom: 10px;
+      max-width: 320px;
+      margin: 0 auto 10px auto;
+      height: 400px;
       flex: none;
     }
     .risaa-img-1 {
       width: 200px;
-      height: 280px;
+      height: 300px;
       top: 30px;
-      left: 55px;
+      left: 20px;
     }
     .risaa-img-2 {
       width: 160px;
-      height: 220px;
-      bottom: 10px;
-      right: 25px;
+      height: 240px;
+      bottom: 30px;
+      right: 20px;
     }
     .risaa-parallax-text {
       width: 100%;
@@ -254,22 +258,21 @@
 
     <div class="risaa-parallax-text">
       <div class="risaa-story-bloom">
-        <span class="rsb-line rsb-eyebrow">Since 2021 &nbsp;·&nbsp; Ludhiana, Punjab</span>
+        
 
-        <p class="rsb-line rsb-studio-name">Risaa — Design Studio <span class="rsb-sep">&nbsp;·&nbsp;</span> <em>by Rima</em></p>
+        <p class="rsb-line rsb-studio-name">Rima Singh<br><span style="font-size: 1.2rem; font-family: 'Montserrat', sans-serif;">Designer & Founder</span></p>
 
         <p class="rsb-line rsb-pullquote">
-          "Each piece is a labor of love, artfully custom-crafted by our master artisans."
+          "We believe the most beautiful outfit is one that feels unmistakably ‘yours’. Because luxury is not just about exclusivity. It's about feeling extraordinary."
         </p>
 
-        <p class="rsb-line rsb-closing">
-          Where every stitch tells a story of <strong>passion, tradition,</strong> and
-          <strong>accessible luxury.</strong>
-        </p>
+        <p class="rsb-line rsb-body" style="margin-bottom: 0.5rem;">At Risaa, every creation begins with you — your style, your essence, your occasion, and the way you want to feel. We create pieces that are as unique as the women who wear them, because your outfit should tell your story, celebrate your individuality, and make you feel your most confident self. We believe clothing should fit you, never the other way around. That's why we embrace individuality in every form, creating thoughtfully tailored pieces for women of all sizes and body shapes.</p>
+        <p class="rsb-line rsb-body" style="margin-bottom: 0.5rem;">From everyday dressing to life's grandest celebrations, our creations are thoughtfully designed, handcrafted by skilled artisans, and tailored with care. Rooted in craftsmanship, inclusivity, conscious fashion, and accessible luxury, every Risaa piece is made to be worn, treasured, and remembered.</p>
+        <p class="rsb-line rsb-closing">All this while remaining deeply committed not only to the beautiful women who wear our creations, but also to the wondrous planet that nurtures and inspires us, and the extremely talented artisans who bring our creations to life. Sustainability and the philosophy of slow fashion remain at the heart of everything we do.</p>
 
         {% if section.settings.button_label != blank %}
           <a href="{{ section.settings.button_link }}" class="rsb-line rsb-cta">
-            {{- section.settings.button_label }} →</a
+            Read Our Journey →</a
           >
         {% endif %}
       </div>
@@ -303,10 +306,10 @@
         const offset = sectionCenter - viewportCenter;
 
         if (rect.top < windowHeight && rect.bottom > 0) {
-          const speed1X = isDesktop ? 0.12 : 0.08;
-          const speed1Y = isDesktop ? 0.18 : 0.12;
-          const speed2X = isDesktop ? 0.15 : 0.09;
-          const speed2Y = isDesktop ? 0.22 : 0.15;
+          const speed1X = isDesktop ? 0.06 : 0.04;
+          const speed1Y = isDesktop ? 0.09 : 0.06;
+          const speed2X = isDesktop ? 0.08 : 0.05;
+          const speed2Y = isDesktop ? 0.11 : 0.07;
 
           // img1 (top left) starts farther top-left (-X, -Y) when section is below viewport (offset > 0)
           const x1 = -offset * speed1X;

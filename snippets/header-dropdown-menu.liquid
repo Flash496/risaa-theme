@@ -119,11 +119,22 @@
 
   .risaa-mega-menu__grid {
     display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 40px !important;
-    max-width: 900px !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 30px !important;
+    max-width: 1100px !important;
     margin: 0 auto !important;
   }
+
+  .risaa-mega-menu__title-link {
+    color: inherit !important;
+    text-decoration: none !important;
+    transition: color 0.2s ease !important;
+  }
+
+  .risaa-mega-menu__title-link:hover {
+    color: #6e1423 !important;
+  }
+
 
   .risaa-mega-menu__col {
     display: flex !important;
@@ -269,11 +280,21 @@
                 tabindex="-1"
               >
                 <div class="risaa-mega-menu__container">
-                  <div class="risaa-mega-menu__top">
-                    <a href="/collections/all" class="risaa-mega-menu__shop-all">SHOP ALL</a>
-                  </div>
                   <div class="risaa-mega-menu__grid">
-                    <!-- Column 1: Shop by Category -->
+                    <!-- Column 1: Shop All -->
+                    <div class="risaa-mega-menu__col">
+                      <div class="risaa-mega-menu__col-inner">
+                        <h3 class="risaa-mega-menu__title">
+                          <a href="/collections/all" class="risaa-mega-menu__title-link">Shop All</a>
+                        </h3>
+                        <ul class="risaa-mega-menu__list">
+                          <li><a href="/collections/bestsellers">Bestsellers</a></li>
+                          <li><a href="/collections/new-arrivals">New In</a></li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <!-- Column 2: Shop by Category -->
                     <div class="risaa-mega-menu__col">
                       <div class="risaa-mega-menu__col-inner">
                         <h3 class="risaa-mega-menu__title">Shop by Category</h3>
@@ -289,7 +310,7 @@
                       </div>
                     </div>
 
-                    <!-- Column 2: Shop by Occasion -->
+                    <!-- Column 3: Shop by Occasion -->
                     <div class="risaa-mega-menu__col">
                       <div class="risaa-mega-menu__col-inner">
                         <h3 class="risaa-mega-menu__title">Shop by Occasion</h3>
@@ -308,7 +329,7 @@
                       </div>
                     </div>
 
-                    <!-- Column 3: Shop by Collection -->
+                    <!-- Column 4: Shop by Collection -->
                     <div class="risaa-mega-menu__col">
                       <div class="risaa-mega-menu__col-inner">
                         <h3 class="risaa-mega-menu__title">Shop by Collection</h3>
@@ -391,10 +412,13 @@
             }
             shopDetails.querySelector('summary').setAttribute('aria-expanded', 'false');
 
-            // Remove navbar-active from header wrapper
+            // Remove navbar-active from header wrapper (only if not scrolled past threshold)
             const headerWrapper = shopDetails.closest('.header-wrapper');
             if (headerWrapper) {
-              headerWrapper.classList.remove('navbar-active');
+              const scrollY = window.scrollY || window.pageYOffset;
+              if (scrollY <= 700) {
+                headerWrapper.classList.remove('navbar-active');
+              }
             }
           }, 150);
         }
@@ -414,7 +438,10 @@
             shopDetails.querySelector('summary').setAttribute('aria-expanded', 'false');
             const headerWrapper = shopDetails.closest('.header-wrapper');
             if (headerWrapper) {
-              headerWrapper.classList.remove('navbar-active');
+              const scrollY = window.scrollY || window.pageYOffset;
+              if (scrollY <= 700) {
+                headerWrapper.classList.remove('navbar-active');
+              }
             }
           }
         });

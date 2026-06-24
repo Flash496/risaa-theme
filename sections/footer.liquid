@@ -626,7 +626,11 @@
             </a>
           </div>
           {%- if section.settings.brand_description != blank -%}
-            <p class="risaa-footer__brand-desc">{{ section.settings.brand_description }}</p>
+            <p class="risaa-footer__brand-desc">
+              Bridal • Trousseau • Prêt • Couture • Fusion<br><br>
+              Rooted in heritage. Created for you.<br>
+              Born in Ludhiana, Risaa is a design studio by designer Rima Singh, where top-notch craftsmanship, individuality, and conscious luxury come together. From bridal couture to everyday prêt, every piece is thoughtfully designed and handcrafted with care to celebrate every chapter of your journey and become part of your most cherished moments.
+            </p>
           {%- elsif settings.brand_description != blank -%}
             <p class="risaa-footer__brand-desc">{{ settings.brand_description }}</p>
           {%- else -%}
@@ -818,8 +822,7 @@
 
     <div class="risaa-footer__bottom">
       <p class="risaa-footer__copyright">
-        &copy; {{ 'now' | date: '%Y' }}, <a href="{{ routes.root_url }}">{{ shop.name }}</a> &bull;
-        {{ powered_by_link }}
+        &copy; 2026, Risaa Design Studio &bull; Powered by Shopify
       </p>
       {%- if section.settings.payment_enable -%}
         <div class="risaa-footer__payment">

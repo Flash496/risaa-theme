@@ -145,6 +145,13 @@
     }
   }
 
+  .risaa-video-card .active-product-card {
+    display: none !important;
+  }
+  .risaa-video-card.card-1 .active-product-card {
+    display: flex !important;
+  }
+
   .active-product-card {
     position: relative;
     overflow: hidden;
@@ -154,6 +161,7 @@
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), 0 12px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
     border: 1px solid #f5f5f5;
     transition: opacity 0.25s ease, transform 0.25s ease;
+    text-decoration: none !important;
   }
 
   .active-product-image-wrap {
@@ -344,13 +352,12 @@
 
   @media screen and (min-width: 750px) {
     .risaa-reels-layout {
-      max-width: 100% !important;
+      max-width: 1350px !important;
       width: 100% !important;
-      margin: 40px 0 !important;
-      gap: 0 !important;
+      margin: 40px auto !important;
       position: relative !important;
-      overflow: hidden !important;
-      height: 520px !important;
+      overflow: visible !important;
+      height: 600px !important;
       display: flex !important;
       align-items: center !important;
       justify-content: flex-start !important;
@@ -360,7 +367,7 @@
       flex: 1 !important;
       width: 100% !important;
       height: 100% !important;
-      overflow: hidden !important;
+      overflow: visible !important;
       position: relative !important;
       display: flex !important;
       align-items: center !important;
@@ -368,83 +375,62 @@
 
     .risaa-reels-stack {
       display: flex !important;
-      gap: 10px !important;
+      gap: 20px !important;
       width: max-content !important;
-      height: 426px !important;
+      height: 554px !important;
       perspective: none !important;
       position: relative !important;
       transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
       will-change: transform;
     }
 
-    .risaa-video-card {
-      position: relative !important;
-      flex: 0 0 240px !important;
-      width: 240px !important;
-      height: 426px !important;
-      top: auto !important;
-      left: auto !important;
-      transform: scale(0.9) !important;
-      opacity: 0.5 !important;
-      pointer-events: auto !important;
-      z-index: 1 !important;
-      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease !important;
-    }
-
-    .risaa-video-card.is-active {
-      opacity: 1 !important;
-      transform: scale(1.05) !important;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28) !important;
-      z-index: 5 !important;
-    }
-
+    .risaa-video-card,
     .risaa-video-card.card-1,
     .risaa-video-card.card-2,
     .risaa-video-card.card-3,
     .risaa-video-card.card-hidden {
       position: relative !important;
-      transform: scale(0.9) !important;
-      opacity: 0.5 !important;
+      flex: 0 0 312px !important;
+      width: 312px !important;
+      height: 554px !important;
+      top: auto !important;
+      left: auto !important;
+      transform: none !important;
+      opacity: 1 !important;
       pointer-events: auto !important;
       z-index: 1 !important;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease !important;
+      display: flex !important;
     }
 
-    .risaa-video-card.card-1.is-active,
-    .risaa-video-card.card-2.is-active,
-    .risaa-video-card.card-3.is-active,
-    .risaa-video-card.card-hidden.is-active {
-      opacity: 1 !important;
-      transform: scale(1.05) !important;
-      z-index: 5 !important;
+    .risaa-video-card:hover {
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28) !important;
     }
 
-    .risaa-reels-info-side {
+    /* Embedded Product Card position & styles for desktop */
+    .risaa-video-card .active-product-card {
       position: absolute !important;
-      left: calc(50% + 140px) !important;
-      right: auto !important;
+      bottom: -15px !important;
+      right: -15px !important;
+      width: 220px !important;
+      z-index: 20 !important;
+      transform: scale(1.3) !important;
+      transform-origin: bottom right !important;
+    }
+
+    /* Arrows positioning relative to the layout container to overlap the edge reels */
+    .risaa-reels-nav {
+      position: absolute !important;
       top: 50% !important;
-      transform: translateY(-50%) scale(0.92) !important;
-      width: 300px !important;
-      max-width: 300px !important;
-      z-index: 15 !important;
-      pointer-events: auto !important;
-      opacity: 0 !important;
-      filter: blur(12px) !important;
-      transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), filter 1.2s cubic-bezier(0.25, 1, 0.5, 1) !important;
-    }
-
-    .risaa-reels-layout.is-bloomed .risaa-reels-info-side {
-      opacity: 1 !important;
-      transform: translateY(-50%) scale(1) !important;
-      filter: blur(0) !important;
-    }
-  }
-
-  @media screen and (min-width: 750px) and (max-width: 990px) {
-    .risaa-reels-info-side {
-      left: calc(50% + 105px) !important;
-      width: 250px !important;
-      max-width: 250px !important;
+      left: -22px !important;
+      right: -22px !important;
+      width: calc(100% + 44px) !important;
+      transform: translateY(-50%) !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      pointer-events: none !important;
+      z-index: 30 !important;
+      padding: 0 !important;
     }
   }
 
@@ -723,38 +709,61 @@
             {% else %}
               <div style="width:100%; height:100%; background:linear-gradient(45deg, #f8b799, #ffd1bc); display:flex; align-items:center; justify-content:center; color:white;">
                 <img
-                  src="https://ik.imagekit.io/flashspdstr/risaa/Elevate%20your%20ethnic%20wardrobe%20with%20this%20gorgeous_.jpg"
+                  src="https://picsum.photos/400/700?random={{ forloop.index }}"
                   class="placeholder-svg"
                   alt="Product Placeholder"
                   style="width: 100%; height: 100%; object-fit: cover;"
                 >
               </div>
             {% endif %}
+
+            <!-- Embedded Product Info Overlay -->
+            {%- assign product = block.settings.product -%}
+            {%- if product != blank -%}
+              <a href="{{ product.url }}" class="active-product-card" onclick="event.stopPropagation()">
+                <div class="active-product-image-wrap">
+                  <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}">
+                </div>
+                <div class="active-product-details-wrap">
+                  <span class="active-product-tag">The Look</span>
+                  <h3 class="active-product-title">{{ product.title }}</h3>
+                  <p class="active-product-price">{{ product.price | money }}</p>
+                  <span class="active-product-link">Shop the Design</span>
+                </div>
+              </a>
+            {%- else -%}
+              <!-- Mockup Fallback when no product is selected to ensure it displays for testing -->
+              <a href="#" class="active-product-card" onclick="event.stopPropagation()">
+                <div class="active-product-image-wrap">
+                  <img src="https://picsum.photos/300/400?random={{ forloop.index | plus: 100 }}" alt="Featured Design">
+                </div>
+                <div class="active-product-details-wrap">
+                  <span class="active-product-tag">The Look</span>
+                  <h3 class="active-product-title">Featured Design - Red Lehenga Set</h3>
+                  <p class="active-product-price">Rs. 45,000</p>
+                  <span class="active-product-link">Shop the Design</span>
+                </div>
+              </a>
+            {%- endif -%}
           </div>
         {% endfor %}
       </div>
     </div>
 
-    <!-- PRODUCT INFO -->
-    <div class="risaa-reels-info-side">
-      <div id="activeProductInfo-{{ section.id }}" class="active-product-card">
-        <!-- Injected by JS -->
+    <!-- Navigation Arrows positioned relative to layout container -->
+    <div class="risaa-reels-nav">
+      <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'prev')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="20" y1="12" x2="4" y2="12"/>
+          <polyline points="10 6 4 12 10 18"/>
+        </svg>
       </div>
-    </div>
-  </div>
-
-  <div class="risaa-reels-nav">
-    <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'prev')">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="20" y1="12" x2="4" y2="12"/>
-        <polyline points="10 6 4 12 10 18"/>
-      </svg>
-    </div>
-    <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'next')">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="4" y1="12" x2="20" y2="12"/>
-        <polyline points="14 6 20 12 14 18"/>
-      </svg>
+      <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'next')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <polyline points="14 6 20 12 14 18"/>
+        </svg>
+      </div>
     </div>
   </div>
 </div>
@@ -768,102 +777,45 @@
         shuffleStack('{{ section.id }}', 'next');
       }
     } else {
-      if (card.classList.contains('is-active')) {
-        openRisaaModal(blockId);
-      } else {
-        const stack = card.closest('.risaa-reels-stack');
-        if (stack) {
-          const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
-          const index = cards.indexOf(card);
-          if (index !== -1) {
-            stack.dataset.activeIndex = index;
-            setActiveCarouselIndex('{{ section.id }}', index);
-          }
-        }
-      }
+      openRisaaModal(blockId);
     }
   }
 
-  function updateProductInfo(sectionId, blockId) {
-    const data = videoData[blockId];
-    if (!data) return;
-
-    const container = document.getElementById(`activeProductInfo-${sectionId}`);
-    if (!container) return;
-    const card = container.closest('.active-product-card') || container;
-
-    // Exit animation
-    card.classList.remove('look-enter');
-    card.classList.add('look-exit');
-
-    setTimeout(() => {
-      container.innerHTML = `
-        <div class="active-product-image-wrap">
-          <img src="${data.image || 'https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg'}" 
-               alt="${data.title || 'Showcased Design'}">
-        </div>
-        <div class="active-product-details-wrap">
-          <div class="active-product-meta">
-            <span class="active-product-tag">The Look</span>
-            <h3 class="active-product-title">${data.title}</h3>
-            <p class="active-product-price">${data.price}</p>
-          </div>
-          <a href="${data.url}" class="active-product-link">Shop the Design</a>
-        </div>
-      `;
-
-      // Enter animation
-      card.classList.remove('look-exit');
-      void card.offsetWidth; // force reflow to retrigger animation
-      card.classList.add('look-enter');
-    }, 0);
-  }
-
-  function setActiveCarouselIndex(sectionId, index, animate = true) {
+  function setActiveCarouselPage(sectionId, startIndex, animate = true) {
     const stack = document.getElementById(`reelsStack-${sectionId}`);
     if (!stack) return;
     const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
     if (cards.length === 0) return;
 
-    if (index < 0) index = cards.length - 1;
-    if (index >= cards.length) index = 0;
+    const M = cards.length;
+    if (startIndex < 0) startIndex = 0;
+    if (startIndex > M - 4) startIndex = Math.max(0, M - 4);
 
+    stack.dataset.startIndex = startIndex;
+
+    // Translate stack
+    const cardWidth = 240;
+    const gap = 20;
+    const translation = -startIndex * (cardWidth + gap);
+
+    if (!animate) {
+      stack.style.setProperty('transition', 'none', 'important');
+    } else {
+      stack.style.removeProperty('transition');
+    }
+    stack.style.transform = `translateX(${translation}px)`;
+
+    // Play/Pause videos based on visibility
     cards.forEach((card, i) => {
       const video = card.querySelector('video');
-      if (i === index) {
-        card.classList.add('is-active');
-        if (video) {
-          video.play().catch(e => console.log('Auto-play blocked or failed:', e));
+      if (video) {
+        if (i >= startIndex && i < startIndex + 4) {
+          video.play().catch(e => {});
+        } else {
+          video.pause();
         }
-      } else {
-        card.classList.remove('is-active');
-        if (video) video.pause();
       }
     });
-
-    // Translate stack to center the active card
-    const stackSide = stack.closest('.risaa-reels-stack-side');
-    if (stackSide) {
-      const containerWidth = stackSide.offsetWidth;
-      const cardWidth = 240; // Desktop card width
-      const gap = 10; // Gap between cards
-      const activeX = index * (cardWidth + gap) + cardWidth / 2;
-      const translation = containerWidth / 2 - activeX;
-
-      if (!animate) {
-        stack.style.setProperty('transition', 'none', 'important');
-      } else {
-        stack.style.removeProperty('transition');
-      }
-      stack.style.transform = `translateX(${translation}px)`;
-    }
-
-    // Update Shop the Look info
-    const activeCard = cards[index];
-    if (activeCard) {
-      const blockId = activeCard.getAttribute('data-block-id');
-      updateProductInfo(sectionId, blockId);
-    }
   }
 
   function shuffleStack(sectionId, direction) {
@@ -898,9 +850,6 @@
           }
         });
 
-        const activeBlockId = stack.querySelector('.shuffling-prev').getAttribute('data-block-id');
-        updateProductInfo(sectionId, activeBlockId);
-
         setTimeout(() => {
           const topCard = stack.querySelector('.shuffling-prev');
           if (topCard) {
@@ -934,8 +883,6 @@
             }
           });
 
-          const activeBlockId = stack.querySelector('.card-1').getAttribute('data-block-id');
-          updateProductInfo(sectionId, activeBlockId);
           stack.dataset.isAnimatingMobile = 'false';
         }, 600);
       }
@@ -943,119 +890,41 @@
       const stack = document.getElementById(`reelsStack-${sectionId}`);
       if (!stack) return;
       const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
-      if (cards.length === 0) return;
+      const M = cards.length;
+      if (M <= 4) return; // No need to shuffle if all fit on screen
 
-      let activeIndex = parseInt(stack.dataset.activeIndex);
-      if (isNaN(activeIndex)) {
-        activeIndex = cards.findIndex(card => card.classList.contains('is-active'));
-      }
-      if (activeIndex === -1) activeIndex = 0;
-
-      // Handle boundary limits check beforehand (pre-snap) to handle fast clicks smoothly
-      const N = cards.length / 3;
-      if (activeIndex < N) {
-        activeIndex = activeIndex + N;
-        stack.dataset.activeIndex = activeIndex;
-        setActiveCarouselIndex(sectionId, activeIndex, false);
-      } else if (activeIndex >= 2 * N) {
-        activeIndex = activeIndex - N;
-        stack.dataset.activeIndex = activeIndex;
-        setActiveCarouselIndex(sectionId, activeIndex, false);
-      }
+      let startIndex = parseInt(stack.dataset.startIndex);
+      if (isNaN(startIndex)) startIndex = 0;
 
       if (direction === 'next') {
-        activeIndex = activeIndex + 1;
+        if (startIndex >= M - 4) {
+          startIndex = 0;
+        } else {
+          startIndex = Math.min(startIndex + 4, M - 4);
+        }
       } else {
-        activeIndex = activeIndex - 1;
+        if (startIndex <= 0) {
+          startIndex = Math.max(0, M - 4);
+        } else {
+          startIndex = Math.max(0, startIndex - 4);
+        }
       }
 
-      stack.dataset.activeIndex = activeIndex;
-      setActiveCarouselIndex(sectionId, activeIndex, true);
+      setActiveCarouselPage(sectionId, startIndex, true);
     }
-  }
-
-  function handleTransitionEnd(e) {
-    if (e.propertyName !== 'transform') return;
-    if (e.target !== e.currentTarget) return; // Prevent bubbling from card animations
-
-    const stack = e.currentTarget;
-    const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
-    if (cards.length === 0) return;
-
-    const N = cards.length / 3;
-    let activeIndex = parseInt(stack.dataset.activeIndex);
-    if (isNaN(activeIndex)) return;
-
-    if (activeIndex < N) {
-      activeIndex = activeIndex + N;
-      stack.dataset.activeIndex = activeIndex;
-      setActiveCarouselIndex('{{ section.id }}', activeIndex, false);
-    } else if (activeIndex >= 2 * N) {
-      activeIndex = activeIndex - N;
-      stack.dataset.activeIndex = activeIndex;
-      setActiveCarouselIndex('{{ section.id }}', activeIndex, false);
-    }
-  }
-
-  function initDesktopCarousel(sectionId) {
-    const stack = document.getElementById(`reelsStack-${sectionId}`);
-    if (!stack) return;
-    if (stack.dataset.clonedInitialized === 'true') return;
-
-    const originalCards = Array.from(stack.querySelectorAll('.risaa-video-card:not(.is-clone)'));
-    const N = originalCards.length;
-    if (N === 0) return;
-
-    // Clone and prepend
-    const prependContainer = document.createDocumentFragment();
-    originalCards.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.classList.add('is-clone');
-      prependContainer.appendChild(clone);
-    });
-
-    // Clone and append
-    const appendContainer = document.createDocumentFragment();
-    originalCards.forEach(card => {
-      const clone = card.cloneNode(true);
-      clone.classList.add('is-clone');
-      appendContainer.appendChild(clone);
-    });
-
-    stack.insertBefore(prependContainer, stack.firstChild);
-    stack.appendChild(appendContainer);
-
-    stack.addEventListener('transitionend', handleTransitionEnd);
-    stack.dataset.clonedInitialized = 'true';
-  }
-
-  function destroyDesktopCarousel(sectionId) {
-    const stack = document.getElementById(`reelsStack-${sectionId}`);
-    if (!stack) return;
-    if (stack.dataset.clonedInitialized !== 'true') return;
-
-    const clones = stack.querySelectorAll('.is-clone');
-    clones.forEach(clone => clone.remove());
-
-    stack.removeEventListener('transitionend', handleTransitionEnd);
-    stack.dataset.clonedInitialized = 'false';
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     const stack = document.getElementById('reelsStack-{{ section.id }}');
     if (stack) {
       if (window.innerWidth >= 750) {
-        initDesktopCarousel('{{ section.id }}');
-        const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
-        const N = cards.length / 3;
-        stack.dataset.activeIndex = N;
-        setActiveCarouselIndex('{{ section.id }}', N, false);
+        stack.dataset.startIndex = 0;
+        setActiveCarouselPage('{{ section.id }}', 0, false);
       } else {
         const topCard = stack.querySelector('.card-1');
         if (topCard) {
           const video = topCard.querySelector('video');
           if (video) video.play().catch(e => {});
-          updateProductInfo('{{ section.id }}', topCard.getAttribute('data-block-id'));
         }
       }
 
@@ -1108,18 +977,14 @@
       }
     }
 
-    // Auto-advance every 4 seconds
+    // Auto-advance disabled
     const stackSide = document.querySelector('.risaa-reels-stack-side');
     let autoTimer = null;
     function startAuto() {
-      if (autoTimer) return;
-      autoTimer = setInterval(() => {
-        shuffleStack('{{ section.id }}', 'next');
-      }, 4000);
+      // Disabled autoscroll
     }
     function stopAuto() {
-      clearInterval(autoTimer);
-      autoTimer = null;
+      // Disabled autoscroll
     }
 
     // Pause on hover, resume on leave
@@ -1149,53 +1014,38 @@
     let lastWidth = window.innerWidth;
     window.addEventListener('resize', () => {
       if (window.innerWidth === lastWidth) return;
+      const isMobileNow = window.innerWidth < 750;
+      const wasMobileBefore = lastWidth < 750;
       lastWidth = window.innerWidth;
 
       const rStack = document.getElementById('reelsStack-{{ section.id }}');
       if (!rStack) return;
 
-      if (window.innerWidth >= 750) {
-        if (rStack.dataset.clonedInitialized !== 'true') {
-          initDesktopCarousel('{{ section.id }}');
-          const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
-          const N = cards.length / 3;
-          rStack.dataset.activeIndex = N;
-          setActiveCarouselIndex('{{ section.id }}', N, false);
-        } else {
-          let activeIndex = parseInt(rStack.dataset.activeIndex);
-          if (isNaN(activeIndex)) {
-            const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
-            activeIndex = cards.findIndex(card => card.classList.contains('is-active'));
-            if (activeIndex === -1) {
-              const N = cards.length / 3;
-              activeIndex = N;
-            }
-          }
-          setActiveCarouselIndex('{{ section.id }}', activeIndex, false);
-        }
-      } else {
-        if (rStack.dataset.clonedInitialized === 'true') {
-          destroyDesktopCarousel('{{ section.id }}');
-          rStack.style.transform = '';
-          const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
-          cards.forEach((card, i) => {
-            card.classList.remove('is-active');
-            card.className = 'risaa-video-card';
-            const pos = i + 1;
-            if (pos <= 3) card.classList.add(`card-${pos}`);
-            else card.classList.add('card-hidden');
+      if (!isMobileNow && wasMobileBefore) {
+        // Switched from mobile to desktop
+        rStack.style.transform = '';
+        const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
+        cards.forEach(card => {
+          card.className = 'risaa-video-card';
+        });
+        rStack.dataset.startIndex = 0;
+        setActiveCarouselPage('{{ section.id }}', 0, false);
+      } else if (isMobileNow && !wasMobileBefore) {
+        // Switched from desktop to mobile
+        rStack.style.transform = '';
+        const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
+        cards.forEach((card, i) => {
+          card.className = 'risaa-video-card';
+          const pos = i + 1;
+          if (pos <= 3) card.classList.add(`card-${pos}`);
+          else card.classList.add('card-hidden');
 
-            const video = card.querySelector('video');
-            if (video) {
-              if (pos === 1) video.play().catch(e => {});
-              else video.pause();
-            }
-          });
-          const topCard = rStack.querySelector('.card-1');
-          if (topCard) {
-            updateProductInfo('{{ section.id }}', topCard.getAttribute('data-block-id'));
+          const video = card.querySelector('video');
+          if (video) {
+            if (pos === 1) video.play().catch(e => {});
+            else video.pause();
           }
-        }
+        });
       }
     });
   });
@@ -1224,7 +1074,7 @@
         "title": "{{ block.settings.product.title | escape }}",
         "price": "{{ block.settings.product.price | money | escape }}",
         "url": "{{ block.settings.product.url }}",
-        "image": "{% if block.settings.product.featured_image %}{{ block.settings.product.featured_image | image_url: width: 300 }}{% else %}https://ik.imagekit.io/flashspdstr/risaa/Ruby%20primary.jpg{% endif %}"
+        "image": "{% if block.settings.product.featured_image %}{{ block.settings.product.featured_image | image_url: width: 300 }}{% else %}https://picsum.photos/300/400?random={{ forloop.index | plus: 100 }}{% endif %}"
       }{% unless forloop.last %},{% endunless %}
     {% endfor %}
   };
