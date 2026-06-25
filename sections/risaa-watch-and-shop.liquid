@@ -1,8 +1,7 @@
 {%- style -%}
   .risaa-watch-and-shop {
     position: relative;
-    width: calc(100% - 115px);
-
+    width: calc(100% - 110px);
     margin: 0 auto;
     padding: 0 10px;
     background: #fff;
@@ -10,281 +9,220 @@
     overflow: hidden;
   }
 
-  .risaa-reels-decor {
-    position: absolute;
-    width: 250px;
-    height: 250px;
-    opacity: 0.12;
-    pointer-events: none;
-    z-index: 1;
-    background-size: contain;
-  }
-
   .risaa-reels-layout {
     display: flex;
-    max-width: 820px;
-    margin: 24px auto;
+    max-width: 1350px;
+    width: 100%;
+    margin: 40px auto;
     align-items: center;
-    justify-content: center;
-    gap: 40px;
+    justify-content: flex-start;
     position: relative;
-    z-index: 2;
+    overflow: visible;
   }
 
-  /* Reel Stack Side */
   .risaa-reels-stack-side {
     position: relative;
-    flex: 0 0 240px;
+    flex: 1;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+  }
+
+  .risaa-reels-stack-side::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
   }
 
   .risaa-reels-stack {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    height: 554px;
     position: relative;
-    width: 240px;
-    height: 426px;
-    perspective: 1000px;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
   }
 
   .risaa-video-card {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
+    position: relative;
+    flex: 0 0 312px;
+    width: 312px;
+    height: 554px;
+    border-radius: 20px;
     overflow: hidden;
     background: #000;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
-    transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
-    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .risaa-video-card.card-1 {
-    transform: rotate(0) translateZ(0);
-    z-index: 10;
-    opacity: 1;
-  }
-  .risaa-video-card.card-2 {
-    transform: rotate(4deg) translateZ(-30px) translateX(20px);
-    z-index: 9;
-    opacity: 0.8;
-  }
-  .risaa-video-card.card-3 {
-    transform: rotate(-3deg) translateZ(-60px) translateX(-20px);
-    z-index: 8;
-    opacity: 0.6;
-  }
-  .risaa-video-card.card-hidden {
-    transform: translateZ(-200px) translateY(100px);
-    z-index: 1;
-    opacity: 0;
-    pointer-events: none;
+  .risaa-video-card:hover {
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
   }
 
-  .risaa-video-card.shuffling {
-    animation: shuffle-animation 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1);
-  }
-
-  @keyframes shuffle-animation {
-    0% {
-      transform: scale(1) translateX(0);
-      z-index: 100;
-    }
-    40% {
-      transform: scale(0.9) translateX(-200px) rotate(-15deg);
-      opacity: 0.8;
-    }
-    100% {
-      transform: scale(0.8) translateX(0) translateZ(-100px);
-      z-index: 1;
-      opacity: 0;
-    }
-  }
-
-  .risaa-video-card video {
+  /* HTML5 Video elements */
+  .risaa-video-card video.reel-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-
-  /* Product Info Side */
-  .risaa-reels-info-side {
-    flex: 1;
-    max-width: 300px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  /* Bloom Animation States */
-  .risaa-reels-stack-side,
-  .risaa-reels-info-side {
-    opacity: 0;
-    transform: scale(0.92);
-    filter: blur(12px);
-    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1),
-      filter 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-  }
-
-  .risaa-reels-layout.is-bloomed .risaa-reels-stack-side,
-  .risaa-reels-layout.is-bloomed .risaa-reels-info-side {
-    opacity: 1;
-    transform: scale(1);
-    filter: blur(0);
-  }
-
-  @keyframes metal-glimmer {
-    0% {
-      left: -150%;
-    }
-    50% {
-      left: 150%;
-    }
-    100% {
-      left: 150%;
-    }
-  }
-
-  .risaa-video-card .active-product-card {
-    display: none !important;
-  }
-  .risaa-video-card.card-1 .active-product-card {
-    display: flex !important;
-  }
-
-  .active-product-card {
-    position: relative;
-    overflow: hidden;
-    background: #fff;
-    padding: 30px;
-    border-radius: 0;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12), 0 12px 24px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
-    border: 1px solid #f5f5f5;
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    text-decoration: none !important;
-  }
-
-  .active-product-image-wrap {
-    margin-bottom: 20px;
-    border-radius: 0;
-    overflow: hidden;
-    aspect-ratio: 4/5;
-  }
-
-  .active-product-image-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .active-product-details-wrap {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .active-product-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 60%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.4),
-      rgba(255, 255, 255, 0.6),
-      rgba(255, 255, 255, 0.4),
-      transparent
-    );
-    transform: skewX(-25deg);
-    pointer-events: none;
-  }
-
-  .risaa-reels-layout.is-bloomed .active-product-card::after {
-    animation: metal-glimmer 3.5s cubic-bezier(0.19, 1, 0.22, 1) infinite;
-    animation-delay: 1.2s;
-  }
-
-  .active-product-card.look-exit {
-    opacity: 0;
-    transform: translateY(16px) scale(0.97);
-  }
-
-  .active-product-card.look-enter {
-    animation: look-card-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  @keyframes look-card-in {
-    0% {
-      opacity: 0;
-      transform: translateY(24px) scale(0.96);
-    }
-    60% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  .active-product-tag {
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-    font-size: 9pt;
-    letter-spacing: 2px;
-    color: #f8b799;
-    font-weight: 700;
-    margin-bottom: 12px;
     display: block;
   }
 
-  .active-product-title {
-    font-family: 'Cinzel', serif;
-    font-size: 1.8rem;
-    color: #1a1a1a;
-    margin: 0 0 10px 0;
-    line-height: 1.2;
+  /* Audio Toggle Button styles */
+  .risaa-video-card .audio-toggle-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 25;
+    transition: transform 0.2s ease, background-color 0.2s ease;
   }
 
-  .active-product-price {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 24px;
+  .risaa-video-card .audio-toggle-btn:hover {
+    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.6);
   }
 
-  .active-product-link {
-    display: inline-block;
-    padding: 15px 40px;
-    background: #1a1a1a;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 50px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9pt;
-    font-weight: 600;
-    transition: all 0.3s ease;
+  .risaa-video-card .audio-toggle-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: #fff;
+    display: block;
   }
 
-  .active-product-link:hover {
-    background: #f8b799;
-    transform: translateY(-3px);
+  .risaa-video-card .audio-toggle-btn .unmute-icon {
+    display: none;
   }
 
-  /* Arrows */
+  .risaa-video-card .audio-toggle-btn.unmuted .mute-icon {
+    display: none;
+  }
+
+  .risaa-video-card .audio-toggle-btn.unmuted .unmute-icon {
+    display: block;
+  }
+
+  /* Instagram Iframe Cropping Wrapper */
+  .instagram-embed-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .instagram-iframe-container iframe {
+    position: absolute;
+    top: -54px;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 110px);
+    border: none;
+    pointer-events: auto;
+  }
+
+  /* Embedded Product Card position & styles */
+  .risaa-video-card .active-product-card {
+    display: flex !important;
+    flex-direction: column !important;
+    position: absolute !important;
+    bottom: 15px !important;
+    right: 15px !important;
+    width: 170px !important;
+    z-index: 20 !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    box-sizing: border-box !important;
+    text-decoration: none !important;
+  }
+
+  .risaa-video-card .active-product-image-wrap {
+    margin-bottom: 8px !important;
+    border-radius: 8px !important;
+    aspect-ratio: 1/1 !important;
+    overflow: hidden !important;
+    width: 100% !important;
+  }
+
+  .risaa-video-card .active-product-image-wrap img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .risaa-video-card .active-product-details-wrap {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .risaa-video-card .active-product-tag {
+    font-size: 8px !important;
+    margin-bottom: 2px !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    color: #f8b799 !important;
+  }
+
+  .risaa-video-card .active-product-title {
+    font-size: 11px !important;
+    line-height: 1.3 !important;
+    margin: 0 0 8px 0 !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .risaa-video-card .active-product-link {
+    display: block !important;
+    padding: 6px 10px !important;
+    background: #1a1a1a !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 20px !important;
+    font-size: 8px !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .risaa-video-card .active-product-link:hover {
+    background: #f8b799 !important;
+    transform: translateY(-1px) !important;
+  }
+
+  /* Arrows positioning */
   .risaa-reels-nav {
     position: absolute;
     top: 50%;
-    left: 0;
-    right: 0;
+    left: -22px;
+    right: -22px;
+    width: calc(100% + 44px);
     transform: translateY(-50%);
     display: flex;
     justify-content: space-between;
-    padding: 0 40px;
-    pointer-events: none; /* Allow clicking through the container */
-    z-index: 20;
+    pointer-events: none;
+    z-index: 30;
+    padding: 0;
   }
 
   .nav-arrow {
@@ -301,10 +239,9 @@
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.3s ease,
-      border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.3s ease;
     color: #6e1423;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     transform: scale(0.9);
   }
 
@@ -326,8 +263,6 @@
   .nav-arrow:hover {
     opacity: 1;
     background: rgba(255, 255, 255, 0.35);
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 4px 10px rgba(0, 0, 0, 0.12);
     transform: scale(1.05);
   }
 
@@ -335,352 +270,56 @@
     .risaa-watch-and-shop {
       width: calc(100% - 30px) !important;
     }
-    .risaa-reels-nav {
-      position: relative;
-      top: auto;
-      transform: none;
-      padding: 0;
-      margin-top: 30px;
-      justify-content: center;
-    }
-    .nav-arrow {
-      opacity: 0.7;
-      pointer-events: auto;
-      transform: scale(1);
-    }
-  }
-
-  @media screen and (min-width: 750px) {
-    .risaa-reels-layout {
-      max-width: 1350px !important;
-      width: 100% !important;
-      margin: 40px auto !important;
-      position: relative !important;
-      overflow: visible !important;
-      height: 600px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: flex-start !important;
-    }
-
-    .risaa-reels-stack-side {
-      flex: 1 !important;
-      width: 100% !important;
-      height: 100% !important;
-      overflow: visible !important;
-      position: relative !important;
-      display: flex !important;
-      align-items: center !important;
-    }
-
-    .risaa-reels-stack {
-      display: flex !important;
-      gap: 20px !important;
-      width: max-content !important;
-      height: 554px !important;
-      perspective: none !important;
-      position: relative !important;
-      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
-      will-change: transform;
-    }
-
-    .risaa-video-card,
-    .risaa-video-card.card-1,
-    .risaa-video-card.card-2,
-    .risaa-video-card.card-3,
-    .risaa-video-card.card-hidden {
-      position: relative !important;
-      flex: 0 0 312px !important;
-      width: 312px !important;
-      height: 554px !important;
-      top: auto !important;
-      left: auto !important;
-      transform: none !important;
-      opacity: 1 !important;
-      pointer-events: auto !important;
-      z-index: 1 !important;
-      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease !important;
-      display: flex !important;
-    }
-
-    .risaa-video-card:hover {
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28) !important;
-    }
-
-    /* Embedded Product Card position & styles for desktop */
-    .risaa-video-card .active-product-card {
-      position: absolute !important;
-      bottom: -15px !important;
-      right: -15px !important;
-      width: 220px !important;
-      z-index: 20 !important;
-      transform: scale(1.3) !important;
-      transform-origin: bottom right !important;
-    }
-
-    /* Arrows positioning relative to the layout container to overlap the edge reels */
-    .risaa-reels-nav {
-      position: absolute !important;
-      top: 50% !important;
-      left: -22px !important;
-      right: -22px !important;
-      width: calc(100% + 44px) !important;
-      transform: translateY(-50%) !important;
-      display: flex !important;
-      justify-content: space-between !important;
-      pointer-events: none !important;
-      z-index: 30 !important;
-      padding: 0 !important;
-    }
   }
 
   @media screen and (max-width: 749px) {
-    .risaa-reels-nav {
-      display: none !important;
-    }
-
     .risaa-watch-and-shop {
       border-radius: 16px !important;
     }
 
-    /* Stack side fills the whole row; info-side overlays it */
     .risaa-reels-layout {
-      flex-direction: row !important;
-      gap: 0 !important;
       margin: 20px auto !important;
-      position: relative !important;
-      align-items: flex-start !important;
-    }
-
-    .risaa-reels-stack-side {
-      flex: none !important;
-      min-width: 0 !important;
-      width: 85% !important;
-      height: auto !important;
     }
 
     .risaa-reels-stack {
-      width: 100% !important;
-      height: auto !important;
-      aspect-ratio: 9/16 !important;
+      height: 480px !important;
+      gap: 15px !important;
     }
 
     .risaa-video-card {
-      border-radius: 16px !important;
-    }
-    .risaa-video-card.card-2 {
-      transform: rotate(3deg) translateZ(-20px) translateX(10px) !important;
-    }
-    .risaa-video-card.card-3 {
-      transform: rotate(-2deg) translateZ(-40px) translateX(-10px) !important;
-    }
-    .risaa-video-card.shuffling {
-      animation: shuffle-animation-mobile 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1) !important;
-    }
-    .risaa-video-card.shuffling-prev {
-      animation: shuffle-animation-prev-mobile 0.8s forwards cubic-bezier(0.19, 1, 0.22, 1) !important;
+      flex: 0 0 270px !important;
+      width: 270px !important;
+      height: 480px !important;
     }
 
-    /* Shop the Look card: absolute overlay at bottom-right of the reel */
-    .risaa-reels-info-side {
-      position: absolute !important;
-      bottom: 16px !important;
+    .risaa-video-card .active-product-card {
+      bottom: 12px !important;
       right: 12px !important;
-      width: 50% !important;
-      max-width: 192px !important;
-      flex: none !important;
-      gap: 0 !important;
-      z-index: 20 !important;
+      width: 140px !important;
+      padding: 8px !important;
     }
 
-    .active-product-card {
-      padding: 10px !important;
-      border-radius: 0 !important;
-      background: rgba(255, 255, 255, 0.88) !important;
-      backdrop-filter: blur(10px) !important;
-      -webkit-backdrop-filter: blur(10px) !important;
-      border: 1px solid rgba(255,255,255,0.6) !important;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.22) !important;
-      display: flex !important;
-      flex-direction: column !important;
-      box-sizing: border-box !important;
-      /* 3:4 aspect ratio */
-      aspect-ratio: 3/4 !important;
-      overflow: hidden !important;
-    }
-
-    .active-product-image-wrap {
-      flex: 1 !important;
+    .risaa-video-card .active-product-image-wrap {
       margin-bottom: 6px !important;
-      border-radius: 0 !important;
-      overflow: hidden !important;
-      min-height: 0 !important;
-      aspect-ratio: unset !important;
+      border-radius: 6px !important;
     }
 
-    .active-product-image-wrap img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
+    .risaa-video-card .active-product-tag {
+      font-size: 7px !important;
     }
 
-    .active-product-details-wrap {
-      display: flex !important;
-      flex-direction: column !important;
-      flex-shrink: 0 !important;
+    .risaa-video-card .active-product-title {
+      font-size: 9px !important;
+      margin: 0 0 6px 0 !important;
     }
 
-    .active-product-tag {
-      font-size: 6pt !important;
-      letter-spacing: 1px !important;
-      margin-bottom: 2px !important;
+    .risaa-video-card .active-product-link {
+      padding: 5px 6px !important;
+      font-size: 7px !important;
     }
-    .active-product-title {
-      font-size: 0.72rem !important;
-      margin: 0 0 3px 0 !important;
-      line-height: 1.2 !important;
-      display: -webkit-box !important;
-      -webkit-line-clamp: 2 !important;
-      -webkit-box-orient: vertical !important;
-      overflow: hidden !important;
-    }
-    .active-product-price {
-      font-size: 0.72rem !important;
-      margin-bottom: 5px !important;
-    }
-    .active-product-link {
-      padding: 7px 6px !important;
-      font-size: 6.5pt !important;
-      width: 100% !important;
-      text-align: center !important;
-      box-sizing: border-box !important;
-      border-radius: 30px !important;
-    }
-  }
 
-  @keyframes shuffle-animation-mobile {
-    0% {
-      transform: scale(1) translateX(0);
-      z-index: 100;
-    }
-    40% {
-      transform: scale(0.9) translateX(-120%) rotate(-10deg);
-      opacity: 0.8;
-    }
-    100% {
-      transform: scale(0.8) translateX(0) translateZ(-60px);
-      z-index: 1;
-      opacity: 0;
-    }
-  }
-
-  @keyframes shuffle-animation-prev-mobile {
-    0% {
-      transform: scale(0.8) translateX(0) translateZ(-60px);
-      z-index: 1;
-      opacity: 0;
-    }
-    40% {
-      transform: scale(0.9) translateX(-120%) rotate(-10deg);
-      opacity: 0.8;
-      z-index: 100;
-    }
-    100% {
-      transform: scale(1) translateX(0) rotate(0) translateZ(0);
-      z-index: 100;
-      opacity: 1;
-    }
-  }
-
-  /* Modal Styles */
-  .risaa-video-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    z-index: 3000;
-    backdrop-filter: blur(15px);
-    align-items: center;
-    justify-content: center;
-  }
-
-  .risaa-video-modal.active {
-    display: flex;
-  }
-
-  .risaa-modal-content {
-    display: flex;
-    background: white;
-    width: 95%;
-    max-width: 1000px;
-    height: 85vh;
-    border-radius: 30px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5);
-    animation: modal-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  @keyframes modal-pop {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  .risaa-modal-video {
-    flex: 1.4;
-    background: #000;
-  }
-
-  .risaa-modal-video video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .risaa-modal-sidebar {
-    flex: 1;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: #fff;
-  }
-
-  .risaa-close-modal {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
-    z-index: 3001;
-    line-height: 1;
-    transition: transform 0.3s ease;
-  }
-
-  .risaa-close-modal:hover {
-    transform: rotate(90deg);
-  }
-
-  @media screen and (max-width: 749px) {
-    .risaa-modal-content {
-      flex-direction: column;
-      height: 95vh;
-    }
-    .risaa-modal-video {
-      flex: 1;
-    }
-    .risaa-modal-sidebar {
-      padding: 30px;
+    .risaa-reels-nav {
+      display: none;
     }
   }
 {%- endstyle -%}
@@ -692,26 +331,41 @@
   </div>
 
   <div class="risaa-reels-layout">
-    <!-- REEL STACK -->
+    <!-- REELS CONTAINER -->
     <div class="risaa-reels-stack-side">
       <div class="risaa-reels-stack" id="reelsStack-{{ section.id }}">
         {% for block in section.blocks %}
           <div
-            class="risaa-video-card card-{{ forloop.index }} {% if forloop.index > 3 %}card-hidden{% endif %}"
-            onclick="handleCardClick(this, '{{ block.id }}')"
-            data-block-id="{{ block.id }}"
+            class="risaa-video-card"
+            data-instagram-url="{{ block.settings.instagram_url }}"
             {{ block.shopify_attributes }}
           >
             {% if block.settings.video_url != blank %}
-              <video muted loop playsinline class="reel-video">
-                <source src="{{ block.settings.video_url }}" type="video/mp4">
-              </video>
+              <!-- HTML5 Native Premium Video (Autoplay, loop, muted, full screen, custom audio toggle) -->
+              <video class="reel-video" src="{{ block.settings.video_url }}" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>
+              
+              <!-- Audio Toggle Button -->
+              <div class="audio-toggle-btn" onclick="toggleCardAudio(event, this)">
+                <!-- Muted Icon -->
+                <svg class="mute-icon" viewBox="0 0 24 24">
+                  <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zM19 12c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 9v1.27L9.27 7.55 12 4.82v4.18z"/>
+                </svg>
+                <!-- Unmuted Icon -->
+                <svg class="unmute-icon" viewBox="0 0 24 24">
+                  <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+              </div>
+            {% elsif block.settings.instagram_url != blank %}
+              <!-- Instagram Embed Iframe Container -->
+              <div class="instagram-embed-wrapper">
+                <div class="instagram-iframe-container" style="width:100%; height:100%;"></div>
+              </div>
             {% else %}
+              <!-- Mockup Fallback Image Placeholder -->
               <div style="width:100%; height:100%; background:linear-gradient(45deg, #f8b799, #ffd1bc); display:flex; align-items:center; justify-content:center; color:white;">
                 <img
                   src="https://picsum.photos/400/700?random={{ forloop.index }}"
-                  class="placeholder-svg"
-                  alt="Product Placeholder"
+                  alt="Reel Placeholder"
                   style="width: 100%; height: 100%; object-fit: cover;"
                 >
               </div>
@@ -722,25 +376,23 @@
             {%- if product != blank -%}
               <a href="{{ product.url }}" class="active-product-card" onclick="event.stopPropagation()">
                 <div class="active-product-image-wrap">
-                  <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title | escape }}">
+                  <img src="{{ product.featured_image | image_url: width: 200 }}" alt="{{ product.title | escape }}">
                 </div>
                 <div class="active-product-details-wrap">
                   <span class="active-product-tag">The Look</span>
                   <h3 class="active-product-title">{{ product.title }}</h3>
-                  <p class="active-product-price">{{ product.price | money }}</p>
                   <span class="active-product-link">Shop the Design</span>
                 </div>
               </a>
             {%- else -%}
-              <!-- Mockup Fallback when no product is selected to ensure it displays for testing -->
+              <!-- Mockup Fallback when no product is selected -->
               <a href="#" class="active-product-card" onclick="event.stopPropagation()">
                 <div class="active-product-image-wrap">
                   <img src="https://picsum.photos/300/400?random={{ forloop.index | plus: 100 }}" alt="Featured Design">
                 </div>
                 <div class="active-product-details-wrap">
                   <span class="active-product-tag">The Look</span>
-                  <h3 class="active-product-title">Featured Design - Red Lehenga Set</h3>
-                  <p class="active-product-price">Rs. 45,000</p>
+                  <h3 class="active-product-title">Featured Design - Lehenga Set</h3>
                   <span class="active-product-link">Shop the Design</span>
                 </div>
               </a>
@@ -750,7 +402,7 @@
       </div>
     </div>
 
-    <!-- Navigation Arrows positioned relative to layout container -->
+    <!-- Navigation Arrows positioned relative to layout container (only visible/functional on desktop) -->
     <div class="risaa-reels-nav">
       <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'prev')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -769,15 +421,45 @@
 </div>
 
 <script>
-  function handleCardClick(card, blockId) {
-    if (window.innerWidth < 750) {
-      if (card.classList.contains('card-1')) {
-        openRisaaModal(blockId);
-      } else {
-        shuffleStack('{{ section.id }}', 'next');
-      }
+  function getInstagramEmbedUrl(url) {
+    if (!url) return '';
+    let cleanUrl = url.split('?')[0]; // Remove query params
+    if (!cleanUrl.endsWith('/')) {
+      cleanUrl += '/';
+    }
+    return cleanUrl + 'embed/';
+  }
+
+  function toggleCardAudio(event, btnEl) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    const card = btnEl.closest('.risaa-video-card');
+    if (!card) return;
+
+    const video = card.querySelector('video');
+    if (!video) return;
+
+    const isMuted = video.muted;
+    const allVideos = document.querySelectorAll('.risaa-video-card video');
+    const allButtons = document.querySelectorAll('.audio-toggle-btn');
+
+    if (isMuted) {
+      // Mute all other videos first
+      allVideos.forEach(v => {
+        v.muted = true;
+      });
+      allButtons.forEach(btn => {
+        btn.classList.remove('unmuted');
+      });
+
+      // Unmute this video
+      video.muted = false;
+      btnEl.classList.add('unmuted');
     } else {
-      openRisaaModal(blockId);
+      // Mute this video
+      video.muted = true;
+      btnEl.classList.remove('unmuted');
     }
   }
 
@@ -787,14 +469,10 @@
     const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
     if (cards.length === 0) return;
 
-    const M = cards.length;
-    if (startIndex < 0) startIndex = 0;
-    if (startIndex > M - 4) startIndex = Math.max(0, M - 4);
-
     stack.dataset.startIndex = startIndex;
 
     // Translate stack
-    const cardWidth = 240;
+    const cardWidth = 312;
     const gap = 20;
     const translation = -startIndex * (cardWidth + gap);
 
@@ -804,210 +482,78 @@
       stack.style.removeProperty('transition');
     }
     stack.style.transform = `translateX(${translation}px)`;
-
-    // Play/Pause videos based on visibility
-    cards.forEach((card, i) => {
-      const video = card.querySelector('video');
-      if (video) {
-        if (i >= startIndex && i < startIndex + 4) {
-          video.play().catch(e => {});
-        } else {
-          video.pause();
-        }
-      }
-    });
   }
 
   function shuffleStack(sectionId, direction) {
-    if (window.innerWidth < 750) {
-      const stack = document.getElementById(`reelsStack-${sectionId}`);
-      if (!stack) return;
-      if (stack.dataset.isAnimatingMobile === 'true') return;
+    const stack = document.getElementById(`reelsStack-${sectionId}`);
+    if (!stack) return;
+    const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
+    const M = cards.length;
+    if (M <= 3) return; // No scroll needed if they fit
 
-      if (direction === 'prev') {
-        const lastCard = stack.lastElementChild;
-        if (!lastCard) return;
+    let startIndex = parseInt(stack.dataset.startIndex);
+    if (isNaN(startIndex)) startIndex = 0;
 
-        stack.dataset.isAnimatingMobile = 'true';
-        stack.insertBefore(lastCard, stack.firstElementChild);
-
-        const newCards = Array.from(stack.querySelectorAll('.risaa-video-card'));
-        newCards.forEach((card, i) => {
-          card.className = 'risaa-video-card';
-          const pos = i + 1;
-          if (pos === 1) {
-            card.classList.add('shuffling-prev');
-          } else if (pos <= 3) {
-            card.classList.add(`card-${pos}`);
-          } else {
-            card.classList.add('card-hidden');
-          }
-
-          const video = card.querySelector('video');
-          if (video) {
-            if (pos === 1) video.play().catch(e => {});
-            else video.pause();
-          }
-        });
-
-        setTimeout(() => {
-          const topCard = stack.querySelector('.shuffling-prev');
-          if (topCard) {
-            topCard.classList.remove('shuffling-prev');
-            topCard.classList.add('card-1');
-          }
-          stack.dataset.isAnimatingMobile = 'false';
-        }, 800);
+    if (direction === 'next') {
+      if (startIndex >= M - 3) {
+        startIndex = 0; // Loop back
       } else {
-        const topCard = stack.querySelector('.card-1');
-        if (!topCard) return;
-
-        stack.dataset.isAnimatingMobile = 'true';
-        topCard.classList.add('shuffling');
-
-        setTimeout(() => {
-          topCard.classList.remove('shuffling');
-          stack.appendChild(topCard);
-
-          const newCards = Array.from(stack.querySelectorAll('.risaa-video-card'));
-          newCards.forEach((card, i) => {
-            card.className = 'risaa-video-card';
-            const pos = i + 1;
-            if (pos <= 3) card.classList.add(`card-${pos}`);
-            else card.classList.add('card-hidden');
-
-            const video = card.querySelector('video');
-            if (video) {
-              if (pos === 1) video.play().catch(e => {});
-              else video.pause();
-            }
-          });
-
-          stack.dataset.isAnimatingMobile = 'false';
-        }, 600);
+        startIndex++;
       }
     } else {
-      const stack = document.getElementById(`reelsStack-${sectionId}`);
-      if (!stack) return;
-      const cards = Array.from(stack.querySelectorAll('.risaa-video-card'));
-      const M = cards.length;
-      if (M <= 4) return; // No need to shuffle if all fit on screen
-
-      let startIndex = parseInt(stack.dataset.startIndex);
-      if (isNaN(startIndex)) startIndex = 0;
-
-      if (direction === 'next') {
-        if (startIndex >= M - 4) {
-          startIndex = 0;
-        } else {
-          startIndex = Math.min(startIndex + 4, M - 4);
-        }
+      if (startIndex <= 0) {
+        startIndex = Math.max(0, M - 3); // Loop to end
       } else {
-        if (startIndex <= 0) {
-          startIndex = Math.max(0, M - 4);
-        } else {
-          startIndex = Math.max(0, startIndex - 4);
-        }
+        startIndex--;
       }
-
-      setActiveCarouselPage(sectionId, startIndex, true);
     }
+
+    setActiveCarouselPage(sectionId, startIndex, true);
   }
 
   document.addEventListener('DOMContentLoaded', () => {
     const stack = document.getElementById('reelsStack-{{ section.id }}');
+    const cards = document.querySelectorAll('.risaa-video-card');
+
     if (stack) {
-      if (window.innerWidth >= 750) {
-        stack.dataset.startIndex = 0;
-        setActiveCarouselPage('{{ section.id }}', 0, false);
-      } else {
-        const topCard = stack.querySelector('.card-1');
-        if (topCard) {
-          const video = topCard.querySelector('video');
-          if (video) video.play().catch(e => {});
-        }
+      stack.dataset.startIndex = 0;
+      setActiveCarouselPage('{{ section.id }}', 0, false);
+    }
+
+    // Load iframe embed players for all Instagram Reel URLs
+    cards.forEach(card => {
+      const container = card.querySelector('.instagram-iframe-container');
+      const url = card.dataset.instagramUrl;
+      if (container && url) {
+        const embedUrl = getInstagramEmbedUrl(url);
+        container.innerHTML = `
+          <iframe src="${embedUrl}" width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" style="border:none; height:100%; width:100%;"></iframe>
+        `;
       }
+    });
 
-      // Touch swipe gestures for mobile
-      let reelTouchStartX = 0;
-      let reelTouchStartY = 0;
-      let reelTouchDeltaX = 0;
-      let reelIsSwiping = false;
-
-      const layout = stack.closest('.risaa-reels-layout');
-      if (layout) {
-        layout.addEventListener('touchstart', (e) => {
-          if (window.innerWidth >= 750) return;
-          reelTouchStartX = e.touches[0].clientX;
-          reelTouchStartY = e.touches[0].clientY;
-          reelTouchDeltaX = 0;
-          reelIsSwiping = false;
-        }, { passive: true });
-
-        layout.addEventListener('touchmove', (e) => {
-          if (window.innerWidth >= 750) return;
-          const clientX = e.touches[0].clientX;
-          const clientY = e.touches[0].clientY;
-          reelTouchDeltaX = clientX - reelTouchStartX;
-          const deltaY = clientY - reelTouchStartY;
-
-          if (!reelIsSwiping) {
-            if (Math.abs(reelTouchDeltaX) > Math.abs(deltaY) && Math.abs(reelTouchDeltaX) > 10) {
-              reelIsSwiping = true;
+    // Auto-play/pause videos based on viewport visibility
+    const stackSide = document.querySelector('.risaa-reels-stack-side');
+    if ('IntersectionObserver' in window && stackSide) {
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target.querySelector('video');
+          if (video) {
+            if (entry.isIntersecting) {
+              video.play().catch(e => {});
+            } else {
+              video.pause();
             }
           }
-
-          if (reelIsSwiping) {
-            if (e.cancelable) e.preventDefault();
-          }
-        }, { passive: false });
-
-        layout.addEventListener('touchend', () => {
-          if (window.innerWidth >= 750) return;
-          if (!reelIsSwiping) return;
-          reelIsSwiping = false;
-
-          const threshold = 50;
-          if (reelTouchDeltaX < -threshold) {
-            shuffleStack('{{ section.id }}', 'next');
-          } else if (reelTouchDeltaX > threshold) {
-            shuffleStack('{{ section.id }}', 'prev');
-          }
         });
-      }
-    }
+      }, { 
+        root: stackSide,
+        threshold: 0.6 
+      });
 
-    // Auto-advance disabled
-    const stackSide = document.querySelector('.risaa-reels-stack-side');
-    let autoTimer = null;
-    function startAuto() {
-      // Disabled autoscroll
-    }
-    function stopAuto() {
-      // Disabled autoscroll
-    }
-
-    // Pause on hover, resume on leave
-    if (stackSide) {
-      stackSide.addEventListener('mouseenter', stopAuto);
-      stackSide.addEventListener('mouseleave', startAuto);
-    }
-
-    // IntersectionObserver to pause when offscreen
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            startAuto();
-          } else {
-            stopAuto();
-          }
-        });
-      }, { threshold: 0.05 });
-      const sectionEl = document.querySelector('.section-{{ section.id }}-padding');
-      if (sectionEl) observer.observe(sectionEl);
-    } else {
-      startAuto();
+      cards.forEach(card => {
+        videoObserver.observe(card);
+      });
     }
 
     // Resize listener for desktop carousel translation alignment / mobile recovery
@@ -1024,91 +570,14 @@
       if (!isMobileNow && wasMobileBefore) {
         // Switched from mobile to desktop
         rStack.style.transform = '';
-        const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
-        cards.forEach(card => {
-          card.className = 'risaa-video-card';
-        });
         rStack.dataset.startIndex = 0;
         setActiveCarouselPage('{{ section.id }}', 0, false);
       } else if (isMobileNow && !wasMobileBefore) {
         // Switched from desktop to mobile
         rStack.style.transform = '';
-        const cards = Array.from(rStack.querySelectorAll('.risaa-video-card'));
-        cards.forEach((card, i) => {
-          card.className = 'risaa-video-card';
-          const pos = i + 1;
-          if (pos <= 3) card.classList.add(`card-${pos}`);
-          else card.classList.add('card-hidden');
-
-          const video = card.querySelector('video');
-          if (video) {
-            if (pos === 1) video.play().catch(e => {});
-            else video.pause();
-          }
-        });
       }
     });
   });
-</script>
-
-<!-- Modal Structure -->
-<div id="risaaVideoModal" class="risaa-video-modal">
-  <span class="risaa-close-modal" onclick="closeRisaaModal()">&times;</span>
-  <div class="risaa-modal-content">
-    <div class="risaa-modal-video">
-      <video id="risaaMainVideo" controls autoplay loop>
-        <source src="" type="video/mp4">
-      </video>
-    </div>
-    <div class="risaa-modal-sidebar" id="risaaModalSidebar">
-      <!-- Product info injected here -->
-    </div>
-  </div>
-</div>
-
-<script>
-  const videoData = {
-    {% for block in section.blocks %}
-      "{{ block.id }}": {
-        "video": "{{ block.settings.video_url }}",
-        "title": "{{ block.settings.product.title | escape }}",
-        "price": "{{ block.settings.product.price | money | escape }}",
-        "url": "{{ block.settings.product.url }}",
-        "image": "{% if block.settings.product.featured_image %}{{ block.settings.product.featured_image | image_url: width: 300 }}{% else %}https://picsum.photos/300/400?random={{ forloop.index | plus: 100 }}{% endif %}"
-      }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  };
-
-  function openRisaaModal(blockId) {
-    const data = videoData[blockId];
-    if(!data) return;
-
-    const modal = document.getElementById('risaaVideoModal');
-    const video = document.getElementById('risaaMainVideo');
-    const sidebar = document.getElementById('risaaModalSidebar');
-
-    video.src = data.video;
-    sidebar.innerHTML = `
-      <h3 style="color:var(--brand-main); margin-top:0;">Shop the Look</h3>
-      <div style="margin-bottom:20px;">
-        <img src="${data.image}" style="width:100%; border-radius:5px; margin-bottom:10px;">
-        <h4 style="margin:5px 0;">${data.title}</h4>
-        <p style="font-weight:bold; color:var(--brand-main);">${data.price}</p>
-        <a href="${data.url}" class="btn-premium" style="display:block; text-align:center;">View Details</a>
-      </div>
-    `;
-
-    modal.classList.add('active');
-    video.play();
-  }
-
-  function closeRisaaModal() {
-    const modal = document.getElementById('risaaVideoModal');
-    const video = document.getElementById('risaaMainVideo');
-    modal.classList.remove('active');
-    video.pause();
-    video.src = "";
-  }
 </script>
 
 {% schema %}
@@ -1133,13 +602,19 @@
   "blocks": [
     {
       "type": "video_block",
-      "name": "Video & Product",
+      "name": "Reel Block",
       "settings": [
         {
-          "type": "url",
+          "type": "text",
           "id": "video_url",
-          "label": "Video URL (.mp4)",
-          "info": "Upload to Shopify Files and paste link here"
+          "label": "Direct Video URL (.mp4)",
+          "info": "For premium full-screen autoplay & sound control: upload the Reel video file to Shopify Admin > Content > Files and paste the link here."
+        },
+        {
+          "type": "text",
+          "id": "instagram_url",
+          "label": "Instagram Reel URL",
+          "info": "Optional fallback: Paste the Instagram Reel URL (e.g. https://www.instagram.com/reel/Cx35Y9cr1gY/)"
         },
         {
           "type": "product",
