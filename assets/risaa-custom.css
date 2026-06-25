@@ -293,3 +293,18 @@ h4,
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Increase font weight of section headings from New In to Watch & Shop */
+.risaa-new-in h2.risaa-new-in__title,
+.risaa-summer-picks h2.risaa-summer-picks__title,
+[id*="risaa_shop_by_color"] .section-header h2,
+div.risaa-designers-choice.collection h2.title.h2,
+div.risaa-designers-choice.collection h2.title.h1,
+div.risaa-designers-choice.collection h2.title.hxl,
+div.risaa-designers-choice.collection h2.title,
+.risaa-occasions h2.risaa-occasions__title,
+.risaa-occasions__title,
+[id*="risaa_accordion"] .section-header h2,
+.risaa-watch-and-shop .section-header h2 {
+  font-weight: 500 !important;
+}

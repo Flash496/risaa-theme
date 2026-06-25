@@ -1,8 +1,13 @@
 {%- style -%}
-  .risaa-watch-and-shop {
+  .risaa-watch-and-shop-wrapper {
     position: relative;
     width: calc(100% - 110px);
     margin: 0 auto;
+  }
+
+  .risaa-watch-and-shop {
+    position: relative;
+    width: 100%;
     padding: 0 10px;
     background: #fff;
     border-radius: 30px;
@@ -24,14 +29,11 @@
     position: relative;
     flex: 1;
     width: 100%;
-    overflow-x: auto;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+    min-width: 0; /* Prevents flex container from expanding to fit max-content child width */
+    overflow: visible; /* Allow hover shadows to bleed into the white background */
   }
 
-  .risaa-reels-stack-side::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome/Safari */
-  }
+  /* Scrollbar hidden on mobile via media query */
 
   .risaa-reels-stack {
     display: flex;
@@ -130,6 +132,16 @@
     pointer-events: auto;
   }
 
+  /* Shimmer sweep animation keyframes */
+  @keyframes active-card-shimmer {
+    0% {
+      transform: translateX(-150%) skewX(-20deg);
+    }
+    100% {
+      transform: translateX(250%) skewX(-20deg);
+    }
+  }
+
   /* Embedded Product Card position & styles */
   .risaa-video-card .active-product-card {
     display: flex !important;
@@ -140,7 +152,7 @@
     width: 170px !important;
     z-index: 20 !important;
     padding: 10px !important;
-    border-radius: 12px !important;
+    border-radius: 0 !important; /* Sharp corners */
     background: rgba(255, 255, 255, 0.9) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
@@ -148,11 +160,31 @@
     border: 1px solid rgba(255, 255, 255, 0.5) !important;
     box-sizing: border-box !important;
     text-decoration: none !important;
+    overflow: hidden !important; /* Contain the shimmer effect */
+  }
+
+  /* Shimmer sweep overlay pseudo-element */
+  .risaa-video-card .active-product-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.55) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: active-card-shimmer 2.5s infinite ease-in-out;
+    pointer-events: none;
+    z-index: 5;
   }
 
   .risaa-video-card .active-product-image-wrap {
     margin-bottom: 8px !important;
-    border-radius: 8px !important;
+    border-radius: 0 !important; /* Sharp corners */
     aspect-ratio: 1/1 !important;
     overflow: hidden !important;
     width: 100% !important;
@@ -196,7 +228,7 @@
     background: #1a1a1a !important;
     color: #fff !important;
     text-decoration: none !important;
-    border-radius: 20px !important;
+    border-radius: 0 !important; /* Sharp corners */
     font-size: 8px !important;
     text-align: center !important;
     text-transform: uppercase !important;
@@ -254,7 +286,7 @@
     display: block;
   }
 
-  .risaa-watch-and-shop:hover .nav-arrow {
+  .risaa-watch-and-shop-wrapper:hover .nav-arrow {
     opacity: 0.7;
     pointer-events: auto;
     transform: scale(1);
@@ -267,8 +299,13 @@
   }
 
   @media screen and (max-width: 990px) {
-    .risaa-watch-and-shop {
+    .risaa-watch-and-shop-wrapper {
       width: calc(100% - 30px) !important;
+    }
+    .risaa-reels-nav {
+      left: -15px;
+      right: -15px;
+      width: calc(100% + 30px);
     }
   }
 
@@ -279,6 +316,19 @@
 
     .risaa-reels-layout {
       margin: 20px auto !important;
+    }
+
+    .risaa-reels-stack-side {
+      overflow-x: auto !important; /* Swipe scrollable on mobile */
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 35px 0 !important; /* Prevent vertical shadow clipping */
+      margin-top: -35px !important;
+      margin-bottom: -35px !important;
+    }
+    
+    .risaa-reels-stack-side::-webkit-scrollbar {
+      display: none;
     }
 
     .risaa-reels-stack {
@@ -297,11 +347,12 @@
       right: 12px !important;
       width: 140px !important;
       padding: 8px !important;
+      border-radius: 0 !important; /* Sharp corners on mobile */
     }
 
     .risaa-video-card .active-product-image-wrap {
       margin-bottom: 6px !important;
-      border-radius: 6px !important;
+      border-radius: 0 !important; /* Sharp corners on mobile */
     }
 
     .risaa-video-card .active-product-tag {
@@ -316,15 +367,17 @@
     .risaa-video-card .active-product-link {
       padding: 5px 6px !important;
       font-size: 7px !important;
+      border-radius: 0 !important; /* Sharp corners on mobile */
     }
 
     .risaa-reels-nav {
-      display: none;
+      display: none !important;
     }
   }
 {%- endstyle -%}
 
-<div class="risaa-watch-and-shop section-{{ section.id }}-padding" data-anim="roll-up">
+<div id="risaa-wrapper-{{ section.id }}" class="risaa-watch-and-shop-wrapper">
+  <div class="risaa-watch-and-shop section-{{ section.id }}-padding" data-anim="roll-up">
   <div class="section-header" style="text-align: center; margin-bottom: 10px; padding-top: 30px; padding-bottom: 15px;">
     <h2 class="h1">{{ section.settings.title }}</h2>
     <p>{{ section.settings.subtitle }}</p>
@@ -401,9 +454,11 @@
         {% endfor %}
       </div>
     </div>
+    </div> <!-- Close risaa-reels-layout -->
+  </div> <!-- Close risaa-watch-and-shop -->
 
-    <!-- Navigation Arrows positioned relative to layout container (only visible/functional on desktop) -->
-    <div class="risaa-reels-nav">
+  <!-- Navigation Arrows positioned relative to wrapper container -->
+  <div class="risaa-reels-nav">
       <div class="nav-arrow" onclick="shuffleStack('{{ section.id }}', 'prev')">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="20" y1="12" x2="4" y2="12"/>
@@ -417,7 +472,6 @@
         </svg>
       </div>
     </div>
-  </div>
 </div>
 
 <script>
@@ -511,6 +565,19 @@
     setActiveCarouselPage(sectionId, startIndex, true);
   }
 
+  function updateNavPosition_{{ section.id | replace: '-', '_' }}() {
+    const wrapper = document.getElementById('risaa-wrapper-{{ section.id }}');
+    if (!wrapper) return;
+    const layout = wrapper.querySelector('.risaa-reels-layout');
+    const nav = wrapper.querySelector('.risaa-reels-nav');
+    if (layout && nav) {
+      const layoutRect = layout.getBoundingClientRect();
+      const wrapperRect = wrapper.getBoundingClientRect();
+      const centerOffset = (layoutRect.top - wrapperRect.top) + (layoutRect.height / 2);
+      nav.style.top = centerOffset + 'px';
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const stack = document.getElementById('reelsStack-{{ section.id }}');
     const cards = document.querySelectorAll('.risaa-video-card');
@@ -519,6 +586,9 @@
       stack.dataset.startIndex = 0;
       setActiveCarouselPage('{{ section.id }}', 0, false);
     }
+
+    setTimeout(updateNavPosition_{{ section.id | replace: '-', '_' }}, 100);
+    setTimeout(updateNavPosition_{{ section.id | replace: '-', '_' }}, 500);
 
     // Load iframe embed players for all Instagram Reel URLs
     cards.forEach(card => {
@@ -576,6 +646,8 @@
         // Switched from desktop to mobile
         rStack.style.transform = '';
       }
+      
+      updateNavPosition_{{ section.id | replace: '-', '_' }}();
     });
   });
 </script>

@@ -70,13 +70,6 @@
                             Shop
                           </button>
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
-                            <!-- Shop All Link -->
-                            <li>
-                              <a href="/collections/all" class="menu-drawer__menu-item link link--text list-menu__item focus-inset" style="font-weight: 600;">
-                                Shop All
-                              </a>
-                            </li>
-
                             <!-- Shop by Category -->
                             <li>
                               <details id="Details-menu-drawer-shop-category">
@@ -106,13 +99,19 @@
                                     Shop by Category
                                   </button>
                                   <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                                    <li><a href="/collections/co-ord-sets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Co-ord Sets</a></li>
+                                    <li><a href="/collections/kurta-sets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Kurta Sets</a></li>
+                                    <li><a href="/collections/farshi-sets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Farshi Sets</a></li>
+                                    <li><a href="/collections/kurtis" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Kurtis</a></li>
+                                    <li><a href="/collections/anarkalis" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Anarkalis</a></li>
+                                    <li><a href="/collections/sharara-gharara" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Sharara & Garara Sets</a></li>
+                                    <li><a href="/collections/kaftans" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Kaftans</a></li>
                                     <li><a href="/collections/lehengas" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Lehengas</a></li>
                                     <li><a href="/collections/sarees" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Sarees</a></li>
-                                    <li><a href="/collections/anarkalis" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Anarkalis</a></li>
-                                    <li><a href="/collections/kurtas-sets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Kurtas & Sets</a></li>
-                                    <li><a href="/collections/sharara-gharara" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Shararas & Ghararas</a></li>
-                                    <li><a href="/collections/gowns-fusion" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Gowns & Fusion</a></li>
-                                    <li><a href="/collections/co-ord-sets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Co-ord Sets</a></li>
+                                    <li><a href="/collections/skirt-sets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Skirt Sets</a></li>
+                                    <li><a href="/collections/drape-dresses" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Drape Dresses</a></li>
+                                    <li><a href="/collections/gowns" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Gowns</a></li>
+                                    <li><a href="/collections/corsets" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Corsets</a></li>
                                   </ul>
                                 </div>
                               </details>
@@ -162,6 +161,52 @@
                               </details>
                             </li>
 
+                            <!-- Shop by Style -->
+                            <li>
+                              <details id="Details-menu-drawer-shop-style">
+                                <summary
+                                  id="HeaderDrawer-shop-style"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  Shop by Style
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                  </span>
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                                  </span>
+                                </summary>
+                                <div
+                                  id="childlink-style"
+                                  class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                                >
+                                  <button
+                                    class="menu-drawer__close-button link link--text focus-inset"
+                                    aria-expanded="true"
+                                  >
+                                    <span class="svg-wrapper">
+                                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                    </span>
+                                    Shop by Style
+                                  </button>
+                                  <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                                    <li><a href="/collections/solids" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Solids</a></li>
+                                    <li><a href="/collections/printed" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Printed</a></li>
+                                    <li><a href="/collections/florals" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Florals</a></li>
+                                    <li><a href="/collections/pastels" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Pastels</a></li>
+                                    <li><a href="/collections/pret" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Pret</a></li>
+                                    <li><a href="/collections/occasion-wear" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Occasion Wear</a></li>
+                                    <li><a href="/collections/festive-wear" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Festive Wear</a></li>
+                                    <li><a href="/collections/ethnic-wear" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Ethnic Wear</a></li>
+                                    <li><a href="/collections/fusion-wear" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Fusion Wear</a></li>
+                                    <li><a href="/collections/western-wear" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Western Wear</a></li>
+                                    <li><a href="/collections/minimalist-styles" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Minimalist Styles</a></li>
+                                    <li><a href="/collections/statement-styles" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Statement Styles</a></li>
+                                  </ul>
+                                </div>
+                              </details>
+                            </li>
+
                             <!-- Shop by Collection -->
                             <li>
                               <details id="Details-menu-drawer-shop-collection">
@@ -197,6 +242,49 @@
                                     <li><a href="/collections/summer-favourites" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Summer Closet</a></li>
                                     <li><a href="/collections/new-arrivals" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">New Arrivals</a></li>
                                     <li><a href="/collections/founders-pick" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Founder's Favourites</a></li>
+                                  </ul>
+                                </div>
+                              </details>
+                            </li>
+
+                            <!-- Shop All Link -->
+                            <li>
+                              <a href="/collections/all" class="menu-drawer__menu-item link link--text list-menu__item focus-inset" style="font-weight: 600;">
+                                Shop All
+                              </a>
+                            </li>
+
+                            <!-- Accessories -->
+                            <li>
+                              <details id="Details-menu-drawer-shop-accessories">
+                                <summary
+                                  id="HeaderDrawer-shop-accessories"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  Accessories
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                  </span>
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-caret.svg' | inline_asset_content -}}
+                                  </span>
+                                </summary>
+                                <div
+                                  id="childlink-accessories"
+                                  class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                                >
+                                  <button
+                                    class="menu-drawer__close-button link link--text focus-inset"
+                                    aria-expanded="true"
+                                  >
+                                    <span class="svg-wrapper">
+                                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                    </span>
+                                    Accessories
+                                  </button>
+                                  <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                                    <li><a href="/collections/potlis-bags" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Potlis & Bags</a></li>
+                                    <li><a href="/collections/scarves" class="menu-drawer__menu-item link link--text list-menu__item focus-inset">Scarves</a></li>
                                   </ul>
                                 </div>
                               </details>
