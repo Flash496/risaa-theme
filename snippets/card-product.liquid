@@ -655,7 +655,7 @@
             </div>
           {% endif %}
         {% endif %}
-        <div class="card__badge {{ settings.badge_position }}">
+        <div class="card__badge {{ settings.badge_position }} left">
           {%- if card_product.available == false -%}
             <span
               id="Badge-{{ section_id }}-{{ card_product.id }}"
@@ -666,12 +666,29 @@
           {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
             <span
               id="Badge-{{ section_id }}-{{ card_product.id }}"
-              class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
+              class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }} badge--sale"
             >
               {{- 'products.product.on_sale' | t -}}
             </span>
           {%- endif -%}
         </div>
+        {%- liquid
+          assign is_ready_to_ship = false
+          for tag in card_product.tags
+            assign downcased_tag = tag | downcase
+            if downcased_tag == 'ready to ship'
+              assign is_ready_to_ship = true
+              break
+            endif
+          endfor
+        -%}
+        {%- if is_ready_to_ship -%}
+          <div class="card__badge right">
+            <span class="badge badge--ready-to-ship">
+              Ready to ship
+            </span>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>

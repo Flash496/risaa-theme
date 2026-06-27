@@ -248,7 +248,7 @@ h4,
 
 /* Product card image box: portrait ratio, 30px gap */
 .card-wrapper .card__inner.ratio {
-  --ratio-percent: 133.33% !important; /* 470/355 */
+  --ratio-percent: 125% !important; /* 4:5 ratio (Seeaash-like) */
 }
 
 .card-wrapper .card__inner .card__media img,
@@ -307,4 +307,274 @@ div.risaa-designers-choice.collection h2.title,
 [id*="risaa_accordion"] .section-header h2,
 .risaa-watch-and-shop .section-header h2 {
   font-weight: 500 !important;
+}
+
+/* ──────────────────────────────────────────────────────── */
+/* ── Seeaash-like Layouts adapted to Risaa Brand System ── */
+/* ──────────────────────────────────────────────────────── */
+
+/* 1. PLP Grid Card Overrides */
+.product-grid-container .card__content {
+  text-align: center !important;
+  padding: 1.5rem 0.5rem !important;
+}
+
+.product-grid-container .card-information {
+  text-align: center !important;
+}
+
+.product-grid-container .price {
+  justify-content: center !important;
+}
+
+/* Override card hover: remove scale zoom, trigger clean opacity transition */
+@media screen and (min-width: 990px) {
+  .product-grid-container .card-wrapper:hover .media.media--hover-effect > img:first-child:only-child,
+  .product-grid-container .card-wrapper:hover .media.media--hover-effect > img:first-child:not(:only-child) {
+    transform: none !important;
+    opacity: 0.8 !important;
+  }
+  .product-grid-container .media.media--hover-effect > img {
+    transition: opacity 0.15s ease-in-out !important;
+  }
+}
+
+/* 2. Custom Badges styling */
+.card-wrapper .card__badge {
+  margin: 1.2rem !important;
+  position: absolute;
+  top: 0;
+  display: flex !important;
+  flex-direction: column;
+  gap: 0.6rem;
+  z-index: 10;
+}
+
+.card-wrapper .card__badge.left {
+  left: 0 !important;
+  right: auto !important;
+}
+
+.card-wrapper .card__badge.right {
+  left: auto !important;
+  right: 0 !important;
+  align-items: flex-end;
+}
+
+.card-wrapper .badge {
+  border: none !important;
+  border-radius: 0 !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  padding: 0.5rem 1rem !important;
+  line-height: 1.2 !important;
+}
+
+.card-wrapper .badge--sale {
+  background-color: var(--color-risaa-red) !important;
+  color: var(--color-risaa-cream) !important;
+}
+
+.card-wrapper .badge--ready-to-ship {
+  background-color: #6E1423 !important;
+  color: #F4EADE !important;
+}
+
+/* 3. Filter Drawer Overrides */
+.mobile-facets__inner {
+  background-color: #F4EADE !important; /* Cream background */
+  color: #2B2B2B !important;
+}
+
+.mobile-facets__header {
+  background-color: #F4EADE !important;
+  border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
+}
+
+.mobile-facets__heading {
+  font-family: 'Cormorant Garamond', serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  font-weight: 500 !important;
+  color: #6E1423 !important;
+  font-size: 1.8rem !important;
+}
+
+.mobile-facets__summary {
+  font-family: 'Jost', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 1.3rem !important;
+  color: #2B2B2B !important;
+  border-bottom: 1px solid rgba(110, 20, 35, 0.05) !important;
+}
+
+.mobile-facets__submenu {
+  background-color: #F4EADE !important;
+}
+
+.mobile-facets__close-button {
+  font-family: 'Jost', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #6E1423 !important;
+}
+
+.mobile-facets__label {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+}
+
+.mobile-facets__footer {
+  background-color: #F4EADE !important;
+  border-top: 1px solid rgba(110, 20, 35, 0.1) !important;
+}
+
+.mobile-facets__footer .button--primary {
+  background-color: #6E1423 !important;
+  color: #F4EADE !important;
+  border: 1px solid #6E1423 !important;
+  font-family: 'Jost', sans-serif !important;
+}
+
+.mobile-facets__footer .button--primary:hover {
+  background-color: transparent !important;
+  color: #6E1423 !important;
+}
+
+.mobile-facets__clear {
+  color: #6E1423 !important;
+  font-family: 'Jost', sans-serif !important;
+  text-transform: uppercase !important;
+}
+
+/* 4. PDP 2-Column Stacked Media Grid (Desktop) */
+@media screen and (min-width: 990px) {
+  .product--stacked .product__media-list {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .product--stacked .product__media-list .product__media-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  .product--stacked .product__media-list .product__media-item:first-child,
+  .product--stacked .product__media-list .product__media-item--full {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .product__media-wrapper .product-media-container {
+    height: 100% !important;
+  }
+}
+
+/* 5. PDP Sticky Info Panel adjustments */
+@media screen and (min-width: 750px) {
+  .product__info-wrapper {
+    padding-left: 5rem !important;
+  }
+  
+  .product__column-sticky {
+    top: 12rem !important; /* Spacing below the header */
+  }
+}
+
+/* 6. PDP Variant Size Blocks (Square blocks) */
+.product-form__input--pill input[type='radio'] + label {
+  border: 1px solid #C9A96E !important; /* Luxury tan border */
+  border-radius: 0px !important; /* Square corners */
+  background-color: #ffffff !important;
+  color: #2B2B2B !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  padding: 0.8rem 1.6rem !important;
+  margin: 0.5rem 0.5rem 0.5rem 0 !important;
+  letter-spacing: 0.05em !important;
+  transition: all 0.2s ease !important;
+}
+
+.product-form__input--pill input[type='radio']:checked + label {
+  background-color: #6E1423 !important; /* Luxury Red background */
+  border-color: #6E1423 !important;
+  color: #F4EADE !important; /* Cream text */
+}
+
+.product-form__input--pill input[type='radio'] + label:hover {
+  border-color: #6E1423 !important;
+}
+
+/* Color swatches adjustments */
+.product-form__input--swatch .swatch-input__input + .swatch-input__label {
+  --swatch-input--size: 32px !important;
+  border-radius: 50% !important;
+  padding: 2px !important;
+  border: 1px solid #C9A96E !important;
+}
+
+.product-form__input--swatch .swatch-input__input:checked + .swatch-input__label {
+  border-color: #6E1423 !important;
+  box-shadow: 0 0 0 1px #6E1423 !important;
+}
+
+/* 7. PDP Action Buttons Overrides */
+.product-form__buttons {
+  max-width: 100% !important;
+}
+
+.product-form__buttons .button {
+  border-radius: 0 !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15rem !important;
+  padding: 1.5rem !important;
+}
+
+.product-form__submit.button--primary {
+  background-color: #6E1423 !important;
+  color: #F4EADE !important;
+  border: 1px solid #6E1423 !important;
+}
+
+.product-form__submit.button--primary:hover {
+  background-color: transparent !important;
+  color: #6E1423 !important;
+}
+
+/* 8. PDP Accordions overrides */
+.product__accordion.accordion {
+  border-top: 1px solid rgba(110, 20, 35, 0.1) !important;
+  border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
+}
+
+.product__accordion .accordion__title {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #2B2B2B !important;
+}
+
+.product__accordion summary {
+  padding: 1.5rem 0 !important;
+}
+
+.product__accordion .accordion__content {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  line-height: 1.6 !important;
+  color: #555555 !important;
 }

@@ -750,6 +750,84 @@
   </div>
 </product-info>
 
+<modal-dialog id="PopupModal-SizeChart" class="product-popup-modal">
+  <div
+    role="dialog"
+    aria-modal="true"
+    class="product-popup-modal__content"
+    tabindex="-1"
+    style="background-color: #F4EADE !important; color: #2B2B2B !important; max-width: 600px !important; border: 1px solid #C9A96E !important;"
+  >
+    <button
+      id="ModalClose-SizeChart"
+      type="button"
+      class="product-popup-modal__toggle"
+      aria-label="{{ 'accessibility.close' | t }}"
+      style="color: #6E1423 !important;"
+    >
+      {{- 'icon-close.svg' | inline_asset_content -}}
+    </button>
+    <div class="product-popup-modal__content-info rte" style="padding: 2.5rem !important;">
+      {%- if pages['size-guide'] != blank -%}
+        <div style="font-family: 'Jost', sans-serif;">
+          {{ pages['size-guide'].content }}
+        </div>
+      {%- else -%}
+        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; text-transform: uppercase; color: #6E1423; margin-top: 0; margin-bottom: 1.5rem; letter-spacing: 0.1em; font-weight: 500;">Size Guide</h3>
+        <p style="font-family: 'Jost', sans-serif; font-size: 1.3rem; margin-bottom: 2rem; color: #555555;">Use the chart below to find your perfect fit. Custom tailoring options are also available.</p>
+        <table style="width:100%; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 1.3rem; color: #2B2B2B;">
+          <thead>
+            <tr style="border-bottom: 2px solid #C9A96E; text-align: left; color: #6E1423; font-weight: 600;">
+              <th style="padding: 1.2rem; text-transform: uppercase;">Size</th>
+              <th style="padding: 1.2rem; text-transform: uppercase;">Bust (in)</th>
+              <th style="padding: 1.2rem; text-transform: uppercase;">Waist (in)</th>
+              <th style="padding: 1.2rem; text-transform: uppercase;">Hips (in)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
+              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">XS</td>
+              <td style="padding: 1rem 1.2rem;">32</td>
+              <td style="padding: 1rem 1.2rem;">26</td>
+              <td style="padding: 1rem 1.2rem;">35</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
+              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">S</td>
+              <td style="padding: 1rem 1.2rem;">34</td>
+              <td style="padding: 1rem 1.2rem;">28</td>
+              <td style="padding: 1rem 1.2rem;">37</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
+              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">M</td>
+              <td style="padding: 1rem 1.2rem;">36</td>
+              <td style="padding: 1rem 1.2rem;">30</td>
+              <td style="padding: 1rem 1.2rem;">39</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
+              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">L</td>
+              <td style="padding: 1rem 1.2rem;">38</td>
+              <td style="padding: 1rem 1.2rem;">32</td>
+              <td style="padding: 1rem 1.2rem;">41</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
+              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">XL</td>
+              <td style="padding: 1rem 1.2rem;">40</td>
+              <td style="padding: 1rem 1.2rem;">34</td>
+              <td style="padding: 1rem 1.2rem;">43</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
+              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">XXL</td>
+              <td style="padding: 1rem 1.2rem;">42</td>
+              <td style="padding: 1rem 1.2rem;">36</td>
+              <td style="padding: 1rem 1.2rem;">45</td>
+            </tr>
+          </tbody>
+        </table>
+      {%- endif -%}
+    </div>
+  </div>
+</modal-dialog>
+
 {% schema %}
 {
   "name": "t:sections.main-product.name",

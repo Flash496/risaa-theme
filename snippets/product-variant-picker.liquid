@@ -44,7 +44,22 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
+          <legend class="form__label" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span>{{ option.name }}</span>
+            {%- if option.name == 'Size' or option.name == 'size' -%}
+              <modal-opener data-modal="#PopupModal-SizeChart">
+                <button
+                  id="ProductPopup-SizeChart"
+                  class="product-popup-modal__button link"
+                  type="button"
+                  aria-haspopup="dialog"
+                  style="background: none; border: none; padding: 0; text-decoration: underline; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 1.25rem; color: #6E1423; font-weight: 500; text-transform: none; letter-spacing: 0.05em;"
+                >
+                  Find my size
+                </button>
+              </modal-opener>
+            {%- endif -%}
+          </legend>
           {% render 'product-variant-options',
             product: product,
             option: option,
