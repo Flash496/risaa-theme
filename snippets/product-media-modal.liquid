@@ -9,6 +9,352 @@
   {% render 'product-media-modal' %}
 {% endcomment %}
 
+<style>
+  /* Premium Amazon-style viewer styles */
+  .product-media-modal {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  .product-media-modal__dialog {
+    display: flex !important;
+    flex-direction: row !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: stretch !important;
+    position: relative !important;
+  }
+
+  /* Left Sidebar thumbnails container */
+  .product-media-modal__sidebar {
+    flex: 0 0 110px !important;
+    background-color: #fafafa !important;
+    border-right: 1px solid #e5e5e5 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 2.5rem 0 !important;
+    overflow-y: auto !important;
+    z-index: 10 !important;
+  }
+  .product-media-modal__thumbnails {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    width: 100% !important;
+    align-items: center !important;
+  }
+  .product-media-modal__thumbnail {
+    width: 76px !important;
+    height: 76px !important;
+    border: 2px solid transparent !important;
+    cursor: pointer !important;
+    background-color: #ffffff !important;
+    padding: 3px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
+  }
+  .product-media-modal__thumbnail img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+  .product-media-modal__thumbnail.active {
+    border-color: #000000 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  }
+  .product-media-modal__thumbnail:hover:not(.active) {
+    border-color: #cccccc !important;
+  }
+  .product-media-modal__thumbnail .play-badge {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background-color: rgba(0, 0, 0, 0.75) !important;
+    color: #ffffff !important;
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    pointer-events: none !important;
+  }
+
+  /* Main media container */
+  .product-media-modal__main {
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    background-color: #ffffff !important;
+    padding: 3rem !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .product-media-modal__content {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 85vh !important;
+    display: grid !important;
+    place-items: center !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .product-media-modal__content > * {
+    display: none !important;
+  }
+  /* Active image selector: fit height-wise and center, do not stretch */
+  .product-media-modal__content > img.active {
+    display: block !important;
+    width: auto !important;
+    height: 100% !important;
+    max-height: 80vh !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+  }
+  /* Active deferred-media/models: fill container and center content using grid */
+  .product-media-modal__content > deferred-media.active,
+  .product-media-modal__content > .active {
+    display: grid !important;
+    place-items: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 80vh !important;
+    margin: 0 auto !important;
+  }
+
+  /* Video and 3D player overrides */
+  .product-media-modal__content deferred-media.active,
+  .product-media-modal__content .media.active,
+  .product-media-modal__content .product-media-modal__model.active {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 80vh !important;
+    padding-top: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  
+  /* Modal videos: fit height-wise and center in column */
+  .product-media-modal__content video {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    display: block !important;
+    width: auto !important;
+    height: 100% !important;
+    max-height: 80vh !important;
+    object-fit: contain !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 auto !important;
+  }
+
+  /* Product details page video (outside modal): width fit */
+  :not(product-modal) > deferred-media video,
+  .product__media-wrapper deferred-media video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* Remove box type containers, borders, backgrounds and shadows inside modal */
+  .product-media-modal__content .global-media-settings,
+  .product-media-modal__content .global-media-settings:after,
+  .product-media-modal__content img,
+  .product-media-modal__content iframe {
+    border: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  
+  .product-media-modal__content .global-media-settings::after,
+  .product-media-modal__content .media::after {
+    display: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Force video controls styling premium skin, hide fullscreen, cast, download, three-dots, etc */
+  deferred-media video::-webkit-media-controls-panel,
+  .product-media-modal__content video::-webkit-media-controls-panel {
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.85)) !important;
+    background-color: transparent !important;
+  }
+  deferred-media video::-webkit-media-controls-play-button,
+  .product-media-modal__content video::-webkit-media-controls-play-button {
+    filter: invert(1) !important;
+  }
+  deferred-media video::-webkit-media-controls-timeline,
+  .product-media-modal__content video::-webkit-media-controls-timeline,
+  deferred-media video::-webkit-media-controls-current-time-display,
+  deferred-media video::-webkit-media-controls-time-remaining-display,
+  .product-media-modal__content video::-webkit-media-controls-current-time-display,
+  .product-media-modal__content video::-webkit-media-controls-time-remaining-display {
+    display: none !important;
+  }
+  deferred-media video::-webkit-media-controls-fullscreen-button,
+  .product-media-modal__content video::-webkit-media-controls-fullscreen-button {
+    display: none !important;
+  }
+  deferred-media video::-webkit-media-controls-remote-playback-button,
+  .product-media-modal__content video::-webkit-media-controls-remote-playback-button {
+    display: none !important;
+  }
+  deferred-media video::-webkit-media-controls-cast-button,
+  .product-media-modal__content video::-webkit-media-controls-cast-button {
+    display: none !important;
+  }
+  deferred-media video::-internal-media-controls-download-button,
+  .product-media-modal__content video::-internal-media-controls-download-button {
+    display: none !important;
+  }
+
+  .product-media-modal__content iframe,
+  .product-media-modal__content model-viewer {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 80vh !important;
+    object-fit: contain !important;
+    background-color: #000000 !important;
+  }
+
+  /* Navigation control arrows */
+  .product-media-modal__nav {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    background-color: #ffffff !important;
+    border: 1px solid #e5e5e5 !important;
+    width: 4.2rem !important;
+    height: 4.2rem !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 15 !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06) !important;
+    transition: all 0.2s ease !important;
+    color: #000000 !important;
+    padding: 0 !important;
+  }
+  .product-media-modal__nav:hover {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000 !important;
+    transform: translateY(-50%) scale(1.05) !important;
+  }
+  .product-media-modal__nav--prev {
+    left: 2rem !important;
+  }
+  .product-media-modal__nav--next {
+    right: 2rem !important;
+  }
+
+  /* Close button toggle styles */
+  .product-media-modal__toggle {
+    background-color: #ffffff !important;
+    border: 1px solid #e5e5e5 !important;
+    color: #000000 !important;
+    right: 2rem !important;
+    top: 2rem !important;
+    position: absolute !important;
+    z-index: 25 !important;
+    width: 4rem !important;
+    height: 4rem !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    padding: 0 !important;
+  }
+  .product-media-modal__toggle:hover {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000 !important;
+    transform: scale(1.05) !important;
+  }
+  .product-media-modal__toggle svg {
+    width: 1.6rem !important;
+    height: 1.6rem !important;
+  }
+
+  /* Responsive screen sizing breakpoints */
+  @media screen and (max-width: 749px) {
+    .product-media-modal__dialog {
+      flex-direction: column-reverse !important;
+    }
+    .product-media-modal__sidebar {
+      flex: 0 0 90px !important;
+      width: 100% !important;
+      padding: 0.8rem 0 !important;
+      border-right: none !important;
+      border-top: 1px solid #e5e5e5 !important;
+    }
+    .product-media-modal__thumbnails {
+      flex-direction: row !important;
+      overflow-x: auto !important;
+      width: auto !important;
+      max-width: 100% !important;
+      padding: 0 1.5rem !important;
+      justify-content: flex-start !important;
+    }
+    .product-media-modal__thumbnail {
+      flex: 0 0 60px !important;
+      width: 60px !important;
+      height: 60px !important;
+    }
+    .product-media-modal__main {
+      padding: 1.5rem !important;
+    }
+    .product-media-modal__nav {
+      width: 3.6rem !important;
+      height: 3.6rem !important;
+    }
+    .product-media-modal__nav--prev {
+      left: 1rem !important;
+    }
+    .product-media-modal__nav--next {
+      right: 1rem !important;
+    }
+    .product-media-modal__toggle {
+      right: 1.5rem !important;
+      top: 1.5rem !important;
+    }
+  }
+</style>
+
 <product-modal id="ProductModal-{{ section.id }}" class="product-media-modal media-modal">
   <div
     class="product-media-modal__dialog color-{{ section.settings.color_scheme }} gradient"
@@ -17,41 +363,95 @@
     aria-modal="true"
     tabindex="-1"
   >
-    <button
-      id="ModalClose-{{ section.id }}"
-      type="button"
-      class="product-media-modal__toggle"
-      aria-label="{{ 'accessibility.close' | t }}"
-    >
-      {{ 'icon-close.svg' | inline_asset_content }}
-    </button>
+    <!-- Left Sidebar: Media Thumbnails -->
+    <div class="product-media-modal__sidebar">
+      <ul class="product-media-modal__thumbnails">
+        {%- if product.selected_or_first_available_variant.featured_media != null -%}
+          {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
+          <li class="product-media-modal__thumbnail active" data-target-media-id="{{ featured_media.id }}">
+            <img src="{{ featured_media.preview_image | image_url: width: 150, height: 150, crop: 'center' }}" alt="{{ featured_media.alt | escape }}" loading="lazy">
+            {%- if featured_media.media_type == 'video' or featured_media.media_type == 'external_video' -%}
+              <span class="play-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
 
-    <div
-      class="product-media-modal__content color-{{ section.settings.color_scheme }} gradient"
-      role="document"
-      aria-label="{{ 'products.modal.label' | t }}"
-      tabindex="0"
-    >
-      {%- liquid
-        if product.selected_or_first_available_variant.featured_media != null
-          assign media = product.selected_or_first_available_variant.featured_media
-          render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: section.settings.hide_variants
-        endif
-      -%}
+        {%- for media in product.media -%}
+          {%- liquid
+            if section.settings.hide_variants and variant_images contains media.src or variant_images contains media.id
+              assign variant_image = true
+            else
+              assign variant_image = false
+            endif
+          -%}
+          {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
+            {%- unless variant_image -%}
+              <li class="product-media-modal__thumbnail" data-target-media-id="{{ media.id }}">
+                <img src="{{ media.preview_image | image_url: width: 150, height: 150, crop: 'center' }}" alt="{{ media.alt | escape }}" loading="lazy">
+                {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                  <span class="play-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                  </span>
+                {%- endif -%}
+              </li>
+            {%- endunless -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      </ul>
+    </div>
 
-      {%- for media in product.media -%}
+    <!-- Right/Center Column: Main Viewer -->
+    <div class="product-media-modal__main">
+      <!-- Navigation Prev Arrow -->
+      <button type="button" class="product-media-modal__nav product-media-modal__nav--prev" aria-label="Previous media">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <button
+        id="ModalClose-{{ section.id }}"
+        type="button"
+        class="product-media-modal__toggle"
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        {{ 'icon-close.svg' | inline_asset_content }}
+      </button>
+
+      <div
+        class="product-media-modal__content color-{{ section.settings.color_scheme }} gradient"
+        role="document"
+        aria-label="{{ 'products.modal.label' | t }}"
+        tabindex="0"
+      >
         {%- liquid
-          if section.settings.hide_variants and variant_images contains media.src or variant_images contains media.id
-            assign variant_image = true
-          else
-            assign variant_image = false
+          if product.selected_or_first_available_variant.featured_media != null
+            assign media = product.selected_or_first_available_variant.featured_media
+            render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: section.settings.hide_variants
           endif
-
-          unless media.id == product.selected_or_first_available_variant.featured_media.id
-            render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: variant_image
-          endunless
         -%}
-      {%- endfor -%}
+
+        {%- for media in product.media -%}
+          {%- liquid
+            if section.settings.hide_variants and variant_images contains media.src or variant_images contains media.id
+              assign variant_image = true
+            else
+              assign variant_image = false
+            endif
+
+            unless media.id == product.selected_or_first_available_variant.featured_media.id
+              unless variant_image
+                render 'product-media', media: media, loop: section.settings.enable_video_looping, variant_image: variant_image
+              endunless
+            endunless
+          -%}
+        {%- endfor -%}
+      </div>
+
+      <!-- Navigation Next Arrow -->
+      <button type="button" class="product-media-modal__nav product-media-modal__nav--next" aria-label="Next media">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
     </div>
   </div>
 </product-modal>
