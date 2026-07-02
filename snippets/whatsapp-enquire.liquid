@@ -1,16 +1,18 @@
 {%- if product -%}
-  {%- assign whatsapp_number = "919501032126" -%} {%- comment -%} Assuming +91 since it's India (Ludhiana) {%- endcomment -%}
+  {%- assign whatsapp_number = "919501032126" -%}
   {%- capture whatsapp_message -%}
     Hi Risaa Design Studio! I'm interested in the "{{ product.title }}" and would love to know more. Here is the link: {{ shop.url }}{{ product.url }}
   {%- endcapture -%}
-  <a href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_message | url_encode }}" 
-     class="button button--secondary risaa-whatsapp-btn" 
-     target="_blank" 
-     rel="noopener" 
-     style="width: 100%; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12.031 0C5.394 0 .015 5.38.015 12.018c0 2.124.553 4.195 1.603 6.012L.004 24l6.115-1.603c1.78.966 3.791 1.474 5.908 1.474 6.638 0 12.019-5.38 12.019-12.018S18.669 0 12.031 0zm6.541 17.272c-.273.766-1.554 1.488-2.155 1.558-.553.064-1.258.114-3.535-.788-2.802-1.11-4.606-4.015-4.743-4.197-.137-.183-1.134-1.507-1.134-2.875s.707-2.046.953-2.31c.245-.264.538-.33.717-.33.18 0 .359.006.516.013.167.008.391-.066.611.465.279.673.918 2.236.998 2.398.081.162.134.351.045.534-.09.183-.135.298-.27.447-.134.15-.285.32-.405.448-.135.134-.277.284-.12.553.156.27 1.054 1.737 2.388 2.929 1.411 1.258 2.825 1.696 3.109 1.83.284.135.45.114.619-.074.168-.188.723-.842.915-1.133.193-.291.385-.242.639-.151.255.091 1.605.757 1.881.895.276.138.46.206.527.32.067.114.067.662-.206 1.428z"/>
-    </svg>
-    Enquire on WhatsApp
-  </a>
+  <div class="risaa-get-in-touch">
+    <h3 class="risaa-get-in-touch__heading">GET IN TOUCH</h3>
+    <div class="risaa-get-in-touch__content">
+      <p class="risaa-get-in-touch__text">Want the best deal, custom fit, or early delivery?</p>
+      <a href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_message | url_encode }}" 
+         class="risaa-get-in-touch__link" 
+         target="_blank" 
+         rel="noopener">
+        CHAT WITH US
+      </a>
+    </div>
+  </div>
 {%- endif -%}

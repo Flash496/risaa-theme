@@ -48,9 +48,6 @@
         "whatsapp_enquire": {
           "type": "whatsapp_enquire"
         },
-        "model_info": {
-          "type": "model_info"
-        },
         "shipping_info": {
           "type": "shipping_info"
         },
@@ -108,7 +105,6 @@
         "shipping_info",
         "buy_buttons",
         "whatsapp_enquire",
-        "model_info",
         "description",
         "collapsible-row-0",
         "collapsible-row-1",

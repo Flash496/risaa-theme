@@ -7,7 +7,6 @@
   - block: {Object} block object.
   - picker_type: {String} type of picker to dispay
 
-
   Usage:
   {% render 'product-variant-options',
     product: product,
@@ -94,7 +93,7 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
+    <label for="{{ input_id }}" {% if value == 'Custom Fit' or value == 'custom fit' %}class="product-form__custom-fit-label"{% endif %}>
       {{ value -}}
       {{ label_unavailable }}
     </label>

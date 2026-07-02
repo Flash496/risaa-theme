@@ -1,6 +1,13 @@
 {%- style -%}
+    @property --risaa-active-glow-color {
+      syntax: '<color>';
+      inherits: true;
+      initial-value: rgb(154, 28, 32);
+    }
+
     .section-{{ section.id }}-padding {
-      --risaa-active-glow: 154, 28, 32;
+      --risaa-active-glow-color: rgb(154, 28, 32);
+      transition: --risaa-active-glow-color 0.8s ease;
       position: relative;
       overflow: visible;
       isolation: isolate;
@@ -18,22 +25,22 @@
     .section-{{ section.id }}-padding::before {
       inset: -140px 0 -110px;
       background:
-        radial-gradient(circle at 50% 45%, rgba(var(--risaa-active-glow), 0.28), rgba(var(--risaa-active-glow), 0.1) 30%, transparent 64%),
-        radial-gradient(circle at 18% 55%, rgba(var(--risaa-active-glow), 0.15), transparent 44%),
-        radial-gradient(circle at 82% 55%, rgba(var(--risaa-active-glow), 0.15), transparent 44%);
+        radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--risaa-active-glow-color) 45%, transparent), color-mix(in srgb, var(--risaa-active-glow-color) 18%, transparent) 35%, transparent 72%),
+        radial-gradient(circle at 18% 55%, color-mix(in srgb, var(--risaa-active-glow-color) 25%, transparent), transparent 48%),
+        radial-gradient(circle at 82% 55%, color-mix(in srgb, var(--risaa-active-glow-color) 25%, transparent), transparent 48%);
       filter: blur(20px);
       opacity: 1;
-      transition: background 0.7s ease, opacity 0.7s ease;
+      transition: opacity 0.7s ease;
     }
 
     .section-{{ section.id }}-padding::after {
       inset: 8% 14% -18%;
       background:
-        radial-gradient(ellipse at 50% 62%, rgba(var(--risaa-active-glow), 0.2), rgba(var(--risaa-active-glow), 0.08) 38%, transparent 68%);
+        radial-gradient(ellipse at 50% 62%, color-mix(in srgb, var(--risaa-active-glow-color) 35%, transparent), color-mix(in srgb, var(--risaa-active-glow-color) 15%, transparent) 40%, transparent 72%);
       filter: blur(44px);
-      opacity: 0.85;
+      opacity: 0.95;
       transform: translateY(32px);
-      transition: background 0.7s ease, opacity 0.7s ease;
+      transition: opacity 0.7s ease;
     }
 
     .section-{{ section.id }}-padding .section-header {
@@ -43,8 +50,8 @@
     }
 
     .section-{{ section.id }}-padding .section-header h2 {
-      color: rgb(var(--risaa-active-glow)) !important;
-      transition: color 0.7s ease;
+      color: var(--risaa-active-glow-color) !important;
+      transition: color 0.8s ease;
       margin-bottom: 0 !important;
       padding-bottom: 0 !important;
     }
@@ -116,9 +123,10 @@
 
       font-family: var(--font-body-family);
       font-size: 2.4rem;
+      font-weight: 400;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: rgba(255, 255, 255, 0.75) !important;
+      color: #ffffff !important;
       margin: 0;
       z-index: 6;
       pointer-events: none;
@@ -363,61 +371,86 @@
           {%- assign _col_third = _col_third_imgs[forloop.index0] | default: _col_third_imgs[0] -%}
           {%- assign _col_fourth = _col_fourth_imgs[forloop.index0] | default: _col_fourth_imgs[0] -%}
 
-          <a href="{{ block.settings.link }}" class="risaa-3d-carousel-item" {{ block.shopify_attributes }}>
+          {%- assign block_color_name_downcase = block.settings.color_name | downcase -%}
+          {%- if block_color_name_downcase == 'crimson bloom' -%}
+            {%- assign _col_main = 'https://cdn.shopify.com/s/files/1/0731/5573/9737/files/WhatsApp_Image_2026-06-25_at_1.08.37_AM.jpg?v=1782377397' -%}
+          {%- elsif block_color_name_downcase == 'matcha sage' -%}
+            {%- assign _col_main = 'https://cdn.shopify.com/s/files/1/0731/5573/9737/files/WhatsApp_Image_2026-06-25_at_1.08.37_AM_1.jpg?v=1782377397' -%}
+          {%- endif -%}
+
+          {%- assign is_special_single_image = false -%}
+          {%- if block_color_name_downcase == 'crimson bloom' or block_color_name_downcase == 'matcha sage' -%}
+            {%- assign is_special_single_image = true -%}
+          {%- endif -%}
+
+          <a href="{{ block.settings.link }}" class="risaa-3d-carousel-item" data-color="{{ block.settings.color_name | escape }}" {{ block.shopify_attributes }}>
             <div class="risaa-collage">
-              <div class="risaa-collage__caption">{{ block.settings.color_name }}</div>
-              <div class="risaa-collage__heading-spacer"></div>
-              {% if block.settings.main_image != blank %}
-                {{
-                  block.settings.main_image
-                  | image_url: width: 600
-                  | image_tag: class: 'risaa-collage__main', loading: 'lazy'
-                }}
-              {% else %}
+              {%- unless is_special_single_image -%}
+                <div class="risaa-collage__caption">{{ block.settings.color_name }}</div>
+                <div class="risaa-collage__heading-spacer"></div>
+              {%- endunless -%}
+
+              {%- if is_special_single_image -%}
                 <img
                   src="{{ _col_main }}"
                   alt="{{ block.settings.color_name }}"
-                  class="risaa-collage__main"
+                  class="risaa-collage__single-image"
+                  style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;"
                   loading="lazy"
                 >
-              {% endif %}
+              {%- else -%}
+                {% if block.settings.main_image != blank %}
+                  {{
+                    block.settings.main_image
+                    | image_url: width: 600
+                    | image_tag: class: 'risaa-collage__main', loading: 'lazy'
+                  }}
+                {% else %}
+                  <img
+                    src="{{ _col_main }}"
+                    alt="{{ block.settings.color_name }}"
+                    class="risaa-collage__main"
+                    loading="lazy"
+                  >
+                {% endif %}
 
-              {% if block.settings.third_image != blank %}
-                {{
-                  block.settings.third_image
-                  | image_url: width: 500
-                  | image_tag: class: 'risaa-collage__third', loading: 'lazy'
-                }}
-              {% else %}
+                {% if block.settings.third_image != blank %}
+                  {{
+                    block.settings.third_image
+                    | image_url: width: 500
+                    | image_tag: class: 'risaa-collage__third', loading: 'lazy'
+                  }}
+                {% else %}
+                  <img
+                    src="{{ _col_third }}"
+                    alt="{{ block.settings.color_name }}"
+                    class="risaa-collage__third"
+                    loading="lazy"
+                  >
+                {% endif %}
+
                 <img
-                  src="{{ _col_third }}"
+                  src="{{ _col_fourth }}"
                   alt="{{ block.settings.color_name }}"
-                  class="risaa-collage__third"
+                  class="risaa-collage__fourth"
                   loading="lazy"
                 >
-              {% endif %}
 
-              <img
-                src="{{ _col_fourth }}"
-                alt="{{ block.settings.color_name }}"
-                class="risaa-collage__fourth"
-                loading="lazy"
-              >
-
-              {% if block.settings.sub_image != blank %}
-                {{
-                  block.settings.sub_image
-                  | image_url: width: 400
-                  | image_tag: class: 'risaa-collage__sub', loading: 'lazy'
-                }}
-              {% else %}
-                <img
-                  src="{{ _col_sub }}"
-                  alt="{{ block.settings.color_name }}"
-                  class="risaa-collage__sub"
-                  loading="lazy"
-                >
-              {% endif %}
+                {% if block.settings.sub_image != blank %}
+                  {{
+                    block.settings.sub_image
+                    | image_url: width: 400
+                    | image_tag: class: 'risaa-collage__sub', loading: 'lazy'
+                  }}
+                {% else %}
+                  <img
+                    src="{{ _col_sub }}"
+                    alt="{{ block.settings.color_name }}"
+                    class="risaa-collage__sub"
+                    loading="lazy"
+                  >
+                {% endif %}
+              {%- endif -%}
             </div>
             <!-- caption moved into collage overlay -->
           </a>
@@ -451,27 +484,80 @@
       if (!items.length) return;
 
       let currentIndex = 0; // Start with Ruby (first item)
+      let isIntersecting = false;
+      let autoTimer = null;
+      let pauseTimeout = null;
+
       const glowColors = {
         ruby: '154, 28, 32',
+        crimson: '154, 28, 32',
+        bloom: '154, 28, 32',
         kesar: '225, 140, 35',
         saffron: '225, 140, 35',
         mocha: '126, 80, 55',
         indigo: '53, 68, 132',
+        azure: '53, 114, 239',
+        sky: '135, 206, 235',
+        blue: '53, 114, 239',
         matcha: '105, 139, 79',
+        sage: '105, 139, 79',
         emerald: '4, 121, 87',
         gold: '216, 167, 100',
+        golden: '216, 167, 100',
+        hour: '216, 167, 100',
         ivory: '245, 240, 230',
+        mist: '245, 240, 230',
         blush: '248, 183, 153',
+        rose: '224, 112, 124',
+        midnight: '40, 44, 52',
+        noir: '30, 30, 30',
+        amethyst: '155, 89, 182',
+        dusk: '118, 93, 152',
+        purple: '155, 89, 182',
       };
 
       function updateGlowColor() {
-        const activeName = items[currentIndex]
-          ?.querySelector('.risaa-collage__caption')
-          ?.textContent.trim()
-          .toLowerCase();
-        const glowColor = glowColors[activeName] || '154, 28, 32';
-        wrapper.style.setProperty('--risaa-active-glow', glowColor);
+        const activeColor = items[currentIndex]?.getAttribute('data-color') || '';
+        const nameClean = activeColor.trim().toLowerCase();
+        
+        let glowColor = '154, 28, 32'; // default to ruby red
+        for (const key in glowColors) {
+          if (nameClean.includes(key)) {
+            glowColor = glowColors[key];
+            break;
+          }
+        }
+        
+        wrapper.style.setProperty('--risaa-active-glow-color', `rgb(${glowColor})`);
       }
+
+      const startAuto = () => {
+        if (autoTimer || pauseTimeout) return;
+        autoTimer = window.setInterval(() => {
+          currentIndex = (currentIndex + 1) % items.length;
+          updateCarousel();
+        }, 4500);
+      };
+
+      const stopAuto = () => {
+        if (autoTimer) {
+          window.clearInterval(autoTimer);
+          autoTimer = null;
+        }
+      };
+
+      const pauseAutoScroll = () => {
+        stopAuto();
+        if (pauseTimeout) {
+          window.clearTimeout(pauseTimeout);
+        }
+        pauseTimeout = window.setTimeout(() => {
+          pauseTimeout = null;
+          if (isIntersecting) {
+            startAuto();
+          }
+        }, 5000);
+      };
 
       // Generate dots
       items.forEach((_, index) => {
@@ -481,6 +567,7 @@
         dot.addEventListener('click', () => {
           currentIndex = index;
           updateCarousel();
+          pauseAutoScroll();
         });
         dotsContainer.appendChild(dot);
       });
@@ -535,11 +622,13 @@
       btnPrev.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + items.length) % items.length;
         updateCarousel();
+        pauseAutoScroll();
       });
 
       btnNext.addEventListener('click', () => {
         currentIndex = (currentIndex + 1) % items.length;
         updateCarousel();
+        pauseAutoScroll();
       });
 
       // Click item to bring it to center
@@ -549,37 +638,30 @@
             e.preventDefault(); // Don't navigate to collection link on initial click
             currentIndex = index;
             updateCarousel();
+            pauseAutoScroll();
           }
         });
       });
-
-      // Auto-advance (automatic carousel)
-      let autoTimer = null;
-      const startAuto = () => {
-        if (autoTimer) return;
-        autoTimer = window.setInterval(() => {
-          currentIndex = (currentIndex + 1) % items.length;
-          updateCarousel();
-        }, 4500);
-      };
-      const stopAuto = () => {
-        if (!autoTimer) return;
-        window.clearInterval(autoTimer);
-        autoTimer = null;
-      };
 
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
+              isIntersecting = true;
               startAuto();
             } else {
+              isIntersecting = false;
               stopAuto();
+              if (pauseTimeout) {
+                window.clearTimeout(pauseTimeout);
+                pauseTimeout = null;
+              }
             }
           });
         }, { threshold: 0.05 });
         observer.observe(wrapper);
       } else {
+        isIntersecting = true;
         startAuto();
       }
 

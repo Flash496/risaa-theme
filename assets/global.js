@@ -1088,6 +1088,10 @@ class VariantSelects extends HTMLElement {
       const target = this.getInputForEventTarget(event.target);
       this.updateSelectionMetadata(event);
 
+      if (target && (target.hasAttribute('data-is-dummy') || target.dataset.isDummy === 'true' || target.getAttribute('data-is-dummy') === 'true')) {
+        return;
+      }
+
       publish(PUB_SUB_EVENTS.optionValueSelectionChange, {
         data: {
           event,

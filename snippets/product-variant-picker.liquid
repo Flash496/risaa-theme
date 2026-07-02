@@ -44,20 +44,53 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
+          {%- liquid
+            assign size_has_custom_fit = false
+            if option.name == 'Size' or option.name == 'size'
+              for val in option.values
+                assign val_clean = val | downcase | strip
+                if val_clean == 'custom fit' or val_clean == 'custom-fit'
+                  assign size_has_custom_fit = true
+                endif
+              endfor
+            endif
+          -%}
           <legend class="form__label" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <span>{{ option.name }}</span>
+            <span>
+              {%- if option.name == 'Size' or option.name == 'size' -%}
+                Select your size
+              {%- else -%}
+                {{ option.name }}
+              {%- endif -%}
+            </span>
             {%- if option.name == 'Size' or option.name == 'size' -%}
-              <modal-opener data-modal="#PopupModal-SizeChart">
-                <button
-                  id="ProductPopup-SizeChart"
-                  class="product-popup-modal__button link"
-                  type="button"
-                  aria-haspopup="dialog"
-                  style="background: none; border: none; padding: 0; text-decoration: underline; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 1.25rem; color: #6E1423; font-weight: 500; text-transform: none; letter-spacing: 0.05em;"
-                >
-                  Find my size
-                </button>
-              </modal-opener>
+              <div class="size-helpers-wrapper" style="display: flex; gap: 12px; align-items: center;">
+                <modal-opener data-modal="#PopupModal-SizeChart">
+                  <button
+                    id="ProductPopup-SizeChart"
+                    class="product-popup-modal__button link"
+                    type="button"
+                    aria-haspopup="dialog"
+                    style="background: none; border: none; padding: 0; text-decoration: underline; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 1.25rem; color: #6E1423; font-weight: 600; text-transform: none; letter-spacing: 0.02em;"
+                  >
+                    Size Guide
+                  </button>
+                </modal-opener>
+                {%- if size_has_custom_fit -%}
+                  <span style="color: #C9A96E; font-size: 1.2rem; display: inline-block;">|</span>
+                  <modal-opener data-modal="#PopupModal-CustomMeasurement-{{ section.id }}">
+                    <button
+                      id="ProductPopup-CustomSizing"
+                      class="link product-popup-modal__button"
+                      type="button"
+                      aria-haspopup="dialog"
+                      style="background: none; border: none; padding: 0; text-decoration: underline; cursor: pointer; font-family: 'Jost', sans-serif; font-size: 1.25rem; color: #6E1423; font-weight: 600; text-transform: none; letter-spacing: 0.02em;"
+                    >
+                      Custom Fit (Made to Measure)
+                    </button>
+                  </modal-opener>
+                {%- endif -%}
+              </div>
             {%- endif -%}
           </legend>
           {% render 'product-variant-options',
@@ -66,6 +99,17 @@
             block: block,
             picker_type: picker_type
           %}
+          {%- if option.name == 'Size' or option.name == 'size' -%}
+            {%- if product.metafields.custom.model_info.value != blank -%}
+              <p class="product__model-info-text" style="font-family: 'Jost', sans-serif; font-size: 1.3rem; font-style: italic; color: #555555; margin: 0.8rem 0 0 0; letter-spacing: 0.02em;">
+                {{ product.metafields.custom.model_info.value }}
+              </p>
+            {%- elsif product.metafields.custom.model_info != blank -%}
+              <p class="product__model-info-text" style="font-family: 'Jost', sans-serif; font-size: 1.3rem; font-style: italic; color: #555555; margin: 0.8rem 0 0 0; letter-spacing: 0.02em;">
+                {{ product.metafields.custom.model_info }}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">

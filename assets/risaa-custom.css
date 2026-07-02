@@ -272,6 +272,10 @@ h4,
     width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4 - 25px) !important;
     max-width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4 - 25px) !important;
   }
+  .template-collection .product-grid.grid--4-col-desktop .grid__item {
+    width: 25% !important;
+    max-width: 25% !important;
+  }
 
   .product-grid.grid--4-col-desktop {
     justify-content: center !important;
@@ -472,23 +476,116 @@ div.risaa-designers-choice.collection h2.title,
     max-width: 100% !important;
   }
   
+  .product--stacked .product__media-item--single {
+    grid-column: span 2 !important;
+  }
+
+  /* Force aspect-ratio 5:7 on stacked layout */
+  .product--stacked .product__media-item .global-media-settings,
+  .product--stacked .product__media-item .media {
+    aspect-ratio: 5 / 7 !important;
+    --preview-ratio: 0.7142 !important;
+    --ratio: 0.7142 !important;
+  }
+  
+  .product--stacked .product__media-item img {
+    object-fit: cover !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+  
   .product__media-wrapper .product-media-container {
     height: 100% !important;
   }
 }
 
-/* 5. PDP Sticky Info Panel adjustments */
+/* 5. PDP Vertical Left Thumbnails (Pernia's layout - Desktop) */
+@media screen and (min-width: 990px) {
+  .product--thumbnail media-gallery,
+  .product--thumbnail_slider media-gallery {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 20px !important;
+    align-items: flex-start !important;
+  }
+
+  .product--thumbnail media-gallery .thumbnail-slider,
+  .product--thumbnail_slider media-gallery .thumbnail-slider {
+    order: 1 !important;
+    width: 90px !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+    max-height: 700px !important;
+    overflow-y: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .product--thumbnail media-gallery .thumbnail-list,
+  .product--thumbnail_slider media-gallery .thumbnail-list {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    transform: none !important;
+    gap: 12px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .product--thumbnail media-gallery .thumbnail-list__item,
+  .product--thumbnail_slider media-gallery .thumbnail-list__item {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .product--thumbnail media-gallery slider-component:not(.thumbnail-slider),
+  .product--thumbnail_slider media-gallery slider-component:not(.thumbnail-slider) {
+    order: 2 !important;
+    flex-grow: 1 !important;
+    width: calc(100% - 110px) !important;
+  }
+
+  .product--thumbnail media-gallery .thumbnail,
+  .product--thumbnail_slider media-gallery .thumbnail {
+    aspect-ratio: 5 / 7 !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .product--thumbnail media-gallery .thumbnail img,
+  .product--thumbnail_slider media-gallery .thumbnail img {
+    object-fit: cover !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+
+  .product--thumbnail media-gallery .product__media-item .media,
+  .product--thumbnail_slider media-gallery .product__media-item .media {
+    aspect-ratio: 5 / 7 !important;
+  }
+
+  .product--thumbnail media-gallery .product__media-item img,
+  .product--thumbnail_slider media-gallery .product__media-item img {
+    object-fit: cover !important;
+    height: 100% !important;
+    width: 100% !important;
+  }
+}
+
+/* 6. PDP Sticky Info Panel adjustments */
 @media screen and (min-width: 750px) {
   .product__info-wrapper {
     padding-left: 5rem !important;
   }
   
   .product__column-sticky {
-    top: 12rem !important; /* Spacing below the header */
+    top: 13rem !important; /* Spacing below the header */
   }
 }
 
-/* 6. PDP Variant Size Blocks (Square blocks) */
+/* 7. PDP Variant Size Blocks (Square blocks) */
 .product-form__input--pill input[type='radio'] + label {
   border: 1px solid #C9A96E !important; /* Luxury tan border */
   border-radius: 0px !important; /* Square corners */
@@ -527,7 +624,7 @@ div.risaa-designers-choice.collection h2.title,
   box-shadow: 0 0 0 1px #6E1423 !important;
 }
 
-/* 7. PDP Action Buttons Overrides */
+/* 8. PDP Action Buttons Overrides */
 .product-form__buttons {
   max-width: 100% !important;
 }
@@ -553,7 +650,7 @@ div.risaa-designers-choice.collection h2.title,
   color: #6E1423 !important;
 }
 
-/* 8. PDP Accordions overrides */
+/* 9. PDP Accordions overrides (Sleek Minimal Seeaash Style) */
 .product__accordion.accordion {
   border-top: 1px solid rgba(110, 20, 35, 0.1) !important;
   border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
@@ -564,12 +661,12 @@ div.risaa-designers-choice.collection h2.title,
   font-size: 1.3rem !important;
   font-weight: 500 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
+  letter-spacing: 0.08em !important;
   color: #2B2B2B !important;
 }
 
 .product__accordion summary {
-  padding: 1.5rem 0 !important;
+  padding: 1.2rem 0 !important;
 }
 
 .product__accordion .accordion__content {
@@ -577,4 +674,749 @@ div.risaa-designers-choice.collection h2.title,
   font-size: 1.3rem !important;
   line-height: 1.6 !important;
   color: #555555 !important;
+}
+
+/* 10. Custom notice box styling (Pernia's Custom Tailored Box) */
+.risaa-custom-notice {
+  background-color: #FAF6F0 !important;
+  border: 1px solid rgba(201, 169, 110, 0.3) !important;
+  border-left: 4px solid #6E1423 !important;
+  padding: 1.8rem 2.2rem !important;
+  margin: 2rem 0 !important;
+  box-shadow: 0 4px 12px rgba(110, 20, 35, 0.04);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.risaa-custom-notice.hidden {
+  display: none !important;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.risaa-custom-notice strong {
+  color: #6E1423;
+}
+
+/* 11. Dummy size options and Custom Fit blocks styling */
+.product-form__input--pill input[data-is-dummy="true"] + label {
+  border: 1px solid #C9A96E !important;
+  cursor: pointer !important;
+  opacity: 1 !important;
+  background-color: #ffffff !important;
+  color: #2B2B2B !important;
+  text-decoration: none !important;
+}
+
+.product-form__input--pill input[data-is-dummy="true"]:checked + label {
+  background-color: #6E1423 !important;
+  border-color: #6E1423 !important;
+  color: #F4EADE !important;
+  opacity: 1 !important;
+}
+
+.product-form__input--pill input[data-is-dummy="true"] + label::after {
+  content: none !important; /* Prevent Dawn's crossed out slash on unavailable variants */
+}
+
+/* 12. Product details page layout - Reduced side margins (increased width) */
+@media screen and (min-width: 990px) {
+  product-info .page-width {
+    max-width: 1650px !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  product-info .page-width {
+    max-width: 100% !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+/* 13. Adjusted product image sizes to 50% (large), 43% (medium), 35% (small) on desktop */
+@media screen and (min-width: 990px) {
+  /* For product--large (default template configuration) */
+  .product--large:not(.product--no-media) .product__media-wrapper {
+    max-width: 50% !important;
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+  }
+  .product--large:not(.product--no-media) .product__info-wrapper {
+    max-width: 50% !important;
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+    padding: 0 0 0 6rem !important;
+  }
+
+  /* For product--medium */
+  .product--medium:not(.product--no-media) .product__media-wrapper {
+    max-width: 43% !important;
+    width: calc(43% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+  }
+  .product--medium:not(.product--no-media) .product__info-wrapper {
+    max-width: 57% !important;
+    width: calc(57% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+    padding: 0 0 0 5rem !important;
+  }
+
+  /* For product--small */
+  .product--small:not(.product--no-media) .product__media-wrapper {
+    max-width: 35% !important;
+    width: calc(35% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+  }
+  .product--small:not(.product--no-media) .product__info-wrapper {
+    max-width: 65% !important;
+    width: calc(65% - var(--grid-desktop-horizontal-spacing) / 2) !important;
+    padding: 0 0 0 5rem !important;
+  }
+}
+
+/* 14. Product Details Page (PDP) Layout & Design Refinements */
+
+/* Vendor Brand Name Styling */
+.product__vendor {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  color: #6E1423 !important; /* Risaa Red */
+  margin-top: 0 !important;
+  margin-bottom: 0.6rem !important;
+  display: block !important;
+}
+
+/* Product Title Styling */
+.product__title h1,
+.product__title h2 {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-size: 2.6rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important; /* Elegant Mixed Case */
+  color: #2B2B2B !important;
+  margin-top: 0 !important;
+  margin-bottom: 1.2rem !important;
+  line-height: 1.25 !important;
+}
+
+/* Price Block Layout & Styling */
+.product__info-container .price {
+  font-family: 'Jost', sans-serif !important;
+  margin-bottom: 1.5rem !important;
+}
+.product__info-container .price__container {
+  display: flex !important;
+  align-items: baseline !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+.product__info-container .price-item--sale {
+  font-size: 2.0rem !important;
+  font-weight: 300 !important;
+  color: #2B2B2B !important;
+  margin: 0 !important;
+}
+.product__info-container .price-item--regular {
+  font-size: 2.0rem !important;
+  font-weight: 300 !important;
+  color: #2B2B2B !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+}
+.product__info-container .price--on-sale .price-item--regular {
+  font-size: 1.4rem !important;
+  color: #777777 !important;
+  text-decoration: line-through !important;
+  margin: 0 !important;
+}
+.product__info-container .price__badge-sale {
+  display: none !important; /* Hide standard sale badge on PDP */
+}
+
+/* Variant Selector Swatches Layout (Mockup-style size boxes) */
+.product-form__input--pill {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 0 2rem 0 !important;
+}
+.product-form__input--pill legend.form__label {
+  flex-basis: 100% !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: #2B2B2B !important;
+  margin-bottom: 1rem !important;
+  letter-spacing: 0.02em !important;
+}
+.product-form__input--pill input[type='radio'] + label {
+  border: 1px solid #E5E5E5 !important; /* Clean light gray border */
+  border-radius: 0px !important; /* Square corners */
+  background-color: #ffffff !important;
+  color: #2B2B2B !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  padding: 0.8rem 1.6rem !important;
+  margin: 0 !important; /* Clear original margins */
+  letter-spacing: 0.05em !important;
+  min-width: 4.5rem !important;
+  height: 4.2rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+.product-form__input--pill input[type='radio']:checked + label {
+  background-color: #6E1423 !important; /* Solid Risaa Red */
+  border-color: #6E1423 !important;
+  color: #F4EADE !important; /* Cream text */
+}
+.product-form__input--pill input[type='radio'] + label:hover {
+  border-color: #6E1423 !important;
+}
+
+/* Custom Tailoring / Custom Fit Swatch */
+.product-form__custom-fit-label {
+  flex-basis: 100% !important; /* Push it to a new line as in mockup */
+  max-width: 250px !important;
+  text-align: center !important;
+  margin-top: 0.6rem !important;
+  border: 1px solid #C9A96E !important; /* Luxury Tan border */
+  color: #6E1423 !important;
+  background-color: #ffffff !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.product-form__input--pill input[type='radio']:checked + .product-form__custom-fit-label {
+  background-color: #6E1423 !important;
+  border-color: #6E1423 !important;
+  color: #F4EADE !important;
+}
+
+/* Add to Cart & Buy Now side-by-side buttons */
+.product-form__buttons {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 15px !important;
+  margin-bottom: 2rem !important;
+}
+@media screen and (min-width: 750px) {
+  .product-form__buttons {
+    flex-direction: row-reverse !important; /* Buy Now on Left, Add to Cart on Right */
+    align-items: stretch !important;
+  }
+  .product-form__buttons > * {
+    flex: 1 1 50% !important;
+    margin: 0 !important;
+  }
+}
+/* Style Dynamic Buy Now Button */
+.shopify-payment-button__button {
+  background-color: #2B2B2B !important; /* Solid Slate Black */
+  color: #ffffff !important;
+  border: 1px solid #2B2B2B !important;
+  border-radius: 0 !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15rem !important;
+  height: 4.8rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+}
+.shopify-payment-button__button:hover {
+  background-color: #6E1423 !important; /* Fade to Risaa Red on hover */
+  border-color: #6E1423 !important;
+}
+/* Style Add to Cart Button */
+.product-form__submit.button {
+  background-color: #ffffff !important; /* White Background */
+  color: #2B2B2B !important; /* Black Text */
+  border: 1px solid #2B2B2B !important; /* Black Border */
+  border-radius: 0 !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.4rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15rem !important;
+  height: 4.8rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s ease !important;
+}
+.product-form__submit.button:hover {
+  background-color: #2B2B2B !important;
+  color: #ffffff !important;
+}
+
+/* Get in Touch (WhatsApp block styling) */
+.risaa-get-in-touch {
+  border-top: 1px solid rgba(110, 20, 35, 0.1) !important;
+  border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
+  padding: 1.5rem 0 !important;
+  margin: 2rem 0 !important;
+}
+.risaa-get-in-touch__heading {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #2B2B2B !important;
+  margin: 0 0 0.8rem 0 !important;
+}
+.risaa-get-in-touch__content {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 15px !important;
+}
+.risaa-get-in-touch__text {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  color: #555555 !important;
+  margin: 0 !important;
+}
+.risaa-get-in-touch__link {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: #6E1423 !important; /* Risaa Red */
+  text-decoration: underline !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  white-space: nowrap !important;
+}
+.risaa-get-in-touch__link:hover {
+  opacity: 0.8 !important;
+}
+
+/* Details Grid Layout (Product Description & SKU side-by-side) */
+.product__details-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  border-top: 1px solid rgba(110, 20, 35, 0.1) !important;
+  padding-top: 2rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+@media screen and (min-width: 750px) {
+  .product__details-grid {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+  }
+  .product__details-col--desc {
+    width: 80% !important;
+  }
+  .product__details-col--desc:only-child {
+    width: 100% !important;
+  }
+  .product__details-col--code {
+    width: 15% !important;
+    text-align: right !important;
+  }
+}
+.product__details-heading {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #2B2B2B !important;
+  margin-top: 0 !important;
+  margin-bottom: 1rem !important;
+}
+.product__description.rte,
+.product__description.rte p,
+.product__code-value {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  line-height: 1.6 !important;
+  color: #555555 !important;
+  margin: 0 !important;
+}
+
+/* Custom modal dialog smooth fade & slide up animations */
+.product-popup-modal {
+  transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+.product-popup-modal__content {
+  opacity: 0;
+  transform: translate(-50%, 20px) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease !important;
+}
+.product-popup-modal[open] .product-popup-modal__content {
+  opacity: 1;
+  transform: translate(-50%, 0) !important;
+}
+
+/* Custom bestseller badge styling */
+.card-wrapper .badge--bestseller {
+  background-color: #C9A96E !important;
+  color: #FDFBF7 !important;
+  font-weight: 600 !important;
+}
+
+/* Product details page background override */
+product-info {
+  background-color: #FFFFFF !important;
+}
+
+/* Make product price text thin */
+.price,
+.price *,
+.price-container,
+.price-container *,
+.price-item,
+.price-item--regular,
+.price-item--sale,
+.price__container,
+.price__container *,
+.price h1, .price h2, .price h3, .price h4, .price h5, .price h6,
+.price--large, .price--large * {
+  font-family: 'Jost', sans-serif !important;
+  font-weight: 300 !important;
+}
+
+/* Smooth Accordion Expansion Animation */
+.product__accordion details {
+  display: block;
+  overflow: hidden;
+  height: auto;
+}
+
+.product__accordion details summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.product__accordion details summary::-webkit-details-marker {
+  display: none;
+}
+
+.product__accordion details summary .icon-caret {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.product__accordion details[open] summary .icon-caret {
+  transform: rotate(180deg) !important;
+}
+
+.product__accordion details .accordion__content {
+  display: grid !important;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+
+.product__accordion details[open] .accordion__content {
+  grid-template-rows: 1fr;
+}
+
+.product__accordion details .accordion__content-inner {
+  overflow: hidden;
+  min-height: 0;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product__accordion details[open] .accordion__content-inner {
+  opacity: 1;
+}
+
+/* Custom Accordion Web Component for smooth close animations */
+custom-accordion {
+  display: block;
+}
+
+/* Card hover animation for bookmark badges */
+.card-wrapper .badge-bookmark {
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.card-wrapper:hover .badge-bookmark {
+  transform: translateY(-4px);
+  height: 46px !important;
+}
+
+.card-wrapper .badge-bookmark svg {
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.card-wrapper:hover .badge-bookmark svg {
+  transform: translateY(2px);
+}
+
+/* Get in Touch (WhatsApp block styling) */
+.risaa-get-in-touch {
+  border-top: 1px solid rgba(110, 20, 35, 0.1) !important;
+  border-bottom: 1px solid rgba(110, 20, 35, 0.1) !important;
+  padding: 1.5rem 0 !important;
+  margin: 2rem 0 !important;
+}
+.risaa-get-in-touch__heading {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #2B2B2B !important;
+  margin: 0 0 0.8rem 0 !important;
+}
+.risaa-get-in-touch__content {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 15px !important;
+}
+.risaa-get-in-touch__text {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  color: #555555 !important;
+  margin: 0 !important;
+}
+.risaa-get-in-touch__link {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: #6E1423 !important; /* Risaa Red */
+  text-decoration: underline !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  white-space: nowrap !important;
+}
+.risaa-get-in-touch__link:hover {
+  opacity: 0.8 !important;
+}
+
+/* Details Grid Layout (Product Description & SKU side-by-side) */
+.product__details-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  border-top: 1px solid rgba(110, 20, 35, 0.1) !important;
+  padding-top: 2rem !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+@media screen and (min-width: 750px) {
+  .product__details-grid {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+  }
+  .product__details-col--desc {
+    width: 80% !important;
+  }
+  .product__details-col--desc:only-child {
+    width: 100% !important;
+  }
+  .product__details-col--code {
+    width: 15% !important;
+    text-align: right !important;
+  }
+}
+.product__details-heading {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  color: #2B2B2B !important;
+  margin-top: 0 !important;
+  margin-bottom: 1rem !important;
+}
+.product__description.rte,
+.product__description.rte p,
+.product__code-value {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 1.3rem !important;
+  line-height: 1.6 !important;
+  color: #555555 !important;
+  margin: 0 !important;
+}
+
+/* Custom modal dialog smooth fade & slide up animations */
+.product-popup-modal {
+  transition: opacity 0.3s ease, visibility 0.3s ease !important;
+}
+.product-popup-modal__content {
+  opacity: 0;
+  transform: translate(-50%, 20px) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease !important;
+}
+.product-popup-modal[open] .product-popup-modal__content {
+  opacity: 1;
+  transform: translate(-50%, 0) !important;
+}
+
+/* Custom bestseller badge styling */
+.card-wrapper .badge--bestseller {
+  background-color: #C9A96E !important;
+  color: #FDFBF7 !important;
+  font-weight: 600 !important;
+}
+
+/* Product details page background override */
+product-info {
+  background-color: #FFFFFF !important;
+}
+
+/* Make product price text thin */
+.price,
+.price *,
+.price-container,
+.price-container *,
+.price-item,
+.price-item--regular,
+.price-item--sale,
+.price__container,
+.price__container *,
+.price h1, .price h2, .price h3, .price h4, .price h5, .price h6,
+.price--large, .price--large * {
+  font-family: 'Jost', sans-serif !important;
+  font-weight: 300 !important;
+}
+
+/* Smooth Accordion Expansion Animation */
+.product__accordion details {
+  display: block;
+  overflow: hidden;
+  height: auto;
+}
+
+.product__accordion details summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.product__accordion details summary::-webkit-details-marker {
+  display: none;
+}
+
+.product__accordion details summary .icon-caret {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.product__accordion details[open] summary .icon-caret {
+  transform: rotate(180deg) !important;
+}
+
+.product__accordion details .accordion__content {
+  display: grid !important;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+
+.product__accordion details[open] .accordion__content {
+  grid-template-rows: 1fr;
+}
+
+.product__accordion details .accordion__content-inner {
+  overflow: hidden;
+  min-height: 0;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product__accordion details[open] .accordion__content-inner {
+  opacity: 1;
+}
+
+/* Custom Accordion Web Component for smooth close animations */
+custom-accordion {
+  display: block;
+}
+
+.card-wrapper:hover .badge-bookmark svg {
+  transform: translateY(2px);
+}
+/* Card width: base 25% minus 25px, centered */
+@media screen and (min-width: 990px) {
+  :not(.template-collection) > .product-grid.grid--4-col-desktop .grid__item {
+    width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4 - 25px) !important;
+    max-width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4 - 25px) !important;
+  }
+  .template-collection .product-grid.grid--4-col-desktop .grid__item {
+    width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4) !important;
+    max-width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4) !important;
+  }
+
+  .product-grid.grid--4-col-desktop {
+    justify-content: center !important;
+  }
+}
+/* Expand grid container page-width on PLP/Collections to showcase 4 large cards */
+.template-collection .page-width,
+.template-collection .facets-vertical,
+.template-collection .product-grid-container {
+  max-width: 1600px !important;
+  width: 100% !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+.template-collection .facets-wrapper.page-width {
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+@media screen and (min-width: 990px) {
+  /* Switch to CSS Grid for collection pages */
+  .template-collection #product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    column-gap: 20px !important;
+    row-gap: 30px !important;
+    /* Override the flex gap that was set */
+    gap: 20px 30px !important;
+  }
+  /* Reset flex-based widths so CSS grid controls column sizing */
+  .template-collection #product-grid > .grid__item {
+    width: auto !important;
+    max-width: none !important;
+    flex: none !important;
+  }
+}
+
+/* Make card title and price text smaller to match reference styling */
+.template-collection .card__heading,
+.template-collection .card__heading a {
+  font-size: 1.3rem !important;
+  letter-spacing: 0.1em !important;
+  font-weight: 400 !important;
+}
+
+.template-collection .price,
+.template-collection .price-item,
+.template-collection .price-item--regular,
+.template-collection .price-item--sale {
+  font-size: 1.3rem !important;
+  font-weight: 300 !important;
+}
+
+/* Collection page: force pure white background */
+.template-collection .gradient,
+.template-collection [class*="color-scheme"],
+.template-collection .color-background-1 {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
 }

@@ -674,19 +674,38 @@
         </div>
         {%- liquid
           assign is_ready_to_ship = false
-          for tag in card_product.tags
-            assign downcased_tag = tag | downcase
-            if downcased_tag == 'ready to ship'
-              assign is_ready_to_ship = true
-              break
-            endif
-          endfor
+          if card_product.metafields.custom.ready_to_ship.value == true or card_product.metafields.custom.ready_to_ship == true
+            assign is_ready_to_ship = true
+          else
+            for tag in card_product.tags
+              assign downcased_tag = tag | downcase
+              if downcased_tag == 'ready to ship'
+                assign is_ready_to_ship = true
+                break
+              endif
+            endfor
+          endif
+          
+          assign is_bestseller = false
+          if card_product.metafields.custom.bestseller.value == true or card_product.metafields.custom.bestseller == true
+            assign is_bestseller = true
+          elsif card_product.metafields.custom.bestsellers.value == true or card_product.metafields.custom.bestsellers == true
+            assign is_bestseller = true
+          endif
         -%}
         {%- if is_ready_to_ship -%}
-          <div class="card__badge right">
-            <span class="badge badge--ready-to-ship">
+          <div class="card__badge left" style="position: absolute; top: 1.2rem; left: 1.2rem; z-index: 10; margin: 0 !important;">
+            <span class="badge badge--ready-to-ship" style="background-color: #6E1423 !important; color: #F4EADE !important; font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.6rem 1.2rem; border-radius: 0;">
               Ready to ship
             </span>
+          </div>
+        {%- endif -%}
+        {%- if is_bestseller -%}
+          <div class="card__badge-bookmarks" style="display: flex !important; pointer-events: none; margin: 0 !important; top: 0 !important; right: 1.5rem !important; position: absolute; z-index: 10;">
+            <div class="badge-bookmark badge-bookmark--bestseller" title="Bestseller" style="position: relative; width: 32px; height: 42px; background-color: #C9A96E; display: flex; align-items: center; justify-content: center; color: #FDFBF7; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 6px;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              <div style="position: absolute; bottom: 0; left: 0; width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-bottom: 8px solid #FDFBF7;"></div>
+            </div>
           </div>
         {%- endif -%}
       </div>

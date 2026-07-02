@@ -91,19 +91,40 @@
                 {% render block %}
               {%- when 'text' -%}
                 <p
-                  class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
+                  class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if block.settings.text contains 'vendor' or block.settings.text == product.vendor %} product__vendor{% endif %}"
                   {{ block.shopify_attributes }}
                 >
-                  {{- block.settings.text -}}
+                  {%- if block.settings.text == product.vendor -%}
+                    {%- if product.collections.size > 0 -%}
+                      {{- product.collections.first.title | escape -}}
+                    {%- else -%}
+                      {{- block.settings.text -}}
+                    {%- endif -%}
+                  {%- else -%}
+                    {{- block.settings.text -}}
+                  {%- endif -%}
                 </p>
               {%- when 'title' -%}
-                <div class="product__title" {{ block.shopify_attributes }}>
+                <div class="product__title" {{ block.shopify_attributes }} style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap; margin-bottom: 1.5rem;">
                   <h1>{{ product.title | escape }}</h1>
-                  <a href="{{ product.url }}" class="product__title">
-                    <h2 class="h1">
+                  <a href="{{ product.url }}" class="product__title" style="text-decoration: none; margin: 0;">
+                    <h2 class="h1" style="margin: 0;">
                       {{ product.title | escape }}
                     </h2>
                   </a>
+                  {%- liquid
+                    assign is_bestseller = false
+                    if product.metafields.custom.bestseller.value == true or product.metafields.custom.bestseller == true
+                      assign is_bestseller = true
+                    elsif product.metafields.custom.bestsellers.value == true or product.metafields.custom.bestsellers == true
+                      assign is_bestseller = true
+                    endif
+                  -%}
+                  {%- if is_bestseller -%}
+                    <span class="badge badge--bestseller" style="background-color: #C9A96E; color: #FDFBF7; border: none; border-radius: 0; padding: 0.6rem 1.2rem; font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; vertical-align: middle;">
+                      Bestseller
+                    </span>
+                  {%- endif -%}
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
@@ -193,8 +214,19 @@
                 </p>
               {%- when 'description' -%}
                 {%- if product.description != blank -%}
-                  <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-                    {{ product.description }}
+                  <div class="product__details-grid quick-add-hidden" {{ block.shopify_attributes }}>
+                    <div class="product__details-col product__details-col--desc">
+                      <h3 class="product__details-heading">PRODUCT DESCRIPTION</h3>
+                      <div class="product__description rte">
+                        {{ product.description }}
+                      </div>
+                    </div>
+                    {%- if product.selected_or_first_available_variant.sku != blank -%}
+                      <div class="product__details-col product__details-col--code">
+                        <h3 class="product__details-heading">PRODUCT CODE</h3>
+                        <p class="product__code-value">{{ product.selected_or_first_available_variant.sku }}</p>
+                      </div>
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
               {%- when 'sku' -%}
@@ -210,35 +242,137 @@
               {%- when 'custom_liquid' -%}
                 {{ block.settings.custom_liquid }}
               {%- when 'custom_measurement' -%}
-                {% render 'custom-measurement-form', section: section, block: block %}
+                {%- liquid
+                  assign size_has_custom_fit = false
+                  for option in product.options_with_values
+                    assign opt_name = option.name | downcase
+                    if opt_name == 'size'
+                      for val in option.values
+                        assign val_clean = val | downcase | strip
+                        if val_clean == 'custom fit' or val_clean == 'custom-fit'
+                          assign size_has_custom_fit = true
+                        endif
+                      endfor
+                    endif
+                  endfor
+                -%}
+                {%- if size_has_custom_fit -%}
+                  {% render 'custom-measurement-form', section: section, block: block %}
+                {%- endif -%}
               {%- when 'whatsapp_enquire' -%}
                 {% render 'whatsapp-enquire', product: product %}
               {%- when 'model_info' -%}
-                <div class="product__model-info" {{ block.shopify_attributes }} style="margin-bottom: 1.5rem;">
-                  <p class="caption-with-letter-spacing" style="margin: 0; font-style: italic;">{{ block.settings.model_text }}</p>
-                </div>
+                {%- liquid
+                  assign model_info_text = ''
+                  if product.metafields.custom.model_info.value != blank
+                    assign model_info_text = product.metafields.custom.model_info.value
+                  elsif product.metafields.custom.model_info != blank
+                    assign model_info_text = product.metafields.custom.model_info
+                  endif
+                -%}
+                {%- if model_info_text != blank -%}
+                  <div class="product__model-info" {{ block.shopify_attributes }} style="margin-bottom: 1.5rem;">
+                    <p class="caption-with-letter-spacing" style="margin: 0; font-style: italic;">{{ model_info_text }}</p>
+                  </div>
+                {%- endif -%}
               {%- when 'shipping_info' -%}
-                <div class="product__shipping-info" {{ block.shopify_attributes }} style="margin-bottom: 2rem; border-left: 2px solid var(--color-risaa-red); padding-left: 1.5rem;">
-                  <p class="caption-with-letter-spacing" style="color: #6E1423; font-weight: 600; margin: 0;">{{ block.settings.shipping_text }}</p>
-                </div>
+                {%- if product.metafields.custom.ready_to_ship.value == true or product.metafields.custom.ready_to_ship == true -%}
+                  <div class="product__shipping-info" {{ block.shopify_attributes }} style="margin-bottom: 2rem; border: 1px solid rgba(201, 169, 110, 0.3); background-color: #FDFBF7; padding: 1.2rem 1.6rem; display: flex; align-items: center; gap: 12px; border-radius: 0;">
+                    <span style="color: #6E1423; display: flex; align-items: center;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    </span>
+                    <p style="color: #2B2B2B; font-family: 'Jost', sans-serif; font-size: 1.25rem; font-weight: 500; margin: 0; letter-spacing: 0.02em;">
+                      {{ block.settings.shipping_text }}
+                    </p>
+                  </div>
+                {%- endif -%}
               {%- when 'collapsible_tab' -%}
-                <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
-                  <details id="Details-{{ block.id }}-{{ section.id }}">
-                    <summary>
-                      <div class="summary__title">
-                        {% render 'icon-accordion', icon: block.settings.icon %}
-                        <h2 class="h4 accordion__title inline-richtext">
-                          {{ block.settings.heading | default: block.settings.page.title | escape }}
-                        </h2>
+                {%- liquid
+                  # Determine index of this collapsible_tab among all section blocks
+                  assign tab_index = 0
+                  assign tab_total = 0
+                  for b in section.blocks
+                    if b.type == 'collapsible_tab'
+                      assign tab_total = tab_total | plus: 1
+                      if b.id == block.id
+                        assign tab_index = tab_total
+                      endif
+                    endif
+                  endfor
+                -%}
+                
+                {%- if tab_index == 1 -%}
+                  <div class="product__accordions-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2rem; margin-bottom: 2rem; width: 100%;">
+                {%- endif -%}
+
+                {%- liquid
+                  assign heading_lc = block.settings.heading | downcase
+                  assign grid_order = ""
+                  if heading_lc contains 'material' or heading_lc contains 'fabric'
+                    assign grid_order = "grid-row: 1; grid-column: 1;"
+                  elsif heading_lc contains 'dimension' or heading_lc contains 'measurement'
+                    assign grid_order = "grid-row: 1; grid-column: 2;"
+                  elsif heading_lc contains 'shipping' or heading_lc contains 'return'
+                    assign grid_order = "grid-row: 2; grid-column: 1;"
+                  elsif heading_lc contains 'care'
+                    assign grid_order = "grid-row: 2; grid-column: 2;"
+                  endif
+                -%}
+
+                <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }} style="margin: 0; width: 100%; {{ grid_order }}">
+                  <custom-accordion>
+                    <details id="Details-{{ block.id }}-{{ section.id }}">
+                      <summary style="padding: 1.5rem 0;">
+                        <div class="summary__title">
+                          {% render 'icon-accordion', icon: block.settings.icon %}
+                          <h2 class="h4 accordion__title inline-richtext" style="font-size: 1.3rem; font-weight: 600; font-family: 'Jost', sans-serif;">
+                            {{ block.settings.heading | default: block.settings.page.title | escape }}
+                          </h2>
+                        </div>
+                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                      </summary>
+                      <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}" style="padding: 0;">
+                        <div class="accordion__content-inner" style="padding: 1.5rem 0 2.5rem 0;">
+                          {%- liquid
+                            assign heading_lc = block.settings.heading | downcase
+                            assign auto_content = null
+                            if heading_lc contains 'material' or heading_lc contains 'fabric'
+                              if product.metafields.custom.fabric.value != blank
+                                assign auto_content = product.metafields.custom.fabric.value | newline_to_br
+                              elsif product.metafields.custom.custom_fabric.value != blank
+                                assign auto_content = product.metafields.custom.custom_fabric.value | newline_to_br
+                              endif
+                            elsif heading_lc contains 'care'
+                              if product.metafields.custom.care_instructions.value != blank
+                                assign auto_content = product.metafields.custom.care_instructions.value | newline_to_br
+                              elsif product.metafields.custom.custom_care_instructions.value != blank
+                                assign auto_content = product.metafields.custom.custom_care_instructions.value | newline_to_br
+                              endif
+                            elsif heading_lc contains 'dimension' or heading_lc contains 'measurement'
+                              if product.metafields.custom.measurements.value != blank
+                                assign auto_content = product.metafields.custom.measurements.value | newline_to_br
+                              elsif product.metafields.custom.custom_measurements.value != blank
+                                assign auto_content = product.metafields.custom.custom_measurements.value | newline_to_br
+                              endif
+                            elsif heading_lc contains 'shipping' or heading_lc contains 'return'
+                              assign auto_content = '<ul style="list-style: none; padding: 0; margin: 0;"><li style="margin-bottom: 1.2rem; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #6E1423; font-size: 1.4rem; line-height: 1;">➔</span> <div><strong>Ready to Ship:</strong> Sizes marked with the ready-to-ship icon are dispatched within 24 hours.</div></li><li style="margin-bottom: 1.2rem; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #6E1423; font-size: 1.4rem; line-height: 1;">➔</span> <div><strong>Made to Order:</strong> Domestic orders are typically delivered within 7–12 business days, while international orders are delivered within 12–15 business days.</div></li><li style="margin-bottom: 1.2rem; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #6E1423; font-size: 1.4rem; line-height: 1;">➔</span> <div><strong>Returns & Exchanges:</strong> Size exchanges can be requested within 48 hours of delivery.</div></li><li style="margin-bottom: 1.2rem; display: flex; align-items: flex-start; gap: 10px;"><span style="color: #6E1423; font-size: 1.4rem; line-height: 1;">➔</span> <div><strong>Customs & Duties:</strong> Duties/taxes for international orders are to be borne by the customer upon delivery.</div></li></ul><p style="margin-top: 1.5rem; margin-left: 20px;"><a href="/pages/shipping-returns" class="link" style="color: #6E1423; font-weight: 500; text-decoration: underline;">Read our complete Shipping & Exchange Policy →</a></p>'
+                            endif
+                          -%}
+                          {%- if auto_content != null -%}
+                            {{ auto_content }}
+                          {%- else -%}
+                            {{ block.settings.content }}
+                            {{ block.settings.page.content }}
+                          {%- endif -%}
+                        </div>
                       </div>
-                      {{- 'icon-caret.svg' | inline_asset_content -}}
-                    </summary>
-                    <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
-                      {{ block.settings.content }}
-                      {{ block.settings.page.content }}
-                    </div>
-                  </details>
+                    </details>
+                  </custom-accordion>
                 </div>
+
+                {%- if tab_index == tab_total -%}
+                  </div>
+                {%- endif -%}
               {%- when 'quantity_selector' -%}
                 <div
                   id="Quantity-Form-{{ section.id }}"
@@ -489,6 +623,23 @@
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+
+                <div id="RisaaCustomTailoringNotice" class="risaa-custom-notice hidden" style="margin-top: 2rem; margin-bottom: 2rem; padding: 1.8rem 2.2rem; background-color: #FDFBF7; border: 1px solid rgba(201, 169, 110, 0.4); border-left: 3px solid #6E1423; display: block; border-radius: 0;">
+                  <div style="display: flex; flex-direction: column; gap: 1rem; position: relative;">
+                    <div>
+                      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; text-transform: uppercase; color: #6E1423; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 0.4rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                        Custom Tailoring Active
+                      </span>
+                      <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 1.3rem; line-height: 1.6; color: #555555;">
+                        This item will be custom-made to your exact measurements. Made-to-measure orders are processed via WhatsApp.
+                      </p>
+                    </div>
+                    <button type="button" class="link" onclick="const m = document.getElementById('PopupModal-CustomMeasurement-{{ section.id }}'); if (m) m.show();" style="align-self: flex-start; background: none; border: none; padding: 0.6rem 1.4rem; border: 1px solid #6E1423; cursor: pointer; color: #6E1423; font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s ease; margin-top: 0.4rem;">
+                      Edit Measurements
+                    </button>
+                  </div>
+                </div>
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
@@ -827,6 +978,93 @@
     </div>
   </div>
 </modal-dialog>
+
+<script>
+  if (!customElements.get('custom-accordion')) {
+    class CustomAccordion extends HTMLElement {
+      constructor() {
+        super();
+        this.details = this.querySelector('details');
+        this.summary = this.querySelector('summary');
+        this.content = this.querySelector('.accordion__content');
+        this.isAnimating = false;
+        
+        this.summary.addEventListener('click', this.onSummaryClick.bind(this));
+      }
+
+      onSummaryClick(event) {
+        event.preventDefault();
+        
+        if (this.isAnimating) return;
+        
+        if (this.details.hasAttribute('open')) {
+          this.close();
+        } else {
+          this.open();
+        }
+      }
+
+      open() {
+        this.isAnimating = true;
+        
+        // Find total target height of details element when open
+        this.details.open = true;
+        const endHeight = this.details.offsetHeight;
+        this.details.open = false;
+        
+        const startHeight = this.summary.offsetHeight;
+        this.details.style.height = `${startHeight}px`;
+        this.details.open = true;
+        
+        // Force reflow
+        this.details.offsetHeight;
+        
+        this.details.style.transition = 'height 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+        this.details.style.height = `${endHeight}px`;
+        
+        const onTransitionEnd = (e) => {
+          if (e.propertyName === 'height') {
+            this.details.style.height = '';
+            this.details.style.transition = '';
+            this.isAnimating = false;
+            this.details.removeEventListener('transitionend', onTransitionEnd);
+          }
+        };
+        
+        this.details.addEventListener('transitionend', onTransitionEnd);
+      }
+
+      close() {
+        this.isAnimating = true;
+        
+        // Transition details back to summary height
+        const startHeight = this.details.offsetHeight;
+        const endHeight = this.summary.offsetHeight;
+        
+        this.details.style.height = `${startHeight}px`;
+        
+        // Force reflow
+        this.details.offsetHeight;
+        
+        this.details.style.transition = 'height 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
+        this.details.style.height = `${endHeight}px`;
+        
+        const onTransitionEnd = (e) => {
+          if (e.propertyName === 'height') {
+            this.details.open = false;
+            this.details.style.height = '';
+            this.details.style.transition = '';
+            this.isAnimating = false;
+            this.details.removeEventListener('transitionend', onTransitionEnd);
+          }
+        };
+        
+        this.details.addEventListener('transitionend', onTransitionEnd);
+      }
+    }
+    customElements.define('custom-accordion', CustomAccordion);
+  }
+</script>
 
 {% schema %}
 {

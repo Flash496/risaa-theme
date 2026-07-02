@@ -1,56 +1,415 @@
-<div class="custom-measurement-wrapper" style="margin-top: 15px;">
-  <details id="Details-CustomMeasurement-{{ section.id }}" class="accordion">
-    <summary class="accordion__title">
-      <h3 class="h4" style="margin: 0; font-size: 1.4rem;">Provide Custom Measurements (Optional)</h3>
-      <span class="icon icon-caret">
-        <svg viewBox="0 0 14 8" fill="none" class="icon icon-caret" aria-hidden="true" width="12" height="12"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </span>
-    </summary>
-    <div class="accordion__content" style="padding-top: 15px;">
-      <p style="font-size: 1.2rem; margin-bottom: 15px;">Enter your custom measurements below in Inches or CM for a perfect fit.</p>
-      
-      <div class="measurement-field" style="margin-bottom: 10px;">
-        <label for="custom-bust-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Bust</label>
-        <input type="text" id="custom-bust-{{ section.id }}" name="properties[Bust Measurement]" class="field__input" placeholder="e.g. 34 inches" style="width: 100%;">
-      </div>
-      
-      <div class="measurement-field" style="margin-bottom: 10px;">
-        <label for="custom-waist-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Waist</label>
-        <input type="text" id="custom-waist-{{ section.id }}" name="properties[Waist Measurement]" class="field__input" placeholder="e.g. 28 inches" style="width: 100%;">
-      </div>
-      
-      <div class="measurement-field" style="margin-bottom: 10px;">
-        <label for="custom-hips-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Hips</label>
-        <input type="text" id="custom-hips-{{ section.id }}" name="properties[Hips Measurement]" class="field__input" placeholder="e.g. 38 inches" style="width: 100%;">
-      </div>
-      
-      <div class="measurement-field" style="margin-bottom: 10px;">
-        <label for="custom-height-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Height / Length required</label>
-        <input type="text" id="custom-height-{{ section.id }}" name="properties[Height/Length]" class="field__input" placeholder="e.g. 5'6'' or 50 inches" style="width: 100%;">
-      </div>
-
-      <div class="measurement-field" style="margin-bottom: 10px;">
-        <label for="custom-notes-{{ section.id }}" style="display: block; margin-bottom: 5px; font-size: 1.2rem;">Additional Notes</label>
-        <textarea id="custom-notes-{{ section.id }}" name="properties[Measurement Notes]" class="field__input" placeholder="Any specific requirements for fit, sleeves, etc." style="width: 100%; min-height: 80px;"></textarea>
-      </div>
-    </div>
-  </details>
-</div>
-
 <style>
-  .custom-measurement-wrapper .accordion {
-    border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
-    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
-    padding: 1.5rem 0;
+  .product-popup-modal__content-info input.field__input,
+  .product-popup-modal__content-info textarea.field__input {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    outline: none !important;
+    margin: 0 !important;
   }
-  .custom-measurement-wrapper summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    list-style: none; /* remove default arrow */
-  }
-  .custom-measurement-wrapper summary::-webkit-details-marker {
-    display: none;
+  @media screen and (max-width: 749px) {
+    .measurement-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .product-popup-modal__content-info {
+      padding: 2.5rem 2rem !important;
+    }
   }
 </style>
+
+<modal-dialog id="PopupModal-CustomMeasurement-{{ section.id }}" class="product-popup-modal">
+  <div
+    role="dialog"
+    aria-label="Provide Custom Measurements"
+    aria-modal="true"
+    class="product-popup-modal__content"
+    tabindex="-1"
+    style="max-width: 540px; border-radius: 0; background-color: #FDFBF7; border: 1px solid rgba(110, 20, 35, 0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.15);"
+  >
+    <button
+      id="ModalClose-CustomMeasurement-{{ section.id }}"
+      type="button"
+      class="product-popup-modal__toggle"
+      aria-label="{{ 'accessibility.close' | t }}"
+      style="color: #6E1423; cursor: pointer; top: 1.5rem; right: 1.5rem;"
+    >
+      {{- 'icon-close.svg' | inline_asset_content -}}
+    </button>
+    <div class="product-popup-modal__content-info" style="padding: 2.5rem 3rem;">
+      <h3 class="h4" style="margin: 0 0 1.2rem 0; font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; text-transform: uppercase; letter-spacing: 0.1em; color: #6E1423; font-weight: 500; border-bottom: 1px solid rgba(201, 169, 110, 0.3); padding-bottom: 0.8rem; text-align: center;">
+        Custom Tailoring Parameters
+      </h3>
+      
+      <p style="font-size: 1.2rem; margin-bottom: 1.5rem; font-family: 'Jost', sans-serif; color: #666666; line-height: 1.5; text-align: center;">
+        Custom-tailored garments are hand-made to your measurements and are final sale.
+      </p>
+
+      <div style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0.8rem; border: 1px dashed rgba(110, 20, 35, 0.25); background-color: rgba(253, 251, 247, 0.8);">
+        <input type="checkbox" id="enable-custom-meas-{{ section.id }}" class="custom-meas-checkbox" style="cursor: pointer; width: 16px; height: 16px; accent-color: #6E1423;">
+        <label for="enable-custom-meas-{{ section.id }}" style="font-family: 'Jost', sans-serif; font-size: 1.15rem; color: #2B2B2B; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em;">
+          I want this item customized to my measurements
+        </label>
+      </div>
+      
+      <div id="measurement-fields-{{ section.id }}" style="display: none; transition: max-height 0.4s ease-in-out, opacity 0.3s ease-out; max-height: 0; opacity: 0; overflow: hidden;">
+        <div class="measurement-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px;">
+          <div class="measurement-field">
+            <label for="custom-bust-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Bust (in / cm)</label>
+            <input type="text" id="custom-bust-{{ section.id }}" name="properties[Bust]" class="field__input" placeholder="e.g. 34 inches" style="width: 100%; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+          </div>
+          
+          <div class="measurement-field">
+            <label for="custom-waist-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Waist (in / cm)</label>
+            <input type="text" id="custom-waist-{{ section.id }}" name="properties[Waist]" class="field__input" placeholder="e.g. 28 inches" style="width: 100%; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+          </div>
+          
+          <div class="measurement-field">
+            <label for="custom-hips-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Hips (in / cm)</label>
+            <input type="text" id="custom-hips-{{ section.id }}" name="properties[Hips]" class="field__input" placeholder="e.g. 38 inches" style="width: 100%; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+          </div>
+          
+          <div class="measurement-field">
+            <label for="custom-height-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Required Length</label>
+            <input type="text" id="custom-height-{{ section.id }}" name="properties[Height/Length]" class="field__input" placeholder="e.g. 5'6'' or 50 inches" style="width: 100%; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+          </div>
+        </div>
+
+        <div class="measurement-field" style="margin-bottom: 18px;">
+          <label for="custom-notes-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Neckline, Sleeve & Fitting Notes</label>
+          <textarea id="custom-notes-{{ section.id }}" name="properties[Tailoring Notes]" class="field__input" placeholder="e.g., standard neckline, full sleeves required..." style="width: 100%; min-height: 60px; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; resize: vertical; transition: border-color 0.3s ease; height: auto;"></textarea>
+        </div>
+
+        <div style="margin-top: 2.2rem; margin-bottom: 0.5rem;">
+          <a href="#" 
+             id="CustomFitWhatsAppSubmit-{{ section.id }}" 
+             class="button button--primary risaa-custom-fit-wa-submit-btn" 
+             target="_blank" 
+             rel="noopener" 
+             style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background-color: #6E1423 !important; color: #FDFBF7 !important; border: 1px solid #6E1423 !important; font-family: 'Jost', sans-serif; font-size: 1.2rem; font-weight: 600; text-transform: uppercase; padding: 1.4rem; letter-spacing: 0.12em; text-decoration: none; transition: all 0.3s ease;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.031 0C5.394 0 .015 5.38.015 12.018c0 2.124.553 4.195 1.603 6.012L.004 24l6.115-1.603c1.78.966 3.791 1.474 5.908 1.474 6.638 0 12.019-5.38 12.019-12.018S18.669 0 12.031 0zm6.541 17.272c-.273.766-1.554 1.488-2.155 1.558-.553.064-1.258.114-3.535-.788-2.802-1.11-4.606-4.015-4.743-4.197-.137-.183-1.134-1.507-1.134-2.875s.707-2.046.953-2.31c.245-.264.538-.33.717-.33.18 0 .359.006.516.013.167.008.391-.066.611.465.279.673.918 2.236.998 2.398.081.162.134.351.045.534-.09.183-.135.298-.27.447-.134.15-.285.32-.405.448-.135.134-.277.284-.12.553.156.27 1.054 1.737 2.388 2.929 1.411 1.258 2.825 1.696 3.109 1.83.284.135.45.114.619-.074.168-.188.723-.842.915-1.133.193-.291.385-.242.639-.151.255.091 1.605.757 1.881.895.276.138.46.206.527.32.067.114.067.662-.206 1.428z"/>
+            </svg>
+            Submit Parameters & Order on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</modal-dialog>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sectionId = "{{ section.id }}";
+    const modal = document.getElementById(`PopupModal-CustomMeasurement-${sectionId}`);
+    const checkbox = document.getElementById(`enable-custom-meas-${sectionId}`);
+    const fieldsContainer = document.getElementById(`measurement-fields-${sectionId}`);
+    const firstInput = document.getElementById(`custom-bust-${sectionId}`);
+    
+    const whatsappNumber = "919501032126"; // Ludhiana
+    const productTitle = "{{ product.title | escape }}";
+    const productUrl = window.location.href;
+    const productId = "{{ product.id }}";
+
+    // Always start with size variant deselected on initial page load/reload
+    window.risaaSizeSelected = false;
+
+    // Listen to changes on size inputs to set explicit selection state
+    document.addEventListener('change', function(e) {
+      if (e.target && e.target.name && e.target.name.toLowerCase().includes('size')) {
+        window.risaaSizeSelected = true;
+      }
+    });
+
+    // Helper to get active Size element Specifically (ignoring Color or other option types)
+    function getActiveSizeElement() {
+      const sizeInputs = Array.from(document.querySelectorAll('variant-selects input[type="radio"]:checked'));
+      const activeInput = sizeInputs.find(input => input.name.toLowerCase().includes('size'));
+      if (activeInput) return activeInput;
+
+      const sizeSelects = Array.from(document.querySelectorAll('variant-selects select'));
+      const activeSelect = sizeSelects.find(select => {
+        const label = document.querySelector(`label[for="${select.id}"]`);
+        const legend = select.closest('fieldset')?.querySelector('legend');
+        return (label && label.textContent.toLowerCase().includes('size')) || 
+               (legend && legend.textContent.toLowerCase().includes('size')) ||
+               select.name.toLowerCase().includes('size');
+      });
+      return activeSelect;
+    }
+
+    // Disable buy buttons and show "Select Size" state
+    function setNoSizeSelectedState() {
+      const buyButtonsContainer = document.querySelector('.product-form__buttons');
+      if (buyButtonsContainer) {
+        const atcBtn = buyButtonsContainer.querySelector('.product-form__submit');
+        if (atcBtn) {
+          atcBtn.setAttribute('disabled', 'disabled');
+          atcBtn.style.opacity = '0.5';
+          atcBtn.style.pointerEvents = 'none';
+          const btnSpan = atcBtn.querySelector('span');
+          if (btnSpan) btnSpan.textContent = 'Select Size';
+        }
+        const buyNowContainer = buyButtonsContainer.querySelector('.shopify-payment-button');
+        if (buyNowContainer) {
+          buyNowContainer.style.opacity = '0.4';
+          buyNowContainer.style.pointerEvents = 'none';
+        }
+      }
+    }
+
+    // Toggle fields visibility on checkbox state with animation
+    function toggleFields(show) {
+      if (show) {
+        fieldsContainer.style.display = 'block';
+        setTimeout(() => {
+          fieldsContainer.style.maxHeight = '800px';
+          fieldsContainer.style.opacity = '1';
+        }, 10);
+      } else {
+        fieldsContainer.style.maxHeight = '0';
+        fieldsContainer.style.opacity = '0';
+        setTimeout(() => {
+          fieldsContainer.style.display = 'none';
+        }, 400);
+      }
+    }
+    
+    if (checkbox) {
+      checkbox.addEventListener('change', function() {
+        toggleFields(this.checked);
+        updateWhatsAppBtn();
+        
+        if (!this.checked) {
+          window.risaaSizeSelected = false;
+
+          // Deselect the Custom Fit option if checked
+          const sizeInputs = document.querySelectorAll('variant-selects input[type="radio"]');
+          let sizeInputsChanged = false;
+          sizeInputs.forEach(input => {
+            const val = input.value.toLowerCase();
+            if ((val.includes('custom') || val.includes('tailor')) && input.checked) {
+              input.checked = false;
+              sizeInputsChanged = true;
+            }
+          });
+          
+          const sizeDropdowns = document.querySelectorAll('variant-selects select');
+          sizeDropdowns.forEach(select => {
+            const val = select.value.toLowerCase();
+            if (val.includes('custom') || val.includes('tailor')) {
+              select.selectedIndex = -1;
+              select.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          });
+
+          if (sizeInputsChanged) {
+            const variantSelects = document.querySelector('variant-selects');
+            if (variantSelects) {
+              variantSelects.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
+
+          // Close the modal upon deselection
+          if (modal) {
+            modal.hide();
+          }
+        }
+      });
+    }
+
+    // Listen for custom trigger link click
+    document.addEventListener('risaa:open-custom-sizing', function() {
+      if (modal) {
+        modal.show();
+        if (checkbox) {
+          checkbox.checked = true;
+          toggleFields(true);
+        }
+        setTimeout(() => {
+          if (firstInput) firstInput.focus();
+        }, 300);
+      }
+    });
+
+    // Dynamic WhatsApp url generator
+    function updateWhatsAppBtn() {
+      const activeSizeElement = getActiveSizeElement();
+      let sizeValue = '';
+      if (activeSizeElement) {
+        sizeValue = activeSizeElement.value;
+      }
+      if (!sizeValue) sizeValue = 'Custom Fit';
+
+      const bust = document.getElementById(`custom-bust-${sectionId}`)?.value || '_________';
+      const waist = document.getElementById(`custom-waist-${sectionId}`)?.value || '_________';
+      const hips = document.getElementById(`custom-hips-${sectionId}`)?.value || '_________';
+      const height = document.getElementById(`custom-height-${sectionId}`)?.value || '_________';
+      const notes = document.getElementById(`custom-notes-${sectionId}`)?.value || '_________';
+
+      let baseMessage = '';
+      if (sizeValue.toLowerCase().includes('custom') || sizeValue.toLowerCase().includes('tailor') || (checkbox && checkbox.checked)) {
+        baseMessage = `Hi Risaa Studio!\nI would like to order a Custom Fit for:\nProduct Name: ${productTitle}\nProduct ID: ${productId}\nLink: ${productUrl}\n\nMy Fitting Details:\n- Bust: ${bust}\n- Waist: ${waist}\n- Hips: ${hips}\n- Height/Length: ${height}\n- Sleeve/Additional Notes: ${notes}`;
+      } else {
+        baseMessage = `Hi Risaa Studio!\nI would like to order:\nProduct Name: ${productTitle}\nProduct ID: ${productId}\nSize: ${sizeValue}\nLink: ${productUrl}`;
+      }
+
+      const encodedMsg = encodeURIComponent(baseMessage);
+      const waBtn = document.querySelector('.risaa-whatsapp-btn');
+      if (waBtn) {
+        waBtn.href = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+      }
+
+      const formSubmitBtn = document.getElementById(`CustomFitWhatsAppSubmit-${sectionId}`);
+      if (formSubmitBtn) {
+        formSubmitBtn.href = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+      }
+    }
+
+    // Attach listeners on measurements inputs
+    const inputs = [
+      document.getElementById(`custom-bust-${sectionId}`),
+      document.getElementById(`custom-waist-${sectionId}`),
+      document.getElementById(`custom-hips-${sectionId}`),
+      document.getElementById(`custom-height-${sectionId}`),
+      document.getElementById(`custom-notes-${sectionId}`)
+    ];
+    inputs.forEach(input => {
+      if (input) {
+        input.addEventListener('input', updateWhatsAppBtn);
+      }
+    });
+
+    // Helper function to check variant select state
+    function checkVariantSelection() {
+      const buyButtonsContainer = document.querySelector('.product-form__buttons');
+      const tailoringNotice = document.getElementById('RisaaCustomTailoringNotice');
+
+      // If no size has been explicitly selected, uncheck all size swatches and lock buy buttons as "Select Size"
+      if (!window.risaaSizeSelected) {
+        const sizeInputs = document.querySelectorAll('variant-selects input[type="radio"]');
+        sizeInputs.forEach(input => {
+          if (input.name.toLowerCase().includes('size')) {
+            input.checked = false;
+          }
+        });
+        
+        const sizeSelects = document.querySelectorAll('variant-selects select');
+        sizeSelects.forEach(select => {
+          if (select.name.toLowerCase().includes('size')) {
+            select.selectedIndex = -1;
+          }
+        });
+
+        setNoSizeSelectedState();
+
+        if (tailoringNotice) {
+          tailoringNotice.classList.add('hidden');
+        }
+        if (modal && modal.hasAttribute('open')) {
+          modal.hide();
+        }
+        return;
+      }
+
+      const activeSizeElement = getActiveSizeElement();
+      let sizeValue = '';
+      if (activeSizeElement) {
+        sizeValue = activeSizeElement.value;
+      }
+
+      const isCustomFitSelected = sizeValue.toLowerCase().includes('custom') || sizeValue.toLowerCase().includes('tailor');
+
+      if (isCustomFitSelected) {
+        // Auto-open modal if not already open
+        if (modal && !modal.hasAttribute('open')) {
+          modal.show();
+          if (checkbox) {
+            checkbox.checked = true;
+            toggleFields(true);
+          }
+        }
+        if (tailoringNotice) {
+          tailoringNotice.classList.remove('hidden');
+          tailoringNotice.querySelector('.risaa-custom-notice > div').innerHTML = `
+            <div>
+              <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; text-transform: uppercase; color: #6E1423; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 0.4rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                Custom Tailoring Active
+              </span>
+              <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 1.3rem; line-height: 1.6; color: #555555;">
+                This item will be custom-made to your exact measurements. Made-to-measure orders are processed via WhatsApp.
+              </p>
+            </div>
+            <button type="button" class="link" onclick="const m = document.getElementById('PopupModal-CustomMeasurement-${sectionId}'); if (m) m.show();" style="align-self: flex-start; background: none; border: none; padding: 0.6rem 1.4rem; border: 1px solid #6E1423; cursor: pointer; color: #6E1423; font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s ease; margin-top: 0.4rem;">
+              Edit Measurements
+            </button>
+          `;
+        }
+        if (buyButtonsContainer) {
+          // Disable Add to Cart button
+          const atcBtn = buyButtonsContainer.querySelector('.product-form__submit');
+          if (atcBtn) {
+            atcBtn.setAttribute('disabled', 'disabled');
+            atcBtn.style.opacity = '0.5';
+            atcBtn.style.pointerEvents = 'none';
+            const btnSpan = atcBtn.querySelector('span');
+            if (btnSpan) btnSpan.textContent = 'Custom Fit active (Order in popup)';
+          }
+          // Disable Shopify Payment button (Buy It Now)
+          const buyNowContainer = buyButtonsContainer.querySelector('.shopify-payment-button');
+          if (buyNowContainer) {
+            buyNowContainer.style.opacity = '0.4';
+            buyNowContainer.style.pointerEvents = 'none';
+          }
+        }
+      } else {
+        // Close modal if custom fit was deselected and modal is currently open
+        if (modal && modal.hasAttribute('open')) {
+          modal.hide();
+        }
+        if (tailoringNotice) {
+          tailoringNotice.classList.add('hidden');
+        }
+        if (buyButtonsContainer) {
+          // Re-enable Add to Cart button
+          const atcBtn = buyButtonsContainer.querySelector('.product-form__submit');
+          if (atcBtn) {
+            atcBtn.removeAttribute('disabled');
+            atcBtn.style.opacity = '';
+            atcBtn.style.pointerEvents = '';
+            const btnSpan = atcBtn.querySelector('span');
+            if (btnSpan) btnSpan.textContent = 'Add to cart';
+          }
+          // Re-enable Shopify Payment button
+          const buyNowContainer = buyButtonsContainer.querySelector('.shopify-payment-button');
+          if (buyNowContainer) {
+            buyNowContainer.style.opacity = '';
+            buyNowContainer.style.pointerEvents = '';
+          }
+        }
+      }
+
+      updateWhatsAppBtn();
+    }
+
+    // Delegated listener on variant selector changes
+    document.addEventListener('change', function(e) {
+      if (e.target && e.target.closest('variant-selects')) {
+        setTimeout(checkVariantSelection, 50);
+        setTimeout(checkVariantSelection, 100);
+      }
+    });
+
+    // Subscribe to Dawn's pubsub event to override DOM swaps asynchronously
+    if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS === 'object' && PUB_SUB_EVENTS.variantChange) {
+      subscribe(PUB_SUB_EVENTS.variantChange, function() {
+        setTimeout(checkVariantSelection, 20);
+      });
+    }
+
+    // Trigger initial check on page load
+    setTimeout(checkVariantSelection, 100);
+    setTimeout(checkVariantSelection, 300);
+  });
+</script>
