@@ -905,79 +905,470 @@
   <div
     role="dialog"
     aria-modal="true"
-    class="product-popup-modal__content"
+    class="product-popup-modal__content size-chart-modal-content"
     tabindex="-1"
-    style="background-color: #F4EADE !important; color: #2B2B2B !important; max-width: 600px !important; border: 1px solid #C9A96E !important;"
   >
-    <button
-      id="ModalClose-SizeChart"
-      type="button"
-      class="product-popup-modal__toggle"
-      aria-label="{{ 'accessibility.close' | t }}"
-      style="color: #6E1423 !important;"
-    >
-      {{- 'icon-close.svg' | inline_asset_content -}}
-    </button>
-    <div class="product-popup-modal__content-info rte" style="padding: 2.5rem !important;">
-      {%- if pages['size-guide'] != blank -%}
-        <div style="font-family: 'Jost', sans-serif;">
-          {{ pages['size-guide'].content }}
+    <div style="position: absolute; top: 1.8rem; right: 2rem; display: flex; align-items: center; gap: 1.6rem; z-index: 10;">
+      <!-- Toggle in top right -->
+      <div class="size-chart__toggle-container size-chart__toggle-topright">
+        <span class="size-chart__toggle-label size-chart__toggle-label--in active">in</span>
+        <label class="size-chart__switch">
+          <input type="checkbox" id="size-chart-toggle-checkbox">
+          <span class="size-chart__slider"></span>
+        </label>
+        <span class="size-chart__toggle-label size-chart__toggle-label--cm">cm</span>
+      </div>
+      <!-- Close button -->
+      <button
+        id="ModalClose-SizeChart"
+        type="button"
+        class="product-popup-modal__toggle"
+        aria-label="{{ 'accessibility.close' | t }}"
+        style="color: #000000 !important; position: static !important; top: auto !important; right: auto !important; margin: 0 !important;"
+      >
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </button>
+    </div>
+    
+    <style>
+      .size-chart-modal-content {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        max-width: 760px !important;
+        width: 90% !important;
+        border: 1px solid #e5e5e5 !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+        border-radius: 0 !important; /* Sharp corners */
+        overflow: visible !important; /* Allow image to overflow */
+        padding: 0 !important;
+      }
+      .size-chart__layout {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        min-height: 420px;
+      }
+      .size-chart__left {
+        flex: 1 1 62%;
+        padding: 2.5rem 2.5rem 2.5rem 3rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .size-chart__right {
+        flex: 0 0 38%;
+        background-color: #ffffff;
+        display: flex;
+        align-items: flex-end; /* Sit the image lower */
+        justify-content: center; /* Center horizontally */
+        overflow: visible; /* Allow image to overflow */
+        padding-bottom: 0;
+      }
+      .size-chart__right img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Do not cut off */
+        display: block;
+        transform: translateY(45px) scale(1); /* Halve the size and keep it lowered */
+      }
+      
+      /* Tabs styling */
+      .size-chart__tabs {
+        display: flex;
+        border-bottom: 1px solid #e5e5e5;
+        margin-bottom: 2.5rem;
+        gap: 2.5rem;
+      }
+      .size-chart__tab {
+        background: none;
+        border: none;
+        font-family: 'Jost', sans-serif;
+        font-size: 1.15rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        color: #888888;
+        padding: 0.8rem 0;
+        cursor: pointer;
+        position: relative;
+        text-transform: uppercase;
+        transition: color 0.3s ease;
+      }
+      .size-chart__tab:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #000000;
+        transition: width 0.3s ease;
+      }
+      .size-chart__tab.active {
+        color: #000000;
+        font-weight: 600;
+      }
+      .size-chart__tab.active:after {
+        width: 100%;
+      }
+
+      /* Header Row with title and switch */
+      .size-chart__header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2rem;
+      }
+      .size-chart__table-title {
+        font-family: 'Jost', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #000000;
+        margin: 0;
+        display: inline;
+      }
+      .size-chart__unit-indicator {
+        font-family: 'Jost', sans-serif;
+        font-size: 1.2rem;
+        color: #555555;
+        margin-left: 0.8rem;
+        display: inline;
+        vertical-align: middle;
+      }
+      
+      /* Switch Styling */
+      .size-chart__toggle-container {
+        display: flex;
+        align-items: center;
+      }
+      .size-chart__toggle-topright {
+        gap: 6px;
+      }
+      .size-chart__toggle-label {
+        font-family: 'Jost', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 400;
+        color: #999999;
+        text-transform: lowercase;
+        cursor: pointer;
+        letter-spacing: 0.04em;
+        transition: color 0.25s ease, font-weight 0.25s ease;
+      }
+      .size-chart__toggle-label.active {
+        color: #000000;
+        font-weight: 600;
+      }
+      .size-chart__switch {
+        position: relative;
+        display: inline-block;
+        width: 34px;
+        height: 18px;
+        margin: 0 8px;
+      }
+      .size-chart__switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .size-chart__slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #e5e5e5;
+        transition: .3s ease;
+        border-radius: 20px;
+      }
+      .size-chart__slider:before {
+        position: absolute;
+        content: "";
+        height: 12px;
+        width: 12px;
+        left: 3px;
+        bottom: 3px;
+        background-color: #000000;
+        transition: .3s ease;
+        border-radius: 50%;
+      }
+      input:checked + .size-chart__slider:before {
+        transform: translateX(16px);
+      }
+
+      /* Table styling */
+      .size-chart__table-wrapper {
+        overflow-x: auto;
+      }
+      .size-chart__table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Jost', sans-serif;
+        font-size: 1.15rem;
+        color: #000000;
+        text-align: left;
+      }
+      .size-chart__table th {
+        padding: 0.8rem 0;
+        background-color: #ffffff;
+        border-bottom: 1.5px solid #000000;
+        color: #000000;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 1.05rem;
+      }
+      .size-chart__table td {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #eeeeee;
+        transition: background-color 0.2s ease;
+      }
+      .size-chart__table tbody tr:hover td {
+        background-color: #fafafa;
+      }
+      .size-chart__table .size-chart__cell-size {
+        font-weight: 600;
+        color: #000000;
+      }
+
+      /* Tab Content Panels */
+      .size-chart__tab-content {
+        display: none;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+      .size-chart__tab-content.active {
+        display: flex;
+      }
+      
+      .size-chart__guide-content {
+        font-family: 'Jost', sans-serif;
+        font-size: 1.3rem;
+        line-height: 1.6;
+        color: #333333;
+      }
+      .size-chart__guide-content h4 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.5rem 0;
+        color: #000000;
+        font-weight: 600;
+      }
+      .size-chart__guide-content p {
+        margin: 0 0 1.2rem 0;
+        color: #555555;
+      }
+      
+      @media screen and (max-width: 768px) {
+        .size-chart-modal-content {
+          max-width: 95% !important;
+        }
+        .size-chart__layout {
+          flex-direction: column;
+        }
+        .size-chart__left {
+          padding: 3rem 2rem;
+        }
+        .size-chart__right {
+          display: none;
+        }
+        .size-chart__tab {
+          font-size: 1rem;
+        }
+        .size-chart__tabs {
+          gap: 1.5rem;
+        }
+      }
+    </style>
+
+    <div class="size-chart__layout">
+      <!-- Left Column: Content & Table -->
+      <div class="size-chart__left">
+        <!-- Tabs -->
+        <div class="size-chart__tabs">
+          <button type="button" class="size-chart__tab active" data-tab="size-guide">SIZE GUIDE</button>
+          <button type="button" class="size-chart__tab" data-tab="measuring-guide">MEASURING GUIDE</button>
         </div>
-      {%- else -%}
-        <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; text-transform: uppercase; color: #6E1423; margin-top: 0; margin-bottom: 1.5rem; letter-spacing: 0.1em; font-weight: 500;">Size Guide</h3>
-        <p style="font-family: 'Jost', sans-serif; font-size: 1.3rem; margin-bottom: 2rem; color: #555555;">Use the chart below to find your perfect fit. Custom tailoring options are also available.</p>
-        <table style="width:100%; border-collapse: collapse; font-family: 'Jost', sans-serif; font-size: 1.3rem; color: #2B2B2B;">
-          <thead>
-            <tr style="border-bottom: 2px solid #C9A96E; text-align: left; color: #6E1423; font-weight: 600;">
-              <th style="padding: 1.2rem; text-transform: uppercase;">Size</th>
-              <th style="padding: 1.2rem; text-transform: uppercase;">Bust (in)</th>
-              <th style="padding: 1.2rem; text-transform: uppercase;">Waist (in)</th>
-              <th style="padding: 1.2rem; text-transform: uppercase;">Hips (in)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
-              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">XS</td>
-              <td style="padding: 1rem 1.2rem;">32</td>
-              <td style="padding: 1rem 1.2rem;">26</td>
-              <td style="padding: 1rem 1.2rem;">35</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
-              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">S</td>
-              <td style="padding: 1rem 1.2rem;">34</td>
-              <td style="padding: 1rem 1.2rem;">28</td>
-              <td style="padding: 1rem 1.2rem;">37</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
-              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">M</td>
-              <td style="padding: 1rem 1.2rem;">36</td>
-              <td style="padding: 1rem 1.2rem;">30</td>
-              <td style="padding: 1rem 1.2rem;">39</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
-              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">L</td>
-              <td style="padding: 1rem 1.2rem;">38</td>
-              <td style="padding: 1rem 1.2rem;">32</td>
-              <td style="padding: 1rem 1.2rem;">41</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
-              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">XL</td>
-              <td style="padding: 1rem 1.2rem;">40</td>
-              <td style="padding: 1rem 1.2rem;">34</td>
-              <td style="padding: 1rem 1.2rem;">43</td>
-            </tr>
-            <tr style="border-bottom: 1px solid rgba(201, 169, 110, 0.3);">
-              <td style="padding: 1rem 1.2rem; font-weight: 500; color: #6E1423;">XXL</td>
-              <td style="padding: 1rem 1.2rem;">42</td>
-              <td style="padding: 1rem 1.2rem;">36</td>
-              <td style="padding: 1rem 1.2rem;">45</td>
-            </tr>
-          </tbody>
-        </table>
-      {%- endif -%}
+
+        <!-- Tab 1: Size Guide Table -->
+        <div class="size-chart__tab-content active" id="tab-size-guide">
+          <div class="size-chart__header-row">
+            <div class="size-chart__header-left">
+              <h4 class="size-chart__table-title">Size Guide</h4><span class="size-chart__unit-indicator">(in inches)</span>
+            </div>
+
+          </div>
+
+          <div class="size-chart__table-wrapper">
+            <table class="size-chart__table">
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th class="size-chart__header-bust">Bust</th>
+                  <th class="size-chart__header-waist">Waist</th>
+                  <th class="size-chart__header-hip">Hip</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="size-chart__cell-size">XS</td>
+                  <td data-unit-val data-in="32" data-cm="81">32</td>
+                  <td data-unit-val data-in="26" data-cm="66">26</td>
+                  <td data-unit-val data-in="34" data-cm="86">34</td>
+                </tr>
+                <tr>
+                  <td class="size-chart__cell-size">S</td>
+                  <td data-unit-val data-in="34" data-cm="86">34</td>
+                  <td data-unit-val data-in="28" data-cm="71">28</td>
+                  <td data-unit-val data-in="36" data-cm="91">36</td>
+                </tr>
+                <tr>
+                  <td class="size-chart__cell-size">M</td>
+                  <td data-unit-val data-in="36" data-cm="91">36</td>
+                  <td data-unit-val data-in="30" data-cm="76">30</td>
+                  <td data-unit-val data-in="38" data-cm="97">38</td>
+                </tr>
+                <tr>
+                  <td class="size-chart__cell-size">L</td>
+                  <td data-unit-val data-in="38" data-cm="97">38</td>
+                  <td data-unit-val data-in="32" data-cm="81">32</td>
+                  <td data-unit-val data-in="40" data-cm="102">40</td>
+                </tr>
+                <tr>
+                  <td class="size-chart__cell-size">XL</td>
+                  <td data-unit-val data-in="40" data-cm="102">40</td>
+                  <td data-unit-val data-in="34" data-cm="86">34</td>
+                  <td data-unit-val data-in="42" data-cm="107">42</td>
+                </tr>
+                <tr>
+                  <td class="size-chart__cell-size">XXL</td>
+                  <td data-unit-val data-in="42" data-cm="107">42</td>
+                  <td data-unit-val data-in="36" data-cm="91">36</td>
+                  <td data-unit-val data-in="44" data-cm="112">44</td>
+                </tr>
+                <tr>
+                  <td class="size-chart__cell-size">3XL</td>
+                  <td data-unit-val data-in="44" data-cm="112">44</td>
+                  <td data-unit-val data-in="38" data-cm="97">38</td>
+                  <td data-unit-val data-in="46" data-cm="117">46</td>
+                </tr>
+                <tr>
+                  <td class="size-chart__cell-size">4XL</td>
+                  <td data-unit-val data-in="46" data-cm="117">46</td>
+                  <td data-unit-val data-in="40" data-cm="102">40</td>
+                  <td data-unit-val data-in="48" data-cm="122">48</td>
+                </tr>
+                <tr>
+                  <td class="size-chart__cell-size">5XL</td>
+                  <td data-unit-val data-in="48" data-cm="122">48</td>
+                  <td data-unit-val data-in="42" data-cm="107">42</td>
+                  <td data-unit-val data-in="50" data-cm="127">50</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tab 2: Measuring Guide -->
+        <div class="size-chart__tab-content" id="tab-measuring-guide">
+          <h4 class="size-chart__table-title" style="margin-bottom: 2rem;">Measuring Guide</h4>
+          <div class="size-chart__guide-content">
+            <h4>Bust</h4>
+            <p>Measure around the fullest part of your bust, keeping the measuring tape horizontal and comfortably snug.</p>
+            
+            <h4>Waist</h4>
+            <p>Measure around the narrowest part of your waistline (usually where your body bends side to side), keeping the tape comfortably loose.</p>
+            
+            <h4>Hip</h4>
+            <p>Stand with your feet together and measure around the fullest part of your hips (approx. 7-8 inches below your waistline).</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Column: Model Image -->
+      <div class="size-chart__right">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0731/5573/9737/files/size_guid_model_3.png?v=1783001386"
+          alt="Model Size Guide"
+          loading="lazy"
+        >
+      </div>
     </div>
   </div>
 </modal-dialog>
+
+<script>
+  (function() {
+    function initSizeChartToggle() {
+      const modal = document.getElementById('PopupModal-SizeChart');
+      if (!modal) return;
+      
+      // Toggle logic
+      const checkbox = modal.querySelector('#size-chart-toggle-checkbox');
+      const labelIn = modal.querySelector('.size-chart__toggle-label--in');
+      const labelCm = modal.querySelector('.size-chart__toggle-label--cm');
+      const indicator = modal.querySelector('.size-chart__unit-indicator');
+      const cells = modal.querySelectorAll('[data-unit-val]');
+      
+      if (checkbox) {
+        checkbox.addEventListener('change', function() {
+          const unit = this.checked ? 'cm' : 'in';
+          
+          if (unit === 'in') {
+            labelIn.classList.add('active');
+            labelCm.classList.remove('active');
+            if (indicator) indicator.textContent = '(in inches)';
+          } else {
+            labelIn.classList.remove('active');
+            labelCm.classList.add('active');
+            if (indicator) indicator.textContent = '(in cm)';
+          }
+          
+          cells.forEach(cell => {
+            const val = cell.getAttribute(`data-${unit}`);
+            if (val) cell.textContent = val;
+          });
+        });
+      }
+      
+      // Tab switching logic
+      const tabs = modal.querySelectorAll('.size-chart__tab');
+      const contents = modal.querySelectorAll('.size-chart__tab-content');
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          tabs.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          
+          const target = this.getAttribute('data-tab');
+          
+          // Toggle visibility of unit switch
+          const toggleSwitch = modal.querySelector('.size-chart__toggle-topright');
+          if (toggleSwitch) {
+            if (target === 'size-guide') {
+              toggleSwitch.style.display = 'flex';
+            } else {
+              toggleSwitch.style.display = 'none';
+            }
+          }
+
+          contents.forEach(c => {
+            if (c.id === `tab-${target}`) {
+              c.classList.add('active');
+            } else {
+              c.classList.remove('active');
+            }
+          });
+        });
+      });
+
+    }
+    
+    // Initialize or listen to DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSizeChartToggle);
+    } else {
+      initSizeChartToggle();
+    }
+  })();
+</script>
 
 <script>
   if (!customElements.get('custom-accordion')) {
