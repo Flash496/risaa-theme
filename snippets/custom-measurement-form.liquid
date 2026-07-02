@@ -8,12 +8,44 @@
     outline: none !important;
     margin: 0 !important;
   }
+  .product-popup-modal__content-info input.field__input:focus,
+  .product-popup-modal__content-info textarea.field__input:focus {
+    border-color: #000000 !important;
+  }
+  .custom-fit__layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .custom-fit__left {
+    width: 100%;
+  }
+  .custom-fit__right {
+    width: 100%;
+  }
   @media screen and (max-width: 749px) {
     .measurement-grid {
       grid-template-columns: 1fr !important;
     }
     .product-popup-modal__content-info {
       padding: 2.5rem 2rem !important;
+    }
+  }
+  @media screen and (min-width: 750px) {
+    .custom-fit__layout {
+      flex-direction: row !important;
+      align-items: flex-start !important;
+      gap: 3rem !important;
+    }
+    .custom-fit__left {
+      flex: 0 0 58% !important;
+      width: 58% !important;
+      max-width: 58% !important;
+    }
+    .custom-fit__right {
+      flex: 0 0 42% !important;
+      width: 42% !important;
+      max-width: 42% !important;
     }
   }
 </style>
@@ -25,73 +57,87 @@
     aria-modal="true"
     class="product-popup-modal__content"
     tabindex="-1"
-    style="max-width: 540px; border-radius: 0; background-color: #FDFBF7; border: 1px solid rgba(110, 20, 35, 0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.15);"
+    style="max-width: 1350px !important; width: 90% !important; border-radius: 0; background-color: #ffffff; border: 1px solid #e5e5e5; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);"
   >
     <button
       id="ModalClose-CustomMeasurement-{{ section.id }}"
       type="button"
       class="product-popup-modal__toggle"
       aria-label="{{ 'accessibility.close' | t }}"
-      style="color: #6E1423; cursor: pointer; top: 1.5rem; right: 1.5rem;"
+      style="color: #000000; cursor: pointer; top: 1.5rem; right: 1.5rem;"
     >
       {{- 'icon-close.svg' | inline_asset_content -}}
     </button>
     <div class="product-popup-modal__content-info" style="padding: 2.5rem 3rem;">
-      <h3 class="h4" style="margin: 0 0 1.2rem 0; font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; text-transform: uppercase; letter-spacing: 0.1em; color: #6E1423; font-weight: 500; border-bottom: 1px solid rgba(201, 169, 110, 0.3); padding-bottom: 0.8rem; text-align: center;">
+      <h3 class="h4" style="margin: 0 0 1.2rem 0; font-size: 1.8rem; font-family: 'Cormorant Garamond', serif; text-transform: uppercase; letter-spacing: 0.1em; color: #000000; font-weight: 500; border-bottom: 1px solid #e5e5e5; padding-bottom: 0.8rem; text-align: center;">
         Custom Tailoring Parameters
       </h3>
       
-      <p style="font-size: 1.2rem; margin-bottom: 1.5rem; font-family: 'Jost', sans-serif; color: #666666; line-height: 1.5; text-align: center;">
+      <p style="font-size: 1.15rem; margin-bottom: 1.5rem; font-family: 'Jost', sans-serif; color: #555555; line-height: 1.5; text-align: center;">
         Custom-tailored garments are hand-made to your measurements and are final sale.
       </p>
 
-      <div style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0.8rem; border: 1px dashed rgba(110, 20, 35, 0.25); background-color: rgba(253, 251, 247, 0.8);">
-        <input type="checkbox" id="enable-custom-meas-{{ section.id }}" class="custom-meas-checkbox" style="cursor: pointer; width: 16px; height: 16px; accent-color: #6E1423;">
-        <label for="enable-custom-meas-{{ section.id }}" style="font-family: 'Jost', sans-serif; font-size: 1.15rem; color: #2B2B2B; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em;">
+      <div style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0.8rem; border: 1px dashed #000000; background-color: #ffffff;">
+        <input type="checkbox" id="enable-custom-meas-{{ section.id }}" class="custom-meas-checkbox" style="cursor: pointer; width: 16px; height: 16px; accent-color: #000000;">
+        <label for="enable-custom-meas-{{ section.id }}" style="font-family: 'Jost', sans-serif; font-size: 1.15rem; color: #000000; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em;">
           I want this item customized to my measurements
         </label>
       </div>
       
       <div id="measurement-fields-{{ section.id }}" style="display: none; transition: max-height 0.4s ease-in-out, opacity 0.3s ease-out; max-height: 0; opacity: 0; overflow: hidden;">
-        <div class="measurement-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px;">
-          <div class="measurement-field">
-            <label for="custom-bust-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Bust (in / cm)</label>
-            <input type="text" id="custom-bust-{{ section.id }}" name="properties[Bust]" class="field__input" placeholder="e.g. 34 inches" style="width: 100%; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+        <div class="custom-fit__layout">
+          <!-- Left Column: Measuring Guide Image -->
+          <div class="custom-fit__left">
+            <div style="overflow: hidden;">
+              <img src="https://cdn.shopify.com/s/files/1/0731/5573/9737/files/custom_fitting.png?v=1783002011" alt="Custom Fitting Measuring Guide" style="width: 100%; height: auto; display: block; margin: 0 auto;" loading="lazy">
+            </div>
           </div>
-          
-          <div class="measurement-field">
-            <label for="custom-waist-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Waist (in / cm)</label>
-            <input type="text" id="custom-waist-{{ section.id }}" name="properties[Waist]" class="field__input" placeholder="e.g. 28 inches" style="width: 100%; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
-          </div>
-          
-          <div class="measurement-field">
-            <label for="custom-hips-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Hips (in / cm)</label>
-            <input type="text" id="custom-hips-{{ section.id }}" name="properties[Hips]" class="field__input" placeholder="e.g. 38 inches" style="width: 100%; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
-          </div>
-          
-          <div class="measurement-field">
-            <label for="custom-height-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Required Length</label>
-            <input type="text" id="custom-height-{{ section.id }}" name="properties[Height/Length]" class="field__input" placeholder="e.g. 5'6'' or 50 inches" style="width: 100%; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
-          </div>
-        </div>
 
-        <div class="measurement-field" style="margin-bottom: 18px;">
-          <label for="custom-notes-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #6E1423; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Neckline, Sleeve & Fitting Notes</label>
-          <textarea id="custom-notes-{{ section.id }}" name="properties[Tailoring Notes]" class="field__input" placeholder="e.g., standard neckline, full sleeves required..." style="width: 100%; min-height: 60px; border: 1px solid rgba(201, 169, 110, 0.6); border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; resize: vertical; transition: border-color 0.3s ease; height: auto;"></textarea>
-        </div>
+          <!-- Right Column: Input fields -->
+          <div class="custom-fit__right">
+            <div class="measurement-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 12px;">
+              <div class="measurement-field">
+                <label for="custom-bust-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Bust (in / cm)</label>
+                <input type="text" id="custom-bust-{{ section.id }}" name="properties[Bust]" class="field__input" placeholder="e.g. 34 inches" style="width: 100%; border: 1px solid #e5e5e5; border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+              </div>
+              
+              <div class="measurement-field">
+                <label for="custom-waist-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Waist (in / cm)</label>
+                <input type="text" id="custom-waist-{{ section.id }}" name="properties[Waist]" class="field__input" placeholder="e.g. 28 inches" style="width: 100%; border: 1px solid #e5e5e5; border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+              </div>
+              
+              <div class="measurement-field">
+                <label for="custom-hips-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Hips (in / cm)</label>
+                <input type="text" id="custom-hips-{{ section.id }}" name="properties[Hips]" class="field__input" placeholder="e.g. 38 inches" style="width: 100%; border: 1px solid #e5e5e5; border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+              </div>
+              
+              <div class="measurement-field">
+                <label for="custom-height-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Required Length</label>
+                <input type="text" id="custom-height-{{ section.id }}" name="properties[Height/Length]" class="field__input" placeholder="e.g. 5'6'' or 50 inches" style="width: 100%; border: 1px solid #e5e5e5; border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; transition: border-color 0.3s ease; height: auto;">
+              </div>
+            </div>
 
-        <div style="margin-top: 2.2rem; margin-bottom: 0.5rem;">
-          <a href="#" 
-             id="CustomFitWhatsAppSubmit-{{ section.id }}" 
-             class="button button--primary risaa-custom-fit-wa-submit-btn" 
-             target="_blank" 
-             rel="noopener" 
-             style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background-color: #6E1423 !important; color: #FDFBF7 !important; border: 1px solid #6E1423 !important; font-family: 'Jost', sans-serif; font-size: 1.2rem; font-weight: 600; text-transform: uppercase; padding: 1.4rem; letter-spacing: 0.12em; text-decoration: none; transition: all 0.3s ease;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12.031 0C5.394 0 .015 5.38.015 12.018c0 2.124.553 4.195 1.603 6.012L.004 24l6.115-1.603c1.78.966 3.791 1.474 5.908 1.474 6.638 0 12.019-5.38 12.019-12.018S18.669 0 12.031 0zm6.541 17.272c-.273.766-1.554 1.488-2.155 1.558-.553.064-1.258.114-3.535-.788-2.802-1.11-4.606-4.015-4.743-4.197-.137-.183-1.134-1.507-1.134-2.875s.707-2.046.953-2.31c.245-.264.538-.33.717-.33.18 0 .359.006.516.013.167.008.391-.066.611.465.279.673.918 2.236.998 2.398.081.162.134.351.045.534-.09.183-.135.298-.27.447-.134.15-.285.32-.405.448-.135.134-.277.284-.12.553.156.27 1.054 1.737 2.388 2.929 1.411 1.258 2.825 1.696 3.109 1.83.284.135.45.114.619-.074.168-.188.723-.842.915-1.133.193-.291.385-.242.639-.151.255.091 1.605.757 1.881.895.276.138.46.206.527.32.067.114.067.662-.206 1.428z"/>
-            </svg>
-            Submit Parameters & Order on WhatsApp
-          </a>
+            <div class="measurement-field" style="margin-bottom: 18px;">
+              <label for="custom-notes-{{ section.id }}" style="display: block; margin-bottom: 4px; font-size: 1.05rem; font-family: 'Jost', sans-serif; color: #000000; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Neckline, Sleeve & Fitting Notes</label>
+              <textarea id="custom-notes-{{ section.id }}" name="properties[Tailoring Notes]" class="field__input" placeholder="e.g., standard neckline, full sleeves required..." style="width: 100%; min-height: 60px; border: 1px solid #e5e5e5; border-radius: 0; padding: 0.8rem; font-family: 'Jost', sans-serif; font-size: 1.2rem; background: #FFFFFF; resize: vertical; transition: border-color 0.3s ease; height: auto;"></textarea>
+            </div>
+
+            <div style="margin-top: 2rem; margin-bottom: 0.5rem;">
+              <a href="#" 
+                 id="CustomFitWhatsAppSubmit-{{ section.id }}" 
+                 class="button button--primary risaa-custom-fit-wa-submit-btn" 
+                 target="_blank" 
+                 rel="noopener" 
+                 style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; background-color: #000000 !important; color: #ffffff !important; border: 1px solid #000000 !important; font-family: 'Jost', sans-serif; font-size: 1.2rem; font-weight: 600; text-transform: uppercase; padding: 1.4rem; letter-spacing: 0.12em; text-decoration: none; transition: all 0.3s ease;"
+                 onmouseover="this.style.backgroundColor='#ffffff'; this.style.color='#000000'; this.style.borderColor='#000000';"
+                 onmouseout="this.style.backgroundColor='#000000'; this.style.color='#ffffff'; this.style.borderColor='#000000';">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.031 0C5.394 0 .015 5.38.015 12.018c0 2.124.553 4.195 1.603 6.012L.004 24l6.115-1.603c1.78.966 3.791 1.474 5.908 1.474 6.638 0 12.019-5.38 12.019-12.018S18.669 0 12.031 0zm6.541 17.272c-.273.766-1.554 1.488-2.155 1.558-.553.064-1.258.114-3.535-.788-2.802-1.11-4.606-4.015-4.743-4.197-.137-.183-1.134-1.507-1.134-2.875s.707-2.046.953-2.31c.245-.264.538-.33.717-.33.18 0 .359.006.516.013.167.008.391-.066.611.465.279.673.918 2.236.998 2.398.081.162.134.351.045.534-.09.183-.135.298-.27.447-.134.15-.285.32-.405.448-.135.134-.277.284-.12.553.156.27 1.054 1.737 2.388 2.929 1.411 1.258 2.825 1.696 3.109 1.83.284.135.45.114.619-.074.168-.188.723-.842.915-1.133.193-.291.385-.242.639-.151.255.091 1.605.757 1.881.895.276.138.46.206.527.32.067.114.067.662-.206 1.428z"/>
+                </svg>
+                Submit Parameters & Order on WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -331,17 +377,21 @@
         }
         if (tailoringNotice) {
           tailoringNotice.classList.remove('hidden');
-          tailoringNotice.querySelector('.risaa-custom-notice > div').innerHTML = `
+          tailoringNotice.style.backgroundColor = '#ffffff';
+          tailoringNotice.style.border = '1px solid #e5e5e5';
+          tailoringNotice.style.padding = '1.2rem 1.5rem';
+          const targetDiv = tailoringNotice.querySelector('div') || tailoringNotice;
+          targetDiv.innerHTML = `
             <div>
-              <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; text-transform: uppercase; color: #6E1423; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 0.4rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; text-transform: uppercase; color: #000000; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 0.3rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award" style="color: #000000;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
                 Custom Tailoring Active
               </span>
-              <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 1.3rem; line-height: 1.6; color: #555555;">
+              <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 1.05rem; line-height: 1.5; color: #555555;">
                 This item will be custom-made to your exact measurements. Made-to-measure orders are processed via WhatsApp.
               </p>
             </div>
-            <button type="button" class="link" onclick="const m = document.getElementById('PopupModal-CustomMeasurement-${sectionId}'); if (m) m.show();" style="align-self: flex-start; background: none; border: none; padding: 0.6rem 1.4rem; border: 1px solid #6E1423; cursor: pointer; color: #6E1423; font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s ease; margin-top: 0.4rem;">
+            <button type="button" class="link" onclick="const m = document.getElementById('PopupModal-CustomMeasurement-${sectionId}'); if (m) m.show();" style="align-self: flex-start; background: none; border: none; padding: 0.5rem 1.2rem; border: 1px solid #000000; cursor: pointer; color: #000000; font-family: 'Jost', sans-serif; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s ease; margin-top: 0.2rem;" onmouseover="this.style.backgroundColor='#000000'; this.style.color='#ffffff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#000000';">
               Edit Measurements
             </button>
           `;

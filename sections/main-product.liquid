@@ -624,22 +624,23 @@
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
 
-                <div id="RisaaCustomTailoringNotice" class="risaa-custom-notice hidden" style="margin-top: 2rem; margin-bottom: 2rem; padding: 1.8rem 2.2rem; background-color: #FDFBF7; border: 1px solid rgba(201, 169, 110, 0.4); border-left: 3px solid #6E1423; display: block; border-radius: 0;">
-                  <div style="display: flex; flex-direction: column; gap: 1rem; position: relative;">
+                <div id="RisaaCustomTailoringNotice" class="risaa-custom-notice hidden" style="margin-top: 1.5rem; margin-bottom: 1.5rem; padding: 1.2rem 1.5rem; background-color: #ffffff; border: 1px solid #e5e5e5; display: block; border-radius: 0;">
+                  <div style="display: flex; flex-direction: column; gap: 0.8rem; position: relative;">
                     <div>
-                      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; text-transform: uppercase; color: #6E1423; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 0.4rem;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+                      <span style="font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; text-transform: uppercase; color: #000000; letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 0.3rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award" style="color: #000000;"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
                         Custom Tailoring Active
                       </span>
-                      <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 1.3rem; line-height: 1.6; color: #555555;">
+                      <p style="margin: 0; font-family: 'Jost', sans-serif; font-size: 1.05rem; line-height: 1.5; color: #555555;">
                         This item will be custom-made to your exact measurements. Made-to-measure orders are processed via WhatsApp.
                       </p>
                     </div>
-                    <button type="button" class="link" onclick="const m = document.getElementById('PopupModal-CustomMeasurement-{{ section.id }}'); if (m) m.show();" style="align-self: flex-start; background: none; border: none; padding: 0.6rem 1.4rem; border: 1px solid #6E1423; cursor: pointer; color: #6E1423; font-family: 'Jost', sans-serif; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s ease; margin-top: 0.4rem;">
+                    <button type="button" class="link" onclick="const m = document.getElementById('PopupModal-CustomMeasurement-{{ section.id }}'); if (m) m.show();" style="align-self: flex-start; background: none; border: none; padding: 0.5rem 1.2rem; border: 1px solid #000000; cursor: pointer; color: #000000; font-family: 'Jost', sans-serif; font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; transition: all 0.3s ease; margin-top: 0.2rem;" onmouseover="this.style.backgroundColor='#000000'; this.style.color='#ffffff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#000000';">
                       Edit Measurements
                     </button>
                   </div>
                 </div>
+
               {%- when 'buy_buttons' -%}
                 {%- render 'buy-buttons',
                   block: block,
