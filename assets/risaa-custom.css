@@ -835,6 +835,162 @@ div.risaa-designers-choice.collection h2.title,
   display: none !important; /* Hide standard sale badge on PDP */
 }
 
+.risaa-pdp-spec-list {
+  display: grid;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 1.8rem 0 0;
+}
+
+.risaa-pdp-spec-item {
+  background: transparent;
+  border: 0.5px solid rgba(43, 43, 43, 0.24);
+  display: grid;
+  gap: 0.65rem;
+  grid-column: span 4;
+  min-height: 7.8rem;
+  padding: 1.2rem 1.3rem;
+}
+
+.risaa-pdp-spec-item--quarter {
+  grid-column: span 3;
+}
+
+.risaa-pdp-spec-item--third {
+  grid-column: span 4;
+}
+
+.risaa-pdp-spec-item--half,
+.risaa-pdp-spec-item--large {
+  grid-column: span 6;
+}
+
+.risaa-pdp-spec-item--wide {
+  grid-column: 1 / -1;
+  min-height: auto;
+}
+
+.risaa-pdp-spec-list dt {
+  color: #111111;
+  font-family: 'Jost', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.risaa-pdp-spec-list dd {
+  color: #2B2B2B;
+  font-family: 'Jost', sans-serif;
+  font-size: 1.35rem;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.risaa-pdp-highlight-list {
+  column-gap: 2.4rem;
+  columns: 2;
+}
+
+.risaa-pdp-highlight-list br {
+  content: "";
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+.risaa-pdp-model-line {
+  color: #555;
+  font-family: 'Jost', sans-serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  margin: 1.6rem 0 0;
+}
+
+.risaa-pdp-assistance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.risaa-pdp-assistance a {
+  align-items: center;
+  border: 0.5px solid rgba(43, 43, 43, 0.28);
+  color: #2B2B2B;
+  display: inline-flex;
+  font-family: 'Jost', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  gap: 0.8rem;
+  min-height: 4.2rem;
+  padding: 0.9rem 1.3rem;
+  text-decoration: none;
+}
+
+.risaa-pdp-assistance a:hover {
+  border-color: #111111;
+  color: #111111;
+}
+
+.risaa-pdp-assistance span {
+  align-items: center;
+  background: #111111;
+  color: #FDFBF7;
+  display: inline-flex;
+  height: 2.4rem;
+  justify-content: center;
+  width: 2.4rem;
+}
+
+.risaa-pdp-assistance span svg {
+  height: 1.4rem;
+  width: 1.4rem;
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .risaa-pdp-spec-item,
+  .risaa-pdp-spec-item--quarter,
+  .risaa-pdp-spec-item--third,
+  .risaa-pdp-spec-item--half,
+  .risaa-pdp-spec-item--large {
+    grid-column: span 6;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .risaa-pdp-spec-list {
+    grid-template-columns: 1fr;
+  }
+
+  .risaa-pdp-spec-item,
+  .risaa-pdp-spec-item--quarter,
+  .risaa-pdp-spec-item--third,
+  .risaa-pdp-spec-item--half,
+  .risaa-pdp-spec-item--large,
+  .risaa-pdp-spec-item--wide {
+    grid-column: auto;
+  }
+
+  .risaa-pdp-spec-item {
+    min-height: auto;
+  }
+
+  .risaa-pdp-highlight-list {
+    columns: 1;
+  }
+
+  .risaa-pdp-assistance {
+    display: grid;
+  }
+
+  .risaa-pdp-assistance a {
+    width: 100%;
+  }
+}
+
 /* Variant Selector Swatches Layout (Mockup-style size boxes) */
 .product-form__input--pill {
   display: flex !important;
@@ -1419,4 +1575,71 @@ custom-accordion {
 .template-collection .color-background-1 {
   background-color: #ffffff !important;
   background: #ffffff !important;
+}
+
+/* PDP accordion: one smooth height animation path, with plus/minus controls */
+.product__accordion details {
+  overflow: hidden !important;
+}
+
+.product__accordion details summary {
+  align-items: center !important;
+  cursor: pointer;
+  list-style: none;
+}
+
+.product__accordion details summary::-webkit-details-marker {
+  display: none;
+}
+
+.product__accordion details .accordion__content {
+  display: block !important;
+  grid-template-rows: none !important;
+  overflow: hidden;
+  transition: none !important;
+}
+
+.product__accordion details .accordion__content-inner {
+  opacity: 0;
+  overflow: visible;
+  transition: opacity 0.28s ease 0.08s;
+}
+
+.product__accordion details[open] .accordion__content-inner {
+  opacity: 1;
+}
+
+.risaa-accordion-toggle {
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 1.8rem;
+  margin-left: 1.6rem;
+  position: relative;
+  width: 1.8rem;
+}
+
+.risaa-accordion-toggle::before,
+.risaa-accordion-toggle::after {
+  background: #111111;
+  content: "";
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.24s ease, opacity 0.2s ease;
+}
+
+.risaa-accordion-toggle::before {
+  height: 1px;
+  width: 1.4rem;
+}
+
+.risaa-accordion-toggle::after {
+  height: 1.4rem;
+  width: 1px;
+}
+
+.product__accordion details[open] .risaa-accordion-toggle::after {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg);
 }

@@ -39,9 +39,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "description": {
-          "type": "description"
-        },
         "custom_measurement": {
           "type": "custom_measurement"
         },
@@ -54,8 +51,8 @@
         "collapsible-row-0": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Materials",
-            "icon": "leather",
+            "heading": "Product Details",
+            "icon": "clipboard",
             "content": "",
             "page": ""
           }
@@ -63,8 +60,8 @@
         "collapsible-row-1": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Shipping & Returns",
-            "icon": "truck",
+            "heading": "Care Instructions",
+            "icon": "washing",
             "content": "",
             "page": ""
           }
@@ -72,7 +69,7 @@
         "collapsible-row-2": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Dimensions",
+            "heading": "Technical Specifications",
             "icon": "ruler",
             "content": "",
             "page": ""
@@ -81,8 +78,17 @@
         "collapsible-row-3": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Care Instructions",
-            "icon": "heart",
+            "heading": "Shipping Timeline and Policies",
+            "icon": "truck",
+            "content": "",
+            "page": ""
+          }
+        },
+        "collapsible-row-4": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Get Personalised Assistance",
+            "icon": "chat_bubble",
             "content": "",
             "page": ""
           }
@@ -104,12 +110,11 @@
         "quantity_selector",
         "shipping_info",
         "buy_buttons",
-        "whatsapp_enquire",
-        "description",
         "collapsible-row-0",
         "collapsible-row-1",
         "collapsible-row-2",
         "collapsible-row-3",
+        "collapsible-row-4",
         "share"
       ],
       "settings": {

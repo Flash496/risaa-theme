@@ -302,26 +302,12 @@
                 -%}
                 
                 {%- if tab_index == 1 -%}
-                  <div class="product__accordions-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin-top: 2rem; margin-bottom: 2rem; width: 100%;">
+                  <div class="product__accordions-grid" style="display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 2rem; margin-bottom: 2rem; width: 100%;">
                 {%- endif -%}
 
-                {%- liquid
-                  assign heading_lc = block.settings.heading | downcase
-                  assign grid_order = ""
-                  if heading_lc contains 'material' or heading_lc contains 'fabric'
-                    assign grid_order = "grid-row: 1; grid-column: 1;"
-                  elsif heading_lc contains 'dimension' or heading_lc contains 'measurement'
-                    assign grid_order = "grid-row: 1; grid-column: 2;"
-                  elsif heading_lc contains 'shipping' or heading_lc contains 'return'
-                    assign grid_order = "grid-row: 2; grid-column: 1;"
-                  elsif heading_lc contains 'care'
-                    assign grid_order = "grid-row: 2; grid-column: 2;"
-                  endif
-                -%}
-
-                <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }} style="margin: 0; width: 100%; {{ grid_order }}">
+                <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }} style="margin: 0; width: 100%;">
                   <custom-accordion>
-                    <details id="Details-{{ block.id }}-{{ section.id }}">
+                      <details id="Details-{{ block.id }}-{{ section.id }}"{% if tab_index == 1 %} open{% endif %}>
                       <summary style="padding: 1.5rem 0;">
                         <div class="summary__title">
                           {% render 'icon-accordion', icon: block.settings.icon %}
@@ -329,10 +315,84 @@
                             {{ block.settings.heading | default: block.settings.page.title | escape }}
                           </h2>
                         </div>
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                        <span class="risaa-accordion-toggle" aria-hidden="true"></span>
                       </summary>
                       <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}" style="padding: 0;">
                         <div class="accordion__content-inner" style="padding: 1.5rem 0 2.5rem 0;">
+                          {%- liquid
+                            assign heading_lc = block.settings.heading | downcase
+                            assign product_highlights = product.metafields.custom.highlights.value | default: product.metafields.custom.highlights
+                            assign product_colour = product.metafields.custom.colour.value | default: product.metafields.custom.colour | default: product.metafields.custom.color.value | default: product.metafields.custom.color
+                            assign product_fabric = product.metafields.custom.fabric.value | default: product.metafields.custom.fabric | default: product.metafields.custom.custom_fabric.value | default: product.metafields.custom.custom_fabric
+                            assign product_fit = product.metafields.custom.fit.value | default: product.metafields.custom.fit
+                            assign product_code = product.metafields.custom.product_code.value | default: product.metafields.custom.product_code | default: product.selected_or_first_available_variant.sku
+                            assign product_components = product.metafields.custom.components.value | default: product.metafields.custom.components
+                            assign product_customizations = product.metafields.custom.customizations_available.value | default: product.metafields.custom.customizations_available | default: product.metafields.custom.customisations_available.value | default: product.metafields.custom.customisations_available
+                            assign product_neckline = product.metafields.custom.neckline.value | default: product.metafields.custom.neckline
+                            assign product_sleeve = product.metafields.custom.sleeve_type.value | default: product.metafields.custom.sleeve_type | default: product.metafields.custom.sleeve.value | default: product.metafields.custom.sleeve
+                            assign product_bottom = product.metafields.custom.bottom_type.value | default: product.metafields.custom.bottom_type | default: product.metafields.custom.bottom.value | default: product.metafields.custom.bottom
+                            assign product_shirt_length = product.metafields.custom.shirt_length.value | default: product.metafields.custom.shirt_length
+                            assign product_pant_length = product.metafields.custom.pant_length.value | default: product.metafields.custom.pant_length
+                            assign product_model = product.metafields.custom.model_info.value | default: product.metafields.custom.model_info | default: product.metafields.custom.model_stats.value | default: product.metafields.custom.model_stats
+                            assign product_care = product.metafields.custom.care_instructions.value | default: product.metafields.custom.care_instructions | default: product.metafields.custom.custom_care_instructions.value | default: product.metafields.custom.custom_care_instructions
+                          -%}
+                          {%- if heading_lc contains 'product detail' -%}
+                            {%- if product.description != blank -%}
+                              <div class="product__description rte">{{ product.description }}</div>
+                            {%- endif -%}
+                            <dl class="risaa-pdp-spec-list">
+                              {%- if product_highlights != blank -%}
+                                <div class="risaa-pdp-spec-item risaa-pdp-spec-item--wide">
+                                  <dt>Highlights</dt>
+                                  <dd class="risaa-pdp-highlight-list">{{ product_highlights | newline_to_br }}</dd>
+                                </div>
+                              {%- endif -%}
+                              {%- if product_colour != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--third"><dt>Colour</dt><dd>{{ product_colour | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_fabric != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--third"><dt>Fabric</dt><dd>{{ product_fabric | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_fit != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--third"><dt>Fit</dt><dd>{{ product_fit | newline_to_br }}</dd></div>{%- endif -%}
+                            </dl>
+                          {%- elsif heading_lc contains 'care' -%}
+                            {%- if product_care != blank -%}
+                              {{ product_care | newline_to_br }}
+                            {%- else -%}
+                              <p>Dry clean only unless mentioned otherwise. Steam iron gently, avoid direct sunlight while drying, and store in a breathable garment bag to preserve the fabric and embellishments.</p>
+                            {%- endif -%}
+                          {%- elsif heading_lc contains 'technical' -%}
+                            <dl class="risaa-pdp-spec-list risaa-pdp-spec-list--technical">
+                              {%- if product_code != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--quarter"><dt>Product Code</dt><dd>{{ product_code }}</dd></div>{%- endif -%}
+                              {%- if product_components != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--quarter"><dt>Components</dt><dd>{{ product_components | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_customizations != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--half"><dt>Customizations Available</dt><dd>{{ product_customizations | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_fit != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--quarter"><dt>Fit</dt><dd>{{ product_fit | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_neckline != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--third"><dt>Neckline</dt><dd>{{ product_neckline | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_sleeve != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--third"><dt>Sleeve Type</dt><dd>{{ product_sleeve | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_bottom != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--third"><dt>Bottom Type</dt><dd>{{ product_bottom | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_shirt_length != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--quarter"><dt>Shirt Length</dt><dd>{{ product_shirt_length | newline_to_br }}</dd></div>{%- endif -%}
+                              {%- if product_pant_length != blank -%}<div class="risaa-pdp-spec-item risaa-pdp-spec-item--quarter"><dt>Pant Length</dt><dd>{{ product_pant_length | newline_to_br }}</dd></div>{%- endif -%}
+                            </dl>
+                            {%- if product_model != blank -%}<p class="risaa-pdp-model-line">{{ product_model }}</p>{%- endif -%}
+                          {%- elsif heading_lc contains 'shipping' -%}
+                            <p>Each Risaa piece is carefully packed and dispatched according to its availability. Ready-to-ship sizes are dispatched quickly, while made-to-order pieces follow the timeline shown at checkout.</p>
+                            <p>Domestic orders are typically delivered within 7-12 business days and international orders within 12-15 business days. Size exchanges can be requested within 48 hours of delivery, subject to our policy.</p>
+                            <p><a href="/pages/shipping-returns" class="link">Read our complete Shipping & Exchange Policy</a></p>
+                          {%- elsif heading_lc contains 'assistance' -%}
+                            {%- assign whatsapp_number = "919501032126" -%}
+                            {%- capture whatsapp_message -%}Hi Risaa Design Studio! I'm interested in the "{{ product.title }}" and would love personalised assistance. Here is the link: {{ shop.url }}{{ product.url }}{%- endcapture -%}
+                            <p>Need help with sizing, customisations, styling, or delivery timelines? Our team can guide you before you place your order.</p>
+                            <div class="risaa-pdp-assistance">
+                              <a href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_message | url_encode }}" target="_blank" rel="noopener">
+                                <span aria-hidden="true">{{ 'icon-chat-bubble.svg' | inline_asset_content }}</span>
+                                WhatsApp
+                              </a>
+                              <a href="/pages/contact">
+                                <span aria-hidden="true">{{ 'icon-play.svg' | inline_asset_content }}</span>
+                                Book a Video Appointment
+                              </a>
+                              <a href="https://www.instagram.com/risaadesignstudio/" target="_blank" rel="noopener">
+                                <span aria-hidden="true">{{ 'icon-instagram.svg' | inline_asset_content }}</span>
+                                Insta DM
+                              </a>
+                            </div>
+                          {%- else -%}
                           {%- liquid
                             assign heading_lc = block.settings.heading | downcase
                             assign auto_content = null
@@ -363,6 +423,7 @@
                           {%- else -%}
                             {{ block.settings.content }}
                             {{ block.settings.page.content }}
+                          {%- endif -%}
                           {%- endif -%}
                         </div>
                       </div>
@@ -1399,14 +1460,10 @@
       open() {
         this.isAnimating = true;
         
-        // Find total target height of details element when open
-        this.details.open = true;
-        const endHeight = this.details.offsetHeight;
-        this.details.open = false;
-        
         const startHeight = this.summary.offsetHeight;
-        this.details.style.height = `${startHeight}px`;
         this.details.open = true;
+        const endHeight = this.summary.offsetHeight + this.content.scrollHeight;
+        this.details.style.height = `${startHeight}px`;
         
         // Force reflow
         this.details.offsetHeight;
